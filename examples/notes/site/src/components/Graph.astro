@@ -1,0 +1,88 @@
+---
+import type { GraphLayout } from '../lib/garden';
+interface Props {
+  layout: GraphLayout;
+}
+const { layout } = Astro.props;
+const { width, height, nodes, links } = layout;
+// Radius scales a little with how connected a note is, so hubs read as hubs.
+const radius = (degree: number) => 7 + Math.min(degree, 6) * 1.6;
+---
+<figure class="graph" id="graph">
+  <figcaption class="graph__cap">
+    <strong>The garden, mapped.</strong> Every line is a link between two notes.
+    Hover or tap a node to trace its neighbourhood; click to open it.
+  </figcaption>
+  <div class="graph__frame">
+    <svg
+      viewBox={`0 0 ${width} ${height}`}
+      class="graph__svg"
+      role="img"
+      aria-label="A force-directed map of the notes in this garden and the links between them."
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g class="graph__edges" stroke-linecap="round">
+        {links.map((l) => (
+          <line
+            x1={l.x1}
+            y1={l.y1}
+            x2={l.x2}
+            y2={l.y2}
+            data-source={l.source}
+            data-target={l.target}
+          />
+        ))}
+      </g>
+      <g class="graph__nodes">
+        {nodes.map((n) => (
+          <a href={`/notes/${n.slug}/`} class="graph__node" data-slug={n.slug} aria-label={n.title}>
+            <circle cx={n.x} cy={n.y} r={radius(n.degree)} class={`gnode gnode--${n.status}`} />
+            <text x={n.x} y={n.y - radius(n.degree) - 7} text-anchor="middle" class="graph__label">
+              {n.title}
+            </text>
+          </a>
+        ))}
+      </g>
+    </svg>
+  </div>
+
+  <script>
+    // Hover/focus highlighting only — the layout itself was baked at build time.
+    const svg = document.querySelector('.graph__svg');
+    if (svg) {
+      const edges = [...svg.querySelectorAll('.graph__edges line')];
+      const nodes = [...svg.querySelectorAll('.graph__node')];
+      const neighbours = new Map();
+      for (const e of edges) {
+        const s = e.dataset.source, t = e.dataset.target;
+        (neighbours.get(s) ?? neighbours.set(s, new Set()).get(s)).add(t);
+        (neighbours.get(t) ?? neighbours.set(t, new Set()).get(t)).add(s);
+      }
+      function focus(slug) {
+        svg.classList.add('is-focused');
+        const near = neighbours.get(slug) ?? new Set();
+        for (const n of nodes) {
+          const s = n.dataset.slug;
+          n.classList.toggle('is-active', s === slug);
+          n.classList.toggle('is-dim', s !== slug && !near.has(s));
+        }
+        for (const e of edges) {
+          const on = e.dataset.source === slug || e.dataset.target === slug;
+          e.classList.toggle('is-active', on);
+          e.classList.toggle('is-dim', !on);
+        }
+      }
+      function clear() {
+        svg.classList.remove('is-focused');
+        nodes.forEach((n) => n.classList.remove('is-active', 'is-dim'));
+        edges.forEach((e) => e.classList.remove('is-active', 'is-dim'));
+      }
+      for (const n of nodes) {
+        n.addEventListener('mouseenter', () => focus(n.dataset.slug));
+        n.addEventListener('focus', () => focus(n.dataset.slug));
+        n.addEventListener('mouseleave', clear);
+        n.addEventListener('blur', clear);
+      }
+    }
+  </script>
+</figure>

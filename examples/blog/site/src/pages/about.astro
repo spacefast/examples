@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import { site } from '../lib/site';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+const since = '2019';
+---
+
+<Layout title="About" description={site.author.bio} current="/about/">
+  <div class="wrap">
+    <section class="about-hero">
+      <img
+        class="avatar"
+        src={site.author.avatar}
+        alt={`Portrait of ${site.author.name}`}
+        width="128"
+        height="128"
+      />
+      <div>
+        <h1>{site.author.name}</h1>
+        <p class="role">{site.author.role}</p>
+        <p style="margin-top:1rem; color:var(--ink-soft); font-size:1.1rem;">
+          {site.author.bio}
+        </p>
+      </div>
+    </section>
+
+    <div class="prose" style="padding-top:2.5rem;">
+      <p>
+        <strong>Margins</strong> is where I keep what I figure out. I've spent the
+        better part of a decade building interfaces — design systems, the
+        unglamorous middle layer between a designer's file and a user's screen —
+        and somewhere along the way I started writing the lessons down so I'd stop
+        relearning them.
+      </p>
+      <p>
+        The posts here split roughly in two. Half are <em>code</em>: small,
+        durable patterns I reach for again and again — a state machine, a CSS
+        layout, a built-in element most of us forgot existed. The other half are
+        <em>essays</em>: arguments about why the web feels heavier than it should,
+        and what we lost when we stopped trusting the platform.
+      </p>
+
+      <figure class="about-figure">
+        <img
+          src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80"
+          alt="A writing desk in warm morning light with a coffee, a laptop, and an open notebook"
+          loading="lazy"
+          width="1200"
+          height="800"
+        />
+        <figcaption>Where most of this gets written. Coffee is load-bearing.</figcaption>
+      </figure>
+
+      <h2>The short version</h2>
+      <ul class="about-list">
+        <li><b>Writing</b><span>Essays &amp; code, since {since} · {posts.length} posts and counting</span></li>
+        <li><b>Day job</b><span>Frontend engineer focused on design systems and performance</span></li>
+        <li><b>Tools</b><span>Plain Markdown, a static site builder, and a stubborn fondness for the cascade</span></li>
+        <li><b>Based in</b><span>{site.author.location}</span></li>
+      </ul>
+
+      <h2>Stay in touch</h2>
+      <p>
+        New posts land roughly twice a month. The most reliable way to follow
+        along is the <a href="/rss.xml">RSS feed</a> — no algorithm, no inbox,
+        just the writing when it's ready. Or find me on
+        {site.social.map((s, i) => (
+          <>
+            {i > 0 ? (i === site.social.length - 1 ? ', and ' : ', ') : ''}
+            <a href={s.href}>{s.label}</a>
+          </>
+        ))}.
+      </p>
+    </div>
+  </div>
+</Layout>

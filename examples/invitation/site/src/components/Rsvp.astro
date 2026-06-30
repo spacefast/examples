@@ -1,0 +1,304 @@
+---
+import { meals } from '../data/wedding';
+---
+
+<section class="section section--tint" id="rsvp">
+  <div class="wrap center">
+    <p class="eyebrow">RSVP</p>
+    <h2 class="section-title">Will you be there?</h2>
+    <p class="lede">Kindly reply by <strong>August 19, 2026</strong>. One form per invitation is perfect.</p>
+  </div>
+
+  <div class="wrap rsvp">
+    <form class="rsvp__form" data-rsvp novalidate>
+      <div class="field">
+        <label for="rsvp-name">Full name <span aria-hidden="true">*</span></label>
+        <input id="rsvp-name" name="name" type="text" autocomplete="name" required />
+        <p class="field__error" data-error-for="name" hidden>Please tell us your name.</p>
+      </div>
+
+      <div class="field">
+        <label for="rsvp-email">Email <span aria-hidden="true">*</span></label>
+        <input id="rsvp-email" name="email" type="email" autocomplete="email" required />
+        <p class="field__error" data-error-for="email" hidden>Please enter a valid email so we can confirm.</p>
+      </div>
+
+      <fieldset class="field field--attendance">
+        <legend>Will you join us? <span aria-hidden="true">*</span></legend>
+        <div class="choices">
+          <label class="choice">
+            <input type="radio" name="attendance" value="accept" required />
+            <span>Joyfully accept</span>
+          </label>
+          <label class="choice">
+            <input type="radio" name="attendance" value="decline" />
+            <span>Regretfully decline</span>
+          </label>
+        </div>
+        <p class="field__error" data-error-for="attendance" hidden>Please choose one.</p>
+      </fieldset>
+
+      <div class="rsvp__conditional" data-conditional hidden>
+        <div class="field">
+          <label for="rsvp-guests">How many of you? (including yourself)</label>
+          <select id="rsvp-guests" name="guests">
+            <option value="1">Just me</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="rsvp-meal">Meal preference</label>
+          <select id="rsvp-meal" name="meal">
+            {meals.map((m) => <option value={m.value}>{m.label}</option>)}
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="rsvp-song">A song that will get you on the dance floor</label>
+          <input id="rsvp-song" name="song" type="text" placeholder="Artist — Title" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="rsvp-note">A note for us (optional)</label>
+        <textarea id="rsvp-note" name="note" rows="3" placeholder="Dietary needs, a memory, a dad joke…"></textarea>
+      </div>
+
+      <button class="btn rsvp__submit" type="submit">Send our reply</button>
+    </form>
+
+    <div class="rsvp__success" data-success hidden role="status" aria-live="polite">
+      <div class="rsvp__success-mark" aria-hidden="true">✓</div>
+      <h3 data-success-title>You're on the list!</h3>
+      <p data-success-body></p>
+      <button class="btn btn--ghost" type="button" data-reset>Edit reply</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rsvp {
+    max-width: 620px;
+    margin-inline: auto;
+    margin-top: 2.6rem;
+    background: var(--cream-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 5vw, 2.6rem);
+    box-shadow: var(--shadow);
+  }
+  .rsvp__form {
+    display: grid;
+    gap: 1.3rem;
+  }
+  .field {
+    display: grid;
+    gap: 0.45rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .field label,
+  .field legend {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--olive);
+    padding: 0;
+  }
+  .field span[aria-hidden] {
+    color: var(--terracotta);
+  }
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: var(--ink);
+    background: #fff;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 0.7rem 0.85rem;
+    width: 100%;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--terracotta);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(184, 106, 75, 0.18);
+  }
+  textarea {
+    resize: vertical;
+  }
+  .choices {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    padding: 0.75rem 0.95rem;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice input {
+    width: auto;
+    accent-color: var(--terracotta);
+  }
+  .choice:has(input:checked) {
+    border-color: var(--terracotta);
+    background: rgba(231, 201, 183, 0.28);
+  }
+  .field__error {
+    margin: 0;
+    color: var(--terracotta-deep);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  input[aria-invalid='true'],
+  select[aria-invalid='true'] {
+    border-color: var(--terracotta-deep);
+  }
+  .rsvp__conditional {
+    display: grid;
+    gap: 1.3rem;
+    padding: 1.3rem;
+    border-radius: 12px;
+    background: rgba(231, 201, 183, 0.16);
+    border: 1px dashed var(--blush);
+  }
+  .rsvp__submit {
+    justify-content: center;
+    margin-top: 0.3rem;
+  }
+
+  .rsvp__success {
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 0.6rem;
+    padding: 1rem 0;
+  }
+  .rsvp__success-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: var(--olive);
+    color: var(--ivory);
+    font-size: 1.8rem;
+  }
+  .rsvp__success h3 {
+    font-size: 1.9rem;
+  }
+  .rsvp__success p {
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 0.6rem;
+  }
+
+  @media (min-width: 560px) {
+    .choices {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-rsvp]');
+  const conditional = document.querySelector('[data-conditional]');
+  const success = document.querySelector('[data-success]');
+  const successTitle = document.querySelector('[data-success-title]');
+  const successBody = document.querySelector('[data-success-body]');
+  const resetBtn = document.querySelector('[data-reset]');
+
+  const showError = (name: string, show: boolean) => {
+    const err = document.querySelector(`[data-error-for="${name}"]`);
+    const input = form?.querySelector(`[name="${name}"]`);
+    if (err) (show ? err.removeAttribute('hidden') : err.setAttribute('hidden', ''));
+    if (input && input instanceof HTMLElement && input.tagName !== 'FIELDSET') {
+      show ? input.setAttribute('aria-invalid', 'true') : input.removeAttribute('aria-invalid');
+    }
+  };
+
+  // Show meal/guest/song fields only when the guest is attending.
+  const syncConditional = () => {
+    const attending =
+      (form?.querySelector('[name="attendance"]:checked') as HTMLInputElement | null)?.value === 'accept';
+    if (attending) conditional?.removeAttribute('hidden');
+    else conditional?.setAttribute('hidden', '');
+  };
+  form?.querySelectorAll('[name="attendance"]').forEach((el) => {
+    el.addEventListener('change', () => {
+      syncConditional();
+      showError('attendance', false);
+    });
+  });
+
+  const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form) return;
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const attendance = String(data.get('attendance') || '');
+
+    let ok = true;
+    if (!name) {
+      showError('name', true);
+      ok = false;
+    } else showError('name', false);
+    if (!isEmail(email)) {
+      showError('email', true);
+      ok = false;
+    } else showError('email', false);
+    if (!attendance) {
+      showError('attendance', true);
+      ok = false;
+    }
+
+    if (!ok) {
+      form.querySelector<HTMLElement>('[aria-invalid="true"], .field__error:not([hidden])')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      return;
+    }
+
+    const accepting = attendance === 'accept';
+    const guests = String(data.get('guests') || '1');
+    const song = String(data.get('song') || '').trim();
+
+    if (successTitle) {
+      successTitle.textContent = accepting ? `We can't wait, ${name.split(' ')[0]}!` : `We'll miss you, ${name.split(' ')[0]}.`;
+    }
+    if (successBody) {
+      successBody.textContent = accepting
+        ? `Your reply is in for ${guests === '1' ? '1 guest' : guests + ' guests'}. ${
+            song ? `We've added "${song}" to the playlist. ` : ''
+          }A confirmation is on its way to ${email}.`
+        : `Thank you for letting us know — we understand, and we'll raise a glass to you. We'll send the photos your way at ${email}.`;
+    }
+
+    form.setAttribute('hidden', '');
+    success?.removeAttribute('hidden');
+    success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    success?.setAttribute('hidden', '');
+    form?.removeAttribute('hidden');
+    form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>

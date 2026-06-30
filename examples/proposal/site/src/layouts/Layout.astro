@@ -1,0 +1,44 @@
+---
+import '../styles/global.css';
+import { meta } from '../data/proposal';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${meta.project} — Proposal for ${meta.preparedFor}`,
+  description = `A ${meta.project.toLowerCase()} proposal prepared by ${meta.preparedBy} for ${meta.preparedFor}. Scope, timeline, pricing, and a one-click accept.`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#16233b" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={meta.heroImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+
+    <script src="https://spacefast.com/badge.js" data-example="proposal"></script>
+  </body>
+</html>

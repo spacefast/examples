@@ -1,0 +1,60 @@
+---
+import type { Post } from '../lib/wp';
+import { formatDate } from '../lib/wp';
+
+interface Props {
+  post: Post;
+  lead?: boolean;
+}
+
+const { post, lead = false } = Astro.props;
+const initial = post.title.trim().charAt(0).toUpperCase() || 'W';
+---
+
+<article class={`card${lead ? ' card--lead' : ''}`}>
+  <div class="card__media">
+    {
+      post.image ? (
+        <img
+          src={post.image.url}
+          alt={post.image.alt}
+          loading={lead ? 'eager' : 'lazy'}
+          decoding="async"
+          width="1200"
+          height="675"
+        />
+      ) : (
+        <div class="ph" aria-hidden="true">
+          <span>{initial}</span>
+        </div>
+      )
+    }
+  </div>
+
+  <div class="card__body">
+    {
+      post.categories.length > 0 && (
+        <div class="tags">
+          {post.categories.slice(0, 2).map((c) => (
+            <span class="tag">{c}</span>
+          ))}
+        </div>
+      )
+    }
+
+    <h3 class="card__title">
+      <a href={`/${post.slug}/`}>{post.title}</a>
+    </h3>
+
+    <div class="card__excerpt" set:html={post.excerptHtml} />
+
+    <div class="card__meta">
+      {post.author.avatar && <img class="avatar" src={post.author.avatar} alt="" width="26" height="26" />}
+      <span>{post.author.name}</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+      <span class="sep" aria-hidden="true">·</span>
+      <span>{post.readingMinutes} min read</span>
+    </div>
+  </div>
+</article>

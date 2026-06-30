@@ -1,0 +1,29 @@
+{
+  "name": "Tally",
+  "slug": "habits",
+  "vertical": "Tools & micro-apps",
+  "tech": "vite-react",
+  "based_on": "Streaks / Habit Heatmap \u2014 a multi-habit daily tracker with GitHub-style contribution heatmaps and streak counters.",
+  "summary": "A React habit tracker that shows each habit as a GitHub-style year heatmap, lets you check off today across all habits from one list, and surfaces current and longest streaks, with everything saved locally.",
+  "sections": [
+    "Today checklist \u2014 tap to mark each habit done",
+    "Per-habit GitHub-style heatmap grid (last ~12 months)",
+    "Streak stats (current streak, longest streak, completion rate)",
+    "Add / edit habit (name, color, target frequency)",
+    "Habit detail view with monthly calendar",
+    "Settings (week-start day, theme)"
+  ],
+  "setup_questions": [
+    "Which habits do you want to track to start (e.g. Workout, Read, Meditate, Drink water)?",
+    "For each habit, is it daily or X times per week?",
+    "Pick an accent color or vibe for the heatmaps (e.g. classic green, sunset, ocean).",
+    "Whose tracker is this \u2014 a name or title for the top of the app?"
+  ],
+  "photo_terms": [
+    "person running at sunrise athletic",
+    "open book and coffee morning routine",
+    "yoga meditation at home minimal",
+    "calendar planner with checkmarks desk"
+  ],
+  "live_url": "https://habits.view.fast/"
+}

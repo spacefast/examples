@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kaze Ramen House — 18-Hour Tonkotsu in Williamsburg, Brooklyn</title>
+  <meta name="description" content="Kaze Ramen House — a tiny counter-seat ramen-ya in Williamsburg, Brooklyn pouring rich 18-hour tonkotsu, spicy tantanmen, and pork gyoza. Walk-ins only." />
+  <meta name="theme-color" content="#15110d" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="restaurant" />
+  <meta property="og:title" content="Kaze Ramen House — 18-Hour Tonkotsu, Williamsburg" />
+  <meta property="og:description" content="Rich 18-hour tonkotsu, counter seating, paper lanterns. 348 Bedford Ave, Brooklyn." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=1200&q=80&auto=format&fit=crop" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Shippori+Mincho:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Kaze Ramen House",
+    "servesCuisine": "Japanese Ramen",
+    "priceRange": "$$",
+    "telephone": "+1-718-555-0147",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "348 Bedford Avenue",
+      "addressLocality": "Brooklyn",
+      "addressRegion": "NY",
+      "postalCode": "11249",
+      "addressCountry": "US"
+    },
+    "openingHours": ["Tu-Th 11:30-22:00", "Fr 11:30-23:00", "Sa 12:00-23:00", "Su 12:00-21:00"]
+  }
+  </script>
+</head>
+<body>
+
+  <header class="site-header" id="header">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Kaze Ramen House home">
+        <span class="mark" aria-hidden="true">風</span>
+        <span>
+          <span class="brand-name">Kaze Ramen</span>
+          <span class="brand-sub">House · Williamsburg</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="#menu">Menu</a>
+        <a href="#story">Our Story</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#visit">Visit</a>
+        <a class="btn" href="tel:+17185550147">Call · (718) 555-0147</a>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ===================== HERO ===================== -->
+  <main id="top">
+  <section class="hero" aria-label="Welcome">
+    <img class="hero__img"
+         src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=1900&q=80&auto=format&fit=crop"
+         alt="A steaming bowl of tonkotsu ramen with chashu pork, soft egg, and nori in a blue-and-white bowl on a dark table" />
+    <div class="wrap">
+      <p class="hero__kanji" aria-hidden="true">風 ・ らーめん</p>
+      <h1>Eighteen hours of broth. One perfect bowl.</h1>
+      <p class="lede">A tiny counter-seat ramen-ya in Williamsburg pouring rich, milky tonkotsu simmered overnight — hand-pulled noodles, slow-braised chashu, and a soft-jammy egg every time.</p>
+      <div class="hero__cta">
+        <a class="btn" href="#menu">View the menu</a>
+        <a class="btn btn--ghost" href="#visit">Find us &amp; hours</a>
+      </div>
+      <div class="hero__meta">
+        <span><strong>Walk-ins only</strong> · 22 counter seats</span>
+        <span class="dot">●</span>
+        <span><strong>Tue–Sun</strong> · open for lunch &amp; late</span>
+        <span class="dot">●</span>
+        <span><strong>348 Bedford Ave</strong> · Brooklyn</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MENU ===================== -->
+  <section class="section menu" id="menu" aria-labelledby="menu-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The Menu</p>
+        <h2 id="menu-title">Small kitchen, short menu, no shortcuts</h2>
+        <p>Five bowls, a handful of plates, and cold beer. Everything is made in-house daily — when the broth runs out, we close. <span aria-hidden="true">★</span> marks the house favorite.</p>
+      </div>
+
+      <div class="menu__grid">
+        <!-- left: the lists -->
+        <div class="menu__col reveal">
+
+          <div class="menu-group">
+            <h3>Ramen <span class="jp">らーめん</span></h3>
+            <p class="note">All bowls come with our daily noodles. Add a second helping (kaedama) for $3.</p>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Kaze Tonkotsu <span class="star" aria-hidden="true">★</span></span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$17</span>
+              </div>
+              <p class="menu-item__desc">Our signature. 18-hour pork-bone broth, rolled chashu, ajitama egg, wood-ear mushroom, scallion, and a swirl of black garlic oil.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Spicy Miso Tantanmen</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$18</span>
+              </div>
+              <p class="menu-item__desc">Sesame-chili tonkotsu with seasoned ground pork, sweet corn, bean sprouts, and chili threads. Heat 1–3, your call.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Shoyu Chicken</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$16</span>
+              </div>
+              <p class="menu-item__desc">A clearer, lighter day-off bowl: double-chicken &amp; dashi broth, soy tare, low-temp chicken chashu, menma, and nori.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Mayu Black Garlic</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$18</span>
+              </div>
+              <p class="menu-item__desc">Tonkotsu darkened with house burnt-garlic oil — deep, nutty, a little smoky. Thick-cut chashu and extra scallion.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Yasai Shio <span class="v">VEG</span></span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$15</span>
+              </div>
+              <p class="menu-item__desc">Kombu-shiitake broth, miso-roasted vegetables, corn, bok choy, and soft silken tofu. Fully plant-based.</p>
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <h3>Small Plates <span class="jp">おつまみ</span></h3>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Pork Gyoza <span style="color:#8a7c6b;font-weight:500">(6)</span></span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$9</span>
+              </div>
+              <p class="menu-item__desc">Pan-fried thin-skin dumplings, crisp lace bottom, house ponzu for dipping.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Chicken Karaage</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$10</span>
+              </div>
+              <p class="menu-item__desc">Soy-ginger marinated thigh, double-fried, with yuzu-kosho mayo and lemon.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Pork Belly Buns <span style="color:#8a7c6b;font-weight:500">(2)</span></span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$11</span>
+              </div>
+              <p class="menu-item__desc">Pillowy steamed bao, torched chashu, quick cucumber, hoisin.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Edamame <span class="v">VEG</span></span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$6</span>
+              </div>
+              <p class="menu-item__desc">Steamed and tossed in sea salt — or upgrade to garlic-butter for $1.</p>
+            </div>
+          </div>
+
+          <div class="menu-group">
+            <h3>Rice Bowls &amp; Drinks <span class="jp">ごはん・のみもの</span></h3>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Chashu Don</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$12</span>
+              </div>
+              <p class="menu-item__desc">Torched pork belly over rice, ajitama egg, scallion, sweet tare. The classic ramen sidekick.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Spicy Tuna Don</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$13</span>
+              </div>
+              <p class="menu-item__desc">Marinated tuna, avocado, sushi rice, furikake, and a kick of chili crisp.</p>
+            </div>
+
+            <div class="menu-item">
+              <div class="menu-item__top">
+                <span class="menu-item__name">Sapporo / Asahi · draft</span>
+                <span class="menu-item__leader" aria-hidden="true"></span>
+                <span class="menu-item__price">$7</span>
+              </div>
+              <p class="menu-item__desc">Ice-cold and the only thing that should touch tonkotsu. Hot or cold sake $9. Ramune &amp; bottomless genmaicha $4.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- right: signature feature + toppings -->
+        <div>
+          <article class="menu-feature reveal">
+            <img src="https://images.unsplash.com/photo-1614563637806-1d0e645e0940?w=900&q=80&auto=format&fit=crop"
+                 alt="Close-up of Kaze Tonkotsu ramen with a halved soft-boiled egg, chashu pork, spinach, and nori in a dark bowl" loading="lazy" />
+            <div class="menu-feature__body">
+              <p class="eyebrow">The one to order</p>
+              <h3>Kaze Tonkotsu</h3>
+              <p>This is the bowl we built the shop around. Pork bones simmered at a hard boil for eighteen hours until the broth turns silky and white. We finish it tableside with black garlic oil so it hits you the second it lands.</p>
+              <div class="price-row">
+                <span>Add extra chashu · ajitama · corn</span>
+                <span class="price">$17</span>
+              </div>
+            </div>
+          </article>
+
+          <div class="toppings reveal" style="margin-top:1.6rem">
+            <h4>Build your bowl · toppings</h4>
+            <ul>
+              <li>Extra chashu <b>+$4</b></li>
+              <li>Ajitama egg <b>+$2.5</b></li>
+              <li>Kaedama noodles <b>+$3</b></li>
+              <li>Sweet corn <b>+$2</b></li>
+              <li>Menma <b>+$2</b></li>
+              <li>Extra nori <b>+$1.5</b></li>
+              <li>Black garlic oil <b>+$1</b></li>
+              <li>Chili threads <b>+$1</b></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STORY ===================== -->
+  <section class="section story" id="story" aria-labelledby="story-title">
+    <div class="wrap">
+      <div class="story__grid">
+        <div class="story__media reveal">
+          <img src="https://images.unsplash.com/photo-1526318896980-cf78c088247c?w=1000&q=80&auto=format&fit=crop"
+               alt="A hand lifting ramen noodles with chopsticks from a dark bowl with corn, egg, and chashu" loading="lazy" />
+          <div class="badge" aria-hidden="true">
+            <span class="big">18</span>
+            <span class="small">hours of broth</span>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Our Story</p>
+          <h2 id="story-title">Brewed overnight, served the next day</h2>
+          <p>Chef <span class="sig">Haruki Maeda</span> learned to make tonkotsu the hard way — six years behind a counter in Fukuoka, where ramen is religion and the broth never stops moving. He opened Kaze in 2019 with twenty-two stools and one rule: nothing leaves the kitchen that he wouldn't pay for himself.</p>
+          <p>Every batch starts the night before. Pork bones go in at a rolling boil and stay there for eighteen hours, until the broth turns the color of cream and clings to the spoon. We pull the noodles fresh, braise the chashu low and slow, and marinate the eggs until the yolk is just barely set.</p>
+          <p>“Kaze” means <em>wind</em> — for the rush of steam off a fresh bowl, and the line out the door on a cold night. Sit at the counter, watch your bowl come together, and slurp loudly. We take it as a compliment.</p>
+          <p class="story__signature">Haruki Maeda
+            <small>Chef &amp; Owner · est. 2019</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY ===================== -->
+  <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">The Room &amp; The Bowls</p>
+        <h2 id="gallery-title">A look inside Kaze</h2>
+        <p>Warm wood, paper lanterns, and a kitchen you can watch from your seat. Tap any photo to see it bigger.</p>
+      </div>
+
+      <div class="gallery__grid reveal" id="gallery-grid">
+        <button class="gallery__item gallery__item--wide gallery__item--tall" type="button"
+          data-full="https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=1600&q=85&auto=format&fit=crop"
+          data-cap="Kaze Tonkotsu — chashu, ajitama, nori">
+          <img src="https://images.unsplash.com/photo-1557872943-16a5ac26437e?w=800&q=80&auto=format&fit=crop" alt="Tonkotsu ramen with chashu, soft egg, and nori in a blue bowl" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=1400&q=85&auto=format&fit=crop"
+          data-cap="House pork gyoza with ponzu">
+          <img src="https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=600&q=80&auto=format&fit=crop" alt="Pan-fried pork gyoza dumplings on a wooden plate with chopsticks" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1591814468924-caf88d1232e1?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Spicy Miso Tantanmen, overhead">
+          <img src="https://images.unsplash.com/photo-1591814468924-caf88d1232e1?w=600&q=80&auto=format&fit=crop" alt="Spicy miso tantanmen ramen with ground pork, corn, and egg, seen from above" loading="lazy" />
+        </button>
+        <button class="gallery__item gallery__item--tall" type="button"
+          data-full="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=1400&q=85&auto=format&fit=crop"
+          data-cap="The dining room and paper lanterns">
+          <img src="https://images.unsplash.com/photo-1590846406792-0adc7f938f1d?w=700&q=80&auto=format&fit=crop" alt="Warm restaurant interior with wooden chairs and glowing paper lantern pendant lights" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1632709810780-b5a4343cebec?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Shoyu chicken, clean and bright">
+          <img src="https://images.unsplash.com/photo-1632709810780-b5a4343cebec?w=600&q=80&auto=format&fit=crop" alt="Shoyu chicken ramen with sliced chashu, menma, and egg in a white bowl" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Steamed buns in the bamboo basket">
+          <img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80&auto=format&fit=crop" alt="Steamed dumplings in a black dish inside a bamboo steamer basket" loading="lazy" />
+        </button>
+        <button class="gallery__item gallery__item--wide" type="button"
+          data-full="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=1600&q=85&auto=format&fit=crop"
+          data-cap="Overhead — egg, greens, the works">
+          <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800&q=80&auto=format&fit=crop" alt="Overhead view of a ramen bowl with soft egg, snow peas, and chopsticks on a wood table" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1535007813616-79dc02ba4021?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Counter bowl, low light">
+          <img src="https://images.unsplash.com/photo-1535007813616-79dc02ba4021?w=600&q=80&auto=format&fit=crop" alt="A ramen bowl with chashu, soft egg, and enoki mushrooms in moody low light" loading="lazy" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISIT ===================== -->
+  <section class="section visit" id="visit" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Find Us</p>
+        <h2 id="visit-title">Come sit at the counter</h2>
+        <p>One block from the Bedford Ave L. No reservations, no fuss — just show up hungry.</p>
+      </div>
+
+      <div class="visit__grid">
+        <div class="hours-card reveal">
+          <p class="eyebrow">Hours</p>
+          <h2>When we’re slurping</h2>
+          <span class="open-now" id="openNow" hidden></span>
+          <ul class="hours-list" id="hoursList">
+            <li data-day="1" class="closed"><span class="day">Monday</span><span class="leader" aria-hidden="true"></span><span class="time">Closed</span></li>
+            <li data-day="2"><span class="day">Tuesday</span><span class="leader" aria-hidden="true"></span><span class="time">11:30 – 22:00</span></li>
+            <li data-day="3"><span class="day">Wednesday</span><span class="leader" aria-hidden="true"></span><span class="time">11:30 – 22:00</span></li>
+            <li data-day="4"><span class="day">Thursday</span><span class="leader" aria-hidden="true"></span><span class="time">11:30 – 22:00</span></li>
+            <li data-day="5"><span class="day">Friday</span><span class="leader" aria-hidden="true"></span><span class="time">11:30 – 23:00</span></li>
+            <li data-day="6"><span class="day">Saturday</span><span class="leader" aria-hidden="true"></span><span class="time">12:00 – 23:00</span></li>
+            <li data-day="0"><span class="day">Sunday</span><span class="leader" aria-hidden="true"></span><span class="time">12:00 – 21:00</span></li>
+          </ul>
+
+          <div class="address-block">
+            <p class="street">Kaze Ramen House</p>
+            <p>348 Bedford Avenue</p>
+            <p>Williamsburg, Brooklyn, NY 11249</p>
+            <div class="contact">
+              <a href="tel:+17185550147">(718) 555-0147</a>
+              <a href="mailto:hi@kazeramen.house">hi@kazeramen.house</a>
+              <a href="https://instagram.com/kazeramen" target="_blank" rel="noopener">@kazeramen</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-card reveal">
+          <iframe
+            title="Map showing Kaze Ramen House at 348 Bedford Avenue, Brooklyn"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=348%20Bedford%20Ave%2C%20Brooklyn%2C%20NY%2011249&t=&z=15&ie=UTF8&iwloc=&output=embed"></iframe>
+          <div class="map-card__bar">
+            <span>Bedford Ave &amp; N 4th · 1 min from the L train</span>
+            <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=348+Bedford+Ave+Brooklyn+NY+11249" target="_blank" rel="noopener">Get directions</a>
+          </div>
+        </div>
+
+        <p class="reserve-note reveal">
+          <b>Walk-ins only.</b> We don’t take reservations — counter and a few tables, first come, first served.
+          Parties of six or more, please call ahead at <a href="tel:+17185550147">(718) 555-0147</a> and we’ll do our best to seat you together.
+        </p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="brand" href="#top" aria-label="Kaze Ramen House home">
+            <span class="mark" aria-hidden="true">風</span>
+            <span>
+              <span class="brand-name">Kaze Ramen</span>
+              <span class="brand-sub">House · Williamsburg</span>
+            </span>
+          </a>
+          <p>Eighteen-hour tonkotsu, hand-pulled noodles, and a soft egg in every bowl. Slurp loudly — we take it as a compliment.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <p>348 Bedford Avenue<br/>Brooklyn, NY 11249</p>
+          <a href="tel:+17185550147">(718) 555-0147</a>
+          <a href="mailto:hi@kazeramen.house">hi@kazeramen.house</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Hours</h4>
+          <p>Tue–Thu · 11:30–22:00</p>
+          <p>Fri · 11:30–23:00</p>
+          <p>Sat · 12:00–23:00</p>
+          <p>Sun · 12:00–21:00 · Mon closed</p>
+          <div class="socials" aria-label="Social links">
+            <a href="https://instagram.com/kazeramen" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://tiktok.com/@kazeramen" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2 1.6 3.6 3.6 3.9v2.6c-1.3.1-2.6-.3-3.6-1v5.9c0 3-2.4 5.4-5.4 5.4S5.2 17.4 5.2 14.4 7.6 9 10.6 9c.3 0 .6 0 .9.1v2.7c-.3-.1-.6-.2-.9-.2-1.5 0-2.7 1.2-2.7 2.7s1.2 2.7 2.7 2.7 2.7-1.2 2.7-2.7V3H16z"/></svg>
+            </a>
+            <a href="https://maps.google.com/?q=348+Bedford+Ave+Brooklyn+NY+11249" target="_blank" rel="noopener" aria-label="Map">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© <span id="year">2025</span> Kaze Ramen House · Williamsburg, Brooklyn</span>
+        <span>Hand-built with love (and a lot of pork bones).</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <img id="lbImg" src="" alt="" />
+    <button class="lb-next" id="lbNext" aria-label="Next photo">›</button>
+    <p class="lightbox__cap" id="lbCap"></p>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="menu"></script>
+</body>
+</html>

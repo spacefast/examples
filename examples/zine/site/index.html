@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OFFCUTS №01 — Night Bloom · a riso zine</title>
+<meta name="description" content="OFFCUTS Issue 01: Night Bloom — a scrollable, riso-printed web zine about the city after dark. Photo essays, poems, an interview with a neon doctor, and field notes from the night shift." />
+<meta name="theme-color" content="#16121b" />
+<meta property="og:title" content="OFFCUTS №01 — Night Bloom" />
+<meta property="og:description" content="A riso-printed web zine about the things that only come alive after dark." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f3e9d6;        /* uncoated cream stock */
+    --paper-2:#efe2c8;
+    --ink:#17131a;          /* near-black key plate */
+    --pink:#ff2e7e;         /* fluorescent pink riso */
+    --pink-deep:#d4145a;
+    --blue:#0a5cff;         /* federal blue riso */
+    --blue-deep:#0036b0;
+    --yellow:#ffd23f;       /* sunshine yellow riso */
+    --green:#14b37d;        /* emerald riso */
+    --gutter:clamp(20px,5vw,80px);
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-size:clamp(17px,1.1vw + 14px,21px);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* ---------- riso grain + halftone overlays ---------- */
+  .grain{
+    position:fixed;inset:0;z-index:90;pointer-events:none;
+    opacity:.5;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .halftone{
+    position:fixed;inset:0;z-index:88;pointer-events:none;opacity:.06;mix-blend-mode:multiply;
+    background-image:radial-gradient(var(--ink) 1px,transparent 1.2px);
+    background-size:5px 5px;
+  }
+
+  /* ---------- running header (issue = version) ---------- */
+  .runner{
+    position:fixed;top:0;left:0;right:0;z-index:95;
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:10px var(--gutter);
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--paper);mix-blend-mode:difference;
+  }
+  .runner b{color:var(--pink)}
+  .runner .vtag{display:inline-flex;align-items:center;gap:8px}
+  .runner .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 var(--green);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(20,179,125,.6)}70%{box-shadow:0 0 0 7px rgba(20,179,125,0)}100%{box-shadow:0 0 0 0 rgba(20,179,125,0)}}
+  @media (prefers-reduced-motion:reduce){.runner .dot{animation:none}}
+
+  /* progress rail */
+  .rail{position:fixed;top:0;left:0;height:3px;width:0;z-index:96;background:linear-gradient(90deg,var(--pink),var(--yellow),var(--blue));transition:width .15s linear}
+
+  /* ---------- spread scaffold ---------- */
+  main{display:block}
+  .spread{
+    position:relative;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:84px var(--gutter) 64px;
+    background:var(--paper);
+    overflow:hidden;
+  }
+  .spread + .spread{border-top:2px solid var(--ink)}
+  .inner{width:100%;max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+
+  .folio{
+    position:absolute;bottom:18px;left:var(--gutter);z-index:3;
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);opacity:.65;
+  }
+  .kicker{
+    font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;
+    display:inline-block;padding:4px 9px;border:1.5px solid var(--ink);border-radius:2px;margin-bottom:18px;
+  }
+
+  /* riso duotone photo: grayscale base + colored multiply, slight misregistration */
+  .riso{position:relative;display:inline-block;line-height:0;background:var(--pink)}
+  .riso img{display:block;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.15) brightness(1.08);mix-blend-mode:screen}
+  .riso::after{content:"";position:absolute;inset:0;background:radial-gradient(var(--ink) .8px,transparent 1px);background-size:4px 4px;mix-blend-mode:multiply;opacity:.25;pointer-events:none}
+  .riso.blue{background:var(--blue)}
+  .riso.yellow{background:var(--yellow)}
+  .riso.green{background:var(--green)}
+
+  /* display type */
+  .anton{font-family:"Anton",Impact,sans-serif;font-weight:400;text-transform:uppercase;line-height:.86;letter-spacing:-.01em}
+  .bric{font-family:"Bricolage Grotesque","Bricolage",system-ui,sans-serif}
+
+  /* reveal */
+  .rev{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+  .rev.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+
+  /* ===================================================== COVER */
+  #cover{background:var(--ink);color:var(--paper);justify-content:flex-end}
+  #cover .blob{position:absolute;border-radius:50%;filter:blur(2px);mix-blend-mode:screen;pointer-events:none}
+  #cover .b1{width:60vmin;height:60vmin;background:var(--pink);top:-12vmin;right:-10vmin;opacity:.85}
+  #cover .b2{width:46vmin;height:46vmin;background:var(--blue);bottom:8vmin;left:-12vmin;opacity:.8}
+  #cover .b3{width:30vmin;height:30vmin;background:var(--yellow);top:24vmin;left:34vmin;opacity:.6}
+  #cover .cover-grid{display:grid;grid-template-columns:1fr;gap:8px;align-items:end}
+  #cover .masthead{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--yellow)}
+  #cover h1{
+    font-family:"Anton",sans-serif;text-transform:uppercase;
+    font-size:clamp(72px,21vw,260px);line-height:.82;letter-spacing:-.015em;margin:.1em 0 0;
+    color:var(--paper);text-shadow:5px 5px 0 var(--pink),10px 10px 0 var(--blue);
+  }
+  #cover .sub{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:clamp(20px,4.4vw,46px);line-height:1.02;margin-top:.2em;max-width:18ch}
+  #cover .sub em{font-style:normal;color:var(--yellow)}
+  #cover .coverfoot{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:26px;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper);opacity:.8}
+  .scrollcue{display:inline-flex;align-items:center;gap:8px;color:var(--paper)}
+  .scrollcue .arrow{display:inline-block;animation:bob 1.8s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  @media (prefers-reduced-motion:reduce){.scrollcue .arrow{animation:none}}
+
+  /* ===================================================== EDITOR LETTER */
+  #letter{background:var(--paper)}
+  #letter .lg{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,5vw,72px);align-items:center}
+  #letter h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(44px,9vw,118px);line-height:.84;margin:.15em 0 .35em;color:var(--ink)}
+  #letter h2 span{color:var(--pink)}
+  #letter .drop::first-letter{font-family:"Anton",sans-serif;float:left;font-size:5.2em;line-height:.66;padding:.06em .12em 0 0;color:var(--blue)}
+  #letter p{margin:0 0 1em;max-width:46ch}
+  #letter .sig{font-family:"Newsreader";font-style:italic;font-size:1.15em;margin-top:1.4em}
+  #letter .sig b{font-family:"Bricolage Grotesque";font-style:normal;font-weight:800}
+  #letter .photo{aspect-ratio:3/4;border:2px solid var(--ink);box-shadow:14px 14px 0 var(--yellow)}
+
+  /* ===================================================== PHOTO ESSAY */
+  #afterhours{background:var(--ink);color:var(--paper)}
+  #afterhours .head{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:26px}
+  #afterhours h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(40px,8.5vw,116px);line-height:.84;margin:.1em 0 0}
+  #afterhours h2 b{color:var(--yellow)}
+  #afterhours .lede{max-width:34ch;font-size:1.02em;opacity:.9}
+  #afterhours .mosaic{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:11vw;gap:12px}
+  #afterhours .mosaic .riso{height:100%;width:100%}
+  #afterhours .m1{grid-column:1/4;grid-row:1/3}
+  #afterhours .m2{grid-column:4/7;grid-row:1/2}
+  #afterhours .m3{grid-column:4/6;grid-row:2/3}
+  #afterhours .m4{grid-column:6/7;grid-row:2/3}
+  #afterhours .cap{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--paper);opacity:.65;margin-top:10px;display:block}
+
+  /* ===================================================== POEM */
+  #poem{background:var(--yellow);color:var(--ink)}
+  #poem .inner{max-width:920px}
+  #poem .kicker{border-color:var(--ink)}
+  #poem .title{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(56px,15vw,180px);line-height:.82;margin:.05em 0 .35em;color:var(--pink-deep);text-shadow:3px 3px 0 var(--ink)}
+  #poem .verse{font-family:"Newsreader";font-size:clamp(22px,3.4vw,40px);line-height:1.32;font-weight:500;max-width:24ch}
+  #poem .verse .b{color:var(--blue-deep)}
+  #poem .verse .stanza{margin:0 0 1.1em}
+  #poem .byline{font-family:"Space Mono",monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-top:28px}
+
+  /* ===================================================== INTERVIEW */
+  #interview{background:var(--paper)}
+  #interview .ig{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(24px,5vw,64px);align-items:start}
+  #interview .portrait{position:sticky;top:90px}
+  #interview .portrait .riso{aspect-ratio:4/5;border:2px solid var(--ink);box-shadow:12px 12px 0 var(--blue)}
+  #interview .pcap{font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;margin-top:12px;opacity:.7}
+  #interview h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(38px,7.5vw,96px);line-height:.84;margin:.1em 0 .5em;color:var(--ink)}
+  #interview h2 b{color:var(--blue)}
+  #interview .qa{margin:0 0 1.5em}
+  #interview .q{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.06em;color:var(--pink-deep);margin:0 0 .35em;display:flex;gap:.6em}
+  #interview .q::before{content:"Q";font-family:"Space Mono";color:var(--ink);opacity:.4}
+  #interview .a{margin:0 0 .2em;max-width:54ch}
+  #interview .a::first-letter{font-weight:600}
+  #interview .pull{font-family:"Newsreader";font-style:italic;font-size:clamp(22px,3.2vw,34px);line-height:1.2;color:var(--blue-deep);border-left:4px solid var(--pink);padding-left:18px;margin:1.4em 0}
+
+  /* ===================================================== FIELD NOTES */
+  #specimens{background:var(--blue);color:var(--paper)}
+  #specimens h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(40px,8vw,110px);line-height:.84;margin:.1em 0 .1em}
+  #specimens h2 b{color:var(--yellow)}
+  #specimens .sub{max-width:42ch;margin:0 0 30px;opacity:.92}
+  #specimens .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  #specimens .card{background:var(--paper);color:var(--ink);border:2px solid var(--ink);padding:18px;transform:rotate(var(--r,0deg));box-shadow:6px 6px 0 var(--ink);transition:transform .25s ease}
+  #specimens .card:hover{transform:rotate(0deg) translateY(-3px)}
+  #specimens .card .no{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink-deep)}
+  #specimens .card h3{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.25em;margin:.25em 0 .35em;line-height:1.05}
+  #specimens .card p{margin:0;font-size:.92em;line-height:1.45}
+  #specimens .card .tag{display:inline-block;margin-top:12px;font-family:"Space Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:var(--yellow);padding:3px 7px;border:1px solid var(--ink)}
+
+  /* ===================================================== COLOPHON */
+  #colophon{background:var(--ink);color:var(--paper);min-height:100svh}
+  #colophon h2{font-family:"Anton",sans-serif;text-transform:uppercase;font-size:clamp(48px,12vw,150px);line-height:.82;margin:0 0 .25em;color:var(--paper);text-shadow:4px 4px 0 var(--pink)}
+  #colophon .cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(20px,4vw,48px);margin-top:14px}
+  #colophon dl{margin:0}
+  #colophon dt{font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--yellow);margin-bottom:6px}
+  #colophon dd{margin:0 0 16px;font-size:.98em;line-height:1.45;opacity:.92}
+  #colophon dd a{color:var(--pink);text-decoration:none;border-bottom:1px solid rgba(255,46,126,.4)}
+  #colophon dd a:hover{border-bottom-color:var(--pink)}
+  .version-note{margin-top:34px;border:2px solid var(--blue);background:rgba(10,92,255,.1);padding:20px 22px;max-width:62ch}
+  .version-note b{font-family:"Bricolage Grotesque";font-weight:800;color:var(--yellow)}
+  .version-note code{font-family:"Space Mono";font-size:.86em;background:rgba(255,255,255,.08);padding:2px 6px;border-radius:3px}
+
+  /* subscribe */
+  .subscribe{margin-top:30px;max-width:520px}
+  .subscribe label{display:block;font-family:"Space Mono",monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow);margin-bottom:8px}
+  .subscribe .row{display:flex;gap:10px;flex-wrap:wrap}
+  .subscribe input{flex:1;min-width:200px;background:transparent;border:2px solid var(--paper);color:var(--paper);font-family:"Newsreader";font-size:1em;padding:13px 14px;border-radius:0}
+  .subscribe input:focus{outline:none;border-color:var(--pink);box-shadow:4px 4px 0 var(--pink)}
+  .subscribe input::placeholder{color:rgba(243,233,214,.5)}
+  .subscribe button{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1em;text-transform:uppercase;letter-spacing:.02em;background:var(--pink);color:var(--ink);border:2px solid var(--ink);padding:13px 22px;cursor:pointer;box-shadow:4px 4px 0 var(--ink);transition:transform .12s ease,box-shadow .12s ease}
+  .subscribe button:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+  .subscribe button:active{transform:translate(2px,2px);box-shadow:0 0 0 var(--ink)}
+  .subscribe .msg{margin-top:12px;font-family:"Space Mono",monospace;font-size:13px;color:var(--green);min-height:1.2em}
+  .subscribe .msg.err{color:var(--pink)}
+
+  .credit{margin-top:40px;font-family:"Space Mono",monospace;font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.6;line-height:1.7}
+  .credit a{color:var(--pink);text-decoration:none}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:820px){
+    #letter .lg,#interview .ig{grid-template-columns:1fr}
+    #interview .portrait{position:static}
+    #afterhours .mosaic{grid-template-columns:repeat(2,1fr);grid-auto-rows:38vw}
+    #afterhours .m1{grid-column:1/3;grid-row:auto}
+    #afterhours .m2,#afterhours .m3,#afterhours .m4{grid-column:auto;grid-row:auto}
+    #letter .photo{order:-1}
+  }
+  @media (max-width:520px){
+    .runner{font-size:10px;padding:8px 16px}
+    .runner .hide-sm{display:none}
+    #cover h1{text-shadow:3px 3px 0 var(--pink),6px 6px 0 var(--blue)}
+  }
+</style>
+</head>
+<body>
+  <div class="rail" id="rail"></div>
+  <div class="runner">
+    <span class="vtag"><span class="dot"></span> OFFCUTS&nbsp;<b>№01</b><span class="hide-sm">&nbsp;· Night Bloom</span></span>
+    <span id="counter">Cover</span>
+  </div>
+
+  <main>
+    <!-- ============ COVER ============ -->
+    <section class="spread" id="cover" data-label="Cover">
+      <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+      <div class="inner cover-grid">
+        <div class="masthead">
+          <span>A riso web zine</span>
+          <span>Issue 01 / v1.0</span>
+          <span>Free · Made after midnight</span>
+        </div>
+        <h1>NIGHT<br>BLOOM</h1>
+        <p class="sub">The things that only open <em>after dark</em> — and the people awake to see them.</p>
+        <div class="coverfoot">
+          <span>OFFCUTS — an art &amp; writing zine, printed in three inks &amp; pixels.</span>
+          <span class="scrollcue"><span class="arrow">↓</span> Scroll to turn the page</span>
+        </div>
+      </div>
+      <span class="folio">№01 — 00</span>
+    </section>
+
+    <!-- ============ EDITOR'S LETTER ============ -->
+    <section class="spread" id="letter" data-label="Editor's letter">
+      <div class="inner lg">
+        <div>
+          <span class="kicker rev">From the desk · 02:14 AM</span>
+          <h2 class="rev">Dear<br>reader<span>,</span></h2>
+          <p class="drop rev">There is a second city that switches on when the first one clocks out. We started OFFCUTS because nobody was making a magazine for it — for the bakers proofing dough at 3 a.m., the sign-fixers up ladders in the rain, the insomniacs who know exactly which corner store still has the lights on.</p>
+          <p class="rev">This first issue, <strong>Night Bloom</strong>, is printed in three risograph inks — fluorescent pink, federal blue, sunshine yellow — and then again, here, in light. The misregistration is on purpose. So is the grain. We like our pages a little out of true.</p>
+          <p class="rev">Read it top to bottom. It's a stack of spreads, not a feed.</p>
+          <p class="sig rev">With ink under our nails,<br><b>The OFFCUTS desk</b></p>
+        </div>
+        <figure class="photo riso pink rev">
+          <img src="https://picsum.photos/seed/nightbloom-letter/900/1200?grayscale" alt="A cluttered editor's desk lit by a single warm lamp in the small hours, paper proofs scattered across it." loading="lazy" />
+        </figure>
+      </div>
+      <span class="folio">№01 — 02</span>
+    </section>
+
+    <!-- ============ PHOTO ESSAY ============ -->
+    <section class="spread" id="afterhours" data-label="Photo essay · After Hours">
+      <div class="inner">
+        <div class="head">
+          <div>
+            <span class="kicker rev" style="border-color:var(--paper)">Photo essay № 1</span>
+            <h2 class="rev">AFTER<br><b>HOURS</b></h2>
+          </div>
+          <p class="lede rev">Six frames from a single sleepless lap of the city, shot on expired film and pushed two stops. The streetlights do the color grading for free.</p>
+        </div>
+        <div class="mosaic">
+          <figure class="riso pink m1 rev">
+            <img src="https://picsum.photos/seed/nightbloom-ph1/900/900?grayscale" alt="Rain-slicked empty intersection glowing under a single tall streetlight." loading="lazy" />
+          </figure>
+          <figure class="riso blue m2 rev">
+            <img src="https://picsum.photos/seed/nightbloom-ph2/900/500?grayscale" alt="A row of shuttered shopfronts with one neon sign still burning." loading="lazy" />
+          </figure>
+          <figure class="riso yellow m3 rev">
+            <img src="https://picsum.photos/seed/nightbloom-ph3/700/500?grayscale" alt="Steam rising from a vent on a deserted late-night street." loading="lazy" />
+          </figure>
+          <figure class="riso green m4 rev">
+            <img src="https://picsum.photos/seed/nightbloom-ph4/500/500?grayscale" alt="A lone figure at a 24-hour diner counter seen through fogged glass." loading="lazy" />
+          </figure>
+        </div>
+        <span class="cap rev">Frames 01–04 · 03:40–04:55 AM · Ilford HP5, pushed to 1600 · the rest are on the cutting-room floor (hence the name).</span>
+      </div>
+      <span class="folio" style="color:var(--paper);opacity:.7">№01 — 04</span>
+    </section>
+
+    <!-- ============ POEM ============ -->
+    <section class="spread" id="poem" data-label="Poem · Sodium">
+      <div class="inner">
+        <span class="kicker rev">Verse · by R. Ortega</span>
+        <h1 class="title rev">SODIUM</h1>
+        <div class="verse">
+          <p class="stanza rev">The streetlamps hum<br>a single orange note —<br>the city's pilot light,<br>left on so the dark <span class="b">won't catch.</span></p>
+          <p class="stanza rev">Moths arrive like<br>tiny, devoted press,<br>filing the same story<br>against the glass <span class="b">all night.</span></p>
+          <p class="stanza rev">And me — awake,<br>another small machine<br>burning low so the<br>morning has something <span class="b">to find lit.</span></p>
+        </div>
+        <p class="byline rev">— Rosa Ortega, written on the back of a receipt</p>
+      </div>
+      <span class="folio">№01 — 06</span>
+    </section>
+
+    <!-- ============ INTERVIEW ============ -->
+    <section class="spread" id="interview" data-label="Interview · The Neon Doctor">
+      <div class="inner ig">
+        <div class="portrait">
+          <figure class="riso pink rev">
+            <img src="https://picsum.photos/seed/nightbloom-neon/800/1000?grayscale" alt="Portrait of a sign-maker in a workshop surrounded by glowing glass tubes." loading="lazy" />
+          </figure>
+          <p class="pcap rev">Mara Vidal in her workshop, 11:50 PM. The blue tube behind her has been lit for 38 years.</p>
+        </div>
+        <div>
+          <span class="kicker rev">Interview № 1</span>
+          <h2 class="rev">The Neon<br><b>Doctor</b></h2>
+          <div class="qa rev">
+            <p class="q">People call you when their sign dies. What actually goes wrong?</p>
+            <p class="a">Gas leaks, mostly. A neon tube is just argon and a breath of mercury holding its temper for decades. One hairline crack and the whole letter goes dark. I find the crack by listening — a healthy tube sings, a sick one stutters.</p>
+          </div>
+          <p class="pull rev">"A sign isn't lighting. It's a promise that someone is still open."</p>
+          <div class="qa rev">
+            <p class="q">Why do you only work at night?</p>
+            <p class="a">Because that's when you can see what's wrong. You can't diagnose a glow in daylight. And honestly the city's better company after midnight — quieter, more honest. The signs and I keep the same hours.</p>
+          </div>
+          <div class="qa rev">
+            <p class="q">Everything's going LED. Does that scare you?</p>
+            <p class="a">LED is a printout. Neon is handwriting — it bends because a person bent it, it hums because a real gas is excited. People will always want one thing in their life that was made by hand and breathes a little. I'm not worried. I'm booked through spring.</p>
+          </div>
+        </div>
+      </div>
+      <span class="folio">№01 — 08</span>
+    </section>
+
+    <!-- ============ FIELD NOTES ============ -->
+    <section class="spread" id="specimens" data-label="Field notes · Specimens">
+      <div class="inner">
+        <span class="kicker rev" style="border-color:var(--paper)">Field notes</span>
+        <h2 class="rev">SPECIMENS<br>OF THE <b>DARK</b></h2>
+        <p class="sub rev">A field guide to nocturnal city life, collected on foot and pinned to the page. Hover a card to set it straight.</p>
+        <div class="cards">
+          <article class="card rev" style="--r:-2.5deg">
+            <span class="no">Specimen 01</span>
+            <h3>The 24-Hour Laundromat</h3>
+            <p>Found wherever a neighborhood refuses to sleep. Warm, humming, faintly tropical. The unofficial common room of the night shift.</p>
+            <span class="tag">Habitat: corner lots</span>
+          </article>
+          <article class="card rev" style="--r:1.8deg">
+            <span class="no">Specimen 02</span>
+            <h3>The Night Baker</h3>
+            <p>Rises when others fall. Identifiable by flour to the elbow and a thousand-yard stare that smells of cardamom. Active 1 AM–6 AM.</p>
+            <span class="tag">Diet: coffee, dough</span>
+          </article>
+          <article class="card rev" style="--r:-1.2deg">
+            <span class="no">Specimen 03</span>
+            <h3>The Moth Convention</h3>
+            <p>Gathers nightly beneath any sodium lamp. No agenda, no minutes, perfect attendance. The only press corps that never sleeps.</p>
+            <span class="tag">Habitat: streetlights</span>
+          </article>
+          <article class="card rev" style="--r:2.4deg">
+            <span class="no">Specimen 04</span>
+            <h3>The Last Bus</h3>
+            <p>A rolling sanctuary, fluorescent and forgiving. Carries poets, closers, and the recently heartbroken to wherever home still is.</p>
+            <span class="tag">Range: city-wide</span>
+          </article>
+        </div>
+      </div>
+      <span class="folio" style="color:var(--paper);opacity:.7">№01 — 10</span>
+    </section>
+
+    <!-- ============ COLOPHON ============ -->
+    <section class="spread" id="colophon" data-label="Colophon">
+      <div class="inner">
+        <span class="kicker rev" style="border-color:var(--paper)">The fine print</span>
+        <h2 class="rev">COLOPHON</h2>
+        <div class="cg">
+          <dl class="rev">
+            <dt>Issue</dt><dd>OFFCUTS №01 — “Night Bloom.” Edition of ∞, printed on light.</dd>
+            <dt>Made by</dt><dd>A two-person desk that should be asleep. Words, photos &amp; layout in-house.</dd>
+            <dt>Contributors</dt><dd>Rosa Ortega (verse) · Mara Vidal (interview) · the whole night shift (uncredited, as always).</dd>
+          </dl>
+          <dl class="rev">
+            <dt>Set in</dt><dd>Anton (display), Bricolage Grotesque (decks), Newsreader (body) &amp; Space Mono (captions).</dd>
+            <dt>Printed in</dt><dd>Three risograph inks — fluorescent pink, federal blue, sunshine yellow — over a black key plate. Misregistration intentional.</dd>
+            <dt>Photos</dt><dd>Duotoned from <a href="https://picsum.photos" rel="noopener">Lorem Picsum</a>. Grain &amp; halftone rendered live in the browser.</dd>
+          </dl>
+        </div>
+
+        <div class="version-note rev">
+          <b>Every issue is a version.</b> Night Bloom is <code>v1.0</code> of OFFCUTS. When we cut Issue 02 we won't overwrite this one — it keeps its own permanent URL, forever, the way a back-issue keeps its spine. That's just how publishing on <strong>Spacefast</strong> works: each publish is a version, and you can always reach the one you loved.
+        </div>
+
+        <form class="subscribe rev" id="sub" novalidate>
+          <label for="email">Get Issue 02 in your inbox the night it drops</label>
+          <div class="row">
+            <input type="email" id="email" name="email" placeholder="you@aftermidnight.zine" autocomplete="email" required />
+            <button type="submit">Subscribe</button>
+          </div>
+          <p class="msg" id="submsg" role="status" aria-live="polite"></p>
+        </form>
+
+        <p class="credit rev">
+          OFFCUTS is a fictional zine built as a Spacefast example.<br>
+          Build your own at <a href="https://spacefast.com">spacefast.com</a> — №01 / v1.0
+        </p>
+      </div>
+      <span class="folio" style="color:var(--paper);opacity:.7">№01 — 12</span>
+    </section>
+  </main>
+
+  <div class="halftone"></div>
+  <div class="grain"></div>
+
+  <script>
+    // ---- progress rail + spread counter ----
+    var rail = document.getElementById('rail');
+    var counter = document.getElementById('counter');
+    var spreads = Array.prototype.slice.call(document.querySelectorAll('.spread'));
+
+    function onScroll(){
+      var st = window.scrollY || document.documentElement.scrollTop;
+      var h = document.documentElement.scrollHeight - window.innerHeight;
+      rail.style.width = (h > 0 ? (st / h) * 100 : 0) + '%';
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+
+    // active spread label via IntersectionObserver
+    var labelObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && e.intersectionRatio > 0.5){
+          var i = spreads.indexOf(e.target);
+          var label = e.target.getAttribute('data-label') || '';
+          counter.textContent = (i === 0 ? 'Cover' : ('Spread ' + i + ' / ' + (spreads.length - 1) + ' · ' + label));
+        }
+      });
+    }, { threshold:[0.5] });
+    spreads.forEach(function(s){ labelObs.observe(s); });
+
+    // ---- reveal on scroll ----
+    var revObs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); revObs.unobserve(e.target); }
+      });
+    }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
+    document.querySelectorAll('.rev').forEach(function(el, idx){
+      el.style.transitionDelay = ((idx % 5) * 60) + 'ms';
+      revObs.observe(el);
+    });
+
+    // ---- subscribe form ----
+    var form = document.getElementById('sub');
+    var input = document.getElementById('email');
+    var msg = document.getElementById('submsg');
+    var KEY = 'offcuts-subscribed';
+
+    if(localStorage.getItem(KEY)){
+      msg.textContent = "You're already on the list — see you at Issue 02.";
+      msg.classList.remove('err');
+      input.value = localStorage.getItem(KEY);
+    }
+
+    form.addEventListener('submit', function(ev){
+      ev.preventDefault();
+      var val = input.value.trim();
+      var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
+      if(!ok){
+        msg.textContent = 'That email looks a little out of register — try again.';
+        msg.classList.add('err');
+        input.focus();
+        return;
+      }
+      localStorage.setItem(KEY, val);
+      msg.classList.remove('err');
+      msg.textContent = "You're on the list. Issue 02 lands on the next full moon.";
+      form.querySelector('button').textContent = 'Done ✓';
+    });
+  </script>
+
+  <script src="https://spacefast.com/badge.js" data-example="zine"></script>
+</body>
+</html>

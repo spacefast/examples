@@ -1,0 +1,28 @@
+{
+  "name": "Offcuts",
+  "slug": "newsletter",
+  "vertical": "Content & media",
+  "tech": "html",
+  "based_on": "A curated weekly newsletter with a clean public archive in the Dense Discovery / The Browser mold \u2014 typographic, numbered issues, prominent subscribe.",
+  "summary": "A typographic home and archive for a curated weekly newsletter, listing every numbered issue with a blurb and rendering each past issue as a readable web page with a subscribe call to action.",
+  "sections": [
+    "Home \u2014 what-it-is intro, sample, and email subscribe form",
+    "Issue archive \u2014 reverse-chronological list of numbered issues with date and one-line summary",
+    "Issue page \u2014 rendered issue with intro, curated links, and a 'tool of the week' section",
+    "About the author",
+    "Subscribe page with email capture"
+  ],
+  "setup_questions": [
+    "What's the newsletter's name and a one-line tagline?",
+    "What topic or niche does it cover?",
+    "Who's the author, and what's their short bio?",
+    "Give me 2-3 recent issue titles with a sentence of what each covered."
+  ],
+  "photo_terms": [
+    "minimal desk workspace flatlay",
+    "stack of design books on table",
+    "abstract textured paper background",
+    "author portrait at desk window light"
+  ],
+  "live_url": "https://newsletter.view.fast/"
+}

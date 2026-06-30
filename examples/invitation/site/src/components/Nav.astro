@@ -1,0 +1,191 @@
+---
+import { wedding } from '../data/wedding';
+const links = [
+  { href: '#story', label: 'Our Story' },
+  { href: '#details', label: 'Details' },
+  { href: '#travel', label: 'Travel' },
+  { href: '#gallery', label: 'Gallery' },
+  { href: '#registry', label: 'Registry' },
+  { href: '#faq', label: 'FAQ' },
+];
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="#top" aria-label="Back to top">
+      {wedding.partnerA} <span aria-hidden="true">&amp;</span> {wedding.partnerB}
+    </a>
+
+    <nav class="nav__links" aria-label="Sections">
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <a class="btn nav__cta" href="#rsvp">RSVP</a>
+
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-toggle>
+      <span class="visually-hidden">Toggle menu</span>
+      <span class="nav__bars" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <nav id="mobile-menu" class="nav__mobile" aria-label="Sections" hidden data-mobile>
+    {links.map((l) => <a href={l.href} data-mobile-link>{l.label}</a>)}
+    <a href="#rsvp" class="nav__mobile-cta" data-mobile-link>RSVP</a>
+  </nav>
+</header>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--ivory) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.25s ease, background 0.25s ease;
+  }
+  .nav[data-scrolled] {
+    border-bottom-color: var(--line);
+    background: color-mix(in srgb, var(--ivory) 96%, transparent);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 64px;
+  }
+  .nav__brand {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--olive);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    margin-right: auto;
+  }
+  .nav__brand span {
+    color: var(--terracotta);
+  }
+  .nav__links {
+    display: none;
+    gap: 1.6rem;
+  }
+  .nav__links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    transition: color 0.18s ease;
+  }
+  .nav__links a:hover {
+    color: var(--terracotta-deep);
+  }
+  .nav__cta {
+    display: none;
+    padding: 0.55rem 1.2rem;
+  }
+  .nav__toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .nav__bars,
+  .nav__bars::before,
+  .nav__bars::after {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--olive);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .nav__bars::before {
+    transform: translateY(-6px);
+  }
+  .nav__bars::after {
+    transform: translateY(4px);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars {
+    background: transparent;
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars::before {
+    transform: translateY(0) rotate(45deg);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__bars::after {
+    transform: translateY(-2px) rotate(-45deg);
+  }
+  .nav__mobile {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem clamp(1.25rem, 5vw, 3rem) 1.25rem;
+    border-bottom: 1px solid var(--line);
+    background: var(--ivory);
+  }
+  .nav__mobile a {
+    padding: 0.7rem 0;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid var(--line);
+  }
+  .nav__mobile a:last-child {
+    border-bottom: none;
+  }
+  .nav__mobile-cta {
+    color: var(--terracotta-deep) !important;
+    font-weight: 700;
+  }
+
+  @media (min-width: 860px) {
+    .nav__links {
+      display: flex;
+    }
+    .nav__cta {
+      display: inline-flex;
+    }
+    .nav__toggle {
+      display: none;
+    }
+    .nav__mobile {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector('[data-nav]');
+  const toggle = document.querySelector('[data-toggle]');
+  const mobile = document.querySelector('[data-mobile]');
+
+  const setScrolled = () => {
+    if (window.scrollY > 12) nav?.setAttribute('data-scrolled', '');
+    else nav?.removeAttribute('data-scrolled');
+  };
+  setScrolled();
+  window.addEventListener('scroll', setScrolled, { passive: true });
+
+  const closeMenu = () => {
+    toggle?.setAttribute('aria-expanded', 'false');
+    mobile?.setAttribute('hidden', '');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    if (open) {
+      closeMenu();
+    } else {
+      toggle.setAttribute('aria-expanded', 'true');
+      mobile?.removeAttribute('hidden');
+    }
+  });
+
+  document.querySelectorAll('[data-mobile-link]').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+</script>

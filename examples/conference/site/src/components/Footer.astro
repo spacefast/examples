@@ -1,0 +1,267 @@
+---
+import { conf, socials } from '../data/conf';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" id="footer">
+  <div class="wrap">
+    <div class="footer__cta">
+      <div class="footer__cta-copy">
+        <h2 class="footer__cta-title">Be first in line for {Number(conf.year) + 1}.</h2>
+        <p>{conf.newsletterNote}</p>
+      </div>
+
+      <form class="signup" data-signup novalidate>
+        <div class="signup__row">
+          <label class="visually-hidden" for="signup-email">Email address</label>
+          <input
+            id="signup-email"
+            class="signup__input"
+            type="email"
+            name="email"
+            inputmode="email"
+            autocomplete="email"
+            placeholder="you@studio.dev"
+            required
+          />
+          <button class="btn signup__btn" type="submit">Notify me</button>
+        </div>
+        <p class="signup__error" data-error role="alert" hidden>
+          That doesn't look like an email — mind checking it?
+        </p>
+        <p class="signup__ok" data-ok role="status" hidden>
+          You're on the list. We'll email you the moment {Number(conf.year) + 1} dates are set. 🎟️
+        </p>
+      </form>
+    </div>
+
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <span class="footer__name">{conf.name}<span>{conf.year}</span></span>
+        <p class="footer__tag">{conf.tagline}</p>
+        <p class="footer__where">
+          {conf.dateLong}<br />
+          {conf.venue}, {conf.city}
+        </p>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer">
+        <h3>Event</h3>
+        <a href="#about">About</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#tickets">Tickets</a>
+      </nav>
+
+      <nav class="footer__nav" aria-label="More">
+        <h3>More</h3>
+        <a href="#venue">Venue & travel</a>
+        <a href="#sponsors">Sponsors</a>
+        <a href="#faq">FAQ & conduct</a>
+        <a href={conf.cfpUrl}>Speak in 2027</a>
+      </nav>
+
+      <nav class="footer__nav" aria-label="Social">
+        <h3>Follow</h3>
+        {
+          socials.map((s) => (
+            <a href={s.url} target="_blank" rel="noopener noreferrer">
+              {s.name}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="footer__base">
+      <p>© {year} DevHorizon. Run by humans who love the web, in Lisbon.</p>
+      <p class="footer__credits">
+        Tickets · <a href="mailto:tickets@devhorizon.dev">tickets@devhorizon.dev</a> &nbsp;·&nbsp;
+        Hardship & diversity tickets available
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+    padding-block: clamp(3rem, 7vw, 4.5rem);
+  }
+  .footer__cta {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 1fr);
+    gap: clamp(1.5rem, 5vw, 3rem);
+    align-items: center;
+    padding: clamp(1.8rem, 5vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--grad-soft);
+    margin-bottom: clamp(2.6rem, 6vw, 4rem);
+  }
+  .footer__cta-title {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    margin-bottom: 0.5rem;
+  }
+  .footer__cta-copy p {
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  .signup__row {
+    display: flex;
+    gap: 0.6rem;
+  }
+  .signup__input {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--sans);
+    font-size: 1rem;
+    color: var(--ink);
+    background: rgba(7, 7, 13, 0.55);
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    padding: 0.82rem 1.2rem;
+  }
+  .signup__input::placeholder {
+    color: var(--ink-faint);
+  }
+  .signup__input:focus-visible {
+    outline: 2px solid var(--teal);
+    outline-offset: 2px;
+  }
+  .signup__btn {
+    flex: none;
+  }
+  .signup__error,
+  .signup__ok {
+    margin: 0.8rem 0 0;
+    font-size: 0.9rem;
+  }
+  .signup__error {
+    color: #ff9a9a;
+  }
+  .signup__ok {
+    color: var(--teal);
+    font-weight: 500;
+  }
+
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1.6fr repeat(3, 1fr);
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    padding-block: clamp(1.5rem, 4vw, 2.4rem);
+    border-top: 1px solid var(--line);
+  }
+  .footer__name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--ink);
+  }
+  .footer__name span {
+    color: var(--teal);
+    margin-left: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    vertical-align: 0.15em;
+  }
+  .footer__tag {
+    color: var(--ink-soft);
+    margin: 0.6rem 0 0.9rem;
+    max-width: 30ch;
+  }
+  .footer__where {
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+    margin: 0;
+  }
+  .footer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .footer__nav h3 {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.3rem;
+  }
+  .footer__nav a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.16s ease;
+  }
+  .footer__nav a:hover {
+    color: var(--ink);
+  }
+
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding-top: clamp(1.5rem, 4vw, 2.2rem);
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 0.86rem;
+  }
+  .footer__base p {
+    margin: 0;
+  }
+
+  @media (max-width: 820px) {
+    .footer__cta {
+      grid-template-columns: 1fr;
+    }
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .signup__row {
+      flex-direction: column;
+    }
+    .signup__btn {
+      width: 100%;
+    }
+    .footer__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector('[data-signup]');
+  if (form) {
+    const input = form.querySelector('input[type="email"]') as HTMLInputElement | null;
+    const err = form.querySelector('[data-error]');
+    const ok = form.querySelector('[data-ok]');
+    const valid = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const value = (input?.value || '').trim();
+      if (!valid(value)) {
+        err?.removeAttribute('hidden');
+        ok?.setAttribute('hidden', '');
+        input?.focus();
+        return;
+      }
+      err?.setAttribute('hidden', '');
+      ok?.removeAttribute('hidden');
+      if (input) {
+        input.value = '';
+        input.setAttribute('disabled', '');
+      }
+      form.querySelector('button')?.setAttribute('disabled', '');
+    });
+
+    input?.addEventListener('input', () => err?.setAttribute('hidden', ''));
+  }
+</script>

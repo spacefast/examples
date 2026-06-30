@@ -1,0 +1,226 @@
+---
+import { conf } from '../data/conf';
+
+const links = [
+  { label: 'About', href: '#about' },
+  { label: 'Speakers', href: '#speakers' },
+  { label: 'Schedule', href: '#schedule' },
+  { label: 'Tickets', href: '#tickets' },
+  { label: 'Venue', href: '#venue' },
+  { label: 'FAQ', href: '#faq' },
+];
+---
+
+<header class="nav" data-nav>
+  <div class="wrap nav__inner">
+    <a class="nav__brand" href="#top" aria-label={`${conf.name} ${conf.year} — home`}>
+      <svg class="nav__mark" viewBox="0 0 32 32" aria-hidden="true" width="26" height="26">
+        <defs>
+          <linearGradient id="navg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#34e1c4"></stop>
+            <stop offset="1" stop-color="#8b7bff"></stop>
+          </linearGradient>
+        </defs>
+        <path
+          d="M5 21 L16 7 L27 21"
+          fill="none"
+          stroke="url(#navg)"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+        <circle cx="16" cy="24.5" r="2" fill="url(#navg)"></circle>
+      </svg>
+      <span class="nav__name">{conf.name}<span class="nav__year">{conf.year}</span></span>
+    </a>
+
+    <nav id="nav-menu" class="nav__links" aria-label="Primary" data-menu>
+      {links.map((l) => <a href={l.href}>{l.label}</a>)}
+      <a class="btn nav__cta" href={conf.ticketUrl}>Get tickets</a>
+    </nav>
+
+    <button class="nav__toggle" data-toggle aria-expanded="false" aria-controls="nav-menu">
+      <span class="visually-hidden">Menu</span>
+      <span class="nav__bars" aria-hidden="true"></span>
+    </button>
+  </div>
+</header>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    inset-inline: 0;
+    z-index: 50;
+    transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .nav[data-scrolled] {
+    background: rgba(7, 7, 13, 0.78);
+    backdrop-filter: saturate(140%) blur(14px);
+    border-bottom-color: var(--line);
+  }
+  .nav__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    height: 64px;
+  }
+  .nav__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.12rem;
+    letter-spacing: -0.01em;
+  }
+  .nav__year {
+    color: var(--teal);
+    margin-left: 0.3rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    vertical-align: 0.18em;
+  }
+  .nav__mark {
+    flex: none;
+  }
+  .nav__links {
+    display: flex;
+    align-items: center;
+    gap: 1.7rem;
+  }
+  .nav__links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.16s ease;
+  }
+  .nav__links a:hover {
+    color: var(--ink);
+  }
+  .nav__cta {
+    font-size: 0.88rem;
+    padding: 0.62rem 1.1rem;
+  }
+  .nav__cta:hover {
+    color: #0a0a12;
+  }
+
+  .nav__toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    place-items: center;
+  }
+  .nav__bars,
+  .nav__bars::before,
+  .nav__bars::after {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .nav__bars {
+    position: relative;
+  }
+  .nav__bars::before {
+    position: absolute;
+    top: -6px;
+  }
+  .nav__bars::after {
+    position: absolute;
+    top: 6px;
+  }
+
+  @media (max-width: 860px) {
+    .nav__toggle {
+      display: grid;
+    }
+    .nav__links {
+      position: fixed;
+      inset: 64px 0 auto 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: rgba(9, 9, 16, 0.97);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      padding: 0.5rem clamp(1.15rem, 5vw, 3rem) 1.5rem;
+      transform: translateY(-12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .nav__links[data-open] {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav__links a {
+      padding: 0.95rem 0.25rem;
+      font-size: 1.05rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .nav__cta {
+      margin-top: 1rem;
+      justify-content: center;
+      padding: 0.85rem;
+      border: none;
+    }
+    .nav__cta:last-child {
+      border-bottom: none;
+    }
+    .nav[data-menu-open] .nav__bars {
+      background: transparent;
+    }
+    .nav[data-menu-open] .nav__bars::before {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .nav[data-menu-open] .nav__bars::after {
+      transform: translateY(-6px) rotate(-45deg);
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector('[data-nav]');
+  const toggle = document.querySelector('[data-toggle]');
+  const menu = document.querySelector('[data-menu]');
+
+  const onScroll = () => {
+    if (window.scrollY > 12) header?.setAttribute('data-scrolled', '');
+    else header?.removeAttribute('data-scrolled');
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const closeMenu = () => {
+    menu?.removeAttribute('data-open');
+    header?.removeAttribute('data-menu-open');
+    toggle?.setAttribute('aria-expanded', 'false');
+  };
+
+  toggle?.addEventListener('click', () => {
+    const open = menu?.hasAttribute('data-open');
+    if (open) {
+      closeMenu();
+    } else {
+      menu?.setAttribute('data-open', '');
+      header?.setAttribute('data-menu-open', '');
+      toggle?.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+</script>

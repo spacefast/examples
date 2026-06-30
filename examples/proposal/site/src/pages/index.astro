@@ -1,0 +1,650 @@
+---
+import Layout from '../layouts/Layout.astro';
+import {
+  meta,
+  intro,
+  outcomes,
+  scope,
+  timeline,
+  tiers,
+  terms,
+  faqs,
+} from '../data/proposal';
+
+const fmt = (n: number) =>
+  '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+
+const recommended = tiers.find((t) => t.recommended) ?? tiers[0];
+
+const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#16233b"/><path d="M9 22V10l7 6 7-6v12" fill="none" stroke="#e6a23c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+---
+
+<Layout>
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="wrap topbar__inner">
+      <a class="brandmark" href="#top" aria-label={`${meta.preparedBy} home`}>
+        <Fragment set:html={brand} />
+        {meta.preparedBy}
+      </a>
+      <div class="topbar__meta mono">
+        {meta.proposalNo} · Valid until {meta.validUntil}
+      </div>
+      <a class="topbar__cta" href="#accept">
+        Accept proposal
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+      <div class="progress" id="progress"></div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ===== Cover ===== -->
+    <section class="cover">
+      <img class="cover__bg" src={meta.heroImage} alt={meta.heroImageAlt} />
+      <div class="cover__scrim"></div>
+      <div class="wrap cover__inner">
+        <p class="cover__prepared">
+          Prepared for {meta.preparedFor}
+        </p>
+        <h1>
+          A <em>{meta.project}</em><br />for {meta.preparedFor}
+        </h1>
+        <p class="cover__sub">
+          A complete rebrand and a fast, modern marketing site — designed,
+          built, and launched in fourteen weeks. Here's exactly what we'll do,
+          when, and what it costs.
+        </p>
+
+        <div class="cover__facts">
+          <div class="cover__fact">
+            <span>Prepared by</span>
+            <strong>{meta.preparedBy}</strong>
+          </div>
+          <div class="cover__fact">
+            <span>For</span>
+            <strong>{meta.preparedForContact}</strong>
+          </div>
+          <div class="cover__fact">
+            <span>Date</span>
+            <strong>{meta.date}</strong>
+          </div>
+          <div class="cover__fact">
+            <span>Proposal</span>
+            <strong class="mono">{meta.proposalNo}</strong>
+          </div>
+        </div>
+
+        <div class="outcomes">
+          {
+            outcomes.map((o) => (
+              <div class="outcome reveal">
+                <b>{o.stat}</b>
+                <span>{o.label}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Intro letter ===== -->
+    <section class="section" id="intro">
+      <div class="wrap">
+        <div class="letter reveal">
+          <p class="eyebrow">A note before we begin</p>
+          <p class="greeting">{intro.greeting}</p>
+          <p>{intro.body}</p>
+          <p class="signoff">{intro.signoff}</p>
+          <p class="sig">{intro.signature}</p>
+          <p class="sig-role">{intro.signatureRole}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Scope ===== -->
+    <section class="section" id="scope">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Scope of work</p>
+          <h2>Everything that's included</h2>
+          <p>
+            Four workstreams, one team. Each deliverable below is fixed-scope —
+            no vague "and more" — so you know precisely what you're getting.
+          </p>
+        </div>
+        <div class="scope-grid">
+          {
+            scope.map((s, i) => (
+              <article class="scope-card reveal">
+                <div class="scope-card__no mono">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+                <h3>{s.title}</h3>
+                <p class="scope-card__summary">{s.summary}</p>
+                <ul class="checklist">
+                  {s.items.map((it) => (
+                    <li>{it}</li>
+                  ))}
+                </ul>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Timeline ===== -->
+    <section class="section" id="timeline">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Timeline</p>
+          <h2>Fourteen weeks, five gates</h2>
+          <p>
+            Each phase ends at an approval gate. Nothing moves forward until
+            you've signed off, so you're always in control of the schedule.
+          </p>
+        </div>
+        <div class="timeline">
+          {
+            timeline.map((t, i) => (
+              <div class="tl-row reveal">
+                <div class="tl-dot mono">{i + 1}</div>
+                <div>
+                  <div class="tl-head">
+                    <h3>{t.title}</h3>
+                    <span class="tl-weeks">{t.weeks}</span>
+                  </div>
+                  <p class="tl-blurb">{t.blurb}</p>
+                  <span class="tl-milestone">{t.milestone}</span>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pricing ===== -->
+    <section class="section" id="pricing">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Investment</p>
+          <h2>Choose the engagement that fits</h2>
+          <p>
+            Pick a tier to build your agreement — the accept form below updates
+            automatically. Most teams your size choose <strong
+              >{recommended.name}</strong
+            >.
+          </p>
+        </div>
+        <div class="pricing-grid" id="pricing-grid">
+          {
+            tiers.map((t) => (
+              <article
+                class={`tier reveal${t.recommended ? ' tier--rec' : ''}${
+                  t.recommended ? ' is-selected' : ''
+                }`}
+                data-tier={t.id}
+                data-name={t.name}
+                data-price={t.price}
+              >
+                {t.recommended && <span class="tier__badge">Recommended</span>}
+                <h3 class="tier__name">{t.name}</h3>
+                <p class="tier__tagline">{t.tagline}</p>
+                <div class="tier__price">
+                  <b class="mono">{fmt(t.price)}</b>
+                </div>
+                <p class="tier__cadence">{t.cadence}</p>
+                <ul class="tier__features">
+                  {t.features.map((f) => (
+                    <li>{f}</li>
+                  ))}
+                  {t.excludes.map((f) => (
+                    <li class="excl">{f}</li>
+                  ))}
+                </ul>
+                <button
+                  type="button"
+                  class="tier__select"
+                  data-select={t.id}
+                  aria-pressed={t.recommended ? 'true' : 'false'}
+                >
+                  <svg
+                    class="tier__check"
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span class="tier__select-label">Select {t.name}</span>
+                </button>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Accept / sign ===== -->
+    <section class="section accept" id="accept">
+      <div class="wrap">
+        <div class="section-head reveal" style="margin-bottom:0">
+          <p class="eyebrow">Accept &amp; sign</p>
+          <h2>Ready when you are, {meta.preparedFor}</h2>
+          <p class="accept__lead">
+            Review the summary, type your name to sign, and you're done. We'll
+            counter-sign and send a kickoff date within one business day.
+          </p>
+        </div>
+
+        <div class="accept__grid">
+          <!-- agreement summary -->
+          <div class="summary-card reveal">
+            <h3>Your agreement</h3>
+            <div class="summary-row">
+              <span>Client</span>
+              <strong>{meta.preparedFor}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Engagement</span>
+              <strong id="sum-tier">{recommended.name}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Project</span>
+              <strong>{meta.project}</strong>
+            </div>
+            <div class="summary-row">
+              <span>Deposit due (40%)</span>
+              <strong class="mono" id="sum-deposit"
+                >{fmt(Math.round(recommended.price * 0.4))}</strong
+              >
+            </div>
+            <div class="summary-total">
+              <span>Total project fee</span>
+              <b class="mono" id="sum-total">{fmt(recommended.price)}</b>
+            </div>
+            <ul class="terms">
+              {terms.map((t) => <li>{t}</li>)}
+            </ul>
+          </div>
+
+          <!-- signature -->
+          <div class="sign-card reveal" id="sign-card">
+            <h3>Sign to accept</h3>
+            <form id="sign-form" novalidate>
+              <div class="field" id="f-name">
+                <label for="name-input">Full name</label>
+                <input
+                  type="text"
+                  id="name-input"
+                  name="name"
+                  placeholder="Dana Whitfield"
+                  autocomplete="name"
+                  required
+                />
+                <p class="err">Please enter your name.</p>
+              </div>
+
+              <div class="field" id="f-email">
+                <label for="email-input">Work email</label>
+                <input
+                  type="email"
+                  id="email-input"
+                  name="email"
+                  placeholder="dana@acme.co"
+                  autocomplete="email"
+                  required
+                />
+                <p class="err">Please enter a valid email address.</p>
+              </div>
+
+              <div class="field" id="f-sign">
+                <label for="sign-input">Type your name to sign</label>
+                <input
+                  type="text"
+                  id="sign-input"
+                  name="signature"
+                  placeholder="Your signature"
+                  autocomplete="off"
+                  required
+                />
+                <p class="hint" id="sign-hint">
+                  Your typed name is a legally binding e-signature.
+                </p>
+                <p class="err">Your signature must match your full name.</p>
+              </div>
+
+              <label class="agree">
+                <input type="checkbox" id="agree-input" required />
+                <span>
+                  I have read and agree to the scope, timeline, and terms of
+                  this proposal on behalf of {meta.preparedFor}.
+                </span>
+              </label>
+
+              <button type="submit" class="btn-accept" id="accept-btn">
+                Accept &amp; sign for <span id="btn-total" class="mono"
+                  >{fmt(recommended.price)}</span
+                >
+              </button>
+            </form>
+
+            <!-- success state -->
+            <div class="accepted" id="accepted" role="status" aria-live="polite">
+              <div class="accepted__check">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </div>
+              <h3 id="accepted-title">Proposal accepted</h3>
+              <p id="accepted-body"></p>
+              <div class="receipt mono" id="accepted-receipt"></div>
+              <button type="button" class="btn-reset" id="reset-btn">
+                Undo &amp; review again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">Good to know</p>
+          <h2>A few common questions</h2>
+        </div>
+        <div class="faq-grid">
+          {
+            faqs.map((f) => (
+              <div class="faq reveal">
+                <h3>{f.q}</h3>
+                <p>{f.a}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="foot">
+    <div class="wrap foot__inner">
+      <div class="foot__brand">
+        <Fragment set:html={brand} />
+        <div>
+          <b>{meta.preparedBy}</b>
+          <span>{meta.preparedByTagline}</span>
+        </div>
+      </div>
+      <div class="foot__contact">
+        <a href={`mailto:${meta.contactEmail}`}>{meta.contactEmail}</a> ·
+        {meta.contactPhone}<br />
+        {meta.website} · Proposal {meta.proposalNo}
+      </div>
+    </div>
+  </footer>
+
+  <!-- prices for the client script, kept as a small JSON island -->
+  <script
+    type="application/json"
+    id="tier-data"
+    set:html={JSON.stringify(
+      tiers.map((t) => ({ id: t.id, name: t.name, price: t.price }))
+    )}
+  />
+
+  <script is:inline>
+    (function () {
+      // ---- tier data + currency formatting --------------------------------
+      var tiers = JSON.parse(
+        document.getElementById('tier-data').textContent || '[]'
+      );
+      var byId = {};
+      tiers.forEach(function (t) {
+        byId[t.id] = t;
+      });
+      var fmt = function (n) {
+        return '$' + n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+      };
+
+      var selected =
+        (tiers.find ? tiers.find(function (t) {
+          return document
+            .querySelector('[data-tier="' + t.id + '"]')
+            .classList.contains('is-selected');
+        }) : tiers[0]) || tiers[0];
+
+      // ---- reading-progress bar -------------------------------------------
+      var progress = document.getElementById('progress');
+      var onScroll = function () {
+        var h = document.documentElement;
+        var max = h.scrollHeight - h.clientHeight;
+        var pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+        progress.style.width = pct + '%';
+      };
+      document.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+
+      // ---- reveal-on-scroll ------------------------------------------------
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var reveals = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach(function (el) {
+          el.classList.add('is-in');
+        });
+      } else {
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -7% 0px', threshold: 0.08 }
+        );
+        reveals.forEach(function (el) {
+          io.observe(el);
+        });
+      }
+
+      // ---- tier selection --------------------------------------------------
+      var cards = Array.prototype.slice.call(
+        document.querySelectorAll('.tier')
+      );
+      var sumTier = document.getElementById('sum-tier');
+      var sumTotal = document.getElementById('sum-total');
+      var sumDeposit = document.getElementById('sum-deposit');
+      var btnTotal = document.getElementById('btn-total');
+
+      function applyTier(id) {
+        selected = byId[id];
+        cards.forEach(function (c) {
+          var on = c.getAttribute('data-tier') === id;
+          c.classList.toggle('is-selected', on);
+          var btn = c.querySelector('[data-select]');
+          btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+          var label = c.querySelector('.tier__select-label');
+          if (label) label.textContent = on ? 'Selected' : 'Select ' + byId[c.getAttribute('data-tier')].name;
+        });
+        sumTier.textContent = selected.name;
+        sumTotal.textContent = fmt(selected.price);
+        sumDeposit.textContent = fmt(Math.round(selected.price * 0.4));
+        btnTotal.textContent = fmt(selected.price);
+      }
+
+      cards.forEach(function (card) {
+        var id = card.getAttribute('data-tier');
+        card.addEventListener('click', function (ev) {
+          // ignore clicks that originate on a link/other control
+          applyTier(id);
+        });
+        card.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Enter' || ev.key === ' ') {
+            ev.preventDefault();
+            applyTier(id);
+          }
+        });
+      });
+
+      // ---- accept / sign form ---------------------------------------------
+      var form = document.getElementById('sign-form');
+      var card = document.getElementById('sign-card');
+      var nameI = document.getElementById('name-input');
+      var emailI = document.getElementById('email-input');
+      var signI = document.getElementById('sign-input');
+      var agreeI = document.getElementById('agree-input');
+      var fName = document.getElementById('f-name');
+      var fEmail = document.getElementById('f-email');
+      var fSign = document.getElementById('f-sign');
+      var acceptedBody = document.getElementById('accepted-body');
+      var acceptedReceipt = document.getElementById('accepted-receipt');
+      var STORAGE_KEY = 'proposal-acme-accepted';
+
+      function validEmail(v) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+      }
+      function norm(v) {
+        return v.trim().toLowerCase().replace(/\s+/g, ' ');
+      }
+
+      function showAccepted(rec) {
+        document.getElementById('accepted-title').textContent =
+          'Thank you, ' + rec.name.split(' ')[0] + ' — accepted!';
+        acceptedBody.textContent =
+          rec.name +
+          ' accepted the ' +
+          rec.tier +
+          ' engagement (' +
+          fmt(rec.price) +
+          ') on ' +
+          rec.date +
+          '. A copy is on its way to ' +
+          rec.email +
+          '.';
+        acceptedReceipt.innerHTML =
+          '<b>Signed</b> ' +
+          rec.signature +
+          '<br><b>Reference</b> ' +
+          rec.ref +
+          '<br><b>Accepted</b> ' +
+          rec.datetime;
+        card.classList.add('is-accepted');
+      }
+
+      form.addEventListener('submit', function (ev) {
+        ev.preventDefault();
+        var ok = true;
+        fName.classList.remove('invalid');
+        fEmail.classList.remove('invalid');
+        fSign.classList.remove('invalid');
+
+        if (!nameI.value.trim()) {
+          fName.classList.add('invalid');
+          ok = false;
+        }
+        if (!validEmail(emailI.value)) {
+          fEmail.classList.add('invalid');
+          ok = false;
+        }
+        if (!signI.value.trim() || norm(signI.value) !== norm(nameI.value)) {
+          fSign.classList.add('invalid');
+          ok = false;
+        }
+        if (!agreeI.checked) {
+          agreeI.focus();
+          ok = false;
+        }
+        if (!ok) return;
+
+        var now = new Date();
+        var rec = {
+          name: nameI.value.trim(),
+          email: emailI.value.trim(),
+          signature: signI.value.trim(),
+          tier: selected.name,
+          price: selected.price,
+          date: now.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          }),
+          datetime: now.toLocaleString('en-US'),
+          ref:
+            'ACME-' +
+            now.getFullYear() +
+            '-' +
+            Math.random().toString(36).slice(2, 7).toUpperCase(),
+        };
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(rec));
+        } catch (e) {}
+        showAccepted(rec);
+      });
+
+      // live-clear the signature error as the user types a match
+      signI.addEventListener('input', function () {
+        if (norm(signI.value) === norm(nameI.value) && signI.value.trim()) {
+          fSign.classList.remove('invalid');
+        }
+      });
+
+      document.getElementById('reset-btn').addEventListener('click', function () {
+        try {
+          localStorage.removeItem(STORAGE_KEY);
+        } catch (e) {}
+        card.classList.remove('is-accepted');
+        form.reset();
+        applyTier(selected.id);
+      });
+
+      // restore a prior acceptance
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var rec = JSON.parse(saved);
+          if (byId[matchTierId(rec.tier)]) applyTier(matchTierId(rec.tier));
+          showAccepted(rec);
+        }
+      } catch (e) {}
+
+      function matchTierId(name) {
+        var found = tiers.filter(function (t) {
+          return t.name === name;
+        })[0];
+        return found ? found.id : selected.id;
+      }
+    })();
+  </script>
+</Layout>

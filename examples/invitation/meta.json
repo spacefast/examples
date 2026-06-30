@@ -1,0 +1,31 @@
+{
+  "name": "Maya & Daniel \u2014 June 2026",
+  "slug": "invitation",
+  "vertical": "Personal & life sites",
+  "tech": "astro",
+  "based_on": "A Sonoma vineyard wedding site in the Zola/The Knot/With Joy mold \u2014 the canonical multi-section guest site with a countdown, Our Story, details, travel, registry, RSVP, and FAQ.",
+  "summary": "An elegant multi-section wedding site with a live date countdown, the couple's story, event logistics, travel and lodging, a photo gallery, registry links, a validating RSVP form with meal choice, and a guest FAQ.",
+  "sections": [
+    "Hero with names, date, venue, and a live countdown",
+    "Our Story (how they met, the proposal, a timeline)",
+    "The Details (ceremony + reception times, address, dress code)",
+    "Travel & Stay (airport, hotel block, directions)",
+    "Photo gallery",
+    "Registry links",
+    "RSVP form (attendance, guest count, meal preference, song request)",
+    "FAQ (parking, kids, plus-ones, weather)"
+  ],
+  "setup_questions": [
+    "What are both your names, your wedding date, and the venue/city?",
+    "Where and when are the ceremony and reception, and is there a dress code?",
+    "Where should guests stay/fly into, and do you have a hotel block?",
+    "Which registry links should we include, and what meal options should the RSVP form offer?"
+  ],
+  "photo_terms": [
+    "engaged couple vineyard golden hour",
+    "outdoor wedding ceremony arch string lights",
+    "wedding table setting florals candles",
+    "couple holding hands walking countryside"
+  ],
+  "live_url": "https://invitation.view.fast/"
+}

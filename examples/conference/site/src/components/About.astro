@@ -1,0 +1,129 @@
+---
+import { about, conf } from '../data/conf';
+---
+
+<section class="section about" id="about">
+  <div class="wrap">
+    <p class="eyebrow">What it is</p>
+    <h2 class="section-title">A whole day, one room, no clashes.</h2>
+    <p class="lede about__lede">{about.lede}</p>
+
+    <div class="about__grid">
+      {
+        about.points.map((p, i) => (
+          <article class="about__card">
+            <span class="about__num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{p.title}</h3>
+            <p>{p.body}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="about__who">
+      <div>
+        <p class="eyebrow">Who it's for</p>
+        <p class="about__who-body">{about.who}</p>
+      </div>
+      <ul class="about__facts">
+        <li><span>Format</span><strong>Single track · {conf.capacity} seats</strong></li>
+        <li><span>When</span><strong>{conf.dateLong} · doors {conf.doorsTime}</strong></li>
+        <li><span>Where</span><strong>{conf.venue}, {conf.city}</strong></li>
+        <li><span>Language</span><strong>English · live captioned</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__lede {
+    margin-bottom: clamp(2.5rem, 6vw, 3.6rem);
+  }
+  .about__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.1rem;
+  }
+  .about__card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+    padding: 1.6rem 1.5rem 1.7rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .about__card:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-3px);
+  }
+  .about__num {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+  }
+  .about__card h3 {
+    font-size: 1.3rem;
+    margin: 0.7rem 0 0.6rem;
+  }
+  .about__card p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+  }
+
+  .about__who {
+    margin-top: clamp(2.5rem, 6vw, 3.5rem);
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(1.5rem, 5vw, 3rem);
+    align-items: center;
+    padding: clamp(1.6rem, 4vw, 2.4rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--grad-soft);
+  }
+  .about__who-body {
+    margin: 0;
+    font-size: 1.08rem;
+    color: var(--ink);
+  }
+  .about__facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.7rem;
+  }
+  .about__facts li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.7rem;
+  }
+  .about__facts li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .about__facts span {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .about__facts strong {
+    text-align: right;
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 760px) {
+    .about__who {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

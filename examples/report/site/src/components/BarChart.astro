@@ -1,0 +1,122 @@
+---
+// Vertical bar chart, server-rendered as inline SVG.
+// Used for the "years of experience" distribution.
+interface Bar {
+  label: string;
+  value: number;
+}
+interface Props {
+  bars: Bar[];
+  unit?: string;
+}
+const { bars, unit = '' } = Astro.props as Props;
+
+const W = 520;
+const H = 300;
+const padL = 14;
+const padR = 14;
+const padTop = 28;
+const padBottom = 52;
+const plotW = W - padL - padR;
+const plotH = H - padTop - padBottom;
+
+const max = Math.max(...bars.map((b) => b.value));
+const total = bars.reduce((s, b) => s + b.value, 0);
+const slot = plotW / bars.length;
+const barW = Math.min(64, slot * 0.6);
+
+const baseY = padTop + plotH;
+---
+
+<svg
+  class="bars"
+  viewBox={`0 0 ${W} ${H}`}
+  role="img"
+  aria-label={`Bar chart. ${bars.map((b) => `${b.label}: ${b.value} ${unit}`).join('. ')}.`}
+  preserveAspectRatio="xMidYMid meet"
+>
+  <!-- baseline -->
+  <line x1={padL} y1={baseY} x2={W - padR} y2={baseY} stroke="var(--line)" stroke-width="1" />
+  {
+    bars.map((b, i) => {
+      const h = Math.max(3, (b.value / max) * plotH);
+      const x = padL + slot * i + (slot - barW) / 2;
+      const y = baseY - h;
+      const pct = Math.round((b.value / total) * 100);
+      return (
+        <g>
+          <rect
+            class="bar"
+            x={x}
+            y={y}
+            width={barW}
+            height={h}
+            rx="5"
+            fill="url(#barGrad)"
+            style={`--d:${i * 70}ms`}
+          />
+          <text
+            x={x + barW / 2}
+            y={y - 9}
+            text-anchor="middle"
+            class="num bar-val"
+          >
+            {b.value.toLocaleString()}
+          </text>
+          <text x={x + barW / 2} y={baseY + 22} text-anchor="middle" class="bar-label">
+            {b.label}
+          </text>
+          <text x={x + barW / 2} y={baseY + 39} text-anchor="middle" class="bar-pct num">
+            {pct}%
+          </text>
+        </g>
+      );
+    })
+  }
+  <defs>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="var(--accent)" />
+      <stop offset="1" stop-color="color-mix(in oklab, var(--accent) 70%, var(--accent-2))" />
+    </linearGradient>
+  </defs>
+</svg>
+
+<style>
+  .bars {
+    width: 100%;
+    height: auto;
+  }
+  .bar {
+    transform-box: fill-box;
+    transform-origin: bottom;
+    animation: grow 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d);
+  }
+  @keyframes grow {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bar {
+      animation: none;
+    }
+  }
+  .bar-val {
+    fill: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .bar-label {
+    fill: var(--ink-2);
+    font-size: 12.5px;
+    font-family: var(--font-mono);
+  }
+  .bar-pct {
+    fill: var(--ink-3);
+    font-size: 11px;
+  }
+</style>

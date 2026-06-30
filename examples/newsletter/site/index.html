@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Offcuts — a weekly trim of design, craft & the slow web</title>
+  <meta name="description" content="Offcuts is a curated weekly newsletter by Mara Ellison: a short, hand-picked trim of design, craft, typography, and the slower corners of the web. Free, every Thursday." />
+  <meta property="og:title" content="Offcuts — a weekly trim of design, craft & the slow web" />
+  <meta property="og:description" content="A short, hand-picked newsletter for people who make things. Free, every Thursday." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="brand" href="index.html" aria-label="Offcuts home">
+        <span class="brand__mark">Offcuts</span>
+        <span class="brand__cut">Issue 87</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="about.html">About</a>
+        <a class="nav__sub" href="subscribe.html">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="wrap">
+        <p class="hero__eyebrow">A curated weekly · est. 2023 · Bristol</p>
+        <h1>A weekly <em>trim</em> of design, craft &amp; the slow web.</h1>
+        <p class="hero__lede">
+          Every Thursday I send one short letter: a handful of things worth your
+          attention, a tool I actually used this week, and a small idea about
+          making. No firehose. No hot takes. Just the good offcuts.
+        </p>
+
+        <div class="subscribe" id="join">
+          <h2>Get the next issue</h2>
+          <p>Free, weekly, and easy to leave. Join 6,400 designers, writers, and tinkerers.</p>
+          <form class="subscribe__form" novalidate data-greet>
+            <div class="subscribe__field">
+              <label for="email-hero">Your email</label>
+              <input id="email-hero" type="email" name="email" required
+                     autocomplete="email" placeholder="you@studio.com" />
+            </div>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+          <p class="subscribe__meta">One email a week. Unsubscribe in one click — no hard feelings.</p>
+          <p class="subscribe__ok">
+            <span class="check" aria-hidden="true">✓</span>
+            <span>You're on the list, <strong class="subscribe__ok-name">friend</strong>. Issue 88 lands Thursday.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--rule">
+      <div class="wrap">
+        <p class="kicker">This week · Issue 87</p>
+        <article class="sample">
+          <img class="sample__img"
+               src="https://picsum.photos/seed/offcuts-newsletter-1/1200/600"
+               alt="A minimal desk workspace flatlay: notebook, mechanical pencil, and a cup of coffee on a pale wooden table" />
+          <div class="sample__body">
+            <p class="mono"><span class="sample__no">No. 87</span> · 25 June 2026</p>
+            <h3>The Long Undo</h3>
+            <p>
+              On version history as a creative tool — why the makers I trust most
+              keep everything, throw away nothing, and treat “revert” as a place to
+              think rather than a panic button. Plus a beautiful little diffing app,
+              two essays on revision, and a font that ages gracefully.
+            </p>
+            <a class="readmore" href="issues/issue-87.html">Read issue 87</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">What lands in your inbox</p>
+        <h2>Three things, then you’re done</h2>
+        <p class="lead" style="margin-bottom:2rem">
+          Offcuts is deliberately small. I’d rather you read all of it than skim a digest.
+          Each issue is the same simple shape:
+        </p>
+        <ul class="issue-list" style="margin-top:0">
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">01</span>
+              <span>
+                <p class="issue-row__title">A short note from the workbench</p>
+                <p class="issue-row__sum">One idea I’ve been chewing on — usually about craft, attention, or how a thing got made.</p>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">02</span>
+              <span>
+                <p class="issue-row__title">Five hand-picked links</p>
+                <p class="issue-row__sum">No algorithms. Things I read, watched, or got lost in — each with a sentence on why it’s worth your time.</p>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">03</span>
+              <span>
+                <p class="issue-row__title">Tool of the week</p>
+                <p class="issue-row__sum">One app, plugin, or object I actually used — and exactly what I used it for.</p>
+              </span>
+            </div>
+          </li>
+        </ul>
+        <p style="margin-top:2rem">
+          <a class="readmore" href="archive.html">Browse the full archive</a>
+        </p>
+      </div>
+    </section>
+
+    <section class="section section--rule">
+      <div class="wrap">
+        <div class="subscribe subscribe--lg">
+          <h2>Start with Thursday’s issue</h2>
+          <p>It takes four minutes to read and one click to leave. That’s the whole pitch.</p>
+          <form class="subscribe__form" novalidate>
+            <div class="subscribe__field">
+              <label for="email-foot">Your email</label>
+              <input id="email-foot" type="email" name="email" required
+                     autocomplete="email" placeholder="you@studio.com" />
+            </div>
+            <button class="btn" type="submit">Subscribe free</button>
+          </form>
+          <p class="subscribe__meta">No spam, ever. Read the latest issue first if you’re unsure.</p>
+          <p class="subscribe__ok">
+            <span class="check" aria-hidden="true">✓</span>
+            <span>Welcome aboard, <strong class="subscribe__ok-name">friend</strong>. Check your inbox to confirm.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__brand">
+        <span class="brand__mark">Offcuts</span>
+        <p>A weekly trim of design, craft, and the slow web. Written by hand in Bristol, every Thursday since 2023.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="index.html">Latest issue</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="about.html">About Mara</a></li>
+          <li><a href="subscribe.html">Subscribe</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://example.com" rel="noopener">RSS feed</a></li>
+          <li><a href="https://example.com" rel="noopener">Mastodon</a></li>
+          <li><a href="https://example.com" rel="noopener">Bluesky</a></li>
+          <li><a href="mailto:mara@offcuts.email">mara@offcuts.email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>© <span data-year>2026</span> Offcuts · Mara Ellison</span>
+      <span>Made with attention, not automation.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="newsletter"></script>
+</body>
+</html>

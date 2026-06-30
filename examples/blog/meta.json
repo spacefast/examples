@@ -1,0 +1,27 @@
+{
+  "name": "Margins",
+  "slug": "blog",
+  "vertical": "Personal & creative",
+  "tech": "astro",
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: a personal writing/dev blog in the mold of an indie engineer's site (think craft-of-software essays plus code posts), built on Astro content collections.",
+  "summary": "A writing and dev blog: a tagged post index, reading-first article pages with Shiki code highlighting, an about page, per-tag archives, light/dark reading themes, and an RSS feed \u2014 all static Astro.",
+  "sections": [
+    "Post index homepage with intro, tag chips, and a reverse-chronological list (date, title, description, tags, reading time)",
+    "Article pages with reading-first typography, byline, code highlighting, and prev/next navigation",
+    "Syntax-highlighted code blocks via Astro's built-in Shiki, plus styled inline code and blockquotes",
+    "Tags: an all-tags index with counts and a page per tag",
+    "About page with author photo, bio, and follow links",
+    "RSS 2.0 feed at /rss.xml, auto-discovered from the document head",
+    "Light/dark reading themes with a header toggle persisted in localStorage"
+  ],
+  "setup_questions": [
+    "What's the blog name and topic/voice?",
+    "Give 3 sample post titles.",
+    "Dev blog (code-heavy) or essays?"
+  ],
+  "photo_terms": [
+    "writing desk coffee laptop",
+    "minimal reading typography"
+  ],
+  "live_url": "https://blog.view.fast/"
+}

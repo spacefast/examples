@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kimchi Taco Co. — Korean-Mexican tacos, rolling all over LA</title>
+  <meta name="description" content="Kimchi Taco Co. is a roaming Korean-Mexican taco truck slinging bulgogi tacos, kimchi fries, and gochujang burritos across Los Angeles. Find where we're parked today." />
+  <meta name="theme-color" content="#e23a26" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Kimchi Taco Co. — where are we today?" />
+  <meta property="og:description" content="Bulgogi tacos, kimchi fries, and a truck that's never in the same place twice. Track us across LA." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://picsum.photos/seed/kimchi-taco-truck-og/1200/630" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌮</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#menu">Skip to menu</a>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Kimchi Taco Co. home">
+        <span class="brand-mark" aria-hidden="true">🌮</span>
+        <span class="brand-words">
+          <span class="brand-name">Kimchi&nbsp;Taco&nbsp;Co.</span>
+          <span class="brand-sub">Korean × Mexican · Los Angeles</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#schedule">This week</a>
+        <a href="#menu">Menu</a>
+        <a href="#catering">Catering</a>
+        <a class="nav-cta" href="https://instagram.com/kimchitacoco" target="_blank" rel="noopener">Follow @kimchitacoco</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="hero-photo" role="img" aria-label="A bright red Kimchi Taco Co. truck parked on an LA street at lunchtime with a line of customers"></div>
+    <div class="hero-overlay"></div>
+    <div class="wrap hero-content">
+      <p class="kicker">Roaming since 2019 · 100% from-scratch · No two stops alike</p>
+      <h1>Bulgogi tacos<br />that chase you<br />across&nbsp;LA.</h1>
+      <p class="hero-tagline">
+        Marinated short rib, double-fermented kimchi, and a flour tortilla
+        griddled on a truck that's never in the same place twice.
+      </p>
+
+      <!-- Live "where are we" banner, filled by JS -->
+      <div class="now-banner" id="now-banner" aria-live="polite">
+        <span class="now-dot" id="now-dot" aria-hidden="true"></span>
+        <span class="now-text" id="now-text">Finding the truck…</span>
+        <a class="now-directions" id="now-directions" href="#schedule" hidden>Get directions →</a>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#schedule">See this week's stops</a>
+        <a class="btn btn-ghost" href="#menu">Peek at the menu</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Schedule ===== -->
+  <section class="schedule section" id="schedule">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Where we're parked</p>
+        <h2>This week's route</h2>
+        <p class="section-lede">
+          We post the next week every Sunday night. Today's stop is highlighted —
+          tap <strong>Directions</strong> to roll straight to us.
+        </p>
+      </div>
+
+      <ol class="route" id="route" aria-label="Weekly truck schedule">
+        <!-- rows injected by app.js -->
+      </ol>
+
+      <p class="route-note">
+        Times shift with traffic and sell-outs — when the short rib's gone, it's
+        gone. Follow <a href="https://instagram.com/kimchitacoco" target="_blank" rel="noopener">@kimchitacoco</a>
+        for day-of updates and surprise dinner pop-ups.
+      </p>
+    </div>
+  </section>
+
+  <!-- ===== Menu ===== -->
+  <section class="menu section" id="menu">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The goods</p>
+        <h2>Menu</h2>
+        <p class="section-lede">Cash &amp; card. Everything's made to order on the flat-top. Veg options marked 🌱.</p>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-card">
+          <h3>Tacos</h3>
+          <p class="menu-card-sub">Two corn tortillas, kimchi slaw, cilantro-onion, sesame.</p>
+          <ul class="menu-list">
+            <li><span class="m-name">Bulgogi Short Rib</span><span class="m-dots"></span><span class="m-price">$4.50</span><span class="m-desc">Soy-marinated rib eye, scallion, toasted sesame.</span></li>
+            <li><span class="m-name">Gochujang Pork</span><span class="m-dots"></span><span class="m-price">$4.25</span><span class="m-desc">Spicy braised pork belly, pickled daikon.</span></li>
+            <li><span class="m-name">Kimchi Fried Chicken</span><span class="m-dots"></span><span class="m-price">$4.75</span><span class="m-desc">Double-fried thigh, gochugaru honey glaze.</span></li>
+            <li><span class="m-name">Sesame Tofu 🌱</span><span class="m-dots"></span><span class="m-price">$4.00</span><span class="m-desc">Crisp tofu, ssamjang aioli, herb salad.</span></li>
+          </ul>
+        </div>
+
+        <div class="menu-card">
+          <h3>Burritos &amp; Bowls</h3>
+          <p class="menu-card-sub">Choose any taco filling. Bowl = no tortilla, extra rice.</p>
+          <ul class="menu-list">
+            <li><span class="m-name">K-Town Burrito</span><span class="m-dots"></span><span class="m-price">$11.50</span><span class="m-desc">Kimchi fried rice, cheese, fried egg, your filling.</span></li>
+            <li><span class="m-name">Bibim Bowl</span><span class="m-dots"></span><span class="m-price">$12.00</span><span class="m-desc">Rice, banchan, gochujang, sunny egg, sesame.</span></li>
+            <li><span class="m-name">Quesadilla Coreana</span><span class="m-dots"></span><span class="m-price">$9.50</span><span class="m-desc">Oaxaca + jack, bulgogi, scallion crema.</span></li>
+          </ul>
+        </div>
+
+        <div class="menu-card">
+          <h3>Sides</h3>
+          <p class="menu-card-sub">The stuff people actually drive across town for.</p>
+          <ul class="menu-list">
+            <li><span class="m-name">Kimchi Fries</span><span class="m-dots"></span><span class="m-price">$8.50</span><span class="m-desc">Fries, melted cheese, bulgogi, kimchi, crema, sesame.</span></li>
+            <li><span class="m-name">Corn Ribs 🌱</span><span class="m-dots"></span><span class="m-price">$6.00</span><span class="m-desc">Charred corn, gochu-lime butter, cotija.</span></li>
+            <li><span class="m-name">Mandu Dumplings</span><span class="m-dots"></span><span class="m-price">$7.00</span><span class="m-desc">Pan-fried pork &amp; chive, six pieces, soy-vinegar.</span></li>
+          </ul>
+        </div>
+
+        <div class="menu-card">
+          <h3>Drinks</h3>
+          <p class="menu-card-sub">Cold, fizzy, and built to cut the spice.</p>
+          <ul class="menu-list">
+            <li><span class="m-name">Yuzu Soda 🌱</span><span class="m-dots"></span><span class="m-price">$3.50</span><span class="m-desc">House-made, just-tart, served over ice.</span></li>
+            <li><span class="m-name">Horchata Latte 🌱</span><span class="m-dots"></span><span class="m-price">$4.50</span><span class="m-desc">Cinnamon rice milk + a shot of cold brew.</span></li>
+            <li><span class="m-name">Banana Milk 🌱</span><span class="m-dots"></span><span class="m-price">$3.00</span><span class="m-desc">The childhood Korean classic, ice cold.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Catering ===== -->
+  <section class="catering section" id="catering">
+    <div class="wrap catering-grid">
+      <div class="catering-copy">
+        <p class="eyebrow eyebrow-light">Bring the truck to you</p>
+        <h2>Catering &amp; private events</h2>
+        <p>
+          Office launch, backyard wedding, film set wrap, or a 200-person block
+          party — we roll up, fire the flat-top, and feed everyone fresh off the
+          griddle. Packages start at <strong>$18/head</strong> with a 30-guest
+          minimum, fully customizable (yes, we'll do an all-veg spread).
+        </p>
+        <ul class="catering-perks">
+          <li>✅ On-site cooking, real plates of food, zero cleanup for you</li>
+          <li>✅ Custom menu &amp; dietary options (veg, GF, halal-friendly)</li>
+          <li>✅ Books across LA &amp; OC — we travel for the bigger ones</li>
+        </ul>
+        <p class="catering-fallback">
+          Prefer email? <a href="mailto:catering@kimchitacoco.example?subject=Catering%20inquiry">catering@kimchitacoco.example</a>
+          · <a href="tel:+13235550147">(323) 555-0147</a>
+        </p>
+      </div>
+
+      <form class="catering-form" id="catering-form" novalidate>
+        <h3>Request a quote</h3>
+        <div class="field">
+          <label for="cf-name">Your name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="cf-date">Event date</label>
+            <input id="cf-date" name="date" type="date" />
+          </div>
+          <div class="field">
+            <label for="cf-guests">Guests</label>
+            <input id="cf-guests" name="guests" type="number" min="30" step="5" placeholder="30+" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="cf-msg">Tell us about it</label>
+          <textarea id="cf-msg" name="message" rows="3" placeholder="Backyard 40th, mostly veg eaters, sunset in Highland Park…"></textarea>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Send inquiry</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Gallery ===== -->
+  <section class="gallery section" id="gallery" aria-label="Photos from the truck">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">From the flat-top</p>
+        <h2>Lately on the truck</h2>
+        <p class="section-lede">Tag us <a href="https://instagram.com/kimchitacoco" target="_blank" rel="noopener">@kimchitacoco</a> and you might end up here.</p>
+      </div>
+      <div class="gallery-strip">
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-1/640/640" loading="lazy" width="640" height="640" alt="Bulgogi short rib tacos topped with kimchi slaw and sesame on corn tortillas" /></figure>
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-2/640/640" loading="lazy" width="640" height="640" alt="A loaded tray of kimchi fries with melted cheese and crema" /></figure>
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-3/640/640" loading="lazy" width="640" height="640" alt="The red taco truck's service window with a line of customers ordering" /></figure>
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-4/640/640" loading="lazy" width="640" height="640" alt="An unwrapped K-Town burrito cut in half showing kimchi fried rice and egg" /></figure>
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-5/640/640" loading="lazy" width="640" height="640" alt="Charred corn ribs dusted with cotija and chili lime" /></figure>
+        <figure><img src="https://picsum.photos/seed/kimchi-taco-truck-6/640/640" loading="lazy" width="640" height="640" alt="The taco truck parked at golden hour with string lights" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer" id="contact">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">🌮</span>
+        <p class="footer-name">Kimchi Taco Co.</p>
+        <p class="footer-tag">Korean-Mexican, made to order, somewhere in LA right now.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Find us</h4>
+        <p><a href="#schedule">This week's route</a></p>
+        <p><a href="#menu">Full menu</a></p>
+        <p><a href="#catering">Catering &amp; events</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Say hi</h4>
+        <p><a href="mailto:hello@kimchitacoco.example">hello@kimchitacoco.example</a></p>
+        <p><a href="tel:+13235550147">(323) 555-0147</a></p>
+        <p><a href="https://instagram.com/kimchitacoco" target="_blank" rel="noopener">Instagram</a> · <a href="https://tiktok.com/@kimchitacoco" target="_blank" rel="noopener">TikTok</a></p>
+      </div>
+    </div>
+    <p class="footer-legal">© <span id="year">2026</span> Kimchi Taco Co. · Built on the move. Hungry? Just follow the smell.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="foodtruck"></script>
+</body>
+</html>

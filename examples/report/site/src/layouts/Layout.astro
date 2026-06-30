@@ -1,0 +1,99 @@
+---
+import '../styles/global.css';
+import { meta } from '../data/survey';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${meta.title} ${meta.year}`,
+  description = meta.tagline,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0c0d14" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="https://picsum.photos/seed/state-of-indie-web-2025-og/1200/630"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Shared, dependency-free behaviour for the whole report:
+      //   1. sticky table-of-contents highlight as you scroll past sections
+      //   2. reveal-on-scroll for panels and chart cards
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // 1 — scroll-spy for the floating table of contents
+      const tocLinks = Array.from(
+        document.querySelectorAll<HTMLAnchorElement>('[data-toc] a')
+      );
+      const sections = tocLinks
+        .map((a) => document.querySelector(a.getAttribute('href') || ''))
+        .filter(Boolean) as Element[];
+
+      if (sections.length && 'IntersectionObserver' in window) {
+        const spy = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (!e.isIntersecting) return;
+              const id = e.target.getAttribute('id');
+              tocLinks.forEach((a) =>
+                a.setAttribute(
+                  'aria-current',
+                  a.getAttribute('href') === `#${id}` ? 'true' : 'false'
+                )
+              );
+            });
+          },
+          { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+        );
+        sections.forEach((s) => spy.observe(s));
+      }
+
+      // 2 — reveal-on-scroll
+      const reveals = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.06 }
+        );
+        reveals.forEach((el) => io.observe(el));
+      }
+    </script>
+
+    <script src="https://spacefast.com/badge.js" data-example="report"></script>
+  </body>
+</html>

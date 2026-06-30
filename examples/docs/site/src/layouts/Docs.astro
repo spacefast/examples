@@ -1,0 +1,126 @@
+---
+import Base from './Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import Footer from '../components/Footer.astro';
+import { nav } from '../data/site';
+
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  title: string;
+  description?: string;
+  headings?: Heading[];
+}
+const { title, description, headings = [] } = Astro.props;
+
+const path = Astro.url.pathname;
+const norm = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+const flat = nav.flatMap((g) => g.items);
+const idx = flat.findIndex((i) => norm(i.href) === norm(path));
+const prev = idx > 0 ? flat[idx - 1] : null;
+const next = idx >= 0 && idx < flat.length - 1 ? flat[idx + 1] : null;
+---
+
+<Base title={title} description={description}>
+  <div class="docs">
+    <Sidebar path={path} />
+
+    <main class="content" id="main">
+      <article class="prose">
+        <slot />
+      </article>
+
+      {
+        (prev || next) && (
+          <nav class="pager" aria-label="Pagination">
+            {prev ? (
+              <a class="pager__card pager__card--prev" href={prev.href}>
+                <span class="pager__dir">← Previous</span>
+                <span class="pager__name">{prev.title}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <a class="pager__card pager__card--next" href={next.href}>
+                <span class="pager__dir">Next →</span>
+                <span class="pager__name">{next.title}</span>
+              </a>
+            ) : (
+              <span />
+            )}
+          </nav>
+        )
+      }
+    </main>
+
+    <nav class="toc" aria-label="On this page">
+      {
+        headings.length > 0 && (
+          <>
+            <p class="toc__title">On this page</p>
+            {headings
+              .filter((h) => h.depth === 2 || h.depth === 3)
+              .map((h) => (
+                <a href={`#${h.slug}`} data-depth={h.depth} data-toc-link>
+                  {h.text}
+                </a>
+              ))}
+          </>
+        )
+      }
+    </nav>
+  </div>
+
+  <Footer />
+</Base>
+
+<script>
+  // Add a copy button + permalink anchor to every heading and code block.
+  document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach((h) => {
+    const a = document.createElement('a');
+    a.className = 'heading-anchor';
+    a.href = '#' + h.id;
+    a.textContent = '#';
+    a.setAttribute('aria-label', 'Link to this section');
+    h.appendChild(a);
+  });
+
+  // Code-block copy buttons live in the .codeblock__bar (rendered by CodeBlock).
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const wrap = btn.closest('.codeblock');
+      const code = wrap?.querySelector('pre')?.innerText || '';
+      navigator.clipboard?.writeText(code).then(() => {
+        const prev = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => (btn.textContent = prev), 1400);
+      });
+    });
+  });
+
+  // Scroll-spy for the "On this page" table of contents.
+  const tocLinks = Array.from(document.querySelectorAll('[data-toc-link]'));
+  if (tocLinks.length) {
+    const map = new Map();
+    tocLinks.forEach((l) => {
+      const id = l.getAttribute('href')?.slice(1);
+      if (id) map.set(id, l);
+    });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            tocLinks.forEach((l) => l.removeAttribute('data-active'));
+            map.get(e.target.id)?.setAttribute('data-active', '');
+          }
+        });
+      },
+      { rootMargin: '-72px 0px -70% 0px' }
+    );
+    document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach((h) => observer.observe(h));
+  }
+</script>

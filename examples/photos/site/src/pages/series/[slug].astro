@@ -1,0 +1,157 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import { series } from '../../data/portfolio';
+
+export function getStaticPaths() {
+  return series.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+
+const { s } = Astro.props;
+const gs = s.grayscale ? '?grayscale' : '';
+// Two sizes: a column-friendly thumb and a large frame for the lightbox.
+const thumb = (seed: string, tall?: boolean) =>
+  `https://picsum.photos/seed/${seed}/800/${tall ? 1100 : 600}${gs}`;
+const full = (seed: string) => `https://picsum.photos/seed/${seed}/1600/1100${gs}`;
+---
+
+<Layout
+  title={`${s.title} — ${s.place} · Eliot Vance`}
+  description={`${s.title}: ${s.blurb}`}
+>
+  <Nav base="/" />
+  <main>
+    <section class="wrap series-head">
+      <a class="series-back" href="/#work">← All work</a>
+      <h1 class="series-title">{s.title}</h1>
+      <div class="series-sub">
+        <span>{s.place}</span>
+        <span>{s.year}</span>
+        <span>{s.photos.length} frames</span>
+      </div>
+      <p class="series-blurb">{s.blurb}</p>
+    </section>
+
+    <div class="wrap masonry" id="masonry">
+      {
+        s.photos.map((p, i) => (
+          <figure class="masonry__item">
+            <button
+              class="masonry__btn"
+              type="button"
+              data-lightbox
+              data-index={i}
+              data-full={full(p.seed)}
+              data-caption={p.caption ?? p.alt}
+              aria-label={`Open photo ${i + 1} of ${s.photos.length}: ${p.alt}`}
+            >
+              <img
+                src={thumb(p.seed, p.shape === 'tall')}
+                alt={p.alt}
+                loading={i < 3 ? 'eager' : 'lazy'}
+                width="800"
+                height={p.shape === 'tall' ? 1100 : 600}
+              />
+            </button>
+          </figure>
+        ))
+      }
+    </div>
+  </main>
+
+  <!-- Full-screen lightbox: click a frame, then ← → to move, Esc to close. -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+    <div class="lightbox__stage">
+      <button class="lightbox__close" id="lb-close" type="button" aria-label="Close (Esc)">✕</button>
+      <button class="lightbox__prev" id="lb-prev" type="button" aria-label="Previous (left arrow)">‹</button>
+      <button class="lightbox__next" id="lb-next" type="button" aria-label="Next (right arrow)">›</button>
+      <img class="lightbox__img" id="lb-img" alt="" />
+      <div class="lightbox__caption" id="lb-caption"></div>
+      <div class="lightbox__count" id="lb-count"></div>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<script>
+  // Keyboard- and click-navigable lightbox, built from the data-* on each frame.
+  type Item = { full: string; caption: string; alt: string };
+
+  const triggers = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-lightbox]')
+  );
+  const items: Item[] = triggers.map((t) => ({
+    full: t.dataset.full || '',
+    caption: t.dataset.caption || '',
+    alt: t.querySelector('img')?.alt || '',
+  }));
+
+  const lb = document.getElementById('lightbox')!;
+  const lbImg = document.getElementById('lb-img') as HTMLImageElement;
+  const lbCaption = document.getElementById('lb-caption')!;
+  const lbCount = document.getElementById('lb-count')!;
+  const btnClose = document.getElementById('lb-close')!;
+  const btnPrev = document.getElementById('lb-prev')!;
+  const btnNext = document.getElementById('lb-next')!;
+
+  let current = 0;
+  let lastFocused: HTMLElement | null = null;
+
+  function show(i: number) {
+    current = (i + items.length) % items.length;
+    const it = items[current];
+    lbImg.src = it.full;
+    lbImg.alt = it.alt;
+    lbCaption.textContent = it.caption;
+    lbCount.textContent = `${current + 1} / ${items.length}`;
+    // Warm the neighbours so paging feels instant.
+    [current + 1, current - 1].forEach((n) => {
+      const it2 = items[(n + items.length) % items.length];
+      const pre = new Image();
+      pre.src = it2.full;
+    });
+  }
+
+  function open(i: number) {
+    lastFocused = document.activeElement as HTMLElement;
+    show(i);
+    lb.hidden = false;
+    lb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    btnClose.focus();
+  }
+
+  function close() {
+    lb.classList.remove('is-open');
+    lb.hidden = true;
+    document.body.style.overflow = '';
+    lastFocused?.focus();
+  }
+
+  triggers.forEach((t, i) => t.addEventListener('click', () => open(i)));
+  btnClose.addEventListener('click', close);
+  btnPrev.addEventListener('click', () => show(current - 1));
+  btnNext.addEventListener('click', () => show(current + 1));
+
+  // Click the dark backdrop (not the image/buttons) to dismiss.
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb) close();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (lb.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowRight') show(current + 1);
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'Tab') {
+      // Trap focus inside the dialog.
+      const focusables = [btnClose, btnPrev, btnNext];
+      const idx = focusables.indexOf(document.activeElement as HTMLElement);
+      e.preventDefault();
+      const next = e.shiftKey ? idx - 1 : idx + 1;
+      focusables[(next + focusables.length) % focusables.length].focus();
+    }
+  });
+</script>

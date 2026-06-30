@@ -1,0 +1,26 @@
+{
+  "name": "Mia's 30th",
+  "slug": "party",
+  "vertical": "Personal & creative",
+  "tech": "astro",
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: a themed birthday-party invite with countdown, map, dress code, and a validating RSVP.",
+  "summary": "A themed party invite: hero with date/time and a live countdown, map + directions, dress code, and a validating RSVP form with guest count, +1, dietary needs, and a 'can't make it' path.",
+  "sections": [
+    "Hero: occasion + name + date/time with a live countdown and confetti",
+    "Details: dress code front and centre, a card grid (food, drinks, gifts, weather), and a host's note",
+    "Run-of-show timeline of the night",
+    "Map + written directions (transit, parking/rideshare, finding the door)",
+    "RSVP form (accept/decline, guests, conditional +1, dietary, song request)",
+    "Can't-make-it path with a birthday note to the host"
+  ],
+  "setup_questions": [
+    "What's the occasion and who's hosting?",
+    "What's the date, time, and venue?",
+    "What RSVP fields do you need?"
+  ],
+  "photo_terms": [
+    "festive party balloons confetti",
+    "rooftop celebration string lights"
+  ],
+  "live_url": "https://party.view.fast/"
+}

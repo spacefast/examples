@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Plateful — Maya's daily food diary. Track calories, protein, carbs and fat against your goals, right in the browser." />
+  <meta name="theme-color" content="#0f1115" />
+  <title>Plateful — Maya's daily macros</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='44' fill='none' stroke='%23ff7a59' stroke-width='10'/%3E%3Ccircle cx='50' cy='50' r='24' fill='%23a3e635'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#today">Skip to today's diary</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="28" height="28"><circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="9"/><circle cx="50" cy="50" r="22" fill="#a3e635"/></svg>
+      </span>
+      <div class="brand__text">
+        <strong>Plateful</strong>
+        <span class="brand__sub">Maya's food diary</span>
+      </div>
+    </div>
+
+    <div class="datenav" role="group" aria-label="Choose date">
+      <button class="datenav__arrow" id="prevDay" type="button" aria-label="Previous day">‹</button>
+      <button class="datenav__label" id="dateLabel" type="button" aria-haspopup="true">Today</button>
+      <button class="datenav__arrow" id="nextDay" type="button" aria-label="Next day">›</button>
+      <input type="date" id="datePicker" class="datenav__picker" aria-label="Pick a date" />
+    </div>
+
+    <button class="ghost-btn" id="openGoals" type="button">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span>Goals</span>
+    </button>
+  </header>
+
+  <main>
+    <!-- TODAY DASHBOARD -->
+    <section id="today" class="dashboard" aria-labelledby="dash-heading">
+      <h1 id="dash-heading" class="visually-hidden">Today's summary</h1>
+
+      <div class="dash-card dash-card--ring">
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 200 200" role="img" aria-labelledby="ringTitle">
+            <title id="ringTitle">Calories consumed versus goal</title>
+            <circle class="ring__track" cx="100" cy="100" r="86" />
+            <circle class="ring__fill" id="calRing" cx="100" cy="100" r="86" transform="rotate(-90 100 100)" />
+          </svg>
+          <div class="ring-center">
+            <span class="ring-center__num" id="calRemaining">0</span>
+            <span class="ring-center__label" id="calRemLabel">remaining</span>
+          </div>
+        </div>
+        <div class="ring-legend">
+          <div><span id="calEaten">0</span><small>Eaten</small></div>
+          <div class="ring-legend__plus">+</div>
+          <div><span id="calBurned">0</span><small>Exercise</small></div>
+          <div class="ring-legend__eq">=</div>
+          <div><span id="calGoalLegend">0</span><small>Goal</small></div>
+        </div>
+      </div>
+
+      <div class="dash-card dash-card--macros">
+        <h2 class="dash-card__title">Macros</h2>
+        <div class="macro" data-macro="protein">
+          <div class="macro__head"><span class="macro__name">Protein</span><span class="macro__val" id="proteinVal">0 / 0 g</span></div>
+          <div class="macro__bar"><span class="macro__fill" id="proteinBar"></span></div>
+        </div>
+        <div class="macro" data-macro="carbs">
+          <div class="macro__head"><span class="macro__name">Carbs</span><span class="macro__val" id="carbsVal">0 / 0 g</span></div>
+          <div class="macro__bar"><span class="macro__fill" id="carbsBar"></span></div>
+        </div>
+        <div class="macro" data-macro="fat">
+          <div class="macro__head"><span class="macro__name">Fat</span><span class="macro__val" id="fatVal">0 / 0 g</span></div>
+          <div class="macro__bar"><span class="macro__fill" id="fatBar"></span></div>
+        </div>
+        <p class="macro__note" id="macroNote">High-protein plan · 160g protein target</p>
+      </div>
+    </section>
+
+    <div class="layout">
+      <!-- MEAL DIARY -->
+      <section class="diary" aria-labelledby="diary-heading">
+        <h2 id="diary-heading" class="section-title">Diary</h2>
+        <div id="meals"></div>
+      </section>
+
+      <!-- SIDE: FAVORITES + WEEK -->
+      <aside class="side">
+        <section class="panel" aria-labelledby="fav-heading">
+          <h2 id="fav-heading" class="section-title">Quick add</h2>
+          <p class="panel__hint">Maya's go-to foods — one tap to log.</p>
+          <ul class="fav-list" id="favList"></ul>
+        </section>
+
+        <section class="panel" aria-labelledby="week-heading">
+          <div class="panel__headrow">
+            <h2 id="week-heading" class="section-title">This week</h2>
+            <span class="panel__pill" id="weekAvgPill">avg —</span>
+          </div>
+          <div class="week" id="weekChart"></div>
+          <dl class="week-stats" id="weekStats"></dl>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <button class="fab" id="openAdd" type="button" aria-label="Add food">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+  </button>
+
+  <!-- ADD FOOD DIALOG -->
+  <dialog class="sheet" id="addSheet" aria-labelledby="addTitle">
+    <form method="dialog" id="addForm" class="sheet__form" novalidate>
+      <header class="sheet__head">
+        <h2 id="addTitle">Add food</h2>
+        <button class="icon-btn" value="cancel" type="submit" aria-label="Close">✕</button>
+      </header>
+
+      <div class="field">
+        <label for="fName">Food</label>
+        <input id="fName" name="name" type="text" autocomplete="off" placeholder="e.g. Greek yogurt bowl" required list="favOptions" />
+        <datalist id="favOptions"></datalist>
+      </div>
+
+      <div class="field field--meal">
+        <span class="field__label">Meal</span>
+        <div class="seg" role="radiogroup" aria-label="Meal">
+          <label><input type="radio" name="meal" value="Breakfast" checked /><span>Breakfast</span></label>
+          <label><input type="radio" name="meal" value="Lunch" /><span>Lunch</span></label>
+          <label><input type="radio" name="meal" value="Dinner" /><span>Dinner</span></label>
+          <label><input type="radio" name="meal" value="Snacks" /><span>Snacks</span></label>
+        </div>
+      </div>
+
+      <div class="grid4">
+        <div class="field"><label for="fCal">Calories</label><input id="fCal" name="calories" type="number" min="0" step="1" inputmode="numeric" placeholder="0" required /></div>
+        <div class="field"><label for="fPro">Protein g</label><input id="fPro" name="protein" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /></div>
+        <div class="field"><label for="fCarb">Carbs g</label><input id="fCarb" name="carbs" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /></div>
+        <div class="field"><label for="fFat">Fat g</label><input id="fFat" name="fat" type="number" min="0" step="0.1" inputmode="decimal" placeholder="0" /></div>
+      </div>
+
+      <div class="field field--serving">
+        <label for="fServ">Servings <output id="servOut">1×</output></label>
+        <input id="fServ" name="servings" type="range" min="0.25" max="4" step="0.25" value="1" />
+      </div>
+
+      <label class="check"><input type="checkbox" name="saveFav" id="fSaveFav" /> Save to quick-add favorites</label>
+
+      <footer class="sheet__foot">
+        <button class="primary-btn" type="submit" value="add" id="addSubmit">Add to diary</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- GOALS DIALOG -->
+  <dialog class="sheet" id="goalsSheet" aria-labelledby="goalsTitle">
+    <form method="dialog" id="goalsForm" class="sheet__form">
+      <header class="sheet__head">
+        <h2 id="goalsTitle">Goals &amp; settings</h2>
+        <button class="icon-btn" value="cancel" type="submit" aria-label="Close">✕</button>
+      </header>
+
+      <div class="field"><label for="gName">Diary name</label><input id="gName" name="owner" type="text" placeholder="Maya" /></div>
+
+      <div class="field"><label for="gStyle">Dietary style</label>
+        <select id="gStyle" name="style">
+          <option>High-protein</option>
+          <option>Balanced</option>
+          <option>Keto / low-carb</option>
+          <option>Vegetarian</option>
+          <option>Mediterranean</option>
+        </select>
+      </div>
+
+      <div class="grid4">
+        <div class="field"><label for="gCal">Calorie goal</label><input id="gCal" name="calGoal" type="number" min="0" step="10" /></div>
+        <div class="field"><label for="gPro">Protein g</label><input id="gPro" name="proGoal" type="number" min="0" step="1" /></div>
+        <div class="field"><label for="gCarb">Carbs g</label><input id="gCarb" name="carbGoal" type="number" min="0" step="1" /></div>
+        <div class="field"><label for="gFat">Fat g</label><input id="gFat" name="fatGoal" type="number" min="0" step="1" /></div>
+      </div>
+      <p class="goals__macrocheck" id="macroCheck"></p>
+
+      <footer class="sheet__foot sheet__foot--split">
+        <button class="ghost-btn ghost-btn--danger" type="button" id="resetDay">Clear this day</button>
+        <button class="primary-btn" type="submit" value="save">Save goals</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <footer class="sitefoot">
+    <p>Plateful keeps everything in your browser — no account, no cloud. Clearing site data resets your diary.</p>
+    <p class="sitefoot__demo">Demo diary for <strong>Maya Okafor</strong> · built as a Spacefast example.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="calories"></script>
+</body>
+</html>

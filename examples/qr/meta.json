@@ -1,0 +1,28 @@
+{
+  "name": "Tap-through",
+  "slug": "qr",
+  "vertical": "Data, internal & startup",
+  "tech": "html",
+  "based_on": "The mobile landing a printed QR code points to \u2014 the 'linktree-for-a-product' / 'scan-to-reorder' pattern used by coffee bags, restaurant table tents, packaging inserts, and event posters. Modeled here as a Portland coffee roaster's reorder page.",
+  "summary": "A mobile-first landing that a printed QR code points to: a brand header, one featured product with a tap-to-copy promo code, a single primary call-to-action, a list of secondary links, and a QR code the page renders itself so visitors can re-share the link.",
+  "sections": [
+    "Brand header with logo mark and city locator",
+    "'You scanned this' intro with scan-to framing and headline",
+    "One product / promo card with photo, tasting notes, price, and a tap-to-copy discount code",
+    "Single primary call-to-action button",
+    "Secondary links list (brew guide, story, cafe, social, wholesale)",
+    "Self-rendered QR code pointing at the page's own URL, with a copy-link button",
+    "Footer with address, hours, and contact"
+  ],
+  "setup_questions": [
+    "What does the QR live on (packaging, poster, table tent, sticker) and what's the 'scan to\u2026' framing?",
+    "What's the single action you most want the visitor to take?",
+    "What's the brand name, the one product or promo to feature, and the accent color?",
+    "Optional: 3\u20135 secondary links plus your address and contact."
+  ],
+  "photo_terms": [
+    "product packaging close up",
+    "restaurant table tent qr"
+  ],
+  "live_url": "https://qr.view.fast/"
+}

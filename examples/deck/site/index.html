@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>Northwind — Seed Deck</title>
+  <meta name="description" content="Northwind turns your data warehouse into governed internal tools the people who use them can build, and operators can trust. Seed round, 2026." />
+
+  <!-- reveal.js core (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <!-- code highlighting (CDN) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- our theme -->
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ───────────────────────── 1 · TITLE ───────────────────────── -->
+      <section data-background-color="#070A12" class="slide-title">
+        <div class="title-bg" aria-hidden="true">
+          <img src="https://picsum.photos/seed/northwind-board/1920/1080" alt="" />
+        </div>
+        <div class="title-inner">
+          <div class="brandrow">
+            <svg class="logomark" viewBox="0 0 48 48" width="44" height="44" aria-hidden="true">
+              <circle cx="24" cy="24" r="22" fill="none" stroke="url(#g)" stroke-width="2"/>
+              <path d="M24 6 L30 26 L24 22 L18 26 Z" fill="url(#g)"/>
+              <path d="M24 42 L18 22 L24 26 L30 22 Z" fill="#1b2336"/>
+              <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="48" y2="48">
+                  <stop offset="0" stop-color="#7C9BFF"/>
+                  <stop offset="1" stop-color="#4FD8C4"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="wordmark">Northwind</span>
+          </div>
+          <h1 class="display">The control plane for<br/><span class="grad">internal operations</span></h1>
+          <p class="lede">Turn your data warehouse into governed internal tools — built by the people who use them, trusted by the people who run on them.</p>
+          <div class="meta-row">
+            <span class="pill">Seed round · 2026</span>
+            <span class="dot">·</span>
+            <span>Confidential</span>
+          </div>
+        </div>
+        <div class="kbd-hint">Use <kbd>→</kbd> to advance · press <kbd>?</kbd> for help</div>
+        <aside class="notes">
+          Hi, I'm Priya. Northwind is the control plane for internal operations.
+          Keep this open ~20 seconds — let them read the line. The whole pitch is: every
+          company runs on internal tools nobody trusts. We fix that. We're raising a $4M seed.
+        </aside>
+      </section>
+
+      <!-- ───────────────────────── 2 · PROBLEM ───────────────────────── -->
+      <section data-background-color="#0A0E17" class="slide-pad">
+        <span class="eyebrow">The problem</span>
+        <h2>Companies run on internal tools that nobody trusts.</h2>
+        <p class="sub">Operations lives in spreadsheets, Retool one-offs, and Slack threads. Every change is a data-team ticket — and the backlog is measured in weeks.</p>
+
+        <div class="stat-grid three">
+          <div class="stat-card">
+            <div class="stat-num">40%</div>
+            <div class="stat-label">of data-team time spent on internal CRUD apps instead of analysis<sup>1</sup></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">3.2 wks</div>
+            <div class="stat-label">median wait for an ops tool change to ship through engineering</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">11</div>
+            <div class="stat-label">disconnected internal tools at the average 200-person company</div>
+          </div>
+        </div>
+
+        <div class="quote">
+          <p>"Half my analysts are now a help desk for the ops team. We can't hire our way out of it."</p>
+          <cite>— Head of Data, Series-B logistics company</cite>
+        </div>
+
+        <aside class="notes">
+          Land the pain on the data leader, not the IC. The expensive person — your senior
+          analyst — becomes a ticket queue for operators who just need to change a record.
+          The 40% stat is from our 30 discovery calls; cite it as ours if asked.
+        </aside>
+      </section>
+
+      <!-- ───────────────────────── 3 · SOLUTION ───────────────────────── -->
+      <section>
+        <section data-background-color="#0A0E17" class="slide-pad">
+          <span class="eyebrow">The solution</span>
+          <h2>Northwind makes the warehouse <span class="grad">operable</span>.</h2>
+          <p class="sub">Connect Snowflake, BigQuery, or Postgres. Operators build the tools they need on live, governed data — no engineering ticket, no data copy, no shadow database.</p>
+
+          <div class="pillars">
+            <div class="pillar">
+              <div class="pillar-ico" data-c="a">⌘</div>
+              <h3>Build</h3>
+              <p>Drag-and-drop apps over live tables. Forms, queues, approvals, dashboards — writing back to the warehouse safely.</p>
+            </div>
+            <div class="pillar">
+              <div class="pillar-ico" data-c="b">⛨</div>
+              <h3>Govern</h3>
+              <p>Row- and column-level policies, SSO, and a full audit log. Who changed what, when, and why — by default.</p>
+            </div>
+            <div class="pillar">
+              <div class="pillar-ico" data-c="c">↺</div>
+              <h3>Trust</h3>
+              <p>Every app and every write is versioned. Preview changes, ship behind approval, roll back in one click.</p>
+            </div>
+          </div>
+          <p class="downcue">↓ how a write actually flows</p>
+          <aside class="notes">
+            The one sentence that matters: we make the warehouse operable. Everyone has read
+            access to the warehouse already — we add safe, governed write. Tee up the vertical
+            slide below by pressing down: show the policy-enforced write path.
+          </aside>
+        </section>
+
+        <section data-background-color="#0A0E17" class="slide-pad">
+          <span class="eyebrow">How a write flows</span>
+          <h2>Governed by construction.</h2>
+          <p class="sub">An operator action is a policy-checked, audited, reversible transaction — not a raw SQL update.</p>
+          <pre class="flow"><code class="language-yaml"># northwind policy — refund_queue.app
+write refunds:
+  table:    finance.refunds
+  who:      role in [ops_lead, finance]      # SSO group
+  guard:    amount &lt;= 500 or approval(finance_manager)
+  audit:    actor, before, after, reason     # always on
+  rollback: enabled                          # one click, any version</code></pre>
+          <div class="flowline">
+            <span class="node">Operator</span><span class="arr">→</span>
+            <span class="node">Policy check</span><span class="arr">→</span>
+            <span class="node">Approval</span><span class="arr">→</span>
+            <span class="node accent">Warehouse write</span><span class="arr">→</span>
+            <span class="node">Audit + version</span>
+          </div>
+          <aside class="notes">
+            This is the technical credibility slide. Engineers in the room relax here:
+            it's not magic, it's a typed policy over a transaction. Mention SOC 2 Type II
+            in progress if a security-minded partner asks.
+          </aside>
+        </section>
+      </section>
+
+      <!-- ───────────────────────── 4 · MARKET ───────────────────────── -->
+      <section data-background-color="#0A0E17" class="slide-pad">
+        <span class="eyebrow">The market</span>
+        <h2>Internal tooling is a budget line, not a niche.</h2>
+        <p class="sub">Spend is shifting from build-it-yourself and low-code point tools toward governed, warehouse-native platforms.</p>
+
+        <div class="market-row">
+          <div class="tam">
+            <div class="ring tam-ring">
+              <div class="ring sam-ring">
+                <div class="ring som-ring"><span>SOM</span></div>
+                <span class="ring-cap sam-cap">SAM</span>
+              </div>
+              <span class="ring-cap tam-cap">TAM</span>
+            </div>
+          </div>
+          <div class="market-legend">
+            <div class="leg"><span class="sw t"></span><div><strong>$48B TAM</strong><br/>Internal tools + analytics applications, worldwide</div></div>
+            <div class="leg"><span class="sw s"></span><div><strong>$9B SAM</strong><br/>Mid-market warehouse-native app tooling</div></div>
+            <div class="leg"><span class="sw o"></span><div><strong>$420M SOM</strong><br/>Obtainable in 3 years at current motion</div></div>
+            <div class="bottomup">
+              <strong>Bottom-up:</strong> ~60,000 mid-market companies on a cloud warehouse × ~$40K ACV.
+            </div>
+          </div>
+        </div>
+        <p class="src">Sources: company estimates triangulated from Gartner low-code &amp; dbt Labs warehouse-adoption figures. <sup>1</sup> Northwind discovery research, n=30.</p>
+        <aside class="notes">
+          Don't oversell TAM — investors discount it. The line that lands is bottom-up:
+          60k companies already pay for a warehouse; each spends six figures on internal
+          tooling today. We're redirecting an existing budget, not creating one.
+        </aside>
+      </section>
+
+      <!-- ───────────────────────── 5 · TRACTION ───────────────────────── -->
+      <section data-background-color="#0A0E17" class="slide-pad">
+        <span class="eyebrow">Traction</span>
+        <h2>Pulling, not pushing.</h2>
+        <p class="sub">Live since January. Twelve design partners, five paying, zero churn — and expansion inside every paying account.</p>
+
+        <div class="traction-grid">
+          <div class="kpis">
+            <div class="kpi"><div class="kpi-num">$182K</div><div class="kpi-lab">ARR</div></div>
+            <div class="kpi"><div class="kpi-num">22%</div><div class="kpi-lab">MoM growth (last 4 mo.)</div></div>
+            <div class="kpi"><div class="kpi-num">131%</div><div class="kpi-lab">net revenue retention</div></div>
+            <div class="kpi"><div class="kpi-num">0</div><div class="kpi-lab">logos churned</div></div>
+          </div>
+          <div class="chart" role="img" aria-label="Monthly recurring revenue growing from 4,000 dollars in January to 18,000 dollars in June 2026.">
+            <div class="bars">
+              <div class="bar" style="--h:14%"><span class="bv">$4K</span><span class="bl">Jan</span></div>
+              <div class="bar" style="--h:24%"><span class="bv">$6K</span><span class="bl">Feb</span></div>
+              <div class="bar" style="--h:38%"><span class="bv">$9K</span><span class="bl">Mar</span></div>
+              <div class="bar" style="--h:55%"><span class="bv">$12K</span><span class="bl">Apr</span></div>
+              <div class="bar" style="--h:74%"><span class="bv">$15K</span><span class="bl">May</span></div>
+              <div class="bar tall" style="--h:100%"><span class="bv">$18K</span><span class="bl">Jun</span></div>
+            </div>
+            <div class="chart-cap">Monthly recurring revenue · 2026</div>
+          </div>
+        </div>
+
+        <div class="logos">
+          <span class="ll">Trusted by ops & data teams at</span>
+          <span class="logo-chip">Cargoflow</span>
+          <span class="logo-chip">Meridian Health</span>
+          <span class="logo-chip">Tess &amp; Co.</span>
+          <span class="logo-chip">Halyard Labs</span>
+          <span class="logo-chip">Brightline</span>
+        </div>
+        <aside class="notes">
+          The number that closes the round is NRR at 131% on a five-account base — every
+          team that adopts us expands. Lead with growth, but if a partner pushes on
+          durability, pivot to retention and zero churn.
+        </aside>
+      </section>
+
+      <!-- ───────────────────────── 6 · THE ASK ───────────────────────── -->
+      <section data-background-color="#070A12" class="slide-pad slide-ask">
+        <span class="eyebrow">The ask</span>
+        <h2>Raising a <span class="grad">$4M seed</span> to reach $2M ARR.</h2>
+        <p class="sub">18 months of runway to a Series-A-ready business: repeatable GTM, SOC 2, and warehouse-native depth no point tool can match.</p>
+
+        <div class="ask-cols">
+          <div class="use">
+            <h3>Use of funds</h3>
+            <ul class="bars-list">
+              <li><span class="ul">Engineering &amp; product</span><span class="ub" style="--w:60%"></span><span class="up">60%</span></li>
+              <li><span class="ul">Go-to-market</span><span class="ub" style="--w:25%"></span><span class="up">25%</span></li>
+              <li><span class="ul">Security &amp; ops</span><span class="ub" style="--w:15%"></span><span class="up">15%</span></li>
+            </ul>
+          </div>
+          <div class="miles">
+            <h3>Milestones to Series A</h3>
+            <ul class="checklist">
+              <li>$2M ARR · 40 paying accounts</li>
+              <li>Self-serve onboarding, &lt; 1-day time-to-value</li>
+              <li>SOC 2 Type II &amp; enterprise SSO/SCIM</li>
+              <li>BigQuery + Databricks connectors GA</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="team-line">
+          <strong>Team:</strong> Priya Nair (CEO, ex-Stripe payments infra) &amp; Marcus Hale (CTO, ex-Looker query engine). Together we've shipped governance tooling to thousands of teams.
+        </div>
+        <aside class="notes">
+          Be concrete on the ask: $4M, $1M committed already from an angel syndicate.
+          Tie every use-of-funds dollar to a Series-A milestone. End on team — investors
+          fund people who've built exactly this before. Then thank them and stop talking.
+        </aside>
+      </section>
+
+      <!-- ───────────────────────── 7 · CLOSE ───────────────────────── -->
+      <section data-background-color="#070A12" class="slide-close">
+        <div class="title-inner">
+          <div class="brandrow center">
+            <svg class="logomark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+              <circle cx="24" cy="24" r="22" fill="none" stroke="#7C9BFF" stroke-width="2"/>
+              <path d="M24 6 L30 26 L24 22 L18 26 Z" fill="#4FD8C4"/>
+              <path d="M24 42 L18 22 L24 26 L30 22 Z" fill="#1b2336"/>
+            </svg>
+            <span class="wordmark">Northwind</span>
+          </div>
+          <h2 class="thanks">Let's make the warehouse operable.</h2>
+          <p class="lede">We'd love to walk you through a live build on your own schema.</p>
+          <div class="contact">
+            <a href="mailto:priya@northwind.dev">priya@northwind.dev</a>
+            <span class="dot">·</span>
+            <a href="https://northwind.dev">northwind.dev</a>
+          </div>
+          <p class="thanks-meta">Thank you.</p>
+        </div>
+        <aside class="notes">
+          Close warm and specific: offer to build a real app on their data in the second
+          meeting. That demo is our best closer. Leave the contact slide up while you take
+          questions.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- help overlay -->
+  <div id="help" class="help" hidden>
+    <div class="help-card">
+      <button class="help-x" aria-label="Close help">×</button>
+      <h3>Presenter shortcuts</h3>
+      <ul>
+        <li><kbd>→</kbd> <kbd>Space</kbd> next · <kbd>←</kbd> previous</li>
+        <li><kbd>↓</kbd> <kbd>↑</kbd> move within a slide group</li>
+        <li><kbd>S</kbd> open <strong>speaker notes</strong> (a second window with notes &amp; timer)</li>
+        <li><kbd>F</kbd> fullscreen · <kbd>O</kbd> slide overview · <kbd>Esc</kbd> exit</li>
+        <li><kbd>E</kbd> <strong>export to PDF</strong> (then print → save as PDF)</li>
+        <li><kbd>?</kbd> toggle this help</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- reveal.js + plugins (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/notes/notes.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="assets/deck.js"></script>
+
+  <script src="https://spacefast.com/badge.js" data-example="deck"></script>
+</body>
+</html>

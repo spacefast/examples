@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Driftfield — a generative flow-field studio</title>
+  <meta name="description" content="Driftfield is a single-page generative art toy. Thousands of particles drift through a Perlin-noise flow field, painting layered organic line work. Tune the palette, density, speed and stroke, reseed for a new piece, and export your favorites as PNG." />
+  <meta name="theme-color" content="#0d0c14" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Driftfield — generative flow-field studio" />
+  <meta property="og:description" content="Particles drifting through a noise field, painting ever-evolving line art. Tune it, reseed it, export it." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://picsum.photos/seed/driftfield-cover/1200/630" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d0c14'/%3E%3Cpath d='M5 21c5-9 9-9 11-5s6 5 11-4' fill='none' stroke='%23ff7a59' stroke-width='2.2' stroke-linecap='round'/%3E%3Cpath d='M5 25c5-9 9-9 11-5s6 5 11-4' fill='none' stroke='%2371b6ff' stroke-width='1.6' stroke-linecap='round' opacity='.7'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="stage" aria-label="Generative flow-field artwork being painted in real time" role="img"></canvas>
+
+  <!-- Skip link for keyboard users -->
+  <a class="skip" href="#controls">Skip to controls</a>
+
+  <!-- Top brand strip -->
+  <header class="brandbar">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 40 24" width="40" height="24">
+        <path d="M3 17C9 4 14 4 18 11s7 6 19-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M3 21C9 8 14 8 18 15s7 6 19-7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
+      </svg>
+    </div>
+    <div class="brandtext">
+      <span class="brandname">Driftfield</span>
+      <span class="brandtag">generative flow-field studio</span>
+    </div>
+    <button id="toggle-panel" class="ghost-btn panel-toggle" aria-expanded="true" aria-controls="controls">
+      <span class="show-when-open">Hide panel</span>
+      <span class="show-when-closed">Controls</span>
+    </button>
+  </header>
+
+  <!-- Live status pill -->
+  <div class="seedpill" id="seedpill" title="The seed for this piece — share it to reproduce the exact artwork">
+    <span class="dot" id="livedot" aria-hidden="true"></span>
+    <span class="seed-label">seed</span>
+    <span class="seed-value" id="seedReadout">DF-…</span>
+  </div>
+
+  <!-- Control panel -->
+  <main class="panel" id="controls" aria-label="Driftfield controls">
+    <section class="panel-section intro">
+      <h1>Compose a piece</h1>
+      <p>Particles drift through an invisible vector field, leaving ink as they go. Nudge the dials, reseed for a fresh field, and export the ones you love.</p>
+    </section>
+
+    <section class="panel-section">
+      <h2 class="group-title">Palette</h2>
+      <div class="swatches" id="palettes" role="radiogroup" aria-label="Color palette"></div>
+    </section>
+
+    <section class="panel-section">
+      <h2 class="group-title">Backdrop</h2>
+      <div class="segmented" id="backdrops" role="radiogroup" aria-label="Background tone">
+        <button role="radio" data-bg="ink" aria-checked="true">Deep ink</button>
+        <button role="radio" data-bg="paper">Warm paper</button>
+        <button role="radio" data-bg="dusk">Soft dusk</button>
+      </div>
+    </section>
+
+    <section class="panel-section sliders">
+      <div class="slider-row">
+        <label for="density">Density <span class="val" id="densityVal">900</span></label>
+        <input type="range" id="density" min="120" max="2400" step="60" value="900" />
+      </div>
+      <div class="slider-row">
+        <label for="speed">Flow speed <span class="val" id="speedVal">1.0×</span></label>
+        <input type="range" id="speed" min="0.1" max="3" step="0.1" value="1" />
+      </div>
+      <div class="slider-row">
+        <label for="weight">Stroke <span class="val" id="weightVal">1.4px</span></label>
+        <input type="range" id="weight" min="0.4" max="6" step="0.2" value="1.4" />
+      </div>
+      <div class="slider-row">
+        <label for="scale">Field scale <span class="val" id="scaleVal">balanced</span></label>
+        <input type="range" id="scale" min="0.0008" max="0.006" step="0.0002" value="0.0026" />
+      </div>
+    </section>
+
+    <section class="panel-section toggles">
+      <label class="switch">
+        <input type="checkbox" id="evolve" checked />
+        <span class="track" aria-hidden="true"></span>
+        <span class="switch-label">Auto-evolve <small>field keeps breathing</small></span>
+      </label>
+    </section>
+
+    <section class="panel-section actions">
+      <button class="btn primary" id="reseed">
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 4a6 6 0 1 0 5.2 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M15 2v4h-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        New piece
+      </button>
+      <button class="btn" id="playpause" aria-pressed="false">
+        <span class="ic-pause" aria-hidden="true">❚❚</span><span class="lbl-pause">Pause</span>
+        <span class="ic-play" aria-hidden="true">▶</span><span class="lbl-play">Resume</span>
+      </button>
+      <button class="btn" id="clear">Clear ink</button>
+      <button class="btn" id="export">
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M10 3v9m0 0 3.2-3.2M10 12 6.8 8.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 14v2.5A1.5 1.5 0 0 0 5.5 18h9a1.5 1.5 0 0 0 1.5-1.5V14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Save PNG
+      </button>
+    </section>
+
+    <section class="panel-section seedbox">
+      <label for="seedInput" class="group-title">Reproduce a seed</label>
+      <form id="seedForm" class="seed-form">
+        <input type="text" id="seedInput" inputmode="text" autocomplete="off" spellcheck="false" placeholder="e.g. DF-7K3Q09" aria-label="Enter a seed to reproduce a piece" />
+        <button class="btn small" type="submit">Load</button>
+      </form>
+      <p class="hint">Every piece has a seed. Same seed + same dials = the same artwork, anywhere.</p>
+    </section>
+
+    <section class="panel-section about">
+      <h2 class="group-title">What is a flow field?</h2>
+      <p>Imagine a grid where every point quietly points in some direction — a weather map for an invisible wind. Driftfield builds that wind from Perlin noise, then releases a swarm of particles that simply follow it. Each particle traces the current it falls into, and thousands of those paths, layered in translucent ink, settle into the organic, marbled line work you see. Change the seed and you change the wind; change the dials and you change how the swarm reads it.</p>
+    </section>
+
+    <footer class="panel-foot">
+      <span>Made with Driftfield</span>
+      <a href="https://spacefast.com" target="_blank" rel="noopener">Published on Spacefast ↗</a>
+    </footer>
+  </main>
+
+  <!-- Floating mobile action dock -->
+  <div class="dock" aria-hidden="false">
+    <button class="dock-btn" id="dock-reseed" title="New piece" aria-label="New piece">⟳</button>
+    <button class="dock-btn" id="dock-playpause" title="Pause / resume" aria-label="Pause or resume">❚❚</button>
+    <button class="dock-btn" id="dock-export" title="Save PNG" aria-label="Save PNG">↓</button>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="field.js"></script>
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="generative-art"></script>
+</body>
+</html>

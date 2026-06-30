@@ -1,0 +1,75 @@
+---
+import { registries } from '../data/wedding';
+---
+
+<section class="section" id="registry">
+  <div class="wrap center">
+    <p class="eyebrow">Registry</p>
+    <h2 class="section-title">Your presence is the gift</h2>
+    <p class="lede">
+      Truly — having you there is everything. But a few people have asked, so if you'd like to give
+      something, here's where to look.
+    </p>
+  </div>
+
+  <div class="wrap registry__grid">
+    {
+      registries.map((r) => (
+        <a class="registry__card" href={r.url} target="_blank" rel="noopener">
+          <h3>{r.name}</h3>
+          <p>{r.note}</p>
+          <span class="registry__link">
+            View registry
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17 17 7M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .registry__grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2.6rem;
+  }
+  .registry__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--cream-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem 1.8rem;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  .registry__card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+    border-color: var(--gold);
+  }
+  .registry__card h3 {
+    font-size: 1.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .registry__card p {
+    margin: 0 0 1.2rem;
+    color: var(--ink-soft);
+  }
+  .registry__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--terracotta-deep);
+  }
+  @media (min-width: 820px) {
+    .registry__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

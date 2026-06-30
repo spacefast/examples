@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1115" />
+  <title>Lexicle — the daily five-letter word game</title>
+  <meta name="description" content="Lexicle is a free daily word puzzle: six tries to guess the day's five-letter word. New word every day, share your result, keep your streak." />
+  <meta property="og:title" content="Lexicle — daily word game" />
+  <meta property="og:description" content="Six guesses. One five-letter word a day. How long is your streak?" />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <button class="icon-btn" id="help-btn" aria-label="How to play" title="How to play">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17h.01M12 13a2 2 0 0 0 .5-3.94A2.5 2.5 0 0 0 9.5 9.5M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"/></svg>
+    </button>
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">L</span>
+      <h1>Lexicle</h1>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="stats-btn" aria-label="Statistics" title="Statistics">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V9M12 21V3M19 21v-7"/></svg>
+      </button>
+      <button class="icon-btn" id="theme-btn" aria-label="Toggle dark mode" title="Toggle theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <div class="board-wrap">
+      <div id="board" class="board" aria-label="Guess board"></div>
+    </div>
+
+    <div id="message" class="message" role="status" aria-live="polite"></div>
+
+    <div id="keyboard" class="keyboard" aria-label="Keyboard"></div>
+  </main>
+
+  <!-- How to play -->
+  <div class="modal-backdrop" id="help-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="help-title">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <h2 id="help-title">How to play</h2>
+      <p>Guess the <strong>Lexicle</strong> in six tries.</p>
+      <ul class="rules">
+        <li>Each guess must be a valid five-letter word.</li>
+        <li>The color of the tiles changes to show how close your guess was.</li>
+      </ul>
+      <div class="examples">
+        <p class="example-row">
+          <span class="mini-tile correct">W</span><span class="mini-tile">E</span><span class="mini-tile">A</span><span class="mini-tile">R</span><span class="mini-tile">Y</span>
+        </p>
+        <p><strong>W</strong> is in the word and in the correct spot.</p>
+        <p class="example-row">
+          <span class="mini-tile">P</span><span class="mini-tile present">I</span><span class="mini-tile">L</span><span class="mini-tile">O</span><span class="mini-tile">T</span>
+        </p>
+        <p><strong>I</strong> is in the word but in the wrong spot.</p>
+        <p class="example-row">
+          <span class="mini-tile">V</span><span class="mini-tile">A</span><span class="mini-tile">G</span><span class="mini-tile absent">U</span><span class="mini-tile">E</span>
+        </p>
+        <p><strong>U</strong> is not in the word in any spot.</p>
+      </div>
+      <p class="modal-foot">A new Lexicle is released daily at midnight. Your progress is saved on this device.</p>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="modal-backdrop" id="stats-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="stats-title">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <h2 id="stats-title">Statistics</h2>
+      <div class="stats-grid" id="stats-numbers"></div>
+      <h3 class="dist-title">Guess distribution</h3>
+      <div class="dist" id="dist"></div>
+      <div class="share-row">
+        <div class="countdown" id="countdown" hidden>
+          <span class="cd-label">Next Lexicle</span>
+          <span class="cd-time" id="cd-time">--:--:--</span>
+        </div>
+        <button class="share-btn" id="share-btn">
+          Share
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v14"/></svg>
+        </button>
+      </div>
+      <div class="practice-row">
+        <button class="ghost-btn" id="practice-btn">Play a practice word</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="words.js"></script>
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="word-game"></script>
+</body>
+</html>

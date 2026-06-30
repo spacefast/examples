@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+import StatusBadge from '../components/StatusBadge.astro';
+import Graph from '../components/Graph.astro';
+import { SITE } from '../lib/site';
+import {
+  allNotes,
+  buildGraph,
+  graphLayout,
+  searchIndex,
+  sortForIndex,
+  STATUS_META,
+  type Status,
+} from '../lib/garden';
+
+const notes = await allNotes();
+const graph = await buildGraph(notes);
+const layout = await graphLayout(notes, graph);
+const docs = searchIndex(notes);
+
+const recent = notes.slice(0, 4);
+const ordered = sortForIndex(notes);
+const groups: Status[] = ['evergreen', 'growing', 'planted'];
+const counts = {
+  evergreen: notes.filter((n) => n.data.status === 'evergreen').length,
+  growing: notes.filter((n) => n.data.status === 'growing').length,
+  planted: notes.filter((n) => n.data.status === 'planted').length,
+};
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+---
+
+<Layout>
+  <section class="hero">
+    <div class="hero__media">
+      <img
+        src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=1600&q=80"
+        alt="Sunlight falling through the panes of a glasshouse onto rows of green plants."
+        loading="eager"
+        width="1600"
+        height="900"
+      />
+    </div>
+    <div class="wrap hero__inner">
+      <p class="hero__eyebrow">{SITE.tagline}</p>
+      <h1 class="hero__title">{SITE.title}</h1>
+      <p class="hero__lede">
+        {SITE.about} Nothing here is finished — that's the point. Notes link to one
+        another, carry a growth status, and get re-tended a little at a time. Wander
+        by following links, search below, or open the <a href="#graph">map</a>.
+      </p>
+
+      <form class="search" role="search" aria-label="Search notes">
+        <label class="search__label" for="q">Search the garden</label>
+        <div class="search__field">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="search__icon">
+            <circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2" />
+            <line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+          <input
+            id="q"
+            type="search"
+            name="q"
+            placeholder="Try “evergreen”, “memory”, “backlinks”…"
+            autocomplete="off"
+            aria-controls="results"
+          />
+        </div>
+        <ul id="results" class="results" hidden></ul>
+        <p class="search__hint">{notes.length} notes, {graph.edges.length} links between them.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="wrap legend" aria-label="What the growth statuses mean">
+    {groups.map((s) => (
+      <div class={`legend__item legend__item--${s}`}>
+        <StatusBadge status={s} />
+        <span class="legend__count">{counts[s]}</span>
+        <p class="legend__blurb">{STATUS_META[s].blurb}</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="wrap section">
+    <div class="section__head">
+      <h2>Recently tended</h2>
+      <p>The notes I’ve watered most lately.</p>
+    </div>
+    <ul class="cards">
+      {recent.map((n) => (
+        <li class="card">
+          <a href={`/notes/${n.id}/`} class="card__link">
+            <div class="card__top">
+              <StatusBadge status={n.data.status} withLabel={false} />
+              <time datetime={n.data.updated.toISOString()}>{fmt(n.data.updated)}</time>
+            </div>
+            <h3 class="card__title">{n.data.title}</h3>
+            <p class="card__summary">{n.data.summary}</p>
+            <span class="card__cue">Read note →</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap section">
+    <div class="section__head">
+      <h2>The map</h2>
+      <p>How everything connects. Hover a note to light up its neighbourhood.</p>
+    </div>
+    <Graph layout={layout} />
+  </section>
+
+  <section class="wrap section" id="index">
+    <div class="section__head">
+      <h2>Full index</h2>
+      <p>Every note, grouped by how grown-up it is.</p>
+    </div>
+    {groups.map((s) => (
+      <div class="indexgroup">
+        <h3 class="indexgroup__head">
+          <StatusBadge status={s} /> <span class="indexgroup__count">{counts[s]}</span>
+        </h3>
+        <ul class="notelist">
+          {ordered
+            .filter((n) => n.data.status === s)
+            .map((n) => (
+              <li>
+                <a href={`/notes/${n.id}/`}>
+                  <span class="notelist__title">{n.data.title}</span>
+                  <span class="notelist__summary">{n.data.summary}</span>
+                </a>
+                <span class="notelist__links">{graph.backlinks.get(n.id)?.length ?? 0} backlinks</span>
+              </li>
+            ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <script type="application/json" id="search-data" set:html={JSON.stringify(docs)}></script>
+  <script>
+    const el = document.getElementById('search-data');
+    const docs = el ? JSON.parse(el.textContent || '[]') : [];
+    const input = document.getElementById('q');
+    const results = document.getElementById('results');
+    const glyph = { planted: '🌱', growing: '🌿', evergreen: '🌲' };
+
+    function score(doc, q) {
+      const t = doc.title.toLowerCase();
+      if (t === q) return 100;
+      if (t.startsWith(q)) return 60;
+      if (t.includes(q)) return 40;
+      if (doc.summary.toLowerCase().includes(q)) return 20;
+      if (doc.text.toLowerCase().includes(q)) return 10;
+      return 0;
+    }
+
+    function render(q) {
+      if (!results) return;
+      const query = q.trim().toLowerCase();
+      if (!query) {
+        results.hidden = true;
+        results.innerHTML = '';
+        return;
+      }
+      const hits = docs
+        .map((d) => ({ d, s: score(d, query) }))
+        .filter((x) => x.s > 0)
+        .sort((a, b) => b.s - a.s)
+        .slice(0, 8);
+
+      results.hidden = false;
+      if (!hits.length) {
+        results.innerHTML = '<li class="results__empty">No notes match — try another word.</li>';
+        return;
+      }
+      results.innerHTML = hits
+        .map(
+          ({ d }) =>
+            `<li><a href="/notes/${d.slug}/"><span class="results__glyph">${glyph[d.status]}</span>` +
+            `<span class="results__title">${d.title}</span>` +
+            `<span class="results__summary">${d.summary}</span></a></li>`,
+        )
+        .join('');
+    }
+
+    if (input) {
+      input.addEventListener('input', (e) => render(e.target.value));
+      input.addEventListener('focus', (e) => e.target.value && render(e.target.value));
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && results) {
+          results.hidden = true;
+          input.blur();
+        }
+        if (e.key === '/' && document.activeElement !== input) {
+          e.preventDefault();
+          input.focus();
+        }
+      });
+    }
+  </script>
+</Layout>

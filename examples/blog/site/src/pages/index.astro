@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import PostList from '../components/PostList.astro';
+import { site } from '../lib/site';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+// Tag chips for quick filtering, sorted by how often each appears.
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+const topTags = [...tagCounts.entries()]
+  .sort((a, b) => b[1] - a[1])
+  .map(([tag]) => tag);
+---
+
+<Layout current="/">
+  <section class="intro">
+    <div class="wrap">
+      <h1>Notes from the <em>margins</em> of building for the web.</h1>
+      <p>{site.tagline} Essays and code by {site.author.name} — half of them are working software, half are arguments with myself.</p>
+      <div class="intro__meta">
+        <img src={site.author.avatar} alt={`Portrait of ${site.author.name}`} width="48" height="48" loading="eager" />
+        <span>{site.author.name} · {site.author.location}</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="section-label">Browse by tag</div>
+    <div class="post-meta-row" style="gap:0.55rem; padding-bottom:0.5rem;">
+      {topTags.map((tag) => <a class="tag tag--accent" href={`/tags/${tag}/`}>#{tag}</a>)}
+    </div>
+
+    <div class="section-label">All writing · {posts.length} posts</div>
+    <PostList posts={posts} />
+  </div>
+</Layout>

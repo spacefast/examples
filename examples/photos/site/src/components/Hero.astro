@@ -1,0 +1,23 @@
+---
+import { studio } from '../data/portfolio';
+---
+
+<section class="hero" id="top">
+  <img
+    class="hero__img"
+    src="https://picsum.photos/seed/eliot-vance-hero/1900/1200"
+    alt="A lone figure on a black-sand shore beneath a vast, cloud-heavy sky at the edge of the day"
+    fetchpriority="high"
+    width="1900"
+    height="1200"
+  />
+  <div class="wrap hero__inner">
+    <h1 class="hero__name">{studio.name}</h1>
+    <p class="hero__tagline">{studio.tagline}</p>
+    <div class="hero__meta">
+      <span>{studio.role}</span>
+      <span>{studio.base}</span>
+    </div>
+  </div>
+  <a class="hero__scroll" href="#work">Selected work ↓</a>
+</section>

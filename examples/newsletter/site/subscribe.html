@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscribe — Offcuts</title>
+  <meta name="description" content="Join 6,400 readers getting Offcuts: a short, hand-picked weekly trim of design, craft, and the slow web. Free, every Thursday." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="brand" href="index.html" aria-label="Offcuts home">
+        <span class="brand__mark">Offcuts</span>
+        <span class="brand__cut">Issue 87</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="about.html">About</a>
+        <a class="nav__sub" href="subscribe.html" aria-current="page">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" style="padding-bottom:1.5rem">
+      <div class="wrap">
+        <p class="hero__eyebrow">Free · Weekly · One-click to leave</p>
+        <h1 style="font-size:clamp(2.4rem,6.5vw,3.8rem)">Join 6,400 people who read on Thursdays.</h1>
+        <p class="hero__lede">
+          One short letter a week: a thought from the workbench, five hand-picked
+          links, and one tool I actually used. That’s it. That’s the whole thing.
+        </p>
+
+        <div class="subscribe subscribe--lg" id="join">
+          <h2>Subscribe to Offcuts</h2>
+          <p>No welcome sequence, no upsell, no “premium tier.” Just the next issue.</p>
+          <form class="subscribe__form" novalidate>
+            <div class="subscribe__field">
+              <label for="email-sub">Your email address</label>
+              <input id="email-sub" type="email" name="email" required
+                     autocomplete="email" placeholder="you@studio.com" />
+            </div>
+            <button class="btn" type="submit">Subscribe free</button>
+          </form>
+          <p class="subscribe__meta">By subscribing you agree to receive one email a week. Unsubscribe any time — it’s one click and I won’t email you again.</p>
+          <p class="subscribe__ok">
+            <span class="check" aria-hidden="true">✓</span>
+            <span>You’re on the list, <strong class="subscribe__ok-name">friend</strong>. Issue 88 lands this Thursday — check your inbox to confirm.</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <p class="kicker">A few honest answers</p>
+        <h2>The fine print, in plain words</h2>
+        <ul class="issue-list" style="margin-top:1.5rem">
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">?</span>
+              <span>
+                <p class="issue-row__title">How often will I hear from you?</p>
+                <p class="issue-row__sum">Once a week, on Thursday. Never more. If a week is quiet, you get nothing — I don’t pad it out.</p>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">?</span>
+              <span>
+                <p class="issue-row__title">Will you sell or share my email?</p>
+                <p class="issue-row__sum">Never. It lives in one tool, used only to send you the letter. No ad networks, no tracking pixels.</p>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">?</span>
+              <span>
+                <p class="issue-row__title">What if I want to leave?</p>
+                <p class="issue-row__sum">One click at the bottom of any issue. No “are you sure,” no exit survey. I’d rather you go cleanly.</p>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="issue-row" style="cursor:default">
+              <span class="issue-row__no">?</span>
+              <span>
+                <p class="issue-row__title">Can I read one first?</p>
+                <p class="issue-row__sum">Please do — the whole <a href="archive.html">archive</a> is free. Start with <a href="issues/issue-87.html">Issue 87</a>.</p>
+              </span>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__brand">
+        <span class="brand__mark">Offcuts</span>
+        <p>A weekly trim of design, craft, and the slow web. Written by hand in Bristol, every Thursday since 2023.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="index.html">Latest issue</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="about.html">About Mara</a></li>
+          <li><a href="subscribe.html">Subscribe</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://example.com" rel="noopener">RSS feed</a></li>
+          <li><a href="https://example.com" rel="noopener">Mastodon</a></li>
+          <li><a href="https://example.com" rel="noopener">Bluesky</a></li>
+          <li><a href="mailto:mara@offcuts.email">mara@offcuts.email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>© <span data-year>2026</span> Offcuts · Mara Ellison</span>
+      <span>Made with attention, not automation.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="newsletter"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "name": "Brightside Coffee \u2014 Growth Dashboard",
+  "slug": "dashboard",
+  "vertical": "Data & dashboards",
+  "tech": "vanilla-js",
+  "based_on": "A Geckoboard / Klipfolio-style single-screen growth dashboard for a direct-to-consumer ecommerce brand (a DTC specialty coffee subscription company), the kind a small team pins to the office TV and glances at all day.",
+  "summary": "A single-screen, auto-refreshing growth dashboard for a DTC brand: live KPI tiles with sparklines, a revenue trend, traffic-source breakdown, top products, and a channel leaderboard.",
+  "sections": [
+    "Top KPI tiles: revenue today, revenue MTD vs target, orders, average order value, conversion rate (each with a sparkline and up/down delta)",
+    "Revenue trend line chart for the last 30 days with a 7-day moving average",
+    "Traffic by source donut (organic / paid / email / social / direct)",
+    "Top 5 products table with units sold and revenue bars",
+    "Marketing channel leaderboard with ROAS and spend",
+    "Email list growth counter and new-subscriber sparkline",
+    "Auto-refresh clock and 'last updated' timestamp that ticks numbers with subtle animation"
+  ],
+  "setup_questions": [
+    "What's the brand name and what do you sell?",
+    "Which 4-6 metrics matter most to your team day to day?",
+    "What's your monthly revenue target?",
+    "What's your brand's primary accent color?"
+  ],
+  "photo_terms": [
+    "specialty coffee bag product flat lay",
+    "coffee roastery interior warm light",
+    "ecommerce packaging on wooden table",
+    "barista pouring latte overhead shot"
+  ],
+  "live_url": "https://dashboard.view.fast/"
+}

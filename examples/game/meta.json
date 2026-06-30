@@ -1,0 +1,29 @@
+{
+  "name": "Prism Breaker",
+  "slug": "game",
+  "vertical": "Games & interactive",
+  "tech": "canvas-game",
+  "based_on": "A neon-synthwave brick-breaker in the lineage of Atari Breakout (1976) and Taito's Arkanoid (1986) \u2014 paddle, ball, destructible brick walls, falling power-ups, multi-level progression.",
+  "summary": "A juicy, fully playable neon brick-breaker arcade game: bounce a glowing ball off a paddle to smash colored brick walls across escalating levels, catching falling power-ups while keeping the ball alive.",
+  "sections": [
+    "Title / start screen with PLAY, How to Play, and high-score badge",
+    "Canvas gameplay scene: paddle, ball physics, brick grid, lives, live score and level HUD",
+    "Power-up drops (multi-ball, wide paddle, slow-mo, laser) that fall and are caught",
+    "Level progression with distinct brick layouts and increasing ball speed",
+    "Game over / level-clear overlay with score, best score, and Play Again",
+    "How-to-play modal (arrow keys / mouse / touch to move, space to launch)"
+  ],
+  "setup_questions": [
+    "What should the game be called, and what's the vibe \u2014 neon synthwave, candy pastel, or retro CRT green?",
+    "What's your accent/primary color for the ball and paddle glow?",
+    "How many levels should the first run have (e.g. 5), and should difficulty ramp by speed, brick rows, or both?",
+    "Name 2-3 power-ups you'd like (or use the defaults: multi-ball, wide paddle, slow-mo)?"
+  ],
+  "photo_terms": [
+    "synthwave neon grid horizon background",
+    "retro arcade cabinet glow",
+    "abstract dark gradient with neon particles",
+    "CRT scanline texture overlay"
+  ],
+  "live_url": "https://game.view.fast/"
+}

@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maple Street Community Garden — Plots, Volunteers &amp; Events in Rosewood</title>
+  <meta name="description" content="Maple Street Community Garden is a 48-bed neighborhood garden in Rosewood. Rent a raised bed, join the plot waitlist, lend a hand on monthly workdays, and grow with us — organic, since 2008." />
+  <meta name="theme-color" content="#2f4a2e" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Maple Street Community Garden — Rosewood" />
+  <meta property="og:description" content="A 48-bed organic community garden on Maple Street. Rent a plot, join the waitlist, and dig in with your neighbors." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1200&q=80&auto=format&fit=crop" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Maple Street Community Garden",
+    "description": "A neighborhood community garden in Rosewood with 48 rentable organic raised beds, monthly volunteer workdays, and seasonal events.",
+    "foundingDate": "2008",
+    "email": "hello@maplestreetgarden.org",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "214 Maple Street",
+      "addressLocality": "Rosewood",
+      "addressRegion": "",
+      "postalCode": "",
+      "addressCountry": "US"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <header class="site-header" id="header">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Maple Street Community Garden home">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21c0-5 0-8 0-8" />
+            <path d="M12 13c-2.5 0-5-1.5-5-4.5C7 6 9 5 12 5s5 1 5 3.5C17 11.5 14.5 13 12 13z" />
+            <path d="M12 13c0-3 1.5-5 4-6" />
+            <path d="M12 13c0-3-1.5-5-4-6" />
+          </svg>
+        </span>
+        <span>
+          <span class="brand-name">Maple Street</span>
+          <span class="brand-sub">Community Garden · Rosewood</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+
+      <nav class="nav" id="primaryNav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#plots">Plots</a>
+        <a href="#volunteer">Volunteer</a>
+        <a href="#events">Events</a>
+        <a href="#visit">Find Us</a>
+        <a class="btn" href="#join">Join the waitlist</a>
+      </nav>
+    </div>
+  </header>
+  <div class="nav-backdrop" id="navBackdrop"></div>
+
+  <!-- ===================== HERO ===================== -->
+  <main id="top">
+  <section class="hero" aria-label="Welcome">
+    <img class="hero__img"
+         src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1900&q=80&auto=format&fit=crop"
+         alt="Rows of leafy vegetables and wooden raised beds in a community garden on a sunny morning" />
+    <div class="hero__scrim"></div>
+    <div class="wrap">
+      <p class="hero__eyebrow">Rosewood · since 2008 · 48 raised beds</p>
+      <h1>A patch of earth, a block full of neighbors.</h1>
+      <p class="lede">Maple Street Community Garden is a volunteer-run, certified-organic garden tucked behind the old firehouse. Rent a raised bed, swap seeds and stories, and grow more than you can eat — right where you live.</p>
+      <div class="hero__cta">
+        <a class="btn btn--lg" href="#join">Join the plot waitlist</a>
+        <a class="btn btn--ghost btn--lg" href="#plots">See plots &amp; pricing</a>
+      </div>
+      <div class="hero__meta">
+        <span><strong>48 beds</strong> · ~12 open each spring</span>
+        <span class="dot" aria-hidden="true">•</span>
+        <span><strong>Workdays</strong> · 2nd Saturday, every month</span>
+        <span class="dot" aria-hidden="true">•</span>
+        <span><strong>Open dawn–dusk</strong> · members keyed in</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section class="section about" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about__grid">
+        <div class="about__media reveal">
+          <img src="https://images.unsplash.com/photo-1591857177580-dc82b9ac4e1e?w=1000&q=80&auto=format&fit=crop"
+               alt="Neighbors of different ages tending raised garden beds together on a bright afternoon" loading="lazy" />
+          <div class="badge" aria-hidden="true">
+            <span class="big">16</span>
+            <span class="small">growing seasons</span>
+          </div>
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Who we are</p>
+          <h2 id="about-title">A lot that was empty, now feeds the block</h2>
+          <p>In 2008 a handful of neighbors cleared a rubble-strewn lot on Maple Street, hauled in soil by the wheelbarrow, and built the first six beds out of salvaged lumber. Sixteen seasons later the garden holds <strong>48 raised beds</strong>, a tool shed, a three-bin compost system, a pollinator border, and a little free pantry where extra zucchini finds a home.</p>
+          <p>We're run entirely by the people who grow here — no staff, no storefront, just a rotating steering committee and a shared key. Members tend their own plots, but the paths, the compost, the water lines, and the welcome are everyone's.</p>
+          <p>Everything we grow is organic. No synthetic sprays, no chemical feed — because we share the same soil, the same bees, and the same kids running down the rows.</p>
+          <p class="signature">Rosa Delgado
+            <small>Plot Coordinator · steering committee, est. 2008</small>
+          </p>
+        </div>
+      </div>
+
+      <ul class="stat-strip reveal" aria-label="Garden at a glance">
+        <li><span class="stat-num">48</span><span class="stat-label">raised beds</span></li>
+        <li><span class="stat-num">90+</span><span class="stat-label">member households</span></li>
+        <li><span class="stat-num">2 hrs</span><span class="stat-label">volunteering / month</span></li>
+        <li><span class="stat-num">100%</span><span class="stat-label">organic-grown</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== PLOTS & PRICING ===================== -->
+  <section class="section plots" id="plots" aria-labelledby="plots-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Plots &amp; pricing</p>
+        <h2 id="plots-title">Pick a bed, plant your year</h2>
+        <p>Every bed is yours for the full growing year (March through November) and renews each spring as long as it's tended. Fees keep the water on, the shed stocked, and the compost turning — nothing more.</p>
+      </div>
+
+      <div class="plot-grid reveal">
+        <article class="plot-card">
+          <div class="plot-card__head">
+            <h3>Starter</h3>
+            <span class="plot-size">4 ft × 4 ft</span>
+          </div>
+          <p class="plot-price"><span class="amount">$30</span> <span class="per">/ year</span></p>
+          <p class="plot-desc">Just right for a first season — herbs, salad greens, a tomato or two. The friendliest way to find out if you've got a green thumb.</p>
+          <ul class="plot-feats">
+            <li>16 sq ft of bed</li>
+            <li>Great for kids &amp; herbs</li>
+          </ul>
+        </article>
+
+        <article class="plot-card plot-card--featured">
+          <span class="plot-flag">Most popular</span>
+          <div class="plot-card__head">
+            <h3>Standard</h3>
+            <span class="plot-size">4 ft × 8 ft</span>
+          </div>
+          <p class="plot-price"><span class="amount">$45</span> <span class="per">/ year</span></p>
+          <p class="plot-desc">A real summer garden: tomatoes, peppers, beans, squash and a row of flowers, with room left over to rotate. The bed most members keep year after year.</p>
+          <ul class="plot-feats">
+            <li>32 sq ft of bed</li>
+            <li>Full-sun &amp; part-shade rows available</li>
+          </ul>
+        </article>
+
+        <article class="plot-card">
+          <div class="plot-card__head">
+            <h3>Family</h3>
+            <span class="plot-size">4 ft × 12 ft</span>
+          </div>
+          <p class="plot-price"><span class="amount">$65</span> <span class="per">/ year</span></p>
+          <p class="plot-desc">Our biggest bed, for households that put food up for winter or like to share over the fence. Limited to a few per season.</p>
+          <ul class="plot-feats">
+            <li>48 sq ft of bed</li>
+            <li>Feeds a household + extras</li>
+          </ul>
+        </article>
+
+        <article class="plot-card">
+          <div class="plot-card__head">
+            <h3>Accessible</h3>
+            <span class="plot-size">3 ft × 6 ft · waist-high</span>
+          </div>
+          <p class="plot-price"><span class="amount">$40</span> <span class="per">/ year</span></p>
+          <p class="plot-desc">Raised to standing height with firm, wheelchair-width paths all around — garden without the kneeling. Priority for members who need them.</p>
+          <ul class="plot-feats">
+            <li>Stand-up height beds</li>
+            <li>Paved, level approach</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="included reveal">
+        <h3>Every plot includes</h3>
+        <ul class="included__list">
+          <li><span class="tick" aria-hidden="true">✓</span> City water &amp; shared drip lines</li>
+          <li><span class="tick" aria-hidden="true">✓</span> Free compost, wood chips &amp; mulch</li>
+          <li><span class="tick" aria-hidden="true">✓</span> Tool shed: spades, forks, hoses, wheelbarrows</li>
+          <li><span class="tick" aria-hidden="true">✓</span> The seed library &amp; spring seedling share</li>
+          <li><span class="tick" aria-hidden="true">✓</span> Keyed gate access, dawn to dusk</li>
+          <li><span class="tick" aria-hidden="true">✓</span> Member workshops &amp; the harvest table</li>
+        </ul>
+        <p class="included__note">Can't swing the fee this year? We keep a small <strong>scholarship fund</strong> from the harvest festival — just mention it on your waitlist note and we'll sort it out, quietly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== JOIN / WAITLIST ===================== -->
+  <section class="section join" id="join" aria-labelledby="join-title">
+    <div class="wrap">
+      <div class="join__grid">
+        <div class="join__intro reveal">
+          <p class="eyebrow">How to join</p>
+          <h2 id="join-title">Get on the plot waitlist</h2>
+          <p>Beds open up every spring and a few mid-season. Add your name and we'll reach out the moment one frees up — in order, no jumping the line.</p>
+          <ol class="steps">
+            <li><span class="step-n">1</span><div><strong>Add your name below.</strong> Tell us the bed size you're hoping for.</div></li>
+            <li><span class="step-n">2</span><div><strong>We reply within 48 hours</strong> to say you're on the list and roughly where you stand.</div></li>
+            <li><span class="step-n">3</span><div><strong>When a bed opens,</strong> we offer it to the next person up. Come to an orientation, pay your year, and pick up your key.</div></li>
+          </ol>
+          <p class="join__contact">Questions first? Email <a href="mailto:waitlist@maplestreetgarden.org">waitlist@maplestreetgarden.org</a> or catch Rosa at any Saturday workday.</p>
+        </div>
+
+        <div class="join__form-wrap reveal">
+          <form class="waitlist-form" id="waitlistForm" novalidate>
+            <h3>Join the waitlist</h3>
+            <p class="form-sub">No account, no fee to get in line. We only use your details to contact you about a plot.</p>
+
+            <div class="field">
+              <label for="wl-name">Your name</label>
+              <input type="text" id="wl-name" name="name" autocomplete="name" required placeholder="e.g. Marcus Bell" />
+            </div>
+
+            <div class="field">
+              <label for="wl-email">Email</label>
+              <input type="email" id="wl-email" name="email" autocomplete="email" required placeholder="you@example.com" />
+              <p class="hint">We'll only email about your spot on the list.</p>
+            </div>
+
+            <div class="field">
+              <label for="wl-street">Street or block</label>
+              <input type="text" id="wl-street" name="street" autocomplete="address-line1" placeholder="e.g. Maple St between Bergen & Cypress" />
+            </div>
+
+            <div class="field">
+              <label for="wl-size">Bed size you'd like</label>
+              <select id="wl-size" name="size">
+                <option value="">No preference — first available</option>
+                <option value="starter">Starter · 4×4 · $30/yr</option>
+                <option value="standard">Standard · 4×8 · $45/yr</option>
+                <option value="family">Family · 4×12 · $65/yr</option>
+                <option value="accessible">Accessible · waist-high · $40/yr</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="wl-note">Anything to add? <span class="optional">(optional)</span></label>
+              <textarea id="wl-note" name="note" rows="3" placeholder="What you'd love to grow, accessibility needs, scholarship request…"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--lg btn--block">Add me to the list</button>
+            <p class="form-policy">By joining you agree to our <a href="#rules">garden rules</a>. We respond within <strong>48 hours</strong>.</p>
+
+            <div class="form-success" id="formSuccess" hidden role="status" aria-live="polite">
+              <span class="form-success__icon" aria-hidden="true">🌱</span>
+              <h4>You're on the list!</h4>
+              <p id="successMsg">Thanks — we've saved your spot. Keep an eye on your inbox; a coordinator will be in touch within 48 hours.</p>
+              <button type="button" class="link-btn" id="resetForm">Add another person</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VOLUNTEER ===================== -->
+  <section class="section volunteer" id="volunteer" aria-labelledby="vol-title">
+    <div class="wrap">
+      <div class="vol__grid">
+        <div class="vol__media reveal">
+          <img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?w=1000&q=80&auto=format&fit=crop"
+               alt="Close-up of hands pressing a young seedling into dark, freshly turned soil" loading="lazy" />
+        </div>
+        <div class="reveal">
+          <p class="eyebrow">Volunteer workdays</p>
+          <h2 id="vol-title">A few hands, an hour or two, the whole garden hums</h2>
+          <p>Tending your own bed is the fun part. Keeping the commons going — the compost, the paths, the shared tools, the pollinator border — takes all of us. So every member pitches in <strong>about 2 hours a month</strong> (roughly 24 hours across the season). Bring kids, bring gloves, bring nothing — there's always a job.</p>
+
+          <div class="next-workday" id="nextWorkday" hidden>
+            <span class="nw-pulse" aria-hidden="true"></span>
+            <div>
+              <span class="nw-label">Next drop-in workday</span>
+              <span class="nw-date" id="nwDate">—</span>
+            </div>
+          </div>
+
+          <ul class="vol-list">
+            <li><strong>Second Saturday, every month · 9 am–12 pm.</strong> The big drop-in day — no sign-up, just show up. Coffee and donuts on the harvest table.</li>
+            <li><strong>Weeknight waterers.</strong> Take a week on the summer watering rota and it counts double.</li>
+            <li><strong>Skill days.</strong> Build a bed, fix the gate, paint the shed — handy folks especially welcome.</li>
+            <li><strong>Log it yourself.</strong> Jot your hours on the shed clipboard or text the coordinator. We trust you.</li>
+          </ul>
+          <a class="btn" href="#join">Become a member &amp; pitch in</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== RULES ===================== -->
+  <section class="section rules" id="rules" aria-labelledby="rules-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Garden rules</p>
+        <h2 id="rules-title">Five things that keep us growing</h2>
+        <p>Short and neighborly. Break one by accident and someone will gently remind you — that's the whole system.</p>
+      </div>
+
+      <div class="rules-grid reveal">
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">🌿</span>
+          <h3>Grow organic, always</h3>
+          <p>No synthetic pesticides, herbicides, or chemical fertilizers — ever. We share the soil, the water table, and the bees. Compost, cover crops, and patience do the work here.</p>
+        </article>
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">🧤</span>
+          <h3>Tend your plot</h3>
+          <p>Keep your bed planted, weeded, and watered. A bed left bare or overgrown for three weeks may be reassigned — but we'll always reach out first. Going away? Just tell us and we'll cover you.</p>
+        </article>
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">🔁</span>
+          <h3>Share the commons</h3>
+          <p>Return tools clean, coil the hoses, latch the gate behind you. Add only green scraps to the compost — no meat, no weeds gone to seed, no plastic. Leave it better than you found it.</p>
+        </article>
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">🤝</span>
+          <h3>Be a good neighbor</h3>
+          <p>Harvest only from your own bed. Keep the paths clear, kids welcome with a grown-up, music low, and — sorry, pups — dogs stay outside the fence. We're all here for the same reason.</p>
+        </article>
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">💧</span>
+          <h3>Water wisely</h3>
+          <p>Morning or evening, at the roots, never midday. We all share one meter, so soak deep and skip the sprinkler. Mulch holds the moisture and your back will thank you.</p>
+        </article>
+        <article class="rule">
+          <span class="rule__icon" aria-hidden="true">📋</span>
+          <h3>Show up &amp; log it</h3>
+          <p>Two volunteer hours a month keeps your bed and the garden healthy. Sign the shed clipboard or text the coordinator. Miss a month? Catch up the next — life happens.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== EVENTS ===================== -->
+  <section class="section events" id="events" aria-labelledby="events-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Events</p>
+        <h2 id="events-title">Come by — you don't need a plot</h2>
+        <p>Our gates open to the whole neighborhood for these. Free, family-friendly, and usually involving food.</p>
+      </div>
+
+      <ul class="event-list reveal">
+        <li class="event">
+          <div class="event__date"><span class="month">Feb</span><span class="day">22</span></div>
+          <div class="event__body">
+            <h3>Late-Winter Seed Swap</h3>
+            <p class="event__when">Saturday · 10 am–1 pm · in the shed (heated!)</p>
+            <p>Bring seeds you saved, leave with new ones. Tomatoes, beans, marigolds, the lot — plus hot cider and a seed-starting demo for first-timers.</p>
+          </div>
+        </li>
+        <li class="event">
+          <div class="event__date"><span class="month">Mar</span><span class="day">22</span></div>
+          <div class="event__body">
+            <h3>Spring Kickoff &amp; Soil Day</h3>
+            <p class="event__when">Saturday · 9 am–2 pm · all hands</p>
+            <p>The season opener: beds get turned, compost gets spread, new members meet their plots, and the kids paint the season's bed markers. Chili on the grill at noon.</p>
+          </div>
+        </li>
+        <li class="event">
+          <div class="event__date"><span class="month">Jun–Aug</span><span class="day">2nd</span></div>
+          <div class="event__body">
+            <h3>Summer Potlucks</h3>
+            <p class="event__when">Second Saturdays · 6 pm · the harvest table</p>
+            <p>Long tables under the string lights. Everyone brings a dish (bonus points if it's from the garden). The most relaxed evening on the block, three months running.</p>
+          </div>
+        </li>
+        <li class="event">
+          <div class="event__date"><span class="month">Oct</span><span class="day">11</span></div>
+          <div class="event__body">
+            <h3>Harvest Festival</h3>
+            <p class="event__when">Saturday · 11 am–4 pm · open to all</p>
+            <p>Our big one. A produce table, a kids' scarecrow build, live music, a bake-off, and the famous pickle contest. Proceeds top up the plot scholarship fund.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY ===================== -->
+  <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Across the seasons</p>
+        <h2 id="gallery-title">A year in the beds</h2>
+        <p>From the first seedlings in March to the last tomatoes in October. Tap any photo to see it bigger.</p>
+      </div>
+
+      <div class="gallery__grid reveal" id="gallery-grid">
+        <button class="gallery__item gallery__item--wide gallery__item--tall" type="button"
+          data-full="https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=1600&q=85&auto=format&fit=crop"
+          data-cap="Spring — wooden raised beds filling in with new greens">
+          <img src="https://images.unsplash.com/photo-1592419044706-39796d40f98c?w=800&q=80&auto=format&fit=crop" alt="Wooden raised garden beds full of young leafy greens in spring" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Midsummer — the pollinator border in bloom">
+          <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?w=600&q=80&auto=format&fit=crop" alt="Green leaves and flowers catching morning light along the garden border" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=1400&q=85&auto=format&fit=crop"
+          data-cap="August — ripe tomatoes on the vine">
+          <img src="https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?w=600&q=80&auto=format&fit=crop" alt="Clusters of ripe red tomatoes ripening on the vine" loading="lazy" />
+        </button>
+        <button class="gallery__item gallery__item--tall" type="button"
+          data-full="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Cut-and-come-again lettuce rows">
+          <img src="https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=700&q=80&auto=format&fit=crop" alt="Neat rows of green and red leaf lettuce growing in a bed" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Harvest day — a basket of the week's pick">
+          <img src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&q=80&auto=format&fit=crop" alt="A basket of freshly picked vegetables on a garden table" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=1400&q=85&auto=format&fit=crop"
+          data-cap="A new member's first seedling goes in">
+          <img src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=600&q=80&auto=format&fit=crop" alt="Two hands cupping dark soil with a small green sprout" loading="lazy" />
+        </button>
+        <button class="gallery__item gallery__item--wide" type="button"
+          data-full="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=1600&q=85&auto=format&fit=crop"
+          data-cap="October — golden light over the last of the beds">
+          <img src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=800&q=80&auto=format&fit=crop" alt="Warm autumn sunlight over rows of garden plants late in the season" loading="lazy" />
+        </button>
+        <button class="gallery__item" type="button"
+          data-full="https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=1400&q=85&auto=format&fit=crop"
+          data-cap="Sun-warm tomatoes, ready for the table">
+          <img src="https://images.unsplash.com/photo-1592841200221-a6898f307baa?w=600&q=80&auto=format&fit=crop" alt="Bright ripe tomatoes ready to be harvested in the sun" loading="lazy" />
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== VISIT ===================== -->
+  <section class="section visit" id="visit" aria-labelledby="visit-title">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Find us</p>
+        <h2 id="visit-title">Behind the old firehouse on Maple Street</h2>
+        <p>Two blocks from the Rosewood library, between Bergen and Cypress. Look for the blue gate and the sunflowers.</p>
+      </div>
+
+      <div class="visit__grid">
+        <div class="visit-card reveal">
+          <div class="address-block">
+            <p class="street">Maple Street Community Garden</p>
+            <p>214 Maple Street</p>
+            <p>(between Bergen Ave &amp; Cypress Ave)</p>
+            <p>Rosewood</p>
+            <div class="contact">
+              <a href="mailto:hello@maplestreetgarden.org">hello@maplestreetgarden.org</a>
+              <a href="https://instagram.com/maplestgarden" target="_blank" rel="noopener">@maplestgarden</a>
+            </div>
+          </div>
+
+          <div class="gate-note">
+            <h3>Getting in</h3>
+            <ul>
+              <li><strong>Members</strong> get a gate key at orientation — the garden's open dawn to dusk, year round.</li>
+              <li><strong>Visitors</strong> are always welcome during the Saturday workdays and any event. Just push the blue gate; it's unlatched when we're in.</li>
+              <li><strong>Accessible entrance &amp; level paths</strong> run from the Bergen Avenue corner straight to the waist-high beds.</li>
+              <li><strong>Parking:</strong> free on Maple after 9 am; bike racks at the gate.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="map-card reveal">
+          <iframe
+            title="Map showing Maple Street Community Garden between Bergen and Cypress Avenues in Rosewood"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://maps.google.com/maps?q=Maple%20Street%20community%20garden&t=&z=14&ie=UTF8&iwloc=&output=embed"></iframe>
+          <div class="map-card__bar">
+            <span>Between Bergen &amp; Cypress · 2 blocks from the library</span>
+            <a class="btn" href="https://www.google.com/maps/dir/?api=1&destination=214+Maple+Street" target="_blank" rel="noopener">Get directions</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="brand" href="#top" aria-label="Maple Street Community Garden home">
+            <span class="mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 21c0-5 0-8 0-8" />
+                <path d="M12 13c-2.5 0-5-1.5-5-4.5C7 6 9 5 12 5s5 1 5 3.5C17 11.5 14.5 13 12 13z" />
+                <path d="M12 13c0-3 1.5-5 4-6" />
+                <path d="M12 13c0-3-1.5-5-4-6" />
+              </svg>
+            </span>
+            <span>
+              <span class="brand-name">Maple Street</span>
+              <span class="brand-sub">Community Garden · Rosewood</span>
+            </span>
+          </a>
+          <p>A volunteer-run, certified-organic neighborhood garden. Growing food, friendships, and the occasional prize-winning pumpkin since 2008.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Visit</h4>
+          <p>214 Maple Street<br/>(Bergen &amp; Cypress)<br/>Rosewood</p>
+          <a href="mailto:hello@maplestreetgarden.org">hello@maplestreetgarden.org</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Get involved</h4>
+          <a href="#join">Join the waitlist</a>
+          <a href="#volunteer">Volunteer workdays</a>
+          <a href="#events">Upcoming events</a>
+          <div class="socials" aria-label="Social links">
+            <a href="https://instagram.com/maplestgarden" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="mailto:hello@maplestreetgarden.org" aria-label="Email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </a>
+            <a href="https://maps.google.com/?q=214+Maple+Street" target="_blank" rel="noopener" aria-label="Map">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© <span id="year">2025</span> Maple Street Community Garden · Rosewood</span>
+        <span>Grown by neighbors, for neighbors. 🌻</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+    <button class="lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+    <img id="lbImg" src="" alt="" />
+    <button class="lb-next" id="lbNext" aria-label="Next photo">›</button>
+    <p class="lightbox__cap" id="lbCap"></p>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="garden"></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+---
+import { tickets } from '../data/conf';
+---
+
+<section class="section section--line tickets" id="tickets">
+  <div class="wrap">
+    <div class="tickets__head center">
+      <p class="eyebrow">Tickets</p>
+      <h2 class="section-title">Pick a seat. Recordings included.</h2>
+      <p class="lede tickets__lede">
+        One flat price for the whole day — talks, lunch, coffee, the after-party, and the recordings.
+        No upsells, no platinum-only hallway.
+      </p>
+    </div>
+
+    <div class="tickets__grid">
+      {
+        tickets.map((t) => (
+          <article class={`tier${t.featured ? ' tier--featured' : ''}${t.soldOut ? ' tier--out' : ''}`}>
+            {t.featured && <span class="tier__flag">Most popular</span>}
+            <header class="tier__head">
+              <h3 class="tier__name">{t.name}</h3>
+              <p class="tier__price">
+                <span class="tier__amount">{t.price}</span>
+                <span class="tier__per">{t.per}</span>
+              </p>
+              <p class="tier__blurb">{t.blurb}</p>
+            </header>
+            <ul class="tier__features">
+              {t.features.map((f) => (
+                <li>
+                  <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                    <path
+                      d="M3.5 8.5l3 3 6-7"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <a
+              class={`btn tier__cta${t.featured ? '' : ' btn--ghost'}`}
+              href={t.soldOut ? undefined : '#tickets-form'}
+              aria-disabled={t.soldOut ? 'true' : undefined}
+            >
+              {t.cta}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="tickets__fine" id="tickets-form">
+      Checkout is handled by our ticketing partner — VAT invoice generated automatically. Full refund
+      up to 30 days out, free name transfers right up to the morning of the event. Need a hardship or
+      diversity ticket? <a href="#footer">Apply here</a>.
+    </p>
+  </div>
+</section>
+
+<style>
+  .tickets__lede {
+    margin-inline: auto;
+  }
+  .tickets__head {
+    margin-bottom: clamp(2.4rem, 6vw, 3.4rem);
+  }
+  .center .lede {
+    margin-inline: auto;
+  }
+  .tickets__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1.2rem;
+    align-items: stretch;
+  }
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: 1.8rem 1.6rem 1.7rem;
+  }
+  .tier--featured {
+    border-color: rgba(139, 123, 255, 0.55);
+    background:
+      linear-gradient(180deg, rgba(139, 123, 255, 0.1), rgba(139, 123, 255, 0)) padding-box,
+      var(--surface) padding-box;
+    box-shadow: var(--glow);
+  }
+  .tier--out {
+    opacity: 0.72;
+  }
+  .tier__flag {
+    position: absolute;
+    top: -0.8rem;
+    left: 1.6rem;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #0a0a12;
+    background: var(--grad);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+  }
+  .tier__name {
+    font-size: 1.05rem;
+    font-family: var(--mono);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .tier__price {
+    margin: 0.6rem 0 0;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .tier__amount {
+    font-family: var(--display);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.03em;
+  }
+  .tier__per {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+  }
+  .tier__blurb {
+    margin: 0.9rem 0 0;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .tier__features {
+    list-style: none;
+    margin: 1.4rem 0 1.6rem;
+    padding: 1.4rem 0 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    gap: 0.7rem;
+    flex: 1;
+  }
+  .tier__features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    color: var(--ink);
+  }
+  .tier__features svg {
+    flex: none;
+    margin-top: 0.18rem;
+    color: var(--teal);
+  }
+  .tier__cta {
+    width: 100%;
+  }
+
+  .tickets__fine {
+    margin: clamp(2rem, 5vw, 2.8rem) auto 0;
+    max-width: 60ch;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--ink-faint);
+  }
+</style>

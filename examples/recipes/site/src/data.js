@@ -1,0 +1,305 @@
+// The Copper Skillet — recipe data.
+// Quantities with a numeric `qty` scale with the serving-size slider.
+// Use { text } for lines that shouldn't scale (e.g. "Salt to taste").
+
+const img = (id) => `https://images.unsplash.com/photo-${id}?w=1200&q=80&auto=format&fit=crop`;
+const thumb = (id) => `https://images.unsplash.com/photo-${id}?w=640&q=70&auto=format&fit=crop`;
+
+export const cook = {
+  name: "Nora Whitfield",
+  blog: "The Copper Skillet",
+  tagline: "Mediterranean-leaning weeknight cooking from a small Brooklyn kitchen.",
+  avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=240&q=70&auto=format&fit=crop",
+};
+
+export const categories = ["Dinner", "Pasta", "Soup", "Salad", "Breakfast", "Dessert"];
+export const cuisines = ["Mediterranean", "Middle Eastern", "Italian"];
+export const diets = ["Vegetarian", "Vegan", "Gluten-free", "Dairy-free", "30-minute", "One-pot"];
+
+export const recipes = [
+  {
+    slug: "burst-cherry-tomato-white-bean-skillet",
+    title: "Burst Cherry Tomato & White Bean Skillet",
+    category: "Dinner",
+    cuisine: "Mediterranean",
+    diets: ["Vegetarian", "Gluten-free", "30-minute", "One-pot"],
+    featured: true,
+    servings: 4,
+    prep: 10,
+    cook: 20,
+    hero: img("1551183053-bf91a1d81141"),
+    card: thumb("1551183053-bf91a1d81141"),
+    blurb:
+      "The recipe that started this whole blog. Cherry tomatoes burst into a jammy sauce, creamy cannellini beans soak it all up, and a fistful of basil ties it together. One pan, twenty minutes, and dinner is on the table before the kettle's even cooled.",
+    intro:
+      "I make some version of this almost every week from June to October, when cherry tomatoes are sweet enough to eat like candy. Off-season, a good pint of cocktail tomatoes still does the trick. Pile it over toasted sourdough, fold in pasta, or eat it straight from the skillet — I won't tell.",
+    ingredients: [
+      { qty: 3, unit: "tbsp", item: "olive oil", note: "plus more for finishing" },
+      { qty: 4, unit: "cloves", item: "garlic", note: "thinly sliced" },
+      { qty: 1, unit: "pint", item: "cherry tomatoes" },
+      { qty: 2, unit: "15-oz cans", item: "cannellini beans", note: "drained and rinsed" },
+      { qty: 0.25, unit: "tsp", item: "red pepper flakes" },
+      { qty: 0.5, unit: "cup", item: "vegetable stock" },
+      { qty: 1, unit: "cup", item: "fresh basil leaves", note: "torn" },
+      { text: "Flaky salt and black pepper, to taste" },
+      { text: "Toasted sourdough or crusty bread, to serve" },
+    ],
+    method: [
+      "Warm the olive oil in a large skillet over medium heat. Add the garlic and red pepper flakes and cook, stirring, for about a minute — just until fragrant and barely golden. Don't let it brown.",
+      "Add the cherry tomatoes and a good pinch of salt. Cook, stirring now and then, for 8–10 minutes, pressing on the tomatoes with a wooden spoon halfway through to help them burst into a loose, jammy sauce.",
+      "Stir in the beans and the stock. Simmer for 5 minutes, until the liquid thickens and coats the beans.",
+      "Off the heat, fold in most of the basil and a generous drizzle of olive oil. Taste and adjust salt and pepper.",
+      "Spoon over toasted sourdough, scatter with the remaining basil, and finish with flaky salt.",
+    ],
+    tip: "Want it more substantial? Crack four eggs into little wells in step 3, cover, and cook until the whites just set — shakshuka-style.",
+  },
+  {
+    slug: "lemony-orzo-charred-broccolini",
+    title: "Lemony Orzo with Charred Broccolini",
+    category: "Pasta",
+    cuisine: "Mediterranean",
+    diets: ["Vegetarian", "30-minute"],
+    servings: 4,
+    prep: 10,
+    cook: 18,
+    hero: img("1473093295043-cdd812d0e601"),
+    card: thumb("1473093295043-cdd812d0e601"),
+    blurb:
+      "Toasty orzo cooked risotto-style until creamy, finished with a hard squeeze of lemon and a tangle of broccolini charred at the edges. It eats like comfort food but feels bright.",
+    intro:
+      "Toasting the orzo before it ever sees liquid is the whole trick — it goes nutty and holds its shape instead of turning to mush. The charred broccolini on top is non-negotiable for me; those crispy florets are the best bite.",
+    ingredients: [
+      { qty: 1, unit: "bunch", item: "broccolini", note: "trimmed" },
+      { qty: 4, unit: "tbsp", item: "olive oil", note: "divided" },
+      { qty: 1.5, unit: "cups", item: "orzo" },
+      { qty: 3, unit: "cloves", item: "garlic", note: "minced" },
+      { qty: 3.5, unit: "cups", item: "vegetable stock", note: "warm" },
+      { qty: 1, unit: "whole", item: "lemon", note: "zested and juiced" },
+      { qty: 0.5, unit: "cup", item: "grated parmesan", note: "plus more to serve" },
+      { qty: 2, unit: "tbsp", item: "butter" },
+      { text: "Salt and black pepper, to taste" },
+    ],
+    method: [
+      "Heat 2 tablespoons olive oil in a wide skillet over medium-high. Add the broccolini in a single layer with a pinch of salt and cook, mostly undisturbed, until charred in spots and crisp-tender, 5–6 minutes. Lift out and set aside.",
+      "Lower the heat to medium. Add the remaining oil and the orzo, and toast, stirring, until the grains smell nutty and turn golden, about 3 minutes. Add the garlic and cook 30 seconds more.",
+      "Pour in the warm stock a ladle at a time, stirring often, adding more as it absorbs — about 12 minutes total — until the orzo is creamy and just tender.",
+      "Off the heat, stir in the lemon zest and juice, parmesan, and butter until glossy. Loosen with a splash of stock if needed. Season well.",
+      "Pile into bowls, top with the charred broccolini, and shower with more parmesan and black pepper.",
+    ],
+    tip: "No broccolini? Charred asparagus, green beans, or thick ribbons of zucchini all work the same way.",
+  },
+  {
+    slug: "sheet-pan-harissa-chicken-chickpeas",
+    title: "Sheet-Pan Harissa Chicken & Chickpeas",
+    category: "Dinner",
+    cuisine: "Middle Eastern",
+    diets: ["Gluten-free", "Dairy-free"],
+    servings: 4,
+    prep: 15,
+    cook: 35,
+    hero: img("1455619452474-d2be8b1e70cd"),
+    card: thumb("1455619452474-d2be8b1e70cd"),
+    blurb:
+      "Crispy-skinned thighs roasted over harissa-glazed chickpeas and red onion, with the pan juices doing all the heavy lifting. One tray, almost no cleanup, big payoff.",
+    intro:
+      "This is my answer to 'I have nothing planned and I'm starving.' The chickpeas crisp at the edges and soak up the spicy, lemony drippings underneath the chicken. A cool dollop of yogurt on the side if you do dairy; skip it and squeeze more lemon if you don't.",
+    ingredients: [
+      { qty: 8, unit: "bone-in", item: "chicken thighs", note: "skin on" },
+      { qty: 2, unit: "15-oz cans", item: "chickpeas", note: "drained and rinsed" },
+      { qty: 1, unit: "large", item: "red onion", note: "cut into wedges" },
+      { qty: 3, unit: "tbsp", item: "harissa paste" },
+      { qty: 3, unit: "tbsp", item: "olive oil" },
+      { qty: 1, unit: "tsp", item: "ground cumin" },
+      { qty: 1, unit: "whole", item: "lemon", note: "halved" },
+      { qty: 0.5, unit: "cup", item: "fresh cilantro", note: "chopped, to serve" },
+      { text: "Salt and black pepper, to taste" },
+    ],
+    method: [
+      "Heat the oven to 425°F (220°C). In a bowl, toss the chickpeas and onion wedges with 2 tablespoons olive oil, the cumin, and a big pinch of salt. Spread across a large rimmed sheet pan.",
+      "Whisk the harissa with the remaining tablespoon of oil. Pat the chicken thighs very dry, season all over with salt and pepper, then rub the harissa mixture into the skin.",
+      "Nestle the thighs skin-side up among the chickpeas. Roast for 30–35 minutes, until the skin is deep red-brown and crisp and the chicken reaches 175°F (80°C).",
+      "Squeeze one lemon half over the pan as it comes out of the oven; cut the other into wedges for serving.",
+      "Scatter with cilantro and serve straight from the tray, spooning the spiced chickpeas and juices over each piece.",
+    ],
+    tip: "Boneless thighs work too — start checking at 22 minutes so they don't dry out.",
+  },
+  {
+    slug: "golden-lentil-coconut-soup",
+    title: "Golden Lentil & Coconut Soup",
+    category: "Soup",
+    cuisine: "Mediterranean",
+    diets: ["Vegan", "Vegetarian", "Gluten-free", "Dairy-free", "One-pot"],
+    servings: 6,
+    prep: 10,
+    cook: 30,
+    hero: img("1467003909585-2f8a72700288"),
+    card: thumb("1467003909585-2f8a72700288"),
+    blurb:
+      "Red lentils melt into a silky, turmeric-gold soup enriched with coconut milk and woken up with lime. It costs almost nothing and tastes like a hug.",
+    intro:
+      "I keep a bag of red lentils in the pantry specifically for the nights nothing else is in the house. They cook in under twenty minutes and don't need soaking. Make the full batch — it's even better on day two and freezes beautifully.",
+    ingredients: [
+      { qty: 2, unit: "tbsp", item: "coconut oil", note: "or olive oil" },
+      { qty: 1, unit: "large", item: "yellow onion", note: "diced" },
+      { qty: 4, unit: "cloves", item: "garlic", note: "minced" },
+      { qty: 1, unit: "tbsp", item: "fresh ginger", note: "grated" },
+      { qty: 1.5, unit: "cups", item: "red lentils", note: "rinsed" },
+      { qty: 1, unit: "tsp", item: "ground turmeric" },
+      { qty: 1, unit: "tsp", item: "ground cumin" },
+      { qty: 1, unit: "13.5-oz can", item: "full-fat coconut milk" },
+      { qty: 5, unit: "cups", item: "vegetable stock" },
+      { qty: 2, unit: "whole", item: "limes", note: "juiced" },
+      { text: "Salt, to taste; cilantro and chili oil to serve" },
+    ],
+    method: [
+      "Warm the coconut oil in a large pot over medium heat. Add the onion with a pinch of salt and cook until soft and translucent, 6–7 minutes.",
+      "Stir in the garlic, ginger, turmeric, and cumin and cook for a minute, until everything smells toasty.",
+      "Add the lentils, coconut milk, and stock. Bring to a gentle boil, then lower to a simmer and cook, partly covered, for 20–22 minutes, until the lentils have completely broken down.",
+      "Blend until smooth with an immersion blender for a velvety texture, or leave it rustic. Stir in the lime juice and season generously with salt.",
+      "Ladle into bowls and finish with cilantro and a swirl of chili oil.",
+    ],
+    tip: "For a heartier bowl, stir in a few handfuls of baby spinach or kale at the end and let it wilt.",
+  },
+  {
+    slug: "smashed-cucumber-feta-salad",
+    title: "Smashed Cucumber & Feta Salad",
+    category: "Salad",
+    cuisine: "Mediterranean",
+    diets: ["Vegetarian", "Gluten-free", "30-minute"],
+    servings: 4,
+    prep: 15,
+    cook: 0,
+    hero: img("1540189549336-e6e99c3679fe"),
+    card: thumb("1540189549336-e6e99c3679fe"),
+    blurb:
+      "Cucumbers get smashed so they drink up the dressing, then tossed with briny feta, dill, and a garlicky lemon vinaigrette. The crunchiest, most refreshing thing on the table.",
+    intro:
+      "Smashing instead of slicing is the move — the craggy edges hold ten times more dressing. Salt the cucumbers first and let them weep so the salad stays crisp instead of watery. This is the side I bring to every cookout.",
+    ingredients: [
+      { qty: 2, unit: "lbs", item: "Persian cucumbers" },
+      { qty: 1, unit: "tsp", item: "salt", note: "for drawing out water" },
+      { qty: 4, unit: "oz", item: "feta", note: "crumbled" },
+      { qty: 3, unit: "tbsp", item: "olive oil" },
+      { qty: 2, unit: "tbsp", item: "red wine vinegar" },
+      { qty: 1, unit: "clove", item: "garlic", note: "grated" },
+      { qty: 0.5, unit: "cup", item: "fresh dill", note: "roughly chopped" },
+      { qty: 0.25, unit: "cup", item: "toasted walnuts", note: "chopped" },
+      { text: "Black pepper, to taste" },
+    ],
+    method: [
+      "Lay the cucumbers on a board and smash each one with the flat side of a knife or the bottom of a glass until they split. Tear into bite-size pieces.",
+      "Toss with the salt in a colander and let sit for 10 minutes, then shake off and discard the released liquid.",
+      "Whisk the olive oil, vinegar, and grated garlic together with a few grinds of pepper.",
+      "In a serving bowl, combine the drained cucumbers, feta, and dill. Pour over the dressing and toss gently.",
+      "Scatter with toasted walnuts and serve right away, while everything is cold and crunchy.",
+    ],
+    tip: "Swap the feta for a vegan brine cheese and the salad goes fully plant-based without losing its tang.",
+  },
+  {
+    slug: "garlic-butter-shrimp-orzo",
+    title: "Garlic Butter Shrimp Orzo",
+    category: "Pasta",
+    cuisine: "Mediterranean",
+    diets: ["30-minute", "One-pot"],
+    servings: 4,
+    prep: 12,
+    cook: 18,
+    hero: img("1476224203421-9ac39bcb3327"),
+    card: thumb("1476224203421-9ac39bcb3327"),
+    blurb:
+      "Plump shrimp seared in garlic butter, piled over orzo cooked right in the same pan with tomatoes and a little white wine. Restaurant dinner, weeknight effort.",
+    intro:
+      "Everything happens in one skillet, so the orzo cooks in all the shrimp-and-garlic flavor instead of plain water. Pull the shrimp early and add them back at the very end — overcooked shrimp is the only way to ruin this.",
+    ingredients: [
+      { qty: 1, unit: "lb", item: "large shrimp", note: "peeled and deveined" },
+      { qty: 4, unit: "tbsp", item: "butter", note: "divided" },
+      { qty: 5, unit: "cloves", item: "garlic", note: "minced" },
+      { qty: 1.5, unit: "cups", item: "orzo" },
+      { qty: 1, unit: "cup", item: "cherry tomatoes", note: "halved" },
+      { qty: 0.5, unit: "cup", item: "dry white wine" },
+      { qty: 3, unit: "cups", item: "chicken or vegetable stock", note: "warm" },
+      { qty: 1, unit: "whole", item: "lemon", note: "juiced" },
+      { qty: 0.25, unit: "cup", item: "parsley", note: "chopped" },
+      { text: "Salt, pepper, and chili flakes to taste" },
+    ],
+    method: [
+      "Pat the shrimp dry and season with salt and pepper. Melt 2 tablespoons butter in a large skillet over medium-high. Sear the shrimp 1–2 minutes per side, just until pink, then transfer to a plate.",
+      "Lower the heat to medium. Melt the remaining butter, add the garlic and a pinch of chili flakes, and cook until fragrant, about 1 minute.",
+      "Stir in the orzo and tomatoes and toast for 2 minutes. Pour in the wine and let it bubble away for a minute.",
+      "Add the warm stock, bring to a simmer, and cook, stirring often, until the orzo is tender and creamy, 10–12 minutes.",
+      "Return the shrimp and any juices to the pan, add the lemon juice and parsley, and toss just to warm through. Season and serve.",
+    ],
+    tip: "Skip the wine if you'd rather — just use an extra splash of stock and a little more lemon at the end.",
+  },
+  {
+    slug: "olive-oil-orange-polenta-cake",
+    title: "Olive Oil & Orange Polenta Cake",
+    category: "Dessert",
+    cuisine: "Italian",
+    diets: ["Vegetarian", "Gluten-free"],
+    servings: 10,
+    prep: 20,
+    cook: 45,
+    hero: img("1488477181946-6428a0291777"),
+    card: thumb("1488477181946-6428a0291777"),
+    blurb:
+      "A golden, syrup-soaked cake with a tender almond-and-polenta crumb, fragrant with orange and good olive oil. Naturally gluten-free and somehow even better the next day.",
+    intro:
+      "This is the dessert I make when I want something that feels special but can't be bothered to fuss. The fine polenta gives it a gorgeous, slightly grainy texture, and pouring warm orange syrup over the hot cake means every slice stays impossibly moist.",
+    ingredients: [
+      { qty: 1, unit: "cup", item: "extra-virgin olive oil" },
+      { qty: 1, unit: "cup", item: "sugar" },
+      { qty: 3, unit: "large", item: "eggs" },
+      { qty: 2, unit: "cups", item: "almond flour" },
+      { qty: 0.75, unit: "cup", item: "fine polenta", note: "or cornmeal" },
+      { qty: 2, unit: "tsp", item: "baking powder" },
+      { qty: 2, unit: "whole", item: "oranges", note: "zested; 1 juiced" },
+      { qty: 0.5, unit: "cup", item: "powdered sugar", note: "for the syrup" },
+      { text: "Pinch of salt; plain yogurt to serve" },
+    ],
+    method: [
+      "Heat the oven to 350°F (175°C). Grease a 9-inch springform pan and line the base with parchment.",
+      "Whisk the olive oil and sugar until well combined, then beat in the eggs one at a time until pale and a little thickened.",
+      "Fold in the almond flour, polenta, baking powder, salt, and the zest of both oranges until just combined. Pour into the pan and smooth the top.",
+      "Bake for 40–45 minutes, until golden and a skewer comes out clean. Meanwhile, warm the orange juice with the powdered sugar until syrupy.",
+      "Poke the warm cake all over with a skewer and slowly spoon the orange syrup over the top. Let it cool in the pan, then serve in wedges with a spoonful of yogurt.",
+    ],
+    tip: "A handful of fresh raspberries pressed into the batter before baking is never a bad idea.",
+  },
+  {
+    slug: "whipped-ricotta-toast-honey-thyme",
+    title: "Whipped Ricotta Toast with Honey & Thyme",
+    category: "Breakfast",
+    cuisine: "Italian",
+    diets: ["Vegetarian", "30-minute"],
+    servings: 2,
+    prep: 10,
+    cook: 5,
+    hero: img("1504754524776-8f4f37790ca0"),
+    card: thumb("1504754524776-8f4f37790ca0"),
+    blurb:
+      "Ricotta whipped until cloud-soft, piled onto charred sourdough, and finished with honey, thyme, and a crack of black pepper. Five minutes to the best breakfast of your week.",
+    intro:
+      "Whipping the ricotta is what turns a fine cheese-on-toast into something you'd happily pay twelve dollars for at a café. The contrast of warm crunchy bread, cool creamy cheese, and floral honey is the whole point — don't skip the pepper, it makes it.",
+    ingredients: [
+      { qty: 1, unit: "cup", item: "whole-milk ricotta" },
+      { qty: 1, unit: "tbsp", item: "olive oil" },
+      { qty: 1, unit: "whole", item: "lemon", note: "zested" },
+      { qty: 4, unit: "thick slices", item: "sourdough bread" },
+      { qty: 2, unit: "tbsp", item: "honey" },
+      { qty: 1, unit: "tsp", item: "fresh thyme leaves" },
+      { text: "Flaky salt and coarse black pepper, to finish" },
+    ],
+    method: [
+      "Add the ricotta, olive oil, lemon zest, and a pinch of salt to a bowl. Whisk hard (or blitz with a hand blender) for a minute until light and fluffy.",
+      "Toast or griddle the sourdough until deeply golden with a few charred edges.",
+      "Spread each slice thickly with the whipped ricotta, swooshing it with the back of a spoon.",
+      "Drizzle with honey, scatter with thyme leaves, and finish with flaky salt and a generous crack of black pepper. Eat immediately.",
+    ],
+    tip: "Going savory? Skip the honey and top with roasted cherry tomatoes or a few ribbons of prosciutto instead.",
+  },
+];
+
+export function findRecipe(slug) {
+  return recipes.find((r) => r.slug === slug);
+}

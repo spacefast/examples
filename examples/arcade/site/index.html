@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quarter Up Barcade — Classic Cabinets &amp; Craft Beer · Philadelphia</title>
+  <meta name="description" content="Quarter Up is an '80s neon barcade in Fishtown, Philadelphia. 40+ restored arcade cabinets, 18 craft beers on draft, weekly high-score tournaments. Play a round in your browser, then come play for real." />
+
+  <meta property="og:title" content="Quarter Up Barcade — Classic Cabinets & Craft Beer" />
+  <meta property="og:description" content="40+ restored cabinets, 18 craft drafts, weekly tournaments. Fishtown, Philadelphia." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1511882150382-421056c89033?auto=format&fit=crop&w=1200&q=70" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0014'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23ff2db8' font-family='monospace'%3E%E2%96%B6%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Quarter Up Barcade home">
+      <span class="brand__mark" aria-hidden="true">▶</span>
+      <span class="brand__name">QUARTER<span class="brand__up">UP</span></span>
+    </a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="#cabinets">Cabinets</a>
+      <a href="#ontap">On Tap</a>
+      <a href="#events">Events</a>
+      <a href="#visit">Visit</a>
+      <a class="btn btn--small" href="#book">Book a party</a>
+    </nav>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="#cabinets">Cabinets</a>
+    <a href="#ontap">On Tap</a>
+    <a href="#events">Events</a>
+    <a href="#visit">Visit</a>
+    <a href="#book">Book a party</a>
+  </div>
+
+  <main id="main">
+    <!-- ===================== HERO + PLAYABLE GAME ===================== -->
+    <section class="hero" id="top">
+      <div class="hero__copy">
+        <p class="eyebrow">Fishtown · Philadelphia · est. 2019</p>
+        <h1 class="hero__title">
+          <span class="line">QUARTER</span>
+          <span class="line line--accent">UP</span>
+        </h1>
+        <p class="hero__tagline">
+          Forty restored cabinets. Eighteen taps of cold local beer.
+          Free play, always. Pull up a stool and grab a paddle.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#visit">Plan your visit</a>
+          <a class="btn btn--ghost" href="#events">This week's tournaments</a>
+        </div>
+        <dl class="hero__stats">
+          <div><dt>Cabinets</dt><dd>40+</dd></div>
+          <div><dt>On tap</dt><dd>18</dd></div>
+          <div><dt>Cover</dt><dd>$0</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__game">
+        <figure class="cabinet">
+          <div class="cabinet__screen">
+            <canvas id="game" width="480" height="600" role="img"
+              aria-label="Playable Brick Buster mini-game. Use arrow keys, A and D, or your mouse to move the paddle.">
+              Your browser does not support the canvas element, but the bar is very real.
+            </canvas>
+
+            <div class="overlay" id="overlay" data-state="start">
+              <div class="overlay__card">
+                <p class="overlay__kicker">QUARTER UP PRESENTS</p>
+                <h2 class="overlay__title">BRICK&nbsp;BUSTER</h2>
+                <p class="overlay__sub" id="overlay-sub">Clear the wall. Don't drop the ball.</p>
+                <button class="btn btn--primary btn--start" id="startBtn">PRESS&nbsp;START</button>
+                <p class="overlay__controls">← → / A D / mouse &nbsp;·&nbsp; <kbd>Space</kbd> launch &nbsp;·&nbsp; <kbd>P</kbd> pause</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cabinet__hud">
+            <span class="hud__item">SCORE <b id="score">0</b></span>
+            <span class="hud__item">HI <b id="hiscore">0</b></span>
+            <span class="hud__item">BALLS <b id="lives">3</b></span>
+            <span class="hud__item">WAVE <b id="level">1</b></span>
+          </div>
+          <figcaption class="cabinet__caption">
+            Insert imaginary quarter. Real cabinets on the floor — come finish the high score.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>★ FREE PLAY ALL NIGHT</span><span>★ 18 DRAFTS</span><span>★ TUESDAY TETRIS LEAGUE</span>
+        <span>★ NO COVER, EVER</span><span>★ 21+ AFTER 9PM</span><span>★ HIGH-SCORE PAYOUTS</span>
+        <span>★ FREE PLAY ALL NIGHT</span><span>★ 18 DRAFTS</span><span>★ TUESDAY TETRIS LEAGUE</span>
+        <span>★ NO COVER, EVER</span><span>★ 21+ AFTER 9PM</span><span>★ HIGH-SCORE PAYOUTS</span>
+      </div>
+    </div>
+
+    <!-- ===================== CABINETS ===================== -->
+    <section class="section" id="cabinets">
+      <div class="section__head">
+        <p class="eyebrow">On the floor</p>
+        <h2 class="section__title">The cabinets</h2>
+        <p class="section__lede">
+          Every machine is restored in-house and set to free play. Rotation changes
+          monthly — these are the regulars that never leave.
+        </p>
+      </div>
+
+      <ul class="cabinet-grid">
+        <li class="cab-card">
+          <span class="cab-card__badge">1981</span>
+          <h3>Galaga</h3>
+          <p>The house favorite. Our standing record is 412,310 — leaderboard by the bar.</p>
+          <span class="cab-card__tag">Fixed shooter</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1980</span>
+          <h3>Pac-Man</h3>
+          <p>Original Midway upright, brand-new monitor cap kit. Pattern players welcome.</p>
+          <span class="cab-card__tag">Maze</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1983</span>
+          <h3>Tetris</h3>
+          <p>The Tuesday league machine. Sign-ups on the chalkboard, finals at 10pm.</p>
+          <span class="cab-card__tag">Puzzle</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1985</span>
+          <h3>Street Fighter II</h3>
+          <p>Six-button Japanese candy cab. First to two, winner stays on.</p>
+          <span class="cab-card__tag">Fighting</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1979</span>
+          <h3>Asteroids</h3>
+          <p>Crisp vector monitor, fully recapped. Hyperspace at your own risk.</p>
+          <span class="cab-card__tag">Vector</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1982</span>
+          <h3>Tron</h3>
+          <p>Blue-glow cab with the spinner and flightstick intact. A real one.</p>
+          <span class="cab-card__tag">Multi-game</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1990</span>
+          <h3>Skee-Ball</h3>
+          <p>Two lanes by the patio door. Tickets redeem for stickers and free pours.</p>
+          <span class="cab-card__tag">Alley</span>
+        </li>
+        <li class="cab-card">
+          <span class="cab-card__badge">1992</span>
+          <h3>NBA Jam</h3>
+          <p>He's on fire. Four-player cab — bring three friends or make some.</p>
+          <span class="cab-card__tag">Sports</span>
+        </li>
+      </ul>
+
+      <figure class="floor-shot">
+        <img
+          src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1400&q=70"
+          alt="A row of glowing vintage arcade cabinets along a dark barroom wall, casting neon light on the floor"
+          loading="lazy" width="1400" height="700" />
+        <figcaption>The main wall on a Friday — roughly forty cabinets deep.</figcaption>
+      </figure>
+    </section>
+
+    <!-- ===================== ON TAP ===================== -->
+    <section class="section section--alt" id="ontap">
+      <div class="section__head">
+        <p class="eyebrow">Cold &amp; local</p>
+        <h2 class="section__title">On tap this week</h2>
+        <p class="section__lede">
+          Eighteen rotating handles, heavy on Philly breweries, plus four house
+          arcade cocktails. List updates every Thursday.
+        </p>
+      </div>
+
+      <div class="tap-layout">
+        <ul class="tap-list" aria-label="Draft beer list">
+          <li class="tap">
+            <span class="tap__name">Pixel Pilsner</span>
+            <span class="tap__meta">Love City · Kensington · Pils</span>
+            <span class="tap__abv">4.8%</span>
+            <span class="tap__price">$6</span>
+          </li>
+          <li class="tap">
+            <span class="tap__name">Continue? IPA</span>
+            <span class="tap__meta">Evil Genius · Fishtown · Hazy IPA</span>
+            <span class="tap__abv">6.7%</span>
+            <span class="tap__price">$8</span>
+          </li>
+          <li class="tap">
+            <span class="tap__name">High Score Hefe</span>
+            <span class="tap__meta">Yards · Northern Liberties · Hefeweizen</span>
+            <span class="tap__abv">5.1%</span>
+            <span class="tap__price">$7</span>
+          </li>
+          <li class="tap">
+            <span class="tap__name">Extra Life Stout</span>
+            <span class="tap__meta">Tired Hands · Ardmore · Oatmeal Stout</span>
+            <span class="tap__abv">6.2%</span>
+            <span class="tap__price">$8</span>
+          </li>
+          <li class="tap">
+            <span class="tap__name">Side Scroller Saison</span>
+            <span class="tap__meta">Forest &amp; Main · Ambler · Farmhouse</span>
+            <span class="tap__abv">5.6%</span>
+            <span class="tap__price">$8</span>
+          </li>
+          <li class="tap">
+            <span class="tap__name">Cherry Bonus Sour</span>
+            <span class="tap__meta">Human Robot · Kensington · Fruited Sour</span>
+            <span class="tap__abv">5.9%</span>
+            <span class="tap__price">$9</span>
+          </li>
+        </ul>
+
+        <div class="cocktails">
+          <h3 class="cocktails__head">House cocktails</h3>
+          <ul class="cocktail-list">
+            <li>
+              <span class="cocktail__name">The Konami Code</span>
+              <span class="cocktail__desc">Mezcal, lime, pineapple, a little fire. $12</span>
+            </li>
+            <li>
+              <span class="cocktail__name">Blue Shell</span>
+              <span class="cocktail__desc">Gin, blue curaçao, lemon, soda. $11</span>
+            </li>
+            <li>
+              <span class="cocktail__name">1-Up Spritz</span>
+              <span class="cocktail__desc">Aperol, cava, grapefruit, mint. $10</span>
+            </li>
+            <li>
+              <span class="cocktail__name">Game Over Old Fashioned</span>
+              <span class="cocktail__desc">Rye, demerara, black walnut bitters. $13</span>
+            </li>
+          </ul>
+          <p class="cocktails__note">N/A options on every cocktail — just ask. Soda &amp; coffee always free for designated drivers.</p>
+        </div>
+      </div>
+
+      <figure class="tap-shot">
+        <img
+          src="https://images.unsplash.com/photo-1518176258769-f227c798150e?auto=format&fit=crop&w=1400&q=70"
+          alt="A row of polished metal beer taps glowing under bar lights"
+          loading="lazy" width="1400" height="600" />
+      </figure>
+    </section>
+
+    <!-- ===================== EVENTS ===================== -->
+    <section class="section" id="events">
+      <div class="section__head">
+        <p class="eyebrow">What's on</p>
+        <h2 class="section__title">Events &amp; tournaments</h2>
+        <p class="section__lede">
+          Something every night of the week. Tournaments are free to enter — winners
+          take home bar tabs, tokens, and bragging rights on the big board.
+        </p>
+      </div>
+
+      <ul class="event-grid">
+        <li class="event">
+          <span class="event__day">TUE</span>
+          <div class="event__body">
+            <h3>Tetris League Night</h3>
+            <p>Sixteen-player bracket on the league cab. Sign-ups 7pm, finals 10pm.</p>
+            <span class="event__prize">Winner: $50 tab + the championship belt</span>
+          </div>
+          <span class="event__time">7:00 PM</span>
+        </li>
+        <li class="event">
+          <span class="event__day">WED</span>
+          <div class="event__body">
+            <h3>Pinball Wizard Wednesday</h3>
+            <p>Match-play across all six pinball machines. Beginners genuinely welcome.</p>
+            <span class="event__prize">Winner: tokens + a t-shirt</span>
+          </div>
+          <span class="event__time">8:00 PM</span>
+        </li>
+        <li class="event">
+          <span class="event__day">THU</span>
+          <div class="event__body">
+            <h3>New Taps Thursday</h3>
+            <p>Fresh draft list drops, $1 off all Philly pours, no tournament — just hang.</p>
+            <span class="event__prize">$1 off local drafts all night</span>
+          </div>
+          <span class="event__time">5:00 PM</span>
+        </li>
+        <li class="event">
+          <span class="event__day">FRI</span>
+          <div class="event__body">
+            <h3>Galaga High-Score Showdown</h3>
+            <p>One credit, one life, highest score by midnight wins. Watch the leaderboard climb.</p>
+            <span class="event__prize">Winner: $75 tab</span>
+          </div>
+          <span class="event__time">9:00 PM</span>
+        </li>
+        <li class="event">
+          <span class="event__day">SAT</span>
+          <div class="event__body">
+            <h3>Street Fighter Winner-Stays-On</h3>
+            <p>The candy cab runs all night. Quarters down, loser racks 'em.</p>
+            <span class="event__prize">Last challenger standing: free entry to monthly major</span>
+          </div>
+          <span class="event__time">9:00 PM</span>
+        </li>
+        <li class="event">
+          <span class="event__day">SUN</span>
+          <div class="event__body">
+            <h3>Co-op Sunday &amp; Happy Hour</h3>
+            <p>Two-player games all day, half-price snacks, and happy hour from open to 7pm.</p>
+            <span class="event__prize">$5 drafts · half-price tots</span>
+          </div>
+          <span class="event__time">2:00 PM</span>
+        </li>
+      </ul>
+
+      <div class="happy-hour">
+        <div>
+          <h3>Daily happy hour</h3>
+          <p>Mon–Fri, open until 7pm. $5 local drafts, $7 house cocktails, $3 off baskets.</p>
+        </div>
+        <a class="btn btn--primary" href="#book">Book the back room</a>
+      </div>
+    </section>
+
+    <!-- ===================== VISIT ===================== -->
+    <section class="section section--alt" id="visit">
+      <div class="section__head">
+        <p class="eyebrow">Come play</p>
+        <h2 class="section__title">Hours &amp; location</h2>
+      </div>
+
+      <div class="visit-layout">
+        <div class="visit-info">
+          <div class="visit-block">
+            <h3>Find us</h3>
+            <address>
+              1142 Frankford Avenue<br />
+              Fishtown, Philadelphia, PA 19125
+            </address>
+            <p class="visit-line"><a href="tel:+12155550148">(215) 555-0148</a></p>
+            <p class="visit-line"><a href="mailto:hey@quarterupbar.com">hey@quarterupbar.com</a></p>
+          </div>
+
+          <div class="visit-block">
+            <h3>Hours</h3>
+            <table class="hours">
+              <tbody>
+                <tr><th scope="row">Mon</th><td>4 PM – 12 AM</td></tr>
+                <tr><th scope="row">Tue – Thu</th><td>4 PM – 1 AM</td></tr>
+                <tr><th scope="row">Fri</th><td>4 PM – 2 AM</td></tr>
+                <tr><th scope="row">Sat</th><td>12 PM – 2 AM</td></tr>
+                <tr><th scope="row">Sun</th><td>12 PM – 12 AM</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="visit-block">
+            <h3>Good to know</h3>
+            <ul class="policy">
+              <li><strong>All ages until 9 PM.</strong> 21+ only after 9, valid ID required.</li>
+              <li>Every cabinet is on free play — no quarters, no cards.</li>
+              <li>Walk-ins only on the floor; back room is reservable for parties.</li>
+              <li>Kitchen serves tots, pretzels, and pizza until close.</li>
+            </ul>
+          </div>
+        </div>
+
+        <figure class="map">
+          <img
+            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=70"
+            alt="Neon-lit arcade bar interior glowing magenta and cyan at night"
+            loading="lazy" width="900" height="900" />
+          <figcaption>
+            On Frankford Ave between Girard and Master — look for the pink ▶ sign.
+            <a href="https://maps.google.com/?q=1142+Frankford+Avenue+Philadelphia" target="_blank" rel="noopener">Open in Maps ↗</a>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ===================== BOOK A PARTY ===================== -->
+    <section class="section book" id="book">
+      <div class="book__inner">
+        <div class="book__copy">
+          <p class="eyebrow">Private events</p>
+          <h2 class="section__title">Book the back room</h2>
+          <p class="section__lede">
+            Birthdays, work parties, launch nights — rent the back room with eight
+            dedicated cabinets, a private bar, and a high-score tournament we run for you.
+            Tell us a little and we'll get back within a day.
+          </p>
+          <ul class="book__perks">
+            <li>Up to 60 guests · 8 cabinets on free play</li>
+            <li>Private bartender &amp; drink packages</li>
+            <li>Custom tournament with a winner's tab</li>
+          </ul>
+        </div>
+
+        <form class="book-form" id="bookForm" novalidate>
+          <div class="field">
+            <label for="bf-name">Your name</label>
+            <input id="bf-name" name="name" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="bf-email">Email</label>
+            <input id="bf-email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field field--row">
+            <div>
+              <label for="bf-date">Preferred date</label>
+              <input id="bf-date" name="date" type="date" required />
+            </div>
+            <div>
+              <label for="bf-guests">Guests</label>
+              <input id="bf-guests" name="guests" type="number" min="8" max="60" value="20" required />
+            </div>
+          </div>
+          <div class="field">
+            <label for="bf-notes">What's the occasion?</label>
+            <textarea id="bf-notes" name="notes" rows="3" placeholder="Mike's 30th — wants a Galaga tournament"></textarea>
+          </div>
+          <button class="btn btn--primary btn--block" type="submit">Request a date</button>
+          <p class="book-form__success" id="bookSuccess" role="status" hidden>
+            Got it — thanks! We'll email you within a day to lock in the room. 🕹️
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__brand">
+      <span class="brand__mark" aria-hidden="true">▶</span>
+      <span class="brand__name">QUARTER<span class="brand__up">UP</span></span>
+      <p>1142 Frankford Ave · Fishtown · Philadelphia</p>
+    </div>
+    <nav class="site-footer__links" aria-label="Footer">
+      <a href="#cabinets">Cabinets</a>
+      <a href="#ontap">On Tap</a>
+      <a href="#events">Events</a>
+      <a href="#visit">Visit</a>
+      <a href="#book">Book a party</a>
+    </nav>
+    <div class="site-footer__social">
+      <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://tiktok.com" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a>
+    </div>
+    <p class="site-footer__legal">© 2026 Quarter Up Barcade · Drink responsibly · Built for play.</p>
+  </footer>
+
+  <script src="./game.js" defer></script>
+  <script src="./ui.js" defer></script>
+  <script src="https://spacefast.com/badge.js" data-example="arcade"></script>
+</body>
+</html>

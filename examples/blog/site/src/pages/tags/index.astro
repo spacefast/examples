@@ -1,0 +1,34 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+const tagCounts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+  }
+}
+const tags = [...tagCounts.entries()].sort((a, b) =>
+  a[0].localeCompare(b[0])
+);
+---
+
+<Layout title="Tags" description="Browse every post on Margins by topic." current="/tags/">
+  <div class="wrap">
+    <h1 class="page-title">Tags</h1>
+    <p class="lede">Every post, grouped by what it's about. Pick a thread to pull.</p>
+
+    <div class="tag-cloud">
+      {
+        tags.map(([tag, count]) => (
+          <a href={`/tags/${tag}/`}>
+            #{tag}
+            <span class="count">{count}</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

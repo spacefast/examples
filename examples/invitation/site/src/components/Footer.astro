@@ -1,0 +1,52 @@
+---
+import { wedding } from '../data/wedding';
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__names">{wedding.partnerA} <span aria-hidden="true">&amp;</span> {wedding.partnerB}</p>
+    <p class="footer__date">{wedding.dateLong} · {wedding.city}</p>
+    <p class="footer__tag">{wedding.hashtag}</p>
+    <a class="footer__top" href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--olive);
+    color: var(--blush);
+    text-align: center;
+    padding-block: clamp(3rem, 7vw, 4.5rem);
+  }
+  .footer__names {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 7vw, 3.4rem);
+    color: var(--ivory);
+    margin: 0;
+  }
+  .footer__names span {
+    font-style: italic;
+    color: var(--blush);
+  }
+  .footer__date {
+    margin: 0.4rem 0 0;
+    letter-spacing: 0.04em;
+  }
+  .footer__tag {
+    margin: 1.2rem 0 0;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+    color: var(--terracotta);
+  }
+  .footer__top {
+    display: inline-block;
+    margin-top: 1.6rem;
+    color: var(--ivory);
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(248, 242, 231, 0.4);
+    padding-bottom: 2px;
+  }
+</style>

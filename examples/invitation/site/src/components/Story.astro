@@ -1,0 +1,118 @@
+---
+import { story } from '../data/wedding';
+---
+
+<section class="section" id="story">
+  <div class="wrap">
+    <div class="story__head">
+      <div>
+        <p class="eyebrow">Our Story</p>
+        <h2 class="section-title">Seven years in the making</h2>
+        <p class="lede">
+          A coffee shop, a rained-out trip, one very rude dog, and a foggy bluff. Here's how we got here.
+        </p>
+      </div>
+      <figure class="story__portrait">
+        <img
+          src="https://picsum.photos/seed/maya-and-daniel-portrait/720/900"
+          alt="Maya and Daniel laughing together on a countryside path"
+          loading="lazy"
+          width="720"
+          height="900"
+        />
+      </figure>
+    </div>
+
+    <ol class="timeline">
+      {
+        story.map((s) => (
+          <li class="timeline__item">
+            <span class="timeline__year">{s.year}</span>
+            <div class="timeline__body">
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .story__head {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .story__portrait {
+    margin: 0;
+  }
+  .story__portrait img {
+    width: 100%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 3.5rem 0 0;
+    padding: 0;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: linear-gradient(var(--blush), var(--gold), var(--blush));
+  }
+  .timeline__item {
+    position: relative;
+    padding-left: 2.4rem;
+    padding-bottom: 2.2rem;
+  }
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+  .timeline__item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--cream-card);
+    border: 3px solid var(--terracotta);
+  }
+  .timeline__year {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.35rem;
+  }
+  .timeline__body h3 {
+    font-size: 1.55rem;
+    margin-bottom: 0.35rem;
+  }
+  .timeline__body p {
+    margin: 0;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  @media (min-width: 820px) {
+    .story__head {
+      grid-template-columns: 1.2fr 0.8fr;
+    }
+  }
+</style>

@@ -1,0 +1,160 @@
+---
+import { schedule, conf } from '../data/conf';
+---
+
+<section class="section section--line schedule" id="schedule">
+  <div class="wrap">
+    <p class="eyebrow">The day, hour by hour</p>
+    <h2 class="section-title">One track. Everyone sees everything.</h2>
+    <p class="lede schedule__lede">
+      {conf.dateLong} at {conf.venue}. Doors and coffee from {conf.doorsTime}; the first talk lands
+      at 09:30 sharp.
+    </p>
+
+    <ol class="timeline">
+      {
+        schedule.map((slot) => (
+          <li class={`slot slot--${slot.kind}`}>
+            <div class="slot__time">
+              <time>{slot.time}</time>
+            </div>
+            <div class="slot__rail" aria-hidden="true">
+              <span class="slot__node" />
+            </div>
+            <div class="slot__body">
+              <h3 class="slot__title">{slot.title}</h3>
+              {slot.speaker && (
+                <p class="slot__meta">
+                  <span class="slot__speaker">{slot.speaker}</span>
+                  {slot.company && <span class="slot__company"> · {slot.company}</span>}
+                </p>
+              )}
+              {slot.note && <p class="slot__note">{slot.note}</p>}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .schedule__lede {
+    margin-bottom: clamp(2.4rem, 6vw, 3.4rem);
+  }
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .slot {
+    display: grid;
+    grid-template-columns: 76px 28px 1fr;
+    gap: 0.4rem;
+    align-items: stretch;
+  }
+  .slot__time {
+    text-align: right;
+    padding-top: 0.05rem;
+  }
+  .slot__time time {
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .slot__rail {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  .slot__rail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--line);
+  }
+  .slot:first-child .slot__rail::before {
+    top: 9px;
+  }
+  .slot:last-child .slot__rail::before {
+    bottom: calc(100% - 9px);
+  }
+  .slot__node {
+    position: relative;
+    z-index: 1;
+    width: 11px;
+    height: 11px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--ink-faint);
+  }
+  .slot__body {
+    padding: 0 0 1.7rem 0.6rem;
+  }
+  .slot__title {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.25;
+  }
+  .slot__meta {
+    margin: 0.3rem 0 0;
+    font-size: 0.92rem;
+  }
+  .slot__speaker {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .slot__company {
+    color: var(--ink-faint);
+  }
+  .slot__note {
+    margin: 0.35rem 0 0;
+    font-size: 0.88rem;
+    color: var(--ink-faint);
+  }
+
+  /* Talks get the accent node + a subtle card */
+  .slot--talk .slot__node {
+    border-color: var(--teal);
+    background: var(--teal);
+    box-shadow: 0 0 0 4px rgba(52, 225, 196, 0.16);
+  }
+  .slot--talk .slot__time time {
+    color: var(--teal);
+  }
+
+  .slot--milestone .slot__node {
+    border-color: var(--violet);
+    background: var(--violet);
+    box-shadow: 0 0 0 4px rgba(139, 123, 255, 0.18);
+  }
+  .slot--milestone .slot__title {
+    color: var(--ink);
+  }
+
+  .slot--break .slot__title {
+    color: var(--ink-soft);
+    font-weight: 500;
+    font-style: italic;
+  }
+  .slot--break .slot__node {
+    width: 9px;
+    height: 9px;
+    margin-top: 5px;
+  }
+
+  @media (max-width: 540px) {
+    .slot {
+      grid-template-columns: 58px 24px 1fr;
+    }
+    .slot__time time {
+      font-size: 0.82rem;
+    }
+  }
+</style>

@@ -1,0 +1,29 @@
+{
+  "name": "Kimchi Taco Co.",
+  "slug": "foodtruck",
+  "vertical": "Local business",
+  "tech": "vanilla-js",
+  "based_on": "A Korean-Mexican fusion taco truck in the lineage of Kogi BBQ (LA) and Seoul Taco \u2014 bulgogi and kimchi tacos, a roaming weekly schedule, heavy Instagram presence.",
+  "summary": "A bright, mobile-first food-truck site whose centerpiece is a weekly schedule that auto-highlights where the truck is parked today, with one-tap map directions.",
+  "sections": [
+    "Hero with truck photo and a live 'We're at \u2026 today' banner",
+    "This week's schedule (day \u2192 location \u2192 time), today's row highlighted via JS",
+    "Menu (tacos, burritos, sides, drinks) with prices",
+    "Catering / private event inquiry blurb with form",
+    "Social / gallery strip",
+    "Footer with contact and follow links"
+  ],
+  "setup_questions": [
+    "What's the truck's name and cuisine/signature item?",
+    "What are 3-5 menu items with prices?",
+    "Where will you be each day this week (day, place, hours)?",
+    "Instagram handle and a catering contact email?"
+  ],
+  "photo_terms": [
+    "colorful food truck street parked daytime",
+    "korean bbq beef tacos kimchi close up",
+    "food truck service window customers line",
+    "loaded burrito unwrapped overhead"
+  ],
+  "live_url": "https://foodtruck.view.fast/"
+}

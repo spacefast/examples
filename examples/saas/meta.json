@@ -1,0 +1,32 @@
+{
+  "name": "Tideline",
+  "slug": "saas",
+  "vertical": "Startup & marketing",
+  "tech": "astro",
+  "based_on": "Linear (linear.app) \u2014 the issue-tracking and project-management SaaS for product and engineering teams; the same restrained dark-mode, screenshot-forward marketing pattern as Linear/Height/Vercel.",
+  "summary": "A clean, conversion-focused marketing site for a B2B SaaS issue-tracker that helps product teams plan and ship, leading with a product screenshot, a logo cloud, outcome-driven feature sections, testimonials, and three pricing tiers.",
+  "sections": [
+    "Sticky nav with product/pricing/docs links and a 'Start free' CTA",
+    "Hero: one-line outcome headline, sub-headline, email-only signup, hero product screenshot",
+    "Logo cloud / 'trusted by' social-proof strip",
+    "Three-to-four feature deep-dives alternating image+copy (issues, sprints, roadmap, keyboard-driven workflow)",
+    "Metric/stat band ('Ship 30% faster')",
+    "Customer testimonial quotes with avatars and company",
+    "Pricing table \u2014 Free / Team / Enterprise with feature comparison",
+    "FAQ accordion",
+    "Footer CTA + sitemap footer"
+  ],
+  "setup_questions": [
+    "What's the product name and the one-sentence outcome it delivers (e.g. 'plan, track, and ship product work in one place')?",
+    "Who is the target customer \u2014 what kind of team or role?",
+    "What are your 3-4 core features to highlight?",
+    "Do you have customer or company names to use as social proof, or should I use realistic placeholders?"
+  ],
+  "photo_terms": [
+    "saas dashboard ui screenshot dark mode",
+    "product team standup meeting candid",
+    "kanban board project management interface",
+    "abstract gradient mesh background purple"
+  ],
+  "live_url": "https://saas.view.fast/"
+}

@@ -1,0 +1,108 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const headings = [
+  { depth: 2, slug: 'choosing-an-adapter', text: 'Choosing an adapter' },
+  { depth: 2, slug: 'indexeddb', text: 'IndexedDB' },
+  { depth: 2, slug: 'localstorage', text: 'localStorage' },
+  { depth: 2, slug: 'flushing-and-loading', text: 'Flushing and loading' },
+  { depth: 2, slug: 'offline-first', text: 'Offline-first patterns' },
+];
+
+const idb = `import { createLedger, collection } from 'ledger';
+import { indexedDB } from 'ledger/adapters';
+
+export const db = createLedger(
+  {
+    notes: collection<Note>({ key: 'id' }),
+    tags: collection<Tag>({ key: 'id' }),
+  },
+  {
+    persist: indexedDB({ name: 'notes-app', version: 1 }),
+  }
+);
+
+// On first load, Ledger hydrates from disk before the store resolves:
+await db.ready;`;
+
+const ls = `import { localStorage } from 'ledger/adapters';
+
+const db = createLedger(
+  { settings: collection<Setting>({ key: 'key' }) },
+  { persist: localStorage({ prefix: 'app:' }) }
+);`;
+
+const flush = `// Writes are buffered and flushed on the next microtask by default.
+db.notes.insert(note);          // queued
+await db.flush();               // force a write now
+
+// Want write-through instead of buffered? Set debounce: 0.
+indexedDB({ name: 'app', debounce: 0 });`;
+
+const offline = `// Persisted stores are offline-first out of the box: reads and writes
+// hit local storage, never the network. To sync with a server, push a
+// changelog when you reconnect.
+db.notes.onChange((change) => outbox.push(change));
+
+window.addEventListener('online', () => flushOutbox());`;
+---
+
+<Docs
+  title="Persistence"
+  description="Keep Ledger data on the device with the IndexedDB and localStorage adapters."
+  headings={headings}
+>
+  <span class="eyebrow">Guides</span>
+  <h1>Persistence</h1>
+  <p class="lead">
+    By default a Ledger store lives in memory and resets on reload. Add a persistence
+    adapter and your data survives refreshes, tab closes, and going offline — all
+    without changing how you query.
+  </p>
+
+  <h2 id="choosing-an-adapter">Choosing an adapter</h2>
+  <p>Two adapters ship in <code>ledger/adapters</code>. Pick based on how much data you keep:</p>
+  <table>
+    <thead>
+      <tr><th>Adapter</th><th>Best for</th><th>Capacity</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>indexedDB()</code></td><td>Records, lists, documents</td><td>Hundreds of MB+</td></tr>
+      <tr><td><code>localStorage()</code></td><td>Small settings &amp; flags</td><td>~5 MB</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="indexeddb">IndexedDB</h2>
+  <p>
+    The IndexedDB adapter is the default recommendation. It stores each collection in its own
+    object store and hydrates the in-memory index when the store boots.
+  </p>
+  <CodeBlock code={idb} lang="ts" file="db.ts" />
+  <div class="callout callout--warn">
+    <span class="callout__icon" aria-hidden="true">⚠️</span>
+    <p>Always <code>await db.ready</code> before your first read on a persisted store, or you may query an empty index while hydration is still in flight.</p>
+  </div>
+
+  <h2 id="localstorage">localStorage</h2>
+  <p>For a handful of preferences, the synchronous <code>localStorage</code> adapter is simpler and needs no <code>await</code>:</p>
+  <CodeBlock code={ls} lang="ts" />
+
+  <h2 id="flushing-and-loading">Flushing and loading</h2>
+  <p>
+    Writes are batched and flushed automatically on the next microtask, so a burst of inserts
+    becomes one disk write. You can force or tune this:
+  </p>
+  <CodeBlock code={flush} lang="ts" />
+
+  <h2 id="offline-first">Offline-first patterns</h2>
+  <p>
+    A persisted Ledger store is already offline-first — nothing it does touches the network.
+    To replicate to a backend, subscribe to changes and drain an outbox when you reconnect:
+  </p>
+  <CodeBlock code={offline} lang="ts" />
+  <div class="callout callout--note">
+    <span class="callout__icon" aria-hidden="true">ℹ️</span>
+    <p>Ledger gives you the local half of sync (durable storage + a change feed). The remote half — conflict resolution and transport — is intentionally yours to own.</p>
+  </div>
+</Docs>

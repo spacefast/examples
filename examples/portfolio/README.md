@@ -1,0 +1,3 @@
+# Avery Chen's Room — Explorable Portfolio
+
+A playful developer portfolio rendered as a tiny pixel-art game on an HTML5 canvas: walk a little avatar around a cozy room with the arrow keys (or an on-screen D-pad on mobile) and step up to objects to explore. The desk and computer open a Projects panel, the bookshelf tells the about-me story, the framed poster is the resume with skill bars and a work-history timeline, and the mailbox reveals contact and social links. Every sprite is drawn procedurally — there are no image assets, no build step, and no framework, just a single self-contained `index.html` with an inline game loop, keyboard input, AABB collision, proximity-triggered interaction zones, and accessible HTML overlay panels layered over the canvas.

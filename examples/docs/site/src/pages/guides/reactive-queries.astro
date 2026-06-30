@@ -1,0 +1,122 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const headings = [
+  { depth: 2, slug: 'the-query-builder', text: 'The query builder' },
+  { depth: 2, slug: 'live-subscriptions', text: 'Live subscriptions' },
+  { depth: 2, slug: 'sorting-and-limiting', text: 'Sorting and limiting' },
+  { depth: 2, slug: 'derived-queries', text: 'Derived queries' },
+  { depth: 2, slug: 'how-updates-stay-cheap', text: 'How updates stay cheap' },
+];
+
+const builder = `// Every query starts from a collection and chains refinements.
+const overdue = db.tasks
+  .where((t) => t.due < Date.now() && !t.done)
+  .sort('due', 'asc')
+  .limit(20);
+
+// A query is lazy — nothing runs until you read it…
+const rows = overdue.all();    // snapshot, runs now
+// …or subscribe to it:
+const handle = overdue.live().subscribe(render);`;
+
+const live = `const activeCount = db.tasks.where((t) => !t.done).live();
+
+// The callback runs immediately with the current result,
+// then again on every change that affects it.
+activeCount.subscribe((tasks) => {
+  badge.textContent = String(tasks.length);
+});
+
+// Mutations anywhere trigger the right subscribers:
+db.tasks.update('t-42', { done: true }); // badge updates`;
+
+const sorting = `db.tasks
+  .where((t) => t.project === 'docs')
+  .sort('priority', 'desc')   // primary sort
+  .sort('title', 'asc')       // tie-breaker
+  .limit(10)
+  .offset(0);
+
+// Sort by a computed value with a comparator:
+db.tasks.sort((a, b) => score(b) - score(a));`;
+
+const derived = `// Compose queries by deriving one from another.
+const mine = db.tasks.where((t) => t.assignee === currentUser.id);
+
+const myOpen = mine.where((t) => !t.done).live();
+const myDone = mine.where((t) => t.done).live();
+
+// 'mine' is evaluated once and shared by both derived queries.`;
+---
+
+<Docs
+  title="Reactive queries"
+  description="Filters, sorting, derived queries, and how live subscriptions stay efficient."
+  headings={headings}
+>
+  <span class="eyebrow">Guides</span>
+  <h1>Reactive queries</h1>
+  <p class="lead">
+    Queries are the heart of Ledger. They're plain, type-safe descriptions of the
+    data you want — and when you make them live, they keep your UI in sync without
+    a single manual refresh.
+  </p>
+
+  <h2 id="the-query-builder">The query builder</h2>
+  <p>
+    Start from a collection and chain refinements. Each method returns a new query, so
+    queries are immutable and safe to share:
+  </p>
+  <CodeBlock code={builder} lang="ts" />
+
+  <table>
+    <thead>
+      <tr><th>Method</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>where(fn)</code></td><td>Keep records where the predicate returns true.</td></tr>
+      <tr><td><code>sort(key, dir?)</code></td><td>Order by a field or a comparator. Chain for tie-breakers.</td></tr>
+      <tr><td><code>limit(n)</code></td><td>Cap the number of results.</td></tr>
+      <tr><td><code>offset(n)</code></td><td>Skip the first <code>n</code> results — handy for pagination.</td></tr>
+      <tr><td><code>all()</code></td><td>Run once and return a snapshot array.</td></tr>
+      <tr><td><code>live()</code></td><td>Return a subscribable that re-emits on change.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="live-subscriptions">Live subscriptions</h2>
+  <p>
+    Call <code>.live()</code> and <code>.subscribe()</code> to receive the result now and on every
+    relevant change. <code>subscribe</code> returns an unsubscribe function.
+  </p>
+  <CodeBlock code={live} lang="ts" />
+  <div class="callout callout--tip">
+    <span class="callout__icon" aria-hidden="true">💡</span>
+    <p>Prefer the framework bindings (<code>useQuery</code>) in components — they call <code>subscribe</code> on mount and clean up automatically.</p>
+  </div>
+
+  <h2 id="sorting-and-limiting">Sorting and limiting</h2>
+  <p>Stack <code>sort</code> calls for multi-key ordering, or pass a comparator for full control:</p>
+  <CodeBlock code={sorting} lang="ts" />
+
+  <h2 id="derived-queries">Derived queries</h2>
+  <p>
+    Because queries are values, you can build one from another. Ledger evaluates the shared
+    parent once and fans the result out to each child — no duplicated work.
+  </p>
+  <CodeBlock code={derived} lang="ts" />
+
+  <h2 id="how-updates-stay-cheap">How updates stay cheap</h2>
+  <p>When you mutate a record, Ledger doesn't blindly re-run every subscription. Instead it:</p>
+  <ol>
+    <li>Looks at which collections the change touched.</li>
+    <li>Re-evaluates only the queries reading those collections.</li>
+    <li>Compares each new result to the last one by shallow identity.</li>
+    <li>Notifies a subscriber <strong>only</strong> if its result actually changed.</li>
+  </ol>
+  <div class="callout callout--note">
+    <span class="callout__icon" aria-hidden="true">ℹ️</span>
+    <p>A query over 10,000 records that no longer matches a mutated row costs a single predicate check — not a full re-scan. This is what keeps large local datasets snappy.</p>
+  </div>
+</Docs>

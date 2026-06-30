@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Even Split — the fastest way to split a restaurant bill. Enter the bill, pick a tip, set the people, and get a clean per-person amount. Tip is figured on the pre-tax bill." />
+  <meta name="theme-color" content="#1d6f5c" />
+  <title>Even Split — split the bill, tip fairly, done</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='46' fill='%231d6f5c'/%3E%3Cpath d='M30 34v32M30 34c0 0 0 14 8 14M46 34v32M62 34v14c0 8 8 8 8 0V34M70 48v18' stroke='%23fbf6ec' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to the calculator</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top" id="top" aria-label="Even Split home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="30" height="30">
+          <circle cx="50" cy="50" r="46" fill="currentColor" />
+          <path d="M30 34v32M30 34c0 0 0 14 8 14M46 34v32M62 34v14c0 8 8 8 8 0V34M70 48v18" stroke="#fbf6ec" stroke-width="5" stroke-linecap="round" fill="none" />
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong>Even Split</strong>
+        <small>fair tips, fast math</small>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#calculator" class="topnav__cta">Split a bill</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__copy">
+        <p class="eyebrow">No app, no sign-up, no awkward math</p>
+        <h1 id="hero-heading">Split the bill.<br />Tip fairly. <span>Done.</span></h1>
+        <p class="hero__lead">
+          Drop in the bill, tap a tip, say how many of you there are — Even Split
+          figures the tip on the <strong>pre-tax</strong> amount and hands everyone
+          a clean, honest number. Pass the phone around the table.
+        </p>
+        <a class="btn btn--primary" href="#calculator">Start splitting →</a>
+        <ul class="hero__chips" aria-label="What it handles">
+          <li>Tip on pre-tax</li>
+          <li>Tax kept separate</li>
+          <li>Round-up per person</li>
+        </ul>
+      </div>
+      <figure class="hero__photo">
+        <img
+          src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1100&q=80"
+          alt="Friends raising glasses around a busy restaurant table covered with plates and drinks"
+          width="1100" height="733" loading="eager" />
+        <figcaption>Dinner for the table at Loma Verde — $86.40 before tax.</figcaption>
+      </figure>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="calculator" class="calc" aria-labelledby="calc-heading">
+      <h2 id="calc-heading" class="section-title">The split</h2>
+
+      <div class="calc__grid">
+        <!-- CONTROLS -->
+        <form class="controls" id="splitForm" novalidate>
+          <!-- Bill -->
+          <div class="field field--money">
+            <label for="bill">Bill <span class="field__hint">subtotal, before tax</span></label>
+            <div class="money-input">
+              <span class="money-input__sym" id="symBill" aria-hidden="true">$</span>
+              <input id="bill" name="bill" type="text" inputmode="decimal"
+                autocomplete="off" placeholder="0.00" value="86.40" aria-describedby="billHelp" />
+            </div>
+            <p id="billHelp" class="field__help">The food &amp; drink subtotal from your receipt.</p>
+          </div>
+
+          <!-- Tip -->
+          <fieldset class="field field--tip">
+            <legend>Tip</legend>
+            <div class="tipgrid" id="tipGrid" role="radiogroup" aria-label="Tip percentage">
+              <button type="button" class="tipbtn" data-tip="15">15%</button>
+              <button type="button" class="tipbtn is-active" data-tip="18" aria-pressed="true">18%</button>
+              <button type="button" class="tipbtn" data-tip="20">20%</button>
+              <button type="button" class="tipbtn" data-tip="25">25%</button>
+              <label class="tipbtn tipbtn--custom" for="customTip">
+                <input id="customTip" name="customTip" type="number" min="0" max="100"
+                  step="1" inputmode="numeric" placeholder="—" aria-label="Custom tip percentage" />
+                <span aria-hidden="true">%</span>
+              </label>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="tipOnTotal" />
+              <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+              <span class="switch__label">Tip on the post-tax total instead</span>
+            </label>
+          </fieldset>
+
+          <!-- Tax -->
+          <div class="field field--money">
+            <label for="tax">Tax <span class="field__hint">optional — kept out of the tip</span></label>
+            <div class="money-input">
+              <span class="money-input__sym" id="symTax" aria-hidden="true">$</span>
+              <input id="tax" name="tax" type="text" inputmode="decimal"
+                autocomplete="off" placeholder="0.00" value="7.13" />
+            </div>
+          </div>
+
+          <!-- People -->
+          <div class="field field--people">
+            <label id="peopleLabel">Split between</label>
+            <div class="stepper" role="group" aria-labelledby="peopleLabel">
+              <button type="button" class="stepper__btn" id="minusPeople" aria-label="One fewer person">−</button>
+              <div class="stepper__display">
+                <output id="peopleCount" aria-live="polite">4</output>
+                <span class="stepper__unit">people</span>
+              </div>
+              <button type="button" class="stepper__btn" id="plusPeople" aria-label="One more person">+</button>
+            </div>
+            <input type="range" id="peopleRange" min="1" max="20" step="1" value="4"
+              aria-label="Number of people" class="people-range" />
+          </div>
+
+          <!-- Round up -->
+          <label class="switch switch--block">
+            <input type="checkbox" id="roundUp" />
+            <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+            <span class="switch__label">
+              Round each person up to the nearest dollar
+              <small>covers the tip a little extra — everyone pays a round number</small>
+            </span>
+          </label>
+
+          <div class="controls__actions">
+            <button type="reset" class="btn btn--ghost" id="resetBtn">New bill</button>
+          </div>
+        </form>
+
+        <!-- RECEIPT -->
+        <aside class="receipt" aria-labelledby="receipt-heading" aria-live="polite">
+          <div class="receipt__head">
+            <h3 id="receipt-heading">Each person pays</h3>
+            <div class="receipt__hero">
+              <span class="receipt__cur" id="symPer" aria-hidden="true">$</span>
+              <span class="receipt__per" id="perPerson">0.00</span>
+            </div>
+            <p class="receipt__sub" id="perSub">for 4 people</p>
+          </div>
+
+          <dl class="receipt__lines">
+            <div><dt>Bill (pre-tax)</dt><dd id="outBill">$0.00</dd></div>
+            <div><dt id="tipLineLabel">Tip (18%)</dt><dd id="outTip">$0.00</dd></div>
+            <div><dt>Tax</dt><dd id="outTax">$0.00</dd></div>
+            <div class="receipt__lines-total"><dt>Total</dt><dd id="outTotal">$0.00</dd></div>
+          </dl>
+
+          <div class="receipt__roundup" id="roundupRow" hidden>
+            <span>Rounding cushion</span>
+            <strong id="outCushion">$0.00</strong>
+          </div>
+
+          <p class="receipt__note" id="receiptNote">Tip is figured on the bill before tax — the fair way.</p>
+
+          <button type="button" class="btn btn--primary btn--wide" id="copyBtn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copyLabel">Copy the split</span>
+          </button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="how" aria-labelledby="how-heading">
+      <h2 id="how-heading" class="section-title">Why the tip sits on the pre-tax bill</h2>
+      <div class="how__grid">
+        <article class="how__card">
+          <span class="how__num">1</span>
+          <h3>Tax isn't a service</h3>
+          <p>Sales tax goes to the state, not your server. Tipping on top of it quietly pads the bill. Even Split tips on the food &amp; drink and leaves tax out of it.</p>
+        </article>
+        <article class="how__card">
+          <span class="how__num">2</span>
+          <h3>Same math, every time</h3>
+          <p>One pre-tax base, one percentage, one honest number. No "wait, did we tip on the total?" Pass the phone and everyone sees exactly how it was figured.</p>
+        </article>
+        <article class="how__card">
+          <span class="how__num">3</span>
+          <h3>Round up if you like</h3>
+          <p>Flip on round-up and each person pays a clean dollar amount. The few cents of cushion land on the tip — your server won't mind.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sitefoot">
+    <div class="sitefoot__inner">
+      <p class="sitefoot__brand"><strong>Even Split</strong> — fair tips, fast math.</p>
+      <p class="sitefoot__note">Everything runs in your browser. No bill, tip, or table ever leaves your phone. Built as a Spacefast example.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="tip"></script>
+</body>
+</html>

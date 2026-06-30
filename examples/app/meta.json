@@ -1,0 +1,28 @@
+{
+  "name": "Tasklane",
+  "slug": "app",
+  "vertical": "Tools, apps & games",
+  "tech": "vite-react",
+  "based_on": "A realistic, evergreen example modeled on a common real-world need \u2014 a small product team's task tracker in the vein of Trello / Linear / Height.",
+  "summary": "An AI-made multi-view app prototype: a kanban board with draggable cards, a sortable list view, and a task detail drawer with subtasks, comments, filters, and search \u2014 all client-side and persisted to localStorage.",
+  "sections": [
+    "Kanban board with draggable cards across workflow lanes",
+    "List view \u2014 sortable, grouped by status, mobile-friendly",
+    "Task detail drawer with inline edit, subtasks, and comments",
+    "Toolbar with full-text search and person/priority/label filters",
+    "Header with live sprint stats and a cycle-progress ring",
+    "Seeded sample data with a reset button",
+    "localStorage persistence and a light/dark theme"
+  ],
+  "setup_questions": [
+    "What does the app track and who's it for?",
+    "What are the workflow lanes/columns?",
+    "Who's on the team (names + roles) and what labels do you use?",
+    "What sample tasks should it seed?"
+  ],
+  "photo_terms": [
+    "kanban board sticky notes",
+    "team product planning workspace"
+  ],
+  "live_url": "https://app.view.fast/"
+}

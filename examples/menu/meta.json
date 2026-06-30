@@ -1,0 +1,29 @@
+{
+  "name": "Kaze Ramen House",
+  "slug": "menu",
+  "vertical": "Local business",
+  "tech": "html",
+  "based_on": "A neighborhood tonkotsu ramen-ya in the mold of JINYA Ramen Bar and Ippudo NY \u2014 counter seating, a tight signature menu, steaming bowls, warm wood-and-paper-lantern interior.",
+  "summary": "A single-page site for a neighborhood ramen shop with a photographed menu, story, hours, and directions that makes you hungry on first scroll.",
+  "sections": [
+    "Hero with a steaming tonkotsu bowl and 'Find us / View menu' buttons",
+    "Menu (ramen bowls, small plates/gyoza, rice bowls, drinks) with prices",
+    "Our story / about the broth",
+    "Photo gallery of dishes and the room",
+    "Hours + location with embedded map and address",
+    "Footer with phone, reservations note, and social links"
+  ],
+  "setup_questions": [
+    "What's the shop's name and one-line vibe (e.g. 'rich 18-hour tonkotsu, counter seating')?",
+    "What's your signature ramen plus 3-4 other menu items with prices?",
+    "What neighborhood/address are you in and what are your weekly hours?",
+    "Phone number and any Instagram or reservation link?"
+  ],
+  "photo_terms": [
+    "tonkotsu ramen bowl chashu soft egg overhead",
+    "steaming ramen bowl dark moody close up",
+    "pork gyoza dumplings on plate",
+    "japanese ramen shop interior wood counter lanterns"
+  ],
+  "live_url": "https://menu.view.fast/"
+}

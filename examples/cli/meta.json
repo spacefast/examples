@@ -1,0 +1,31 @@
+{
+  "name": "Drift",
+  "slug": "cli",
+  "vertical": "Startup & marketing",
+  "tech": "astro",
+  "based_on": "Drizzle ORM and Vite homepages \u2014 modern open-source dev-tool landing pages with a copy-able install command, GitHub star badge, code samples, and a 'used by' logo wall.",
+  "summary": "A homepage for an open-source database-migration CLI, built for developers: a hero with a one-line install command and copy button, GitHub star count, a syntax-highlighted code example, feature grid, and links to docs and Discord.",
+  "sections": [
+    "Hero: project name, tagline, copy-to-clipboard install command, GitHub stars + 'Get started' buttons",
+    "Quick code example (syntax-highlighted) showing the core workflow",
+    "Feature grid (fast, type-safe, zero-config, framework-agnostic)",
+    "'How it works' three-step flow",
+    "Benchmark / comparison band vs the status quo",
+    "'Used by' / sponsors logo wall",
+    "Community section (GitHub, Discord, contributing)",
+    "Docs link cards + footer"
+  ],
+  "setup_questions": [
+    "What's the project name and the one-line description of what it does?",
+    "What's the install command and which ecosystem/language is it for (npm, pip, brew, cargo)?",
+    "What are the 3-4 key selling points (speed, type-safety, zero-config)?",
+    "What's the GitHub repo URL and do you have a Discord/community link?"
+  ],
+  "photo_terms": [
+    "terminal code editor dark theme screenshot",
+    "developer keyboard closeup low light",
+    "abstract isometric tech illustration nodes",
+    "geometric gradient mesh tech background"
+  ],
+  "live_url": "https://cli.view.fast/"
+}

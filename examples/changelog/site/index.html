@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Changelog — Plank</title>
+  <meta name="description" content="What's new in Plank, the calm markdown notes app. New features, improvements, and fixes — dated, tagged, and shipped roughly every two weeks." />
+  <meta name="color-scheme" content="light dark" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Plank — Changelog" />
+  <meta property="og:description" content="What's new in Plank, the calm markdown notes app." />
+
+  <!-- RSS discovery -->
+  <link rel="alternate" type="application/rss+xml" title="Plank Changelog" href="feed.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231f6f5c'/><path d='M9 21V11h6a4 4 0 0 1 0 8h-3' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#changelog">Skip to changelog</a>
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="#top" aria-label="Plank home">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 18V6h6.5a4 4 0 0 1 0 8H10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="name">Plank</span>
+        <span class="sep" aria-hidden="true">/</span>
+        <span class="label">Changelog</span>
+      </a>
+      <div class="topbar-actions">
+        <a class="ghost-link" href="feed.xml"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>RSS</span></a>
+        <button class="iconbtn" id="themeToggle" type="button" aria-label="Toggle dark mode">
+          <svg class="sun" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow"><span class="pulse" aria-hidden="true"></span>Updates every other Tuesday</span>
+      <h1>What's new in Plank</h1>
+      <p class="lede">Plank is a calm, local-first markdown notes app for people who think in plain text. Here's everything we've shipped — features, improvements, and fixes — newest first.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#subscribe">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Subscribe to updates
+        </a>
+        <a class="btn btn-secondary" href="feed.xml">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          RSS feed
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Filter bar ===== -->
+  <div class="controls">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter updates by type">
+        <button class="filter" data-filter="all" aria-pressed="true" type="button"><span class="dot" aria-hidden="true"></span>All</button>
+        <button class="filter" data-filter="new" aria-pressed="false" type="button"><span class="dot" aria-hidden="true"></span>New</button>
+        <button class="filter" data-filter="improved" aria-pressed="false" type="button"><span class="dot" aria-hidden="true"></span>Improved</button>
+        <button class="filter" data-filter="fixed" aria-pressed="false" type="button"><span class="dot" aria-hidden="true"></span>Fixed</button>
+      </div>
+      <p class="result-count" id="resultCount" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <!-- ===== Timeline ===== -->
+  <main id="changelog">
+    <div class="wrap">
+      <div class="timeline" id="timeline">
+
+        <!-- v2.4.0 -->
+        <article class="release" id="v2-4-0" data-category="new">
+          <div class="release-meta">
+            <time datetime="2026-06-24">Jun 24, 2026</time>
+            <span class="ago" data-date="2026-06-24"></span>
+            <span class="version">v2.4.0</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge new"><span class="dot" aria-hidden="true"></span>New</span>
+              <a class="permalink" href="#v2-4-0" aria-label="Copy link to v2.4.0">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Daily notes &amp; a calendar in the sidebar</h2>
+            <div class="body">
+              <p>Open a fresh note for any day with one keystroke. Press <code>⌘D</code> and Plank creates (or jumps to) today's note from your template — perfect for journaling, standups, and a running log of what you actually did.</p>
+              <ul>
+                <li>A month calendar lives in the sidebar; dots mark days that already have a note.</li>
+                <li>Set a <strong>Daily Note template</strong> with placeholders like <code>{{date:dddd}}</code> and <code>{{weather}}</code>.</li>
+                <li>Yesterday / tomorrow navigation with <code>⌘[</code> and <code>⌘]</code>.</li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <svg viewBox="0 0 1200 720" role="img" aria-label="Plank showing the new daily-notes calendar in the left sidebar, with today highlighted and a day's journal note open in the editor.">
+                <rect width="1200" height="720" fill="#ffffff"/>
+                <rect width="1200" height="44" fill="#f3f1ec"/>
+                <circle cx="26" cy="22" r="6" fill="#e0655a"/><circle cx="48" cy="22" r="6" fill="#e6b34a"/><circle cx="70" cy="22" r="6" fill="#5fc18b"/>
+                <rect x="470" y="13" width="260" height="18" rx="9" fill="#e7e3db"/>
+                <rect x="0" y="44" width="330" height="676" fill="#f7f6f2"/>
+                <text x="28" y="92" font-family="Inter,sans-serif" font-size="15" font-weight="700" fill="#3a372f">June 2026</text>
+                <g font-family="Inter,sans-serif" font-size="12" fill="#a09a8d" text-anchor="middle">
+                  <text x="52" y="124">S</text><text x="94" y="124">M</text><text x="136" y="124">T</text><text x="178" y="124">W</text><text x="220" y="124">T</text><text x="262" y="124">F</text><text x="304" y="124">S</text>
+                </g>
+                <g font-family="Inter,sans-serif" font-size="12.5" fill="#5b574e" text-anchor="middle">
+                  <text x="262" y="154">1</text><text x="304" y="154">2</text>
+                  <text x="52" y="184">7</text><text x="94" y="184">8</text><text x="136" y="184">9</text><text x="178" y="184">10</text><text x="220" y="184">11</text><text x="262" y="184">12</text><text x="304" y="184">13</text>
+                  <text x="52" y="214">14</text><text x="94" y="214">15</text><text x="136" y="214">16</text><text x="178" y="214">17</text><text x="220" y="214">18</text><text x="262" y="214">19</text><text x="304" y="214">20</text>
+                  <text x="52" y="244">21</text><text x="94" y="244">22</text><text x="136" y="244">23</text>
+                </g>
+                <circle cx="178" cy="240" r="15" fill="#1f6f5c"/>
+                <text x="178" y="244" font-family="Inter,sans-serif" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">24</text>
+                <circle cx="220" cy="180" r="2.5" fill="#2f9e6a"/><circle cx="136" cy="210" r="2.5" fill="#2f9e6a"/><circle cx="262" cy="210" r="2.5" fill="#2f9e6a"/>
+                <line x1="28" y1="286" x2="302" y2="286" stroke="#e7e3db" stroke-width="1"/>
+                <rect x="28" y="306" width="160" height="11" rx="5" fill="#cfcabd"/>
+                <rect x="28" y="334" width="220" height="11" rx="5" fill="#1f6f5c" opacity="0.85"/>
+                <rect x="28" y="362" width="190" height="11" rx="5" fill="#cfcabd"/>
+                <rect x="28" y="390" width="205" height="11" rx="5" fill="#cfcabd"/>
+                <text x="392" y="118" font-family="Newsreader,Georgia,serif" font-size="34" font-weight="500" fill="#1d1c1a">Wednesday, June 24</text>
+                <rect x="392" y="150" width="120" height="22" rx="6" fill="#e4f3ea"/>
+                <text x="404" y="166" font-family="Inter,sans-serif" font-size="12.5" font-weight="600" fill="#1d6b46">Daily note</text>
+                <text x="392" y="222" font-family="Newsreader,Georgia,serif" font-size="22" font-weight="600" fill="#28261f">Today</text>
+                <rect x="392" y="246" width="700" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="392" y="272" width="640" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="392" y="298" width="680" height="11" rx="5" fill="#d9d4c8"/>
+                <text x="392" y="360" font-family="Newsreader,Georgia,serif" font-size="22" font-weight="600" fill="#28261f">Notes</text>
+                <circle cx="400" cy="392" r="3.5" fill="#1f6f5c"/><rect x="416" y="386" width="560" height="11" rx="5" fill="#d9d4c8"/>
+                <circle cx="400" cy="420" r="3.5" fill="#1f6f5c"/><rect x="416" y="414" width="500" height="11" rx="5" fill="#d9d4c8"/>
+                <circle cx="400" cy="448" r="3.5" fill="#1f6f5c"/><rect x="416" y="442" width="590" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="392" y="500" width="700" height="160" rx="12" fill="#f4f8f6" stroke="#dcebe4"/>
+                <text x="414" y="536" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#1d6b46">⌘D · New daily note</text>
+                <rect x="414" y="556" width="500" height="9" rx="4.5" fill="#b9d9cb"/>
+                <rect x="414" y="578" width="430" height="9" rx="4.5" fill="#cfe3d9"/>
+                <rect x="414" y="600" width="470" height="9" rx="4.5" fill="#cfe3d9"/>
+              </svg>
+              <figcaption>Daily notes with a month calendar — dots mark days you've already written.</figcaption>
+            </figure>
+            <div class="contributors">
+              <span class="avatars">
+                <img src="https://picsum.photos/seed/plank-ava-3/48/48" alt="" width="24" height="24" loading="lazy" />
+                <img src="https://picsum.photos/seed/plank-ava-5/48/48" alt="" width="24" height="24" loading="lazy" />
+              </span>
+              <span>Shipped by Mara &amp; Devin</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- v2.3.2 -->
+        <article class="release" id="v2-3-2" data-category="fixed">
+          <div class="release-meta">
+            <time datetime="2026-06-12">Jun 12, 2026</time>
+            <span class="ago" data-date="2026-06-12"></span>
+            <span class="version">v2.3.2</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge fixed"><span class="dot" aria-hidden="true"></span>Fixed</span>
+              <a class="permalink" href="#v2-3-2" aria-label="Copy link to v2.3.2">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Sync conflicts on large vaults, resolved</h2>
+            <div class="body">
+              <p>A handful of you with 5,000+ note vaults hit phantom conflicts when two devices saved within the same second. We were comparing modified-times at second resolution; Plank now uses a content hash plus millisecond timestamps, so a clean save never looks like a conflict.</p>
+              <ul>
+                <li>Fixed duplicate <code>note (conflicted copy)</code> files appearing after a quick edit-and-switch.</li>
+                <li>The sync indicator no longer gets stuck spinning when a folder is renamed mid-sync.</li>
+                <li>Reduced memory use during the initial index of very large vaults by about 40%.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- v2.3.0 -->
+        <article class="release" id="v2-3-0" data-category="improved">
+          <div class="release-meta">
+            <time datetime="2026-05-28">May 28, 2026</time>
+            <span class="ago" data-date="2026-05-28"></span>
+            <span class="version">v2.3.0</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge improved"><span class="dot" aria-hidden="true"></span>Improved</span>
+              <a class="permalink" href="#v2-3-0" aria-label="Copy link to v2.3.0">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Full-text search that keeps up with your typing</h2>
+            <div class="body">
+              <p>We rebuilt search on a new on-disk index. Querying a 10,000-note vault now returns results in under <strong>15&nbsp;ms</strong> — fast enough that results stream in as you type, with the matched phrase highlighted in context.</p>
+              <ul>
+                <li>New operators: <code>tag:#idea</code>, <code>path:journal/</code>, and <code>"exact phrase"</code>.</li>
+                <li>Recent searches and saved searches now live at the top of the palette.</li>
+                <li>Search ranks recently-opened notes higher, so the thing you want is usually first.</li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <svg viewBox="0 0 1200 720" role="img" aria-label="Plank's search palette open over the editor, showing a query with several ranked results and a matched phrase highlighted.">
+                <rect width="1200" height="720" fill="#ffffff"/>
+                <rect width="1200" height="44" fill="#f3f1ec"/>
+                <circle cx="26" cy="22" r="6" fill="#e0655a"/><circle cx="48" cy="22" r="6" fill="#e6b34a"/><circle cx="70" cy="22" r="6" fill="#5fc18b"/>
+                <rect x="0" y="44" width="330" height="676" fill="#f7f6f2"/>
+                <g fill="#dcd7cb"><rect x="28" y="92" width="240" height="11" rx="5"/><rect x="28" y="124" width="200" height="11" rx="5"/><rect x="28" y="156" width="220" height="11" rx="5"/><rect x="28" y="188" width="180" height="11" rx="5"/></g>
+                <rect x="0" y="44" width="1200" height="676" fill="#1d1c1a" opacity="0.32"/>
+                <rect x="280" y="120" width="640" height="430" rx="16" fill="#ffffff" stroke="#e3ded4"/>
+                <rect x="280" y="120" width="640" height="62" rx="16" fill="#ffffff"/>
+                <path d="M312 150a14 14 0 1 1 0 .01" fill="none" stroke="#9a948a" stroke-width="2.5"/>
+                <line x1="320" y1="159" x2="330" y2="169" stroke="#9a948a" stroke-width="2.5" stroke-linecap="round"/>
+                <text x="350" y="158" font-family="Inter,sans-serif" font-size="17" fill="#1d1c1a">tag:#idea  offline sync</text>
+                <line x1="350" y1="146" x2="350" y2="166" stroke="#1f6f5c" stroke-width="2"><animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/></line>
+                <text x="838" y="158" font-family="ui-monospace,monospace" font-size="12" fill="#a09a8d">12 results</text>
+                <line x1="280" y1="182" x2="920" y2="182" stroke="#eee9df"/>
+                <rect x="288" y="194" width="624" height="56" rx="10" fill="#f4f8f6"/>
+                <text x="308" y="218" font-family="Inter,sans-serif" font-size="15" font-weight="600" fill="#28261f">Offline-first architecture</text>
+                <text x="308" y="238" font-family="Inter,sans-serif" font-size="13" fill="#7c766b">…the goal is reliable <tspan fill="#1d6b46" font-weight="600">offline sync</tspan> with conflict-free merges…</text>
+                <text x="864" y="226" font-family="ui-monospace,monospace" font-size="11" fill="#b3ad9f">#idea</text>
+                <g font-family="Inter,sans-serif">
+                  <text x="308" y="282" font-size="15" font-weight="600" fill="#28261f">Weekend project ideas</text>
+                  <text x="308" y="302" font-size="13" fill="#7c766b">a tiny CRDT for notes, <tspan fill="#1d6b46" font-weight="600">offline sync</tspan> over iCloud Drive…</text>
+                  <text x="308" y="344" font-size="15" font-weight="600" fill="#28261f">Plank roadmap</text>
+                  <text x="308" y="364" font-size="13" fill="#7c766b">Q3 — finish <tspan fill="#1d6b46" font-weight="600">offline sync</tspan>, ship mobile beta…</text>
+                  <text x="308" y="406" font-size="15" font-weight="600" fill="#28261f">Conflict resolution notes</text>
+                  <text x="308" y="426" font-size="13" fill="#7c766b">last-writer-wins felt wrong for <tspan fill="#1d6b46" font-weight="600">offline</tspan> editing…</text>
+                  <text x="308" y="468" font-size="15" font-weight="600" fill="#28261f">Reading: local-first software</text>
+                  <text x="308" y="488" font-size="13" fill="#7c766b">Ink &amp; Switch essay on <tspan fill="#1d6b46" font-weight="600">sync</tspan> and ownership…</text>
+                </g>
+                <rect x="288" y="510" width="624" height="1" fill="#eee9df"/>
+                <text x="308" y="534" font-family="ui-monospace,monospace" font-size="12" fill="#a09a8d">↑↓ navigate · ↵ open · esc to close</text>
+              </svg>
+              <figcaption>Search ranks by recency and highlights the matched phrase in context.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+        <!-- v2.2.0 -->
+        <article class="release" id="v2-2-0" data-category="new">
+          <div class="release-meta">
+            <time datetime="2026-05-09">May 9, 2026</time>
+            <span class="ago" data-date="2026-05-09"></span>
+            <span class="version">v2.2.0</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge new"><span class="dot" aria-hidden="true"></span>New</span>
+              <a class="permalink" href="#v2-2-0" aria-label="Copy link to v2.2.0">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Wikilinks and a live backlinks panel</h2>
+            <div class="body">
+              <p>Type <code>[[</code> to link to any note — Plank autocompletes titles as you go, and creates the note if it doesn't exist yet. Every note now has a <strong>backlinks</strong> panel showing where else it's mentioned, so your vault quietly turns into a connected graph.</p>
+              <ul>
+                <li>Hover a wikilink to preview the linked note without leaving the page.</li>
+                <li>Rename a note and every <code>[[link]]</code> to it updates automatically.</li>
+                <li>An optional local graph view shows a note and its immediate neighbours.</li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <svg viewBox="0 0 1200 720" role="img" aria-label="The Plank editor with a wikilink highlighted in the text and a backlinks panel on the right listing notes that reference the current one.">
+                <rect width="1200" height="720" fill="#ffffff"/>
+                <rect width="1200" height="44" fill="#f3f1ec"/>
+                <circle cx="26" cy="22" r="6" fill="#e0655a"/><circle cx="48" cy="22" r="6" fill="#e6b34a"/><circle cx="70" cy="22" r="6" fill="#5fc18b"/>
+                <rect x="0" y="44" width="300" height="676" fill="#f7f6f2"/>
+                <g fill="#dcd7cb"><rect x="26" y="92" width="210" height="11" rx="5"/><rect x="26" y="122" width="170" height="11" rx="5"/></g>
+                <rect x="18" y="146" width="264" height="30" rx="8" fill="#ece9e1"/>
+                <text x="34" y="166" font-family="Inter,sans-serif" font-size="13" font-weight="600" fill="#3a372f">Second brain</text>
+                <g fill="#dcd7cb"><rect x="26" y="200" width="190" height="11" rx="5"/><rect x="26" y="230" width="220" height="11" rx="5"/><rect x="26" y="260" width="160" height="11" rx="5"/></g>
+                <rect x="900" y="44" width="300" height="676" fill="#faf9f5"/>
+                <line x1="900" y1="44" x2="900" y2="720" stroke="#eae6dc"/>
+                <text x="926" y="92" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#3a372f" letter-spacing="0.04em">LINKED MENTIONS · 3</text>
+                <g>
+                  <rect x="922" y="112" width="256" height="76" rx="10" fill="#ffffff" stroke="#eae6dc"/>
+                  <text x="940" y="138" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" fill="#28261f">Reading list</text>
+                  <text x="940" y="160" font-family="Inter,sans-serif" font-size="12" fill="#857f73">part of my <tspan fill="#1d6b46" font-weight="600">[[Second brain]]</tspan></text>
+                  <text x="940" y="178" font-family="Inter,sans-serif" font-size="12" fill="#857f73">workflow now…</text>
+                </g>
+                <g>
+                  <rect x="922" y="200" width="256" height="76" rx="10" fill="#ffffff" stroke="#eae6dc"/>
+                  <text x="940" y="226" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" fill="#28261f">PKM principles</text>
+                  <text x="940" y="248" font-family="Inter,sans-serif" font-size="12" fill="#857f73">see <tspan fill="#1d6b46" font-weight="600">[[Second brain]]</tspan> for the</text>
+                  <text x="940" y="266" font-family="Inter,sans-serif" font-size="12" fill="#857f73">capture habit…</text>
+                </g>
+                <g>
+                  <rect x="922" y="288" width="256" height="76" rx="10" fill="#ffffff" stroke="#eae6dc"/>
+                  <text x="940" y="314" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" fill="#28261f">Weekly review</text>
+                  <text x="940" y="336" font-family="Inter,sans-serif" font-size="12" fill="#857f73">link back into <tspan fill="#1d6b46" font-weight="600">[[Second</tspan></text>
+                  <text x="940" y="354" font-family="Inter,sans-serif" font-size="12" fill="#857f73"><tspan fill="#1d6b46" font-weight="600">brain]]</tspan> map…</text>
+                </g>
+                <text x="340" y="118" font-family="Newsreader,Georgia,serif" font-size="32" font-weight="500" fill="#1d1c1a">Second brain</text>
+                <rect x="340" y="150" width="520" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="340" y="176" width="470" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="340" y="202" width="500" height="11" rx="5" fill="#d9d4c8"/>
+                <text x="340" y="262" font-family="Inter,sans-serif" font-size="15" fill="#45423d">Everything links to my</text>
+                <rect x="556" y="247" width="138" height="24" rx="6" fill="#e4f3ea"/>
+                <text x="568" y="263" font-family="ui-monospace,monospace" font-size="13" font-weight="600" fill="#1d6b46">[[Reading list]]</text>
+                <rect x="340" y="296" width="480" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="340" y="322" width="440" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="340" y="348" width="510" height="11" rx="5" fill="#d9d4c8"/>
+                <text x="340" y="408" font-family="Inter,sans-serif" font-size="15" fill="#45423d">…and feeds the</text>
+                <rect x="490" y="393" width="150" height="24" rx="6" fill="#e4f3ea"/>
+                <text x="502" y="409" font-family="ui-monospace,monospace" font-size="13" font-weight="600" fill="#1d6b46">[[Weekly review]]</text>
+                <rect x="340" y="442" width="450" height="11" rx="5" fill="#d9d4c8"/>
+                <rect x="340" y="468" width="500" height="11" rx="5" fill="#d9d4c8"/>
+              </svg>
+              <figcaption>Wikilinks autocomplete as you type; the backlinks panel keeps your graph honest.</figcaption>
+            </figure>
+            <div class="contributors">
+              <span class="avatars">
+                <img src="https://picsum.photos/seed/plank-ava-1/48/48" alt="" width="24" height="24" loading="lazy" />
+                <img src="https://picsum.photos/seed/plank-ava-7/48/48" alt="" width="24" height="24" loading="lazy" />
+                <img src="https://picsum.photos/seed/plank-ava-2/48/48" alt="" width="24" height="24" loading="lazy" />
+              </span>
+              <span>Shipped by the editor team</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- v2.1.1 -->
+        <article class="release" id="v2-1-1" data-category="fixed">
+          <div class="release-meta">
+            <time datetime="2026-04-22">Apr 22, 2026</time>
+            <span class="ago" data-date="2026-04-22"></span>
+            <span class="version">v2.1.1</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge fixed"><span class="dot" aria-hidden="true"></span>Fixed</span>
+              <a class="permalink" href="#v2-1-1" aria-label="Copy link to v2.1.1">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Pasted code blocks keep their indentation</h2>
+            <div class="body">
+              <p>Pasting a Python or YAML snippet into a fenced code block was helpfully — and infuriatingly — collapsing leading whitespace. Plank now preserves indentation exactly inside <code>```</code> fences, and won't auto-format what's between them.</p>
+              <ul>
+                <li>Tab inside a code block inserts a tab (or spaces, if that's your setting) instead of moving focus.</li>
+                <li>Smart-quote substitution is disabled inside code and inline <code>`code`</code>.</li>
+                <li>Fixed the cursor jumping to the top of the note after pasting a very long block.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- v2.1.0 -->
+        <article class="release" id="v2-1-0" data-category="improved">
+          <div class="release-meta">
+            <time datetime="2026-04-03">Apr 3, 2026</time>
+            <span class="ago" data-date="2026-04-03"></span>
+            <span class="version">v2.1.0</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge improved"><span class="dot" aria-hidden="true"></span>Improved</span>
+              <a class="permalink" href="#v2-1-0" aria-label="Copy link to v2.1.0">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>A faster, smarter command palette</h2>
+            <div class="body">
+              <p>The command palette (<code>⌘K</code>) is now fuzzy, ranked, and fast. It learns the commands you reach for and floats them to the top, and you can run almost anything from it — create a note, toggle a setting, jump to a heading, or insert a template.</p>
+              <ul>
+                <li>Type a few letters of any command; matches highlight the characters you typed.</li>
+                <li>New quick actions: <code>Move note…</code>, <code>Pin to sidebar</code>, and <code>Export to PDF</code>.</li>
+                <li>Palette opens in roughly half the time it used to on first launch.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
+        <!-- v2.0.0 -->
+        <article class="release" id="v2-0-0" data-category="new">
+          <div class="release-meta">
+            <time datetime="2026-03-14">Mar 14, 2026</time>
+            <span class="ago" data-date="2026-03-14"></span>
+            <span class="version">v2.0.0</span>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <span class="badge new"><span class="dot" aria-hidden="true"></span>New</span>
+              <a class="permalink" href="#v2-0-0" aria-label="Copy link to v2.0.0">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              </a>
+            </div>
+            <h2>Plank 2.0 — a brand-new editor core</h2>
+            <div class="body">
+              <p>This is the big one. We rewrote Plank's editor from the ground up for a <strong>live-preview</strong> experience: markdown styles itself as you type, with no separate preview pane to toggle. Bold looks bold, headings look like headings, and the raw syntax appears only on the line your cursor is on.</p>
+              <ul>
+                <li>Native tables, callouts, task lists, and math (<code>$…$</code>) rendered inline.</li>
+                <li>Everything is local-first — your notes are plain <code>.md</code> files on disk, yours to keep.</li>
+                <li>A new theming engine with light, dark, and a warm "Paper" theme out of the box.</li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <svg viewBox="0 0 1200 720" role="img" aria-label="The rebuilt Plank 2.0 editor with live-preview markdown — a styled heading, body text, a task list, and a fenced code block — alongside a note list sidebar.">
+                <rect width="1200" height="720" fill="#ffffff"/>
+                <rect width="1200" height="44" fill="#f3f1ec"/>
+                <circle cx="26" cy="22" r="6" fill="#e0655a"/><circle cx="48" cy="22" r="6" fill="#e6b34a"/><circle cx="70" cy="22" r="6" fill="#5fc18b"/>
+                <text x="600" y="28" font-family="Inter,sans-serif" font-size="13" fill="#a09a8d" text-anchor="middle">Plank 2.0</text>
+                <rect x="0" y="44" width="300" height="676" fill="#f7f6f2"/>
+                <rect x="16" y="64" width="268" height="34" rx="9" fill="#ece9e1"/>
+                <path d="M40 81a8 8 0 1 1 0 .01" fill="none" stroke="#a09a8d" stroke-width="2"/>
+                <text x="58" y="86" font-family="Inter,sans-serif" font-size="13" fill="#9a948a">Search notes…</text>
+                <rect x="16" y="116" width="268" height="34" rx="8" fill="#1f6f5c" opacity="0.12"/>
+                <text x="34" y="138" font-family="Inter,sans-serif" font-size="13.5" font-weight="600" fill="#1d6b46">Release notes</text>
+                <g font-family="Inter,sans-serif" font-size="13.5" fill="#6f6a5f">
+                  <text x="34" y="178">Meeting · 1:1</text>
+                  <text x="34" y="214">Recipe — focaccia</text>
+                  <text x="34" y="250">Book highlights</text>
+                  <text x="34" y="286">Trip — Lisbon</text>
+                </g>
+                <g fill="#cfcabd"><rect x="34" y="318" width="180" height="9" rx="4.5"/><rect x="34" y="346" width="150" height="9" rx="4.5"/><rect x="34" y="374" width="200" height="9" rx="4.5"/></g>
+                <text x="348" y="116" font-family="Newsreader,Georgia,serif" font-size="36" font-weight="600" fill="#1d1c1a">Release notes</text>
+                <text x="348" y="160" font-family="Inter,sans-serif" font-size="16" fill="#45423d">The editor is now <tspan font-weight="700" fill="#1d1c1a">live-preview</tspan>: markdown styles itself as you</text>
+                <text x="348" y="186" font-family="Inter,sans-serif" font-size="16" fill="#45423d">type, and you stay in flow.</text>
+                <text x="348" y="240" font-family="Newsreader,Georgia,serif" font-size="22" font-weight="600" fill="#28261f">What changed</text>
+                <g font-family="Inter,sans-serif" font-size="15.5" fill="#45423d">
+                  <rect x="348" y="262" width="18" height="18" rx="4" fill="#1f6f5c"/>
+                  <path d="M352 271l4 4 6-7" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="378" y="276" fill="#9a948a" text-decoration="line-through">Toggle the preview pane</text>
+                  <rect x="348" y="294" width="18" height="18" rx="4" fill="#1f6f5c"/>
+                  <path d="M352 303l4 4 6-7" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="378" y="308" fill="#9a948a" text-decoration="line-through">Hunt for the bold button</text>
+                  <rect x="348" y="326" width="18" height="18" rx="4" fill="#fff" stroke="#c8c2b5" stroke-width="2"/>
+                  <text x="378" y="340">Write a release post about it</text>
+                </g>
+                <rect x="348" y="372" width="740" height="150" rx="12" fill="#23211b"/>
+                <text x="372" y="404" font-family="ui-monospace,monospace" font-size="13.5" fill="#7fd0b3">```md</text>
+                <text x="372" y="430" font-family="ui-monospace,monospace" font-size="13.5" fill="#e8e4d8"># Plank 2.0</text>
+                <text x="372" y="456" font-family="ui-monospace,monospace" font-size="13.5" fill="#e8e4d8">- [x] live preview</text>
+                <text x="372" y="482" font-family="ui-monospace,monospace" font-size="13.5" fill="#e8e4d8">- [x] local-first .md files</text>
+                <text x="372" y="508" font-family="ui-monospace,monospace" font-size="13.5" fill="#7fd0b3">```</text>
+              </svg>
+              <figcaption>Plank 2.0 — markdown that styles itself as you type, no preview pane required.</figcaption>
+            </figure>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty" id="empty">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h10M4 17h13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <p>No updates in this category yet — check back next sprint.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Subscribe ===== -->
+  <section class="subscribe" id="subscribe">
+    <div class="wrap">
+      <div class="subscribe-card">
+        <h2>Get the release notes in your inbox</h2>
+        <p>One short email whenever we ship — usually every other Tuesday. No marketing, no digests, just what changed. Prefer a feed? Grab the <a href="feed.xml">RSS</a>.</p>
+        <form class="sub-form" id="subForm" novalidate>
+          <label for="subEmail">Email address</label>
+          <input type="email" id="subEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </form>
+        <div class="sub-success" id="subSuccess" role="status">
+          <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span id="subSuccessText">You're on the list. We'll email you the next time Plank ships.</span>
+        </div>
+        <p class="sub-note">Unsubscribe anytime in one click. We never share your address. You can also <a href="feed.xml">follow by RSS</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site">
+    <div class="wrap">
+      <span>© 2026 Plank — a calm place for your notes.</span>
+      <nav aria-label="Footer">
+        <a href="#top">Back to top</a>
+        <a href="https://plank.app" rel="nofollow">plank.app</a>
+        <a class="rss" href="feed.xml"><svg viewBox="0 0 24 24" fill="none"><path d="M5 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" fill="currentColor"/><path d="M5 11a8 8 0 0 1 8 8M5 5a14 14 0 0 1 14 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>RSS feed</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none"><path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="toastText">Link copied</span>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="changelog"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+---
+import { studio } from '../data/portfolio';
+---
+
+<section class="section" id="contact" style="background:var(--paper-2);border-top:1px solid var(--line);">
+  <div class="wrap">
+    <div class="reveal" style="margin-bottom: clamp(2rem, 5vw, 3rem); max-width: 56ch;">
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Let's make something</h2>
+      <p class="lede">
+        Commissions, editorial assignments, print orders, or just to say a place I should go shoot —
+        the inbox is open.
+      </p>
+    </div>
+
+    <div class="contact-grid">
+      <div>
+        <form id="contact-form" novalidate>
+          <div class="field">
+            <label for="cf-name">Your name</label>
+            <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Jamie Linde" />
+          </div>
+          <div class="field">
+            <label for="cf-email">Email</label>
+            <input
+              id="cf-email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              placeholder="you@studio.com"
+            />
+          </div>
+          <div class="field">
+            <label for="cf-topic">What's this about?</label>
+            <select id="cf-topic" name="topic">
+              <option>A commission or assignment</option>
+              <option>Ordering a print</option>
+              <option>Licensing an existing image</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="cf-message">Message</label>
+            <textarea
+              id="cf-message"
+              name="message"
+              required
+              placeholder="Tell me a little about the project, the timeline, and where in the world it is."
+            ></textarea>
+          </div>
+          <button class="btn" type="submit">Send message →</button>
+          <p id="cf-error" role="alert" style="display:none;color:var(--accent);margin:0.9rem 0 0;font-size:0.9rem;"></p>
+        </form>
+
+        <div class="form-success" id="cf-success" role="status" aria-live="polite">
+          <h3>Thanks — that's on its way.</h3>
+          <p id="cf-success-body"></p>
+        </div>
+      </div>
+
+      <aside class="contact-aside">
+        <h3>Or reach me directly</h3>
+        <p style="color:var(--ink-soft);margin-top:0;">
+          I read everything myself and usually reply within a couple of days — faster if I'm not on a
+          mountain somewhere.
+        </p>
+        <dl>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${studio.email}`}>{studio.email}</a></dd>
+          <dt>Instagram</dt>
+          <dd><a href={studio.instagramUrl} rel="me noopener" target="_blank">@{studio.instagram}</a></dd>
+          <dt>Based</dt>
+          <dd style="margin-bottom:0;">{studio.base}</dd>
+        </dl>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Progressive-enhancement contact form: validate, then swap to a warm,
+  // personalized confirmation. No backend — this is a static site.
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const success = document.getElementById('cf-success');
+  const successBody = document.getElementById('cf-success-body');
+  const errorEl = document.getElementById('cf-error');
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      const firstInvalid = form.querySelector(':invalid') as HTMLElement | null;
+      firstInvalid?.focus();
+      if (errorEl) {
+        errorEl.textContent = 'Please add your name, a valid email, and a short message.';
+        errorEl.style.display = 'block';
+      }
+      return;
+    }
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim().split(' ')[0] || 'there';
+    if (successBody) {
+      successBody.textContent =
+        `Got it, ${name} — I'll get back to you at ${data.get('email')} within a couple of days. ` +
+        `In the meantime, the prints are all open editions, so there's no rush on anything.`;
+    }
+    form.style.display = 'none';
+    success?.classList.add('is-visible');
+    success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>

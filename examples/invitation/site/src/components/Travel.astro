@@ -1,0 +1,64 @@
+---
+import { travel } from '../data/wedding';
+---
+
+<section class="section" id="travel">
+  <div class="wrap travel__head">
+    <div>
+      <p class="eyebrow">Travel &amp; Stay</p>
+      <h2 class="section-title">Make a weekend of it</h2>
+      <p class="lede">
+        Sonoma in September is warm days and cool, starry nights. Come early, stay late, and drink
+        something local while you're here.
+      </p>
+    </div>
+  </div>
+
+  <div class="wrap travel__grid">
+    {
+      travel.map((t, i) => (
+        <article class="travel__card">
+          <span class="travel__num">{String(i + 1).padStart(2, '0')}</span>
+          <h3>{t.name}</h3>
+          <p>{t.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .travel__head {
+    max-width: 60ch;
+  }
+  .travel__grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2.6rem;
+  }
+  .travel__card {
+    background: var(--cream-card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 2rem 1.8rem;
+  }
+  .travel__num {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    color: var(--blush);
+    line-height: 1;
+  }
+  .travel__card h3 {
+    font-size: 1.5rem;
+    margin: 0.4rem 0 0.6rem;
+  }
+  .travel__card p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+  @media (min-width: 820px) {
+    .travel__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

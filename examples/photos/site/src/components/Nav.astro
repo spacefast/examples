@@ -1,0 +1,26 @@
+---
+import { studio } from '../data/portfolio';
+
+interface Props {
+  // 'home' links jump to anchors; otherwise they go back to the homepage anchors.
+  base?: string;
+}
+const { base = '' } = Astro.props;
+const href = (anchor: string) => `${base}${anchor}`;
+---
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a class="brand" href={base || '#top'}>
+      {studio.name.split(' ')[0]} <span>{studio.name.split(' ').slice(1).join(' ')}</span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav__links">
+        <li><a href={href('#work')}>Work</a></li>
+        <li><a class="nav__hide-sm" href={href('#about')}>About</a></li>
+        <li><a class="nav__hide-sm" href={href('#prints')}>Prints</a></li>
+        <li><a class="nav__cta" href={href('#contact')}>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>

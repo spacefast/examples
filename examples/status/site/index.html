@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Northwind API — System Status</title>
+  <meta name="description" content="Live operational status, uptime history, and incident reports for the Northwind API, Dashboard, Webhooks, CDN, and Database." />
+  <meta name="theme-color" content="#0b1120" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2310b981'/%3E%3Cpath d='M9 16.5l4.5 4.5L23 11' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to status</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/" aria-label="Northwind home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="28" height="28"><rect width="32" height="32" rx="8" fill="#10b981"/><path d="M9 16.5l4.5 4.5L23 11" stroke="white" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="brand-text">Northwind <span class="brand-sub">Status</span></span>
+      </a>
+      <nav class="header-nav" aria-label="Primary">
+        <a href="https://docs.northwindapi.com" rel="nofollow">Docs</a>
+        <a href="https://northwindapi.com/support" rel="nofollow">Support</a>
+        <a class="btn-ghost" href="#subscribe">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Overall status banner -->
+    <section class="banner banner--ok" id="overall-banner" aria-live="polite">
+      <div class="container banner-inner">
+        <span class="banner-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26"><path d="M9 12.5l2 2 4.5-4.5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+        </span>
+        <div class="banner-copy">
+          <h1 class="banner-title">All systems operational</h1>
+          <p class="banner-meta">Last updated <time id="last-updated" datetime="">just now</time> · refreshes automatically</p>
+        </div>
+        <div class="banner-uptime">
+          <span class="banner-uptime-num">99.98%</span>
+          <span class="banner-uptime-label">uptime, 90 days</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="container">
+      <!-- Active incident -->
+      <section class="card incident-active" aria-labelledby="active-incident-h">
+        <div class="incident-active-head">
+          <span class="sev-pill sev-minor">Monitoring</span>
+          <h2 id="active-incident-h">Elevated webhook delivery latency in EU&nbsp;(eu-central-1)</h2>
+        </div>
+        <ol class="timeline">
+          <li class="timeline-item is-current">
+            <span class="timeline-tag tag-monitoring">Monitoring</span>
+            <div class="timeline-body">
+              <p>A fix has been deployed and webhook delivery times are back under 800&nbsp;ms across all EU consumers. We're watching the queue depth before we call this resolved.</p>
+              <time datetime="2026-06-30T14:42:00Z">Jun 30, 14:42 UTC</time>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-tag tag-identified">Identified</span>
+            <div class="timeline-body">
+              <p>The delay traces back to a backlogged retry queue on one of our EU webhook workers. We've scaled out additional workers and are draining the backlog now.</p>
+              <time datetime="2026-06-30T14:11:00Z">Jun 30, 14:11 UTC</time>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-tag tag-investigating">Investigating</span>
+            <div class="timeline-body">
+              <p>We're investigating reports of delayed webhook deliveries for customers in the EU region. API requests, the Dashboard, and the CDN are unaffected.</p>
+              <time datetime="2026-06-30T13:58:00Z">Jun 30, 13:58 UTC</time>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- Components -->
+      <section class="card components" aria-labelledby="components-h">
+        <div class="components-head">
+          <h2 id="components-h">Components</h2>
+          <div class="legend" aria-hidden="true">
+            <span class="legend-item"><i class="dot dot-up"></i>Operational</span>
+            <span class="legend-item"><i class="dot dot-degraded"></i>Degraded</span>
+            <span class="legend-item"><i class="dot dot-down"></i>Outage</span>
+            <span class="legend-item"><i class="dot dot-maint"></i>Maintenance</span>
+          </div>
+        </div>
+        <ul class="component-list" id="component-list">
+          <!-- rows injected by app.js, with this static fallback -->
+        </ul>
+      </section>
+
+      <!-- Scheduled maintenance -->
+      <section class="card maintenance" aria-labelledby="maint-h">
+        <h2 id="maint-h">Scheduled maintenance</h2>
+        <article class="maint-item">
+          <div class="maint-when">
+            <span class="maint-date">Jul 6</span>
+            <span class="maint-year">2026</span>
+          </div>
+          <div class="maint-body">
+            <h3>Database failover drill &amp; minor-version upgrade</h3>
+            <p>We'll promote a read replica and upgrade Postgres to 16.4 in <code>us-east-1</code>. Expect up to two brief connection resets (&lt;&nbsp;5&nbsp;s each). Reads and writes recover automatically; no action needed on your side.</p>
+            <p class="maint-window"><strong>Window:</strong> Jul 6, 09:00–10:00 UTC · 02:00–03:00 PT</p>
+          </div>
+        </article>
+        <article class="maint-item">
+          <div class="maint-when">
+            <span class="maint-date">Jul 14</span>
+            <span class="maint-year">2026</span>
+          </div>
+          <div class="maint-body">
+            <h3>CDN edge cache migration (no expected downtime)</h3>
+            <p>We're moving static asset caching to a new edge provider for faster cold reads in APAC. Cache-control behavior is unchanged; you may see one-time cache misses as the new edges warm up.</p>
+            <p class="maint-window"><strong>Window:</strong> Jul 14, 22:00–23:30 UTC · 15:00–16:30 PT</p>
+          </div>
+        </article>
+      </section>
+
+      <!-- Past incidents -->
+      <section class="card history" aria-labelledby="history-h">
+        <h2 id="history-h">Incident history</h2>
+
+        <div class="history-day">
+          <h3 class="history-date">June 23, 2026</h3>
+          <article class="history-incident">
+            <header>
+              <span class="sev-pill sev-major">Major outage</span>
+              <h4>API returned 503s for ~14 minutes in us-east-1</h4>
+              <span class="history-duration">14 min</span>
+            </header>
+            <ol class="timeline timeline--compact">
+              <li class="timeline-item"><span class="timeline-tag tag-resolved">Resolved</span><div class="timeline-body"><p>A bad config push removed a connection-pool limit and saturated the primary database. We rolled back the change and added a guardrail to the deploy pipeline.</p><time datetime="2026-06-23T08:27:00Z">Jun 23, 08:27 UTC</time></div></li>
+              <li class="timeline-item"><span class="timeline-tag tag-identified">Identified</span><div class="timeline-body"><p>Root cause identified as a configuration change to the API gateway. Rolling back now.</p><time datetime="2026-06-23T08:19:00Z">Jun 23, 08:19 UTC</time></div></li>
+              <li class="timeline-item"><span class="timeline-tag tag-investigating">Investigating</span><div class="timeline-body"><p>We're seeing a spike in 503 responses on the API and are investigating.</p><time datetime="2026-06-23T08:13:00Z">Jun 23, 08:13 UTC</time></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="history-day">
+          <h3 class="history-date">June 11, 2026</h3>
+          <article class="history-incident">
+            <header>
+              <span class="sev-pill sev-minor">Degraded performance</span>
+              <h4>Dashboard slow to load for some users</h4>
+              <span class="history-duration">38 min</span>
+            </header>
+            <ol class="timeline timeline--compact">
+              <li class="timeline-item"><span class="timeline-tag tag-resolved">Resolved</span><div class="timeline-body"><p>A slow query in the analytics panel was caching incorrectly and pegging a worker pool. We shipped a query fix and the Dashboard is fully responsive again.</p><time datetime="2026-06-11T17:46:00Z">Jun 11, 17:46 UTC</time></div></li>
+              <li class="timeline-item"><span class="timeline-tag tag-monitoring">Monitoring</span><div class="timeline-body"><p>Performance is recovering after we restarted the affected worker pool. Watching latency.</p><time datetime="2026-06-11T17:31:00Z">Jun 11, 17:31 UTC</time></div></li>
+              <li class="timeline-item"><span class="timeline-tag tag-investigating">Investigating</span><div class="timeline-body"><p>Some users report the Dashboard taking 5–10&nbsp;s to load. The API itself is unaffected. Investigating.</p><time datetime="2026-06-11T17:08:00Z">Jun 11, 17:08 UTC</time></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <div class="history-day">
+          <h3 class="history-date">May 29, 2026</h3>
+          <article class="history-incident">
+            <header>
+              <span class="sev-pill sev-maint">Maintenance</span>
+              <h4>Planned Postgres upgrade to 16.3 — completed</h4>
+              <span class="history-duration">52 min</span>
+            </header>
+            <ol class="timeline timeline--compact">
+              <li class="timeline-item"><span class="timeline-tag tag-resolved">Completed</span><div class="timeline-body"><p>Database upgrade finished ahead of schedule with two brief connection resets, exactly as announced. No data was affected.</p><time datetime="2026-05-29T03:52:00Z">May 29, 03:52 UTC</time></div></li>
+              <li class="timeline-item"><span class="timeline-tag tag-investigating">In progress</span><div class="timeline-body"><p>Maintenance has started. The Database component is in a maintenance state during the upgrade window.</p><time datetime="2026-05-29T03:00:00Z">May 29, 03:00 UTC</time></div></li>
+            </ol>
+          </article>
+        </div>
+
+        <p class="history-more"><a href="https://status.northwindapi.com/history" rel="nofollow">View full incident history →</a></p>
+      </section>
+
+      <!-- Subscribe -->
+      <section class="card subscribe" id="subscribe" aria-labelledby="subscribe-h">
+        <div class="subscribe-copy">
+          <h2 id="subscribe-h">Get notified</h2>
+          <p>Subscribe to receive an email the moment we open or resolve an incident, plus a heads-up before scheduled maintenance.</p>
+        </div>
+        <form class="subscribe-form" id="subscribe-form" novalidate>
+          <div class="field">
+            <label for="email">Email address</label>
+            <div class="field-row">
+              <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required aria-describedby="subscribe-note" />
+              <button type="submit" class="btn-primary">Subscribe</button>
+            </div>
+            <p class="field-error" id="email-error" role="alert" hidden>Please enter a valid email address.</p>
+            <p class="field-note" id="subscribe-note">No spam — incident notifications only. Unsubscribe anytime.</p>
+          </div>
+          <p class="subscribe-success" id="subscribe-success" role="status" hidden>
+            <span aria-hidden="true">✓</span> You're subscribed. We'll email <strong id="success-email"></strong> when status changes.
+          </p>
+        </form>
+        <div class="subscribe-alt">
+          <span>Prefer another channel?</span>
+          <a href="https://twitter.com/northwindstatus" rel="nofollow">@northwindstatus</a>
+          <a href="https://status.northwindapi.com/feed.rss" rel="nofollow">RSS feed</a>
+          <a href="https://docs.northwindapi.com/status-webhooks" rel="nofollow">Status webhook</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Northwind, Inc. · This page is hosted independently so it stays up even when we don't.</p>
+      <nav aria-label="Footer">
+        <a href="https://northwindapi.com" rel="nofollow">northwindapi.com</a>
+        <a href="https://docs.northwindapi.com" rel="nofollow">Docs</a>
+        <a href="mailto:support@northwindapi.com">support@northwindapi.com</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="status"></script>
+</body>
+</html>

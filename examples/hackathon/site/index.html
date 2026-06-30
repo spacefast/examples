@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RamHacks 2026 — Rampart State's 36-hour student hackathon</title>
+  <meta name="description" content="RamHacks 2026 is a free 36-hour student hackathon at Rampart State University. 500 hackers, beginner-friendly, $15,000 in prizes. Oct 17–18, 2026 in Aurora, Colorado. Beginners welcome." />
+  <meta name="theme-color" content="#0a0a14" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="RamHacks 2026 — build something wild in 36 hours" />
+  <meta property="og:description" content="Free, beginner-friendly student hackathon at Rampart State. 500 hackers · $15,000 in prizes · Oct 17–18, 2026. Come build with us. 🐏" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://picsum.photos/seed/ramhacks-2026-og/1200/630" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐏</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#about">Skip to content</a>
+
+  <!-- MLH trust badge ribbon -->
+  <a id="mlh-badge" href="https://mlh.io/code-of-conduct" target="_blank" rel="noopener" aria-label="Official Major League Hacking 2026 Member Event">
+    <span class="mlh-strip">MLH<br />2026</span>
+  </a>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header" id="top">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="RamHacks 2026 home">
+        <span class="brand-mark" aria-hidden="true">🐏</span>
+        <span class="brand-words">
+          <span class="brand-name">RamHacks<span class="brand-year">'26</span></span>
+          <span class="brand-sub">Rampart State University</span>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#schedule">Schedule</a>
+        <a href="#prizes">Prizes</a>
+        <a href="#sponsors">Sponsors</a>
+        <a href="#faq">FAQ</a>
+        <a class="nav-cta" href="#register">Register</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== Hero ===== -->
+  <section class="hero">
+    <div class="hero-photo" role="img" aria-label="Students gathered around glowing laptops late at night, coding together at a hackathon"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-grid" aria-hidden="true"></div>
+
+    <div class="wrap hero-content">
+      <p class="kicker"><span class="kicker-dot" aria-hidden="true"></span> Oct 17–18, 2026 · Aurora, Colorado · 36 hours</p>
+      <h1>Build something<br /><span class="hl">wildly yours</span><br />in 36 hours.</h1>
+      <p class="hero-tagline">
+        RamHacks is Rampart State's flagship student hackathon — 500 hackers, free
+        food, zero gatekeeping. Come with an idea or come with nothing. You'll leave
+        with a project, a team, and a story.
+      </p>
+
+      <!-- Live countdown to kickoff, filled by JS -->
+      <div class="countdown" id="countdown" aria-live="polite">
+        <p class="countdown-label" id="countdown-label">Kickoff in</p>
+        <div class="countdown-clock" id="countdown-clock">
+          <div class="cd-unit"><span class="cd-num" id="cd-days">--</span><span class="cd-word">days</span></div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-hours">--</span><span class="cd-word">hrs</span></div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-mins">--</span><span class="cd-word">min</span></div>
+          <span class="cd-sep" aria-hidden="true">:</span>
+          <div class="cd-unit"><span class="cd-num" id="cd-secs">--</span><span class="cd-word">sec</span></div>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#register">Register — it's free</a>
+        <a class="btn btn-ghost" href="#about">What's a hackathon?</a>
+      </div>
+
+      <ul class="hero-stats" aria-label="Event at a glance">
+        <li><strong>500</strong><span>hackers</span></li>
+        <li><strong>36</strong><span>hours</span></li>
+        <li><strong>$15K</strong><span>in prizes</span></li>
+        <li><strong>$0</strong><span>to enter</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section class="about section" id="about">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">New here? Start here</p>
+        <h2>So… what actually <em>is</em> a hackathon?</h2>
+        <p class="section-lede">
+          A hackathon is a weekend-long build sprint. You team up (or fly solo),
+          pick something you wish existed, and make a working version of it in 36
+          hours. There are workshops if you're stuck, mentors who've shipped real
+          software, and a science-fair-style expo at the end where everyone demos
+          what they made. No exams. No grades. Just building.
+        </p>
+      </div>
+
+      <div class="about-cards">
+        <article class="about-card">
+          <span class="about-ico" aria-hidden="true">🌱</span>
+          <h3>Beginners absolutely welcome</h3>
+          <p>
+            About 4 in 10 RamHackers have never been to one before. We run a
+            "Hack 101" track, beginner-friendly workshops, and roaming mentors so
+            your first commit isn't your last.
+          </p>
+        </article>
+        <article class="about-card">
+          <span class="about-ico" aria-hidden="true">👥</span>
+          <h3>Teams of 1–4</h3>
+          <p>
+            Bring friends or make them at Saturday's team-formation mixer. Solo
+            hackers are totally fine too — plenty of people build alone and crush it.
+          </p>
+        </article>
+        <article class="about-card">
+          <span class="about-ico" aria-hidden="true">🎓</span>
+          <h3>Open to all students</h3>
+          <p>
+            Any enrolled college student (or a recent grad, within a year) 18+, any
+            major. CS, design, business, biology — the best teams mix it up.
+          </p>
+        </article>
+        <article class="about-card">
+          <span class="about-ico" aria-hidden="true">🆓</span>
+          <h3>Completely free</h3>
+          <p>
+            Zero entry fee. We feed you six meals, caffeinate you relentlessly, hand
+            out swag, and cover travel for teams coming from out of town.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Schedule ===== -->
+  <section class="schedule section" id="schedule">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">36 hours, hour by hour</p>
+        <h2>The schedule</h2>
+        <p class="section-lede">
+          Doors open Saturday at 8 AM; we crown winners Sunday evening. Everything
+          but hacking is optional — but the midnight snack is non-negotiable.
+        </p>
+      </div>
+
+      <div class="day-toggle" role="tablist" aria-label="Choose a day">
+        <button class="day-tab is-active" id="tab-sat" role="tab" aria-selected="true" aria-controls="panel-sat" data-day="sat">
+          <span class="day-tab-d">Saturday</span><span class="day-tab-date">Oct 17</span>
+        </button>
+        <button class="day-tab" id="tab-sun" role="tab" aria-selected="false" aria-controls="panel-sun" data-day="sun" tabindex="-1">
+          <span class="day-tab-d">Sunday</span><span class="day-tab-date">Oct 18</span>
+        </button>
+      </div>
+
+      <div class="schedule-panels">
+        <ol class="agenda" id="panel-sat" role="tabpanel" aria-labelledby="tab-sat"></ol>
+        <ol class="agenda" id="panel-sun" role="tabpanel" aria-labelledby="tab-sun" hidden></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Prizes ===== -->
+  <section class="prizes section" id="prizes">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">$15,000 on the table</p>
+        <h2>Prizes &amp; tracks</h2>
+        <p class="section-lede">
+          One grand prize, plus a stack of sponsor-backed category tracks. Submit to
+          as many as your project fits — yes, you can win more than one.
+        </p>
+      </div>
+
+      <div class="grand-prize">
+        <div class="grand-copy">
+          <p class="grand-tag">🏆 Grand Prize</p>
+          <p class="grand-amt">$5,000</p>
+          <p class="grand-desc">
+            Best overall hack, judged on originality, technical chops, polish, and
+            "would I actually use this?" Winning team also gets fast-tracked
+            interviews with our title sponsor and a year of Helix Cloud credits.
+          </p>
+        </div>
+        <div class="grand-runner">
+          <div class="runner">
+            <span class="runner-place">2nd</span>
+            <span class="runner-amt">$2,000</span>
+          </div>
+          <div class="runner">
+            <span class="runner-place">3rd</span>
+            <span class="runner-amt">$1,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="track-grid">
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🌟</span>
+          <h3>Best Beginner Hack</h3>
+          <p class="track-prize">$1,000 + mech keyboards</p>
+          <p>For teams where everyone's at their first or second hackathon. Ambition beats polish here.</p>
+        </article>
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🤖</span>
+          <h3>Best Use of AI</h3>
+          <p class="track-prize">$1,500 + Nimbus credits</p>
+          <p>Most clever, responsible, genuinely-useful application of an LLM or ML model. Sponsored by Nimbus.</p>
+        </article>
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🔌</span>
+          <h3>Best Hardware Hack</h3>
+          <p class="track-prize">$1,500 + dev kits</p>
+          <p>Microcontrollers, sensors, soldering irons, the works. Hardware lab open all weekend. Sponsored by Forge Labs.</p>
+        </article>
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🌍</span>
+          <h3>Best Social Good Hack</h3>
+          <p class="track-prize">$1,500</p>
+          <p>Tech that helps a real community — accessibility, climate, civic, health. Make a dent.</p>
+        </article>
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🎨</span>
+          <h3>Best Design</h3>
+          <p class="track-prize">$1,000 + Quill licenses</p>
+          <p>The hack that's a joy to look at and use. UX, motion, the little details. Sponsored by Quill.</p>
+        </article>
+        <article class="track-card">
+          <span class="track-ico" aria-hidden="true">🐏</span>
+          <h3>Most Rampart Spirit</h3>
+          <p class="track-prize">Glory + golden ram trophy</p>
+          <p>The hack that most embodies RamHacks chaos. No cash — just eternal bragging rights and a very heavy trophy.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Sponsors ===== -->
+  <section class="sponsors section" id="sponsors">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Powered by</p>
+        <h2>Our sponsors</h2>
+        <p class="section-lede">
+          RamHacks runs entirely on the generosity of companies who care about the
+          next generation of builders. Hire from our crowd of 500.
+        </p>
+      </div>
+
+      <div class="sponsor-tier">
+        <p class="tier-label">Title sponsor</p>
+        <div class="tier-row tier-title">
+          <a class="sponsor-logo logo-xl" href="#sponsors" aria-label="Helix Cloud, title sponsor">
+            <span class="logo-mark">◭</span> Helix&nbsp;Cloud
+          </a>
+        </div>
+      </div>
+
+      <div class="sponsor-tier">
+        <p class="tier-label">Gold sponsors</p>
+        <div class="tier-row tier-gold">
+          <a class="sponsor-logo logo-lg" href="#sponsors" aria-label="Nimbus"><span class="logo-mark">☁</span> Nimbus</a>
+          <a class="sponsor-logo logo-lg" href="#sponsors" aria-label="Forge Labs"><span class="logo-mark">⬡</span> Forge&nbsp;Labs</a>
+          <a class="sponsor-logo logo-lg" href="#sponsors" aria-label="Quill"><span class="logo-mark">✒</span> Quill</a>
+          <a class="sponsor-logo logo-lg" href="#sponsors" aria-label="Northstar Bank"><span class="logo-mark">★</span> Northstar</a>
+        </div>
+      </div>
+
+      <div class="sponsor-tier">
+        <p class="tier-label">Startup &amp; community sponsors</p>
+        <div class="tier-row tier-startup">
+          <a class="sponsor-logo" href="#sponsors" aria-label="Pinepoint"><span class="logo-mark">⏚</span> Pinepoint</a>
+          <a class="sponsor-logo" href="#sponsors" aria-label="Dabble"><span class="logo-mark">◐</span> Dabble</a>
+          <a class="sponsor-logo" href="#sponsors" aria-label="Stitch"><span class="logo-mark">⌘</span> Stitch</a>
+          <a class="sponsor-logo" href="#sponsors" aria-label="Hatchback"><span class="logo-mark">▤</span> Hatchback</a>
+          <a class="sponsor-logo" href="#sponsors" aria-label="Aurora Tech Meetup"><span class="logo-mark">⬤</span> Aurora&nbsp;Tech</a>
+          <a class="sponsor-logo" href="#sponsors" aria-label="Rampart CS Department"><span class="logo-mark">⛬</span> RSU&nbsp;CompSci</a>
+        </div>
+      </div>
+
+      <div class="sponsor-cta">
+        <div>
+          <h3>Want your logo here?</h3>
+          <p>Sponsor packages start at $500. Get your brand in front of 500 builders, run a workshop, or back a prize track.</p>
+        </div>
+        <a class="btn btn-light" href="mailto:sponsors@ramhacks.example?subject=RamHacks%202026%20sponsorship">Get the prospectus →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq section" id="faq">
+    <div class="wrap faq-wrap">
+      <div class="section-head section-head-left">
+        <p class="eyebrow">Good questions</p>
+        <h2>FAQ</h2>
+        <p class="section-lede">
+          Still unsure? Hop into our <a href="https://discord.gg/ramhacks" target="_blank" rel="noopener">Discord</a> and
+          a real organizer will answer in minutes.
+        </p>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>Do I need coding experience?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              Nope. Around 40% of attendees are first-timers. We run beginner
+              workshops Saturday afternoon (Intro to APIs, "Ship your first AI app"),
+              and mentors circulate all weekend. Curiosity is the only prerequisite.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>What should I bring?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              Your laptop and charger, your student ID, a water bottle, and basic
+              toiletries. A sleeping bag or blanket is smart if you plan to nap —
+              we have a quiet sleeping room, but no beds. Hardware hackers: we supply
+              the dev kits, you bring the ideas.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>Is it really free?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              100% free. Admission, six meals, snacks, caffeine, swag, and prizes
+              are all covered by our sponsors. You never pay a cent to attend.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>Can I come alone? How do teams work?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              Absolutely. Teams are 1–4 people. If you arrive solo, come to the
+              team-formation mixer Saturday at 11 AM — it's the easiest way to meet
+              people with a half-formed idea and an open spot.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>Will my travel be reimbursed?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              We offer partial travel reimbursement for teams traveling 100+ miles,
+              up to $75 per person (capped per team). Apply in the travel section of
+              your registration — reimbursements are reviewed on a rolling basis, so
+              register early.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button type="button" class="faq-q" aria-expanded="false">
+              <span>Who can participate?</span>
+              <span class="faq-icon" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="faq-a" role="region" hidden>
+            <p>
+              Any currently-enrolled college or university student aged 18+, or a
+              recent grad within one year of graduation. All majors and all skill
+              levels are welcome. By attending you agree to the
+              <a href="https://mlh.io/code-of-conduct" target="_blank" rel="noopener">MLH Code of Conduct</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Register CTA banner ===== -->
+  <section class="register" id="register">
+    <div class="register-photo" role="img" aria-label="A winning hackathon team holding an oversized check on stage"></div>
+    <div class="register-overlay"></div>
+    <div class="wrap register-inner">
+      <div class="register-copy">
+        <p class="eyebrow eyebrow-light">Doors open Oct 17</p>
+        <h2>Lock in your spot.</h2>
+        <p>
+          Registration is free and takes two minutes. Drop your email and we'll send
+          your confirmation, the Discord invite, and a packing checklist. Spots are
+          first-come — last year we capped out two weeks early.
+        </p>
+        <ul class="register-perks">
+          <li>✅ Free entry, free food, free swag</li>
+          <li>✅ Beginner workshops &amp; mentors all weekend</li>
+          <li>✅ $15,000 in prizes across 7 tracks</li>
+        </ul>
+      </div>
+
+      <form class="register-form" id="register-form" novalidate>
+        <h3>Save my spot</h3>
+        <div class="field">
+          <label for="rf-name">Full name</label>
+          <input id="rf-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="rf-email">Email</label>
+          <input id="rf-email" name="email" type="email" autocomplete="email" required placeholder="you@school.edu" />
+        </div>
+        <div class="field">
+          <label for="rf-school">School</label>
+          <input id="rf-school" name="school" type="text" value="Rampart State University" />
+        </div>
+        <div class="field">
+          <label for="rf-exp">Hackathon experience</label>
+          <select id="rf-exp" name="experience">
+            <option value="first">This is my first one!</option>
+            <option value="few">I've been to a few</option>
+            <option value="veteran">Seasoned hacker</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-block" type="submit">Register for RamHacks 2026</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        <p class="form-fine">Free · 18+ enrolled students · You'll agree to the MLH Code of Conduct.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer" id="contact">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">🐏</span>
+        <p class="footer-name">RamHacks 2026</p>
+        <p class="footer-tag">Rampart State University's 36-hour student hackathon. Built by students, for students.</p>
+        <p class="footer-org">Engineering Commons · 4400 Summit Blvd · Aurora, CO 80012</p>
+      </div>
+      <div class="footer-col">
+        <h4>Event</h4>
+        <p><a href="#about">About</a></p>
+        <p><a href="#schedule">Schedule</a></p>
+        <p><a href="#prizes">Prizes &amp; tracks</a></p>
+        <p><a href="#register">Register</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <p><a href="https://discord.gg/ramhacks" target="_blank" rel="noopener">Discord</a></p>
+        <p><a href="https://instagram.com/ramhacks" target="_blank" rel="noopener">Instagram</a></p>
+        <p><a href="https://twitter.com/ramhacks" target="_blank" rel="noopener">X / Twitter</a></p>
+        <p><a href="mailto:team@ramhacks.example">team@ramhacks.example</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>The fine print</h4>
+        <p><a href="https://mlh.io/code-of-conduct" target="_blank" rel="noopener">MLH Code of Conduct</a></p>
+        <p><a href="mailto:sponsors@ramhacks.example">Sponsor us</a></p>
+        <p><a href="mailto:conduct@ramhacks.example">Report a concern</a></p>
+      </div>
+    </div>
+    <p class="footer-legal">
+      © <span id="year">2026</span> RamHacks · An MLH Member Event · Made with too much cold brew in Aurora, Colorado. 🐏
+    </p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="hackathon"></script>
+</body>
+</html>

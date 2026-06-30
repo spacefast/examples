@@ -1,0 +1,29 @@
+{
+  "name": "Ironclad Barber Co.",
+  "slug": "barber",
+  "vertical": "Local business",
+  "tech": "html",
+  "based_on": "A classic-meets-modern men's barbershop like Fellow Barber and Blind Barber \u2014 straight-razor fades, hot-towel shaves, named barbers with chairs, walk-ins plus a booking link.",
+  "summary": "A sharp, masculine single-page barbershop site with a services-and-prices list, barber profiles, a cuts gallery, and clear hours with a prominent book-now button.",
+  "sections": [
+    "Hero with shop interior and 'Book a chair' CTA",
+    "Services and prices (cut, fade, beard trim, hot-towel shave, kids)",
+    "Meet the barbers with photos and specialties",
+    "Gallery of cuts / shop atmosphere",
+    "Hours, walk-in policy, location and map",
+    "Footer with phone, booking link, and socials"
+  ],
+  "setup_questions": [
+    "What's the shop name and style (e.g. 'old-school straight-razor, modern fades')?",
+    "What services and prices do you offer?",
+    "Who are your barbers and what's each one known for?",
+    "Address, hours, and your online booking link?"
+  ],
+  "photo_terms": [
+    "barber giving fade haircut clippers",
+    "vintage barbershop interior leather chairs",
+    "hot towel straight razor shave close up",
+    "barbershop pole storefront classic"
+  ],
+  "live_url": "https://barber.view.fast/"
+}

@@ -1,0 +1,78 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { site, formatDate, isoDate, readingTime } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // Newer = previous in the list, older = next.
+      newer: posts[i - 1] ?? null,
+      older: posts[i + 1] ?? null,
+    },
+  }));
+}
+
+const { post, newer, older } = Astro.props;
+const { Content } = await render(post);
+const mins = readingTime(post.body ?? '');
+---
+
+<Layout title={post.data.title} description={post.data.description} current="">
+  <article>
+    <div class="wrap">
+      <header class="article-header">
+        <a class="back" href="/">← All writing</a>
+        <h1>{post.data.title}</h1>
+        <p class="dek">{post.data.description}</p>
+        <div class="byline">
+          <img src={site.author.avatar} alt={`Portrait of ${site.author.name}`} width="34" height="34" />
+          <span>{site.author.name}</span>
+          <time class="dot-sep" datetime={isoDate(post.data.pubDate)}>
+            {formatDate(post.data.pubDate)}
+          </time>
+          <span class="dot-sep">{mins} min read</span>
+        </div>
+      </header>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <footer class="article-footer">
+        <div class="article-tags">
+          {post.data.tags.map((tag) => <a class="tag" href={`/tags/${tag}/`}>#{tag}</a>)}
+        </div>
+
+        <nav class="post-nav" aria-label="More posts">
+          {
+            older ? (
+              <a href={`/posts/${older.id}/`}>
+                <span class="dir">← Older</span>
+                <span class="title">{older.data.title}</span>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+          {
+            newer ? (
+              <a class="next" href={`/posts/${newer.id}/`}>
+                <span class="dir">Newer →</span>
+                <span class="title">{newer.data.title}</span>
+              </a>
+            ) : (
+              <span />
+            )
+          }
+        </nav>
+      </footer>
+    </div>
+  </article>
+</Layout>

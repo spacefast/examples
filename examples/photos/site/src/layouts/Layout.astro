@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import { studio } from '../data/portfolio';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = `${studio.name} — ${studio.role}`,
+  description = `${studio.tagline} ${studio.role} based in ${studio.base}. Landscape, coastal, portrait, and aerial work, available as archival prints.`,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>
+      // Mark JS available before first paint so the scroll-reveal animation only
+      // applies when it can actually be undone. No-JS users see all content.
+      document.documentElement.classList.add('js');
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#16140f" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta
+      property="og:image"
+      content="https://picsum.photos/seed/eliot-vance-hero/1200/630"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+    <script>
+      // Sticky-nav hairline + scroll reveal, shared across every page.
+      const nav = document.querySelector('.nav');
+      const onScroll = () => {
+        if (nav) nav.setAttribute('data-scrolled', String(window.scrollY > 8));
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = document.querySelectorAll('.reveal');
+      if (reduce || !('IntersectionObserver' in window)) {
+        reveals.forEach((el) => el.classList.add('is-in'));
+      } else {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -10% 0px', threshold: 0.08 }
+        );
+        reveals.forEach((el) => io.observe(el));
+      }
+    </script>
+    <script src="https://spacefast.com/badge.js" data-example="photos"></script>
+  </body>
+</html>

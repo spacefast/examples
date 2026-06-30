@@ -1,0 +1,29 @@
+{
+  "name": "Northwind API \u2014 System Status",
+  "slug": "status",
+  "vertical": "Data & dashboards",
+  "tech": "html",
+  "based_on": "A public status page in the Atlassian Statuspage / Instatus mold for a developer API or hosting company, the type linked from a footer and watched during outages (modeled on Slack, Stripe, and OpenAI status pages).",
+  "summary": "A public status page for an API product: an overall-status banner, per-component status with 90-day uptime bars, an incident history timeline, scheduled maintenance, and a subscribe box.",
+  "sections": [
+    "Overall status banner ('All systems operational' / degraded / outage) with current timestamp",
+    "Components list (API, Dashboard, Webhooks, CDN, Database) each with a status pill and 90-day uptime bar graph + uptime percentage",
+    "Active incident block with a posted update timeline (Investigating \u2192 Identified \u2192 Monitoring \u2192 Resolved)",
+    "Past incidents grouped by date with severity and duration",
+    "Scheduled maintenance notices",
+    "Subscribe-to-updates email field and links to support / Twitter"
+  ],
+  "setup_questions": [
+    "What's the service or company name?",
+    "Which components or subsystems should be listed (e.g. API, Dashboard, Webhooks, CDN)?",
+    "What's your brand accent color and support email?",
+    "Is there a current incident or upcoming maintenance to show, or should it read all-clear?"
+  ],
+  "photo_terms": [
+    "server room data center blue lights",
+    "green checkmark status indicator ui",
+    "minimal tech logo monochrome",
+    "network operations dark monitoring screen"
+  ],
+  "live_url": "https://status.view.fast/"
+}

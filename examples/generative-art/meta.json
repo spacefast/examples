@@ -1,0 +1,29 @@
+{
+  "name": "Driftfield",
+  "slug": "generative-art",
+  "vertical": "Games & interactive",
+  "tech": "vanilla-js",
+  "based_on": "Flow-field generative art toys in the lineage of Tyler Hobbs' Fidenza and Yuri Vishnevsky's Silk \u2014 thousands of particles drift through a Perlin-noise vector field, painting layered organic line work you can tune, reseed, and export.",
+  "summary": "A single-page generative art toy: particles drift through a noise flow field painting ever-evolving organic line art, with live controls for palette, density, speed and stroke, plus reseed and one-click PNG export to keep your favorites.",
+  "sections": [
+    "Full-bleed animated canvas that continuously paints the flow field",
+    "Control panel: color palette, particle count, flow speed, line width, and background tone",
+    "Reseed / new-piece button that regenerates the noise field from a fresh seed",
+    "Clear and pause/play controls",
+    "Export-to-PNG (and the seed string) so a piece can be saved or reproduced",
+    "Tiny 'about' note explaining flow fields in one paragraph"
+  ],
+  "setup_questions": [
+    "What should the toy be called, and what palette mood do you want \u2014 sunset warm, ocean cool, monochrome ink, or pastel?",
+    "What background \u2014 light paper, deep black, or a soft gradient?",
+    "How busy should the default piece feel (sparse and elegant vs. dense and painterly)?",
+    "Should pieces auto-evolve forever, or settle into a finished still you can export?"
+  ],
+  "photo_terms": [
+    "generative flow field art print",
+    "abstract swirling particle lines",
+    "marbled ink paper texture",
+    "soft gradient color palette abstract"
+  ],
+  "live_url": "https://generative-art.view.fast/"
+}

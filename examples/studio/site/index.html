@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Northbound Studio — A brand &amp; web design studio in Portland</title>
+  <meta name="description" content="Northbound is a brand and web design studio in Portland, Oregon. We build identities, websites, and motion for companies that want to be remembered. Selected work, services, and how to start a project." />
+  <meta name="theme-color" content="#13110d" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Northbound Studio — We build brands people remember" />
+  <meta property="og:description" content="A brand and web design studio in Portland, Oregon. Identity, web, art direction, and motion for companies worth remembering." />
+  <meta property="og:image" content="https://picsum.photos/seed/northbound-studio-og/1200/630" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2313110d'/%3E%3Cpath d='M9 23V9l14 14V9' fill='none' stroke='%23ec5b35' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Northbound Studio — home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <path d="M9 23V9l14 14V9" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <span class="brand-text">Northbound<span class="brand-dot">.</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+          <span></span><span></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#studio">Studio</a></li>
+          <li><a class="btn btn-ghost nav-cta" href="#contact">Start a project</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <p class="eyebrow">Brand &amp; web design studio · Portland, OR</p>
+        <h1 id="hero-title" class="hero-title">
+          We build brands<br />people <em>remember.</em>
+        </h1>
+        <p class="hero-lede">
+          Northbound is a small, strategy-led studio. We make identities, websites, and
+          motion for founders and teams who are tired of looking like everyone else.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#work">See selected work</a>
+          <a class="btn btn-text" href="#contact">Start a project <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="hero-meta" role="list">
+          <div role="listitem"><strong>2017</strong><span>Founded</span></div>
+          <div role="listitem"><strong>40+</strong><span>Brands shipped</span></div>
+          <div role="listitem"><strong>5</strong><span>People, no fluff</span></div>
+        </div>
+      </div>
+      <div class="hero-strip" aria-hidden="true">
+        <img src="https://picsum.photos/seed/northbound-studio-hero1/640/440" alt="" loading="eager" />
+        <img src="https://picsum.photos/seed/northbound-studio-hero2/640/440" alt="" loading="eager" />
+        <img src="https://picsum.photos/seed/northbound-studio-hero3/640/440" alt="" loading="lazy" />
+        <img src="https://picsum.photos/seed/northbound-studio-hero4/640/440" alt="" loading="lazy" />
+      </div>
+    </section>
+
+    <!-- ===== Marquee ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Brand identity</span><span class="sep">✳</span>
+        <span>Web design &amp; build</span><span class="sep">✳</span>
+        <span>Art direction</span><span class="sep">✳</span>
+        <span>Motion &amp; film</span><span class="sep">✳</span>
+        <span>Brand identity</span><span class="sep">✳</span>
+        <span>Web design &amp; build</span><span class="sep">✳</span>
+        <span>Art direction</span><span class="sep">✳</span>
+        <span>Motion &amp; film</span><span class="sep">✳</span>
+      </div>
+    </div>
+
+    <!-- ===== Selected work ===== -->
+    <section class="work" id="work" aria-labelledby="work-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Selected work</p>
+            <h2 id="work-title" class="section-title">A few things we're proud of.</h2>
+          </div>
+          <div class="filters" role="group" aria-label="Filter work by discipline">
+            <button class="chip is-active" data-filter="all" aria-pressed="true">All</button>
+            <button class="chip" data-filter="branding" aria-pressed="false">Branding</button>
+            <button class="chip" data-filter="web" aria-pressed="false">Web</button>
+            <button class="chip" data-filter="motion" aria-pressed="false">Motion</button>
+          </div>
+        </div>
+
+        <ul class="work-grid" id="work-grid">
+          <li class="work-card" data-cats="branding web">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w1/900/680" alt="Stationery, business cards, and packaging for Aster &amp; Oak laid out as a flatlay" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Branding · Web</span>
+                <span class="work-name">Aster &amp; Oak</span>
+                <span class="work-desc">A botanical skincare brand, from naming to shelf.</span>
+              </span>
+            </a>
+          </li>
+
+          <li class="work-card" data-cats="web">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w2/900/680" alt="A responsive website design for Harbor Collective shown on a laptop and phone" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Web</span>
+                <span class="work-name">Harbor Collective</span>
+                <span class="work-desc">A booking site for a coastal hospitality group.</span>
+              </span>
+            </a>
+          </li>
+
+          <li class="work-card" data-cats="motion branding">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w3/900/680" alt="Frames from an animated logo identity for the Cadence music app" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Motion · Branding</span>
+                <span class="work-name">Cadence</span>
+                <span class="work-desc">A living logo system for a music-discovery app.</span>
+              </span>
+            </a>
+          </li>
+
+          <li class="work-card" data-cats="branding">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w4/900/680" alt="Coffee bag packaging and a bold typographic poster for Northstar Roasters" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Branding</span>
+                <span class="work-name">Northstar Roasters</span>
+                <span class="work-desc">Packaging and identity for a third-wave roaster.</span>
+              </span>
+            </a>
+          </li>
+
+          <li class="work-card" data-cats="web motion">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w5/900/680" alt="A climate-tech marketing website with charts and an animated hero for Veridian" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Web · Motion</span>
+                <span class="work-name">Veridian</span>
+                <span class="work-desc">A climate-tech site that makes carbon legible.</span>
+              </span>
+            </a>
+          </li>
+
+          <li class="work-card" data-cats="branding">
+            <a href="#contact" class="work-link">
+              <span class="work-media">
+                <img src="https://picsum.photos/seed/northbound-studio-w6/900/680" alt="Book covers and printed matter for the independent publisher Juniper Press" loading="lazy" />
+              </span>
+              <span class="work-body">
+                <span class="work-cats">Branding</span>
+                <span class="work-name">Juniper Press</span>
+                <span class="work-desc">An art-directed identity for an indie publisher.</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+        <p class="work-empty" id="work-empty" hidden>No projects in that discipline yet — check back soon.</p>
+      </div>
+    </section>
+
+    <!-- ===== Featured case study ===== -->
+    <section class="feature" id="feature" aria-labelledby="feature-title">
+      <div class="container feature-inner">
+        <div class="feature-text">
+          <p class="eyebrow">Case study · Aster &amp; Oak</p>
+          <h2 id="feature-title" class="section-title">From a shy idea to a brand that sells itself.</h2>
+          <p>
+            Aster &amp; Oak came to us with a great formula and a name nobody could
+            remember. We led a two-week strategy sprint, rebuilt the identity around a
+            hand-drawn botanical mark, and shipped a fast, story-first storefront.
+          </p>
+          <ul class="feature-stats">
+            <li><strong>+38%</strong><span>Add-to-cart rate</span></li>
+            <li><strong>2&times;</strong><span>Avg. session time</span></li>
+            <li><strong>11 days</strong><span>Strategy to launch</span></li>
+          </ul>
+          <blockquote class="feature-quote">
+            "Northbound didn't just make us look good — they made us make sense.
+            Sales doubled in the quarter after launch."
+            <cite>— Priya Anand, Founder, Aster &amp; Oak</cite>
+          </blockquote>
+        </div>
+        <div class="feature-media">
+          <figure class="ba" data-state="after">
+            <div class="ba-frame">
+              <img class="ba-before" src="https://picsum.photos/seed/northbound-studio-before/900/1100?grayscale" alt="The old Aster &amp; Oak packaging — plain and forgettable" loading="lazy" />
+              <img class="ba-after" src="https://picsum.photos/seed/northbound-studio-after/900/1100" alt="The redesigned Aster &amp; Oak packaging — botanical, warm, and bold" loading="lazy" />
+            </div>
+            <figcaption>
+              <button class="ba-toggle" type="button" aria-pressed="true">
+                <span class="ba-dot"></span> Showing: <strong id="ba-label">After</strong> — tap to compare
+              </button>
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section class="services" id="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">What we do</p>
+            <h2 id="services-title" class="section-title">Four things, done properly.</h2>
+          </div>
+          <p class="section-aside">
+            Every engagement starts with strategy. We're generalists with depth — we'd
+            rather do four things well than fourteen badly.
+          </p>
+        </div>
+
+        <ol class="service-list">
+          <li class="service">
+            <span class="service-num">01</span>
+            <div class="service-body">
+              <h3>Brand identity</h3>
+              <p>Naming, logo systems, type, color, voice, and the guidelines that keep it all honest as you grow.</p>
+            </div>
+            <span class="service-tag">Strategy · Logo · Guidelines</span>
+          </li>
+          <li class="service">
+            <span class="service-num">02</span>
+            <div class="service-body">
+              <h3>Web design &amp; build</h3>
+              <p>Marketing sites and storefronts designed and shipped by the same people — fast, responsive, and easy to edit.</p>
+            </div>
+            <span class="service-tag">Design · Front-end · CMS</span>
+          </li>
+          <li class="service">
+            <span class="service-num">03</span>
+            <div class="service-body">
+              <h3>Art direction</h3>
+              <p>Photography, packaging, and campaign systems so your brand looks deliberate everywhere it shows up.</p>
+            </div>
+            <span class="service-tag">Photo · Packaging · Campaigns</span>
+          </li>
+          <li class="service">
+            <span class="service-num">04</span>
+            <div class="service-body">
+              <h3>Motion &amp; film</h3>
+              <p>Animated logos, product films, and social-ready motion that give a static identity a pulse.</p>
+            </div>
+            <span class="service-tag">Animation · Product film · Social</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===== Studio / About ===== -->
+    <section class="studio" id="studio" aria-labelledby="studio-title">
+      <div class="container studio-inner">
+        <div class="studio-text">
+          <p class="eyebrow">The studio</p>
+          <h2 id="studio-title" class="section-title">Small on purpose.</h2>
+          <p>
+            We started Northbound in 2017 because the best work we'd ever made came from
+            tiny teams and short distances between idea and decision. We've kept it that
+            way. When you hire us, you work with the people doing the work — no account
+            layer, no hand-offs to a junior, no surprises.
+          </p>
+          <p>
+            We believe a brand is a promise you can see. Our job is to make that promise
+            clear, distinctive, and durable — then build the website that delivers it.
+          </p>
+          <ul class="values">
+            <li>Strategy before pixels</li>
+            <li>Make it, don't just deck it</li>
+            <li>Distinct beats trendy</li>
+          </ul>
+        </div>
+        <ul class="team" aria-label="The Northbound team">
+          <li class="member">
+            <img src="https://picsum.photos/seed/northbound-studio-team1/300/300" alt="Portrait of Mara Lindqvist" loading="lazy" />
+            <p class="member-name">Mara Lindqvist</p>
+            <p class="member-role">Founder &amp; Creative Director</p>
+          </li>
+          <li class="member">
+            <img src="https://picsum.photos/seed/northbound-studio-team2/300/300" alt="Portrait of Devon Pryce" loading="lazy" />
+            <p class="member-name">Devon Pryce</p>
+            <p class="member-role">Design Director</p>
+          </li>
+          <li class="member">
+            <img src="https://picsum.photos/seed/northbound-studio-team3/300/300" alt="Portrait of Ana Sofía Reyes" loading="lazy" />
+            <p class="member-name">Ana Sofía Reyes</p>
+            <p class="member-role">Brand Strategist</p>
+          </li>
+          <li class="member">
+            <img src="https://picsum.photos/seed/northbound-studio-team4/300/300" alt="Portrait of Kai Tanaka" loading="lazy" />
+            <p class="member-name">Kai Tanaka</p>
+            <p class="member-role">Motion Lead</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Client logos ===== -->
+    <section class="clients" aria-label="Selected clients">
+      <div class="container">
+        <p class="clients-label">Trusted by founders, makers, and the occasional Fortune 500</p>
+        <ul class="logo-strip">
+          <li>Aster&nbsp;&amp;&nbsp;Oak</li>
+          <li>Harbor&nbsp;Collective</li>
+          <li>Cadence</li>
+          <li>Northstar</li>
+          <li>Veridian</li>
+          <li>Juniper&nbsp;Press</li>
+          <li>Meridian&nbsp;Labs</li>
+          <li>Foldwell</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="container contact-inner">
+        <div class="contact-text">
+          <p class="eyebrow">Start a project</p>
+          <h2 id="contact-title" class="section-title">Tell us what you're building.</h2>
+          <p>
+            We take on a handful of projects a quarter. Send us a few details and you'll
+            hear back from a real person — usually within two business days.
+          </p>
+          <ul class="contact-points">
+            <li><span class="cp-key">Email</span> <a href="mailto:hello@northbound.studio">hello@northbound.studio</a></li>
+            <li><span class="cp-key">Studio</span> 218 NW Couch St, Portland, Oregon</li>
+            <li><span class="cp-key">Hours</span> Mon–Fri, 9–5 PT</li>
+          </ul>
+        </div>
+
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" autocomplete="name" required placeholder="Jordan Maxwell" />
+            <span class="error" data-for="name"></span>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email" required placeholder="you@company.com" />
+            <span class="error" data-for="email"></span>
+          </div>
+          <div class="field">
+            <label for="project-type">What do you need?</label>
+            <select id="project-type" name="project-type" required>
+              <option value="" disabled selected>Choose one…</option>
+              <option>Brand identity</option>
+              <option>Website design &amp; build</option>
+              <option>Brand + website</option>
+              <option>Art direction</option>
+              <option>Motion &amp; film</option>
+              <option>Not sure yet</option>
+            </select>
+            <span class="error" data-for="project-type"></span>
+          </div>
+          <div class="field">
+            <label for="message">A little about the project</label>
+            <textarea id="message" name="message" rows="4" required placeholder="We're a coffee roaster launching in spring and need a brand plus a shop site…"></textarea>
+            <span class="error" data-for="message"></span>
+          </div>
+          <button class="btn btn-solid btn-block" type="submit">Send it our way</button>
+          <p class="form-note">No newsletters, no spam — just a reply from a human.</p>
+        </form>
+
+        <div class="contact-success" id="contact-success" hidden role="status">
+          <div class="success-mark" aria-hidden="true">
+            <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 id="success-heading">Thanks — it's in our inbox.</h3>
+          <p id="success-body">We'll be in touch soon.</p>
+          <button class="btn btn-text" type="button" id="reset-form">Send another →</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 32 32" fill="none"><path d="M9 23V9l14 14V9" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </span>
+        <p>Northbound Studio — a brand &amp; web design studio in Portland, Oregon.</p>
+      </div>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
+        <a href="#studio">Studio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="footer-social">
+        <a href="#" aria-label="Northbound on Instagram">Instagram</a>
+        <a href="#" aria-label="Northbound on Dribbble">Dribbble</a>
+        <a href="#" aria-label="Northbound on LinkedIn">LinkedIn</a>
+      </div>
+    </div>
+    <div class="container footer-base">
+      <p>© <span id="year">2026</span> Northbound Studio. Made on the 45th parallel.</p>
+      <a href="mailto:hello@northbound.studio">hello@northbound.studio</a>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="studio"></script>
+</body>
+</html>

@@ -1,0 +1,184 @@
+---
+import Base from '../layouts/Base.astro';
+import Footer from '../components/Footer.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+import { site } from '../data/site';
+
+const quickExample = `import { createLedger, collection } from 'ledger';
+
+type Todo = { id: string; text: string; done: boolean };
+
+const db = createLedger({
+  todos: collection<Todo>(),
+});
+
+// A live query re-runs whenever matching data changes.
+const active = db.todos.where((t) => !t.done).sort('text').live();
+active.subscribe((todos) => render(todos));
+
+db.todos.insert({ id: 't1', text: 'Ship the docs', done: false });
+// → subscriber fires with [{ id: 't1', text: 'Ship the docs', done: false }]`;
+
+const reactExample = `import { useQuery } from 'ledger/react';
+
+function TodoList() {
+  const todos = useQuery(() => db.todos.where((t) => !t.done).live());
+  return <ul>{todos.map((t) => <li key={t.id}>{t.text}</li>)}</ul>;
+}`;
+
+const features = [
+  { icon: '🔒', title: 'Type-safe by default', body: 'Collections are generic. Inserts, queries, and results are fully inferred — no codegen, no decorators.' },
+  { icon: '⚡', title: 'Reactive queries', body: 'Call .live() on any query and subscribe. Ledger recomputes only what changed and emits the new result.' },
+  { icon: '💾', title: 'Local-first', body: 'Pluggable IndexedDB and localStorage adapters keep data on the device and survive reloads and offline use.' },
+  { icon: '🪶', title: '4 kB, zero deps', body: 'The whole core is 4 kB min+gzip with no runtime dependencies. Tree-shakeable down to what you import.' },
+  { icon: '🧩', title: 'Framework bindings', body: 'First-party hooks for React, Vue, and Svelte. The core is framework-agnostic and works in plain JS too.' },
+  { icon: '🚚', title: 'Safe migrations', body: 'Version your schema and ship migration steps. Ledger upgrades stored data on load, in order, exactly once.' },
+];
+---
+
+<Base title="Overview" description={site.blurb}>
+  <main id="main">
+    <section class="wrap hero">
+      <span class="hero__pill">
+        <b>{site.currentVersion}</b> · local-first state for TypeScript
+      </span>
+      <h1>Reactive data for web apps, <span class="grad">in 4 kilobytes.</span></h1>
+      <p>{site.blurb}</p>
+
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="/getting-started/">Get started →</a>
+        <a class="btn btn--ghost" href="/api/">API reference</a>
+      </div>
+
+      <div class="hero__install">
+        <span class="prompt">$</span>
+        <code data-install>npm i ledger</code>
+        <button type="button" data-install-copy>Copy</button>
+      </div>
+
+      <figure class="hero-figure">
+        <img
+          src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1400&q=70"
+          alt="A code editor on a dark theme showing TypeScript source on a developer's screen"
+          loading="eager"
+          width="1400"
+          height="700"
+        />
+      </figure>
+    </section>
+
+    <section class="wrap section">
+      <div class="section__head">
+        <span class="eyebrow">Why Ledger</span>
+        <h2>A data layer that gets out of your way</h2>
+        <p>Everything you need to model, query, and persist app state — without dragging in a database server or a megabyte of client code.</p>
+      </div>
+      <div class="features">
+        {
+          features.map((f) => (
+            <div class="feature">
+              <div class="feature__ico" aria-hidden="true">{f.icon}</div>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="showcase">
+        <div class="showcase__copy">
+          <span class="eyebrow">Quick look</span>
+          <h2>Define a collection, write a live query</h2>
+          <p>Ledger queries are plain functions over typed records. Add <code>.live()</code> and you get a subscription that stays in sync as data changes — no manual invalidation.</p>
+          <ul class="checklist">
+            <li>Full type inference from your record types</li>
+            <li>Chainable <code>where</code> / <code>sort</code> / <code>limit</code></li>
+            <li>Fine-grained updates — subscribers fire only when their result changes</li>
+          </ul>
+        </div>
+        <CodeBlock code={quickExample} lang="ts" file="todos.ts" />
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="showcase">
+        <CodeBlock code={reactExample} lang="tsx" file="TodoList.tsx" />
+        <div class="showcase__copy">
+          <span class="eyebrow">Framework bindings</span>
+          <h2>One hook, zero boilerplate</h2>
+          <p>The React binding turns any live query into reactive component state. The same query works untouched on the server, in a worker, or in plain JavaScript.</p>
+          <ul class="checklist">
+            <li>Hooks for React, Vue, and Svelte</li>
+            <li>Automatic subscribe / unsubscribe on mount</li>
+            <li>SSR-safe — queries run anywhere</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="stat-row">
+        <div class="stat"><b>4 kB</b><span>min + gzip</span></div>
+        <div class="stat"><b>0</b><span>dependencies</span></div>
+        <div class="stat"><b>100%</b><span>typed API</span></div>
+        <div class="stat"><b>MIT</b><span>licensed</span></div>
+      </div>
+    </section>
+
+    <section class="wrap section">
+      <div class="section__head">
+        <span class="eyebrow">Start here</span>
+        <h2>Pick a path</h2>
+        <p>Whether you're wiring up your first store or migrating a production schema, there's a short guide for it.</p>
+      </div>
+      <div class="next-steps">
+        <a class="next-card" href="/getting-started/">
+          <h3>Getting started</h3>
+          <p>Install, create a store, and render your first reactive list in five minutes.</p>
+          <span class="next-card__arrow">Read the guide →</span>
+        </a>
+        <a class="next-card" href="/guides/reactive-queries/">
+          <h3>Reactive queries</h3>
+          <p>Filters, sorting, derived queries, and how live subscriptions stay efficient.</p>
+          <span class="next-card__arrow">Learn queries →</span>
+        </a>
+        <a class="next-card" href="/guides/persistence/">
+          <h3>Persistence</h3>
+          <p>Keep data on the device with the IndexedDB and localStorage adapters.</p>
+          <span class="next-card__arrow">Persist data →</span>
+        </a>
+        <a class="next-card" href="/api/">
+          <h3>API reference</h3>
+          <p>Every function, option, and return type — with copy-paste examples.</p>
+          <span class="next-card__arrow">Browse the API →</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Base>
+
+<script>
+  const installBtn = document.querySelector('[data-install-copy]');
+  installBtn?.addEventListener('click', () => {
+    const text = document.querySelector('[data-install]')?.textContent || '';
+    navigator.clipboard?.writeText(text).then(() => {
+      const prev = installBtn.textContent;
+      installBtn.textContent = 'Copied!';
+      setTimeout(() => (installBtn.textContent = prev), 1400);
+    });
+  });
+
+  // Hero code-block copy buttons (CodeBlock components on the landing page)
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const code = btn.closest('.codeblock')?.querySelector('pre')?.innerText || '';
+      navigator.clipboard?.writeText(code).then(() => {
+        const prev = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => (btn.textContent = prev), 1400);
+      });
+    });
+  });
+</script>

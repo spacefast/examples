@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Milestone — a savings-goal calculator. Set your target, your deadline, and what you already have, and see exactly how much to set aside each month, with a compound-growth chart that watches the interest do the work." />
+  <meta name="theme-color" content="#0f3d3e" />
+  <title>Milestone — how much to save each month to hit your goal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230f3d3e'/%3E%3Cpath d='M22 70 L42 50 L56 60 L80 30' stroke='%2358d6a8' stroke-width='8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='80' cy='30' r='8' fill='%23f5c451'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#calculator">Skip to the calculator</a>
+
+  <header class="topbar">
+    <a class="brand" href="#top" id="top" aria-label="Milestone home">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" width="32" height="32">
+          <rect width="100" height="100" rx="22" fill="currentColor" />
+          <path d="M22 70 L42 50 L56 60 L80 30" stroke="#58d6a8" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="80" cy="30" r="8" fill="#f5c451" />
+        </svg>
+      </span>
+      <span class="brand__text">
+        <strong>Milestone</strong>
+        <small>reach the goal on purpose</small>
+      </span>
+    </a>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#chart">The path</a>
+      <a href="#whatif">What-if</a>
+      <a href="#calculator" class="topnav__cta">Plan my goal</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero__copy">
+        <p class="eyebrow">No app, no account, no spreadsheet</p>
+        <h1 id="hero-heading">Know exactly what to<br />save each month.</h1>
+        <p class="hero__lead">
+          Tell Milestone what you're saving for, when you want it, and what you've
+          already got. It solves the one number that actually matters — your
+          <strong>monthly contribution</strong> — and shows the compound interest
+          quietly chipping in along the way.
+        </p>
+        <a class="btn btn--primary" href="#calculator">Plan my goal →</a>
+        <ul class="hero__chips" aria-label="What it does">
+          <li>Solves for your monthly amount</li>
+          <li>Compound-growth chart</li>
+          <li>Year-by-year milestones</li>
+        </ul>
+      </div>
+      <figure class="hero__photo">
+        <img
+          src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1100&q=80"
+          alt="A glass jar filling with coins beside a small growing plant, on a sunlit windowsill"
+          width="1100" height="733" loading="eager"
+          onerror="this.onerror=null;this.src='https://picsum.photos/seed/milestone-savings-calculator-1/1100/733';" />
+        <figcaption>Small, steady deposits — and time — do most of the work.</figcaption>
+      </figure>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="calculator" class="calc" aria-labelledby="calc-heading">
+      <div class="calc__intro">
+        <h2 id="calc-heading" class="section-title">Your goal</h2>
+        <p class="section-sub">Everything updates the moment you change a number — nothing leaves your browser.</p>
+      </div>
+
+      <div class="calc__grid">
+        <!-- CONTROLS -->
+        <form class="controls" id="goalForm" novalidate>
+          <div class="field field--text">
+            <label for="goalName">What are you saving for?</label>
+            <input id="goalName" name="goalName" type="text" autocomplete="off"
+              maxlength="48" placeholder="e.g. House down payment" value="House down payment" />
+          </div>
+
+          <div class="field field--money">
+            <label for="target">Target amount <span class="field__hint">the full goal</span></label>
+            <div class="money-input">
+              <span class="money-input__sym" data-cur-sym aria-hidden="true">$</span>
+              <input id="target" name="target" type="text" inputmode="decimal"
+                autocomplete="off" placeholder="0" value="20,000" aria-describedby="targetHelp" />
+            </div>
+            <p id="targetHelp" class="field__help">What you need to have saved when you're done.</p>
+          </div>
+
+          <div class="field field--money">
+            <label for="start">Already saved <span class="field__hint">your head start</span></label>
+            <div class="money-input">
+              <span class="money-input__sym" data-cur-sym aria-hidden="true">$</span>
+              <input id="start" name="start" type="text" inputmode="decimal"
+                autocomplete="off" placeholder="0" value="3,500" />
+            </div>
+          </div>
+
+          <div class="field field--date">
+            <label for="targetDate">Reach it by</label>
+            <input id="targetDate" name="targetDate" type="month" autocomplete="off" />
+            <p class="field__help">Pick the month you want the money in hand.</p>
+          </div>
+
+          <fieldset class="field field--rate">
+            <legend>Expected annual return</legend>
+            <div class="ratepick" id="ratePick" role="radiogroup" aria-label="Expected annual return">
+              <button type="button" class="ratebtn" data-rate="0">0% <small>cash</small></button>
+              <button type="button" class="ratebtn is-active" data-rate="4.5" aria-pressed="true">4.5% <small>HYSA</small></button>
+              <button type="button" class="ratebtn" data-rate="7" >7% <small>investing</small></button>
+              <label class="ratebtn ratebtn--custom" for="customRate">
+                <input id="customRate" name="customRate" type="number" min="0" max="30"
+                  step="0.1" inputmode="decimal" placeholder="—" aria-label="Custom annual return percentage" />
+                <span aria-hidden="true">%</span>
+              </label>
+            </div>
+            <p class="field__help">A high-yield savings account is around 4–5%; long-term investing, ~7%.</p>
+          </fieldset>
+
+          <div class="field field--cur">
+            <label for="currency">Currency</label>
+            <select id="currency" name="currency">
+              <option value="USD" selected>$ — US Dollar (USD)</option>
+              <option value="EUR">€ — Euro (EUR)</option>
+              <option value="GBP">£ — Pound (GBP)</option>
+              <option value="CAD">$ — Canadian Dollar (CAD)</option>
+              <option value="AUD">$ — Australian Dollar (AUD)</option>
+              <option value="INR">₹ — Indian Rupee (INR)</option>
+            </select>
+          </div>
+
+          <div class="controls__actions">
+            <button type="reset" class="btn btn--ghost" id="resetBtn">Start over</button>
+          </div>
+        </form>
+
+        <!-- RESULT -->
+        <aside class="result" aria-labelledby="result-heading" aria-live="polite">
+          <div class="result__head">
+            <p class="result__kicker" id="resultKicker">To reach your goal you'll set aside</p>
+            <div class="result__hero">
+              <span class="result__cur" data-cur-sym aria-hidden="true">$</span>
+              <span class="result__amount" id="perMonth">0</span>
+              <span class="result__per">/ month</span>
+            </div>
+            <p class="result__sub" id="resultSub">about <strong id="perWeek">$0</strong> a week, for <strong id="monthsToGo">0 months</strong></p>
+          </div>
+
+          <dl class="result__lines">
+            <div><dt>Goal</dt><dd id="outGoal">House down payment</dd></div>
+            <div><dt>Target</dt><dd id="outTarget">$0</dd></div>
+            <div><dt>You're starting with</dt><dd id="outStart">$0</dd></div>
+            <div><dt>You'll contribute</dt><dd id="outContrib">$0</dd></div>
+            <div class="result__lines-glow"><dt>Interest earned</dt><dd id="outInterest">$0</dd></div>
+          </dl>
+
+          <div class="result__banner" id="resultBanner" hidden></div>
+
+          <p class="result__note" id="resultNote">Contributions are assumed at the end of each month; interest compounds monthly.</p>
+
+          <button type="button" class="btn btn--primary btn--wide" id="copyBtn">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span id="copyLabel">Copy my plan</span>
+          </button>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CHART -->
+    <section id="chart" class="growth" aria-labelledby="growth-heading">
+      <div class="growth__intro">
+        <h2 id="growth-heading" class="section-title">The path to <span id="chartGoalName">your goal</span></h2>
+        <p class="section-sub">Your balance climbing toward the goal line. The lighter band is what you put in; the glow on top is interest.</p>
+      </div>
+
+      <figure class="chartcard">
+        <div class="chartcard__legend" aria-hidden="true">
+          <span class="legdot legdot--contrib"></span> Your contributions
+          <span class="legdot legdot--interest"></span> Interest earned
+          <span class="legdot legdot--goal"></span> Goal
+        </div>
+        <div class="chartcard__canvas" id="chartCanvas"></div>
+        <figcaption class="chartcard__cap" id="chartCap">Hover the chart to see any month.</figcaption>
+      </figure>
+
+      <!-- CONTRIBUTIONS VS INTEREST -->
+      <div class="split" aria-labelledby="split-heading">
+        <h3 id="split-heading" class="split__title">Where the final balance comes from</h3>
+        <div class="split__bar" id="splitBar" role="img" aria-label="Breakdown of the final balance between contributions and interest">
+          <div class="split__seg split__seg--start" id="segStart"><span>Head start</span></div>
+          <div class="split__seg split__seg--contrib" id="segContrib"><span>Contributions</span></div>
+          <div class="split__seg split__seg--interest" id="segInterest"><span>Interest</span></div>
+        </div>
+        <ul class="split__keys">
+          <li><span class="legdot legdot--start"></span> Head start <strong id="keyStart">$0</strong></li>
+          <li><span class="legdot legdot--contrib"></span> Contributions <strong id="keyContrib">$0</strong></li>
+          <li><span class="legdot legdot--interest"></span> Interest <strong id="keyInterest">$0</strong></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHAT-IF -->
+    <section id="whatif" class="whatif" aria-labelledby="whatif-heading">
+      <div class="whatif__intro">
+        <h2 id="whatif-heading" class="section-title">What if you saved a little more?</h2>
+        <p class="section-sub">Drag the sliders to explore. We'll keep the target fixed and tell you when you'd actually hit it.</p>
+      </div>
+
+      <div class="whatif__grid">
+        <div class="whatif__controls">
+          <div class="slider">
+            <div class="slider__top">
+              <label for="whatMonthly">Save per month</label>
+              <output id="whatMonthlyOut" class="slider__val">$0</output>
+            </div>
+            <input id="whatMonthly" type="range" min="0" max="1000" step="10" value="400" aria-describedby="whatMonthlyHelp" />
+            <p id="whatMonthlyHelp" class="slider__help">Move it and watch the goal date below shift.</p>
+          </div>
+
+          <div class="slider">
+            <div class="slider__top">
+              <label for="whatRate">Annual return</label>
+              <output id="whatRateOut" class="slider__val">4.5%</output>
+            </div>
+            <input id="whatRate" type="range" min="0" max="12" step="0.1" value="4.5" />
+            <p class="slider__help">Higher returns get you there sooner — but carry more risk.</p>
+          </div>
+
+          <button type="button" class="btn btn--ghost btn--small" id="syncBtn">Match my plan again</button>
+        </div>
+
+        <div class="whatif__readout" aria-live="polite">
+          <p class="whatif__kicker">At that pace you'd reach <strong id="whatGoalName">your goal</strong></p>
+          <p class="whatif__date" id="whatDate">—</p>
+          <p class="whatif__delta" id="whatDelta"></p>
+          <div class="whatif__stat">
+            <div><span class="whatif__statval" id="whatTotalInterest">$0</span><span class="whatif__statlbl">interest earned</span></div>
+            <div><span class="whatif__statval" id="whatMonthsOut">0</span><span class="whatif__statlbl">months of saving</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MILESTONE TABLE -->
+    <section class="ledger" aria-labelledby="ledger-heading">
+      <div class="ledger__intro">
+        <h2 id="ledger-heading" class="section-title">Year-by-year milestones</h2>
+        <p class="section-sub">Where you'll stand at the end of each year on your plan.</p>
+      </div>
+      <div class="ledger__wrap">
+        <table class="ledger__table">
+          <thead>
+            <tr>
+              <th scope="col">By</th>
+              <th scope="col" class="num">Contributed</th>
+              <th scope="col" class="num">Interest</th>
+              <th scope="col" class="num">Balance</th>
+              <th scope="col" class="num">% there</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why" aria-labelledby="why-heading">
+      <h2 id="why-heading" class="section-title">The quiet power of starting now</h2>
+      <div class="why__grid">
+        <article class="why__card">
+          <span class="why__num">1</span>
+          <h3>Time beats timing</h3>
+          <p>An extra year of contributions usually matters more than chasing a higher return. The earlier each dollar lands, the longer it compounds before your deadline.</p>
+        </article>
+        <article class="why__card">
+          <span class="why__num">2</span>
+          <h3>One number, on autopilot</h3>
+          <p>Milestone hands you a single monthly figure. Set up an automatic transfer for that amount the day after payday and the goal mostly takes care of itself.</p>
+        </article>
+        <article class="why__card">
+          <span class="why__num">3</span>
+          <h3>Adjust without guilt</h3>
+          <p>Life shifts. Move the deadline or the amount and you'll see exactly what it costs — or saves — in seconds. A plan you can re-run is a plan you'll keep.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="sitefoot">
+    <div class="sitefoot__inner">
+      <p class="sitefoot__brand"><strong>Milestone</strong> — reach the goal on purpose.</p>
+      <p class="sitefoot__note">For planning only — not financial advice. Returns aren't guaranteed and figures are estimates. Everything runs in your browser; your numbers never leave this page. Built as a Spacefast example.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="savings"></script>
+</body>
+</html>

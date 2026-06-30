@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PostCard from '../components/PostCard.astro';
+import { getPosts } from '../lib/wp';
+import { TAGLINE } from '../config';
+
+// Runs at build time: fetch + normalise every post from the WordPress REST API.
+const posts = await getPosts();
+const [lead, ...rest] = posts;
+---
+
+<Layout>
+  <section class="wrap masthead">
+    <h1>{TAGLINE}</h1>
+    <p>
+      A static front end for a living WordPress site. Every post below was fetched
+      from the REST API the moment this page was built — nothing runs at request time.
+    </p>
+  </section>
+
+  <div class="wrap">
+    {
+      posts.length === 0 ? (
+        <p class="empty">No posts came back from the WordPress API. Check the API base in <code>src/config.ts</code>.</p>
+      ) : (
+        <>
+          <p class="section-label">Latest from the blog</p>
+          <div class="grid">
+            {lead && <PostCard post={lead} lead />}
+            {rest.map((post) => (
+              <PostCard post={post} />
+            ))}
+          </div>
+        </>
+      )
+    }
+  </div>
+</Layout>

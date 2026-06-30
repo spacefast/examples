@@ -1,0 +1,122 @@
+---
+import Docs from '../layouts/Docs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+
+const headings = [
+  { depth: 2, slug: 'createledger', text: 'createLedger()' },
+  { depth: 2, slug: 'collection', text: 'collection()' },
+  { depth: 2, slug: 'collection-methods', text: 'Collection methods' },
+  { depth: 2, slug: 'where', text: 'where()' },
+  { depth: 2, slug: 'live', text: 'live()' },
+  { depth: 2, slug: 'react-binding', text: 'React binding' },
+];
+
+const createLedger = `function createLedger<S extends Schema>(
+  collections: S,
+  options?: LedgerOptions
+): Ledger<S>;
+
+interface LedgerOptions {
+  persist?: Adapter;       // storage adapter, default: in-memory
+  schemaVersion?: number;  // current schema version, default: 1
+  migrations?: Record<number, MigrationFn>;
+}`;
+
+const collectionSig = `function collection<T>(options?: {
+  key?: keyof T;           // primary key field, default: 'id'
+  index?: (keyof T)[];     // fields to build secondary indexes on
+}): Collection<T>;`;
+
+const whereSig = `where(predicate: (record: T) => boolean): Query<T>;
+
+// Example
+db.users.where((u) => u.role === 'admin' && u.active);`;
+
+const liveSig = `live(): LiveQuery<T>;
+
+interface LiveQuery<T> {
+  subscribe(fn: (records: T[]) => void): () => void;
+  all(): T[];
+}
+
+// Example
+const stop = db.users.where((u) => u.active).live().subscribe(render);
+stop(); // unsubscribe`;
+
+const reactSig = `import { useQuery } from 'ledger/react';
+
+function useQuery<T>(factory: () => LiveQuery<T>, deps?: unknown[]): T[];
+
+// Example
+const admins = useQuery(() => db.users.where((u) => u.role === 'admin').live());`;
+---
+
+<Docs
+  title="API reference"
+  description="Every Ledger function, option, and return type — with copy-paste examples."
+  headings={headings}
+>
+  <span class="eyebrow">Reference</span>
+  <h1>API reference</h1>
+  <p class="lead">
+    The complete public surface of Ledger <strong>v2.4</strong>. Everything is exported from the
+    package root except framework bindings, which live in <code>ledger/react</code>,
+    <code>ledger/vue</code>, and <code>ledger/svelte</code>.
+  </p>
+
+  <h2 id="createledger">createLedger()</h2>
+  <p>Creates a store from a map of collections. This is the entry point.</p>
+  <CodeBlock code={createLedger} lang="ts" />
+  <table>
+    <thead><tr><th>Option</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>persist</code></td><td><code>Adapter</code></td><td>Storage backend. Omit for in-memory only.</td></tr>
+      <tr><td><code>schemaVersion</code></td><td><code>number</code></td><td>Current schema version for migrations.</td></tr>
+      <tr><td><code>migrations</code></td><td><code>Record&lt;number, fn&gt;</code></td><td>Upgrade steps keyed by target version.</td></tr>
+    </tbody>
+  </table>
+  <p>Returns a <code>Ledger</code> whose properties are the collections you passed, plus <code>ready</code> (a promise) and <code>flush()</code>.</p>
+
+  <h2 id="collection">collection()</h2>
+  <p>Declares a typed collection. The generic parameter is the record type.</p>
+  <CodeBlock code={collectionSig} lang="ts" />
+  <table>
+    <thead><tr><th>Option</th><th>Type</th><th>Default</th></tr></thead>
+    <tbody>
+      <tr><td><code>key</code></td><td><code>keyof T</code></td><td><code>'id'</code></td></tr>
+      <tr><td><code>index</code></td><td><code>(keyof T)[]</code></td><td><code>[]</code></td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="collection-methods">Collection methods</h2>
+  <table>
+    <thead><tr><th>Method</th><th>Returns</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>insert(record)</code></td><td><code>T</code></td><td>Add a record. Throws if the key exists.</td></tr>
+      <tr><td><code>upsert(record)</code></td><td><code>T</code></td><td>Insert or replace by key.</td></tr>
+      <tr><td><code>update(key, patch)</code></td><td><code>T</code></td><td>Shallow-merge a partial into a record.</td></tr>
+      <tr><td><code>unset(key, field)</code></td><td><code>T</code></td><td>Delete a single field from a record.</td></tr>
+      <tr><td><code>remove(key)</code></td><td><code>boolean</code></td><td>Delete a record by key.</td></tr>
+      <tr><td><code>get(key)</code></td><td><code>T | undefined</code></td><td>Read one record by key.</td></tr>
+      <tr><td><code>all()</code></td><td><code>T[]</code></td><td>Snapshot of every record.</td></tr>
+      <tr><td><code>where(fn)</code></td><td><code>Query&lt;T&gt;</code></td><td>Start a filtered query.</td></tr>
+      <tr><td><code>onChange(fn)</code></td><td><code>() =&gt; void</code></td><td>Subscribe to a raw change feed.</td></tr>
+    </tbody>
+  </table>
+
+  <h2 id="where">where()</h2>
+  <p>Filters records by a predicate and returns a chainable query.</p>
+  <CodeBlock code={whereSig} lang="ts" />
+
+  <h2 id="live">live()</h2>
+  <p>Turns a query into a reactive subscription. The callback fires immediately and on every change to the result.</p>
+  <CodeBlock code={liveSig} lang="ts" />
+  <div class="callout callout--tip">
+    <span class="callout__icon" aria-hidden="true">💡</span>
+    <p><code>subscribe</code> returns its unsubscribe function. Call it to stop receiving updates and free the query.</p>
+  </div>
+
+  <h2 id="react-binding">React binding</h2>
+  <p>The <code>useQuery</code> hook subscribes on mount and unsubscribes on unmount.</p>
+  <CodeBlock code={reactSig} lang="tsx" />
+</Docs>

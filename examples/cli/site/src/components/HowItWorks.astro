@@ -1,0 +1,92 @@
+---
+import { steps } from '../data/site';
+---
+
+<section class="section how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">How it works</p>
+      <h2>Three commands, every time</h2>
+      <p>
+        The whole workflow is connect, generate, apply. It looks the same on day one and
+        on your thousandth migration — and identical on every machine that runs it.
+      </p>
+    </div>
+
+    <ol class="how__list">
+      {
+        steps.map((s) => (
+          <li class="step">
+            <span class="step__n">{s.n}</span>
+            <div class="step__body">
+              <code class="step__cmd">$ {s.cmd}</code>
+              <h3 class="step__title">{s.title}</h3>
+              <p class="step__text">{s.body}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .how__list {
+    list-style: none;
+    counter-reset: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .step {
+    position: relative;
+    display: flex;
+    gap: 1.1rem;
+    padding: 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+  }
+  .step__n {
+    font-family: var(--mono);
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent);
+    border: 1px solid rgba(52, 225, 196, 0.25);
+    background: rgba(52, 225, 196, 0.08);
+    border-radius: 9px;
+    height: fit-content;
+    padding: 0.3rem 0.55rem;
+  }
+  .step__cmd {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 0.84rem;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 0.32rem 0.6rem;
+    margin-bottom: 0.7rem;
+  }
+  .step__title {
+    font-size: 1.16rem;
+    font-weight: 600;
+    margin-bottom: 0.45rem;
+  }
+  .step__text {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+    max-width: 60ch;
+  }
+  @media (min-width: 880px) {
+    .how__list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .step {
+      flex-direction: column;
+    }
+  }
+</style>

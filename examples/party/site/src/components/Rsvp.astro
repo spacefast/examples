@@ -1,0 +1,389 @@
+---
+import { party, meals } from '../data/party';
+---
+
+<section class="section" id="rsvp">
+  <div class="wrap center">
+    <p class="eyebrow">The important bit</p>
+    <h2 class="section-title">Are you in?</h2>
+    <p class="lede">
+      Kindly reply by <strong>{party.rsvpByLong}</strong> so we can plan the food,
+      the drinks, and exactly how many candles to buy.
+    </p>
+  </div>
+
+  <div class="wrap rsvp">
+    <form class="rsvp__form" data-rsvp novalidate>
+      <div class="field">
+        <label for="rsvp-name">Your name <span aria-hidden="true">*</span></label>
+        <input id="rsvp-name" name="name" type="text" autocomplete="name" required />
+        <p class="field__error" data-error-for="name" hidden>Please tell us your name.</p>
+      </div>
+
+      <div class="field">
+        <label for="rsvp-email">Email <span aria-hidden="true">*</span></label>
+        <input id="rsvp-email" name="email" type="email" autocomplete="email" required />
+        <p class="field__error" data-error-for="email" hidden>
+          Please enter a valid email so we can send you the address details.
+        </p>
+      </div>
+
+      <fieldset class="field field--attendance">
+        <legend>Can you make it? <span aria-hidden="true">*</span></legend>
+        <div class="choices">
+          <label class="choice choice--yes">
+            <input type="radio" name="attendance" value="accept" required />
+            <span>Wouldn't miss it 🎉</span>
+          </label>
+          <label class="choice choice--no">
+            <input type="radio" name="attendance" value="decline" />
+            <span>Can't make it 💔</span>
+          </label>
+        </div>
+        <p class="field__error" data-error-for="attendance" hidden>Please choose one.</p>
+      </fieldset>
+
+      <!-- Shown only when attending -->
+      <div class="rsvp__conditional" data-when="accept" hidden>
+        <div class="grid2">
+          <div class="field">
+            <label for="rsvp-guests">How many of you?</label>
+            <select id="rsvp-guests" name="guests">
+              <option value="1">Just me</option>
+              <option value="2">Me +1</option>
+              <option value="3">3 of us</option>
+              <option value="4">4 of us</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="rsvp-meal">Anything we should know to feed you well?</label>
+            <select id="rsvp-meal" name="meal">
+              {meals.map((m) => <option value={m.value}>{m.label}</option>)}
+            </select>
+          </div>
+        </div>
+
+        <div class="field" data-plus-one hidden>
+          <label for="rsvp-plusone">Your +1's name</label>
+          <input id="rsvp-plusone" name="plusone" type="text" placeholder="Who are you bringing?" />
+        </div>
+
+        <div class="field">
+          <label for="rsvp-song">A song that has to be on the playlist</label>
+          <input id="rsvp-song" name="song" type="text" placeholder="Artist — Title" />
+        </div>
+      </div>
+
+      <!-- Shown only when declining (the can't-make-it path) -->
+      <div class="rsvp__conditional rsvp__conditional--soft" data-when="decline" hidden>
+        <div class="field">
+          <label for="rsvp-message">Leave {party.host} a birthday note</label>
+          <textarea
+            id="rsvp-message"
+            name="message"
+            rows="3"
+            placeholder="We'll read every one out loud (the nice ones, anyway)."></textarea>
+        </div>
+      </div>
+
+      <button class="btn rsvp__submit" type="submit">Send my reply</button>
+    </form>
+
+    <div class="rsvp__success" data-success hidden role="status" aria-live="polite">
+      <div class="rsvp__success-mark" aria-hidden="true">✓</div>
+      <h3 data-success-title>You're on the list!</h3>
+      <p data-success-body></p>
+      <button class="btn btn--ghost" type="button" data-reset>Change my reply</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .rsvp {
+    max-width: 640px;
+    margin: 2.8rem auto 0;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: clamp(1.5rem, 5vw, 2.6rem);
+    box-shadow: var(--shadow-glow);
+    backdrop-filter: blur(8px);
+  }
+  .rsvp__form {
+    display: grid;
+    gap: 1.3rem;
+  }
+  .field {
+    display: grid;
+    gap: 0.45rem;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+  }
+  .grid2 {
+    display: grid;
+    gap: 1.3rem;
+  }
+  .field label,
+  .field legend {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--cream);
+    padding: 0;
+  }
+  .field span[aria-hidden] {
+    color: var(--magenta-soft);
+  }
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: var(--cream);
+    background: rgba(13, 5, 24, 0.55);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 0.75rem 0.9rem;
+    width: 100%;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted);
+    opacity: 0.8;
+  }
+  input:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--magenta);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 61, 139, 0.22);
+  }
+  select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%),
+      linear-gradient(135deg, var(--gold) 50%, transparent 50%);
+    background-position: calc(100% - 18px) 1.25rem, calc(100% - 13px) 1.25rem;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+  textarea {
+    resize: vertical;
+  }
+  .choices {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.5rem;
+  }
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    padding: 0.85rem 1rem;
+    border: 1.5px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .choice input {
+    width: auto;
+    accent-color: var(--magenta);
+  }
+  .choice--yes:has(input:checked) {
+    border-color: var(--magenta);
+    background: rgba(255, 61, 139, 0.16);
+  }
+  .choice--no:has(input:checked) {
+    border-color: var(--cyan);
+    background: rgba(92, 214, 255, 0.12);
+  }
+  .field__error {
+    margin: 0;
+    color: var(--magenta-soft);
+    font-size: 0.84rem;
+    font-weight: 600;
+  }
+  input[aria-invalid='true'],
+  select[aria-invalid='true'] {
+    border-color: var(--magenta);
+  }
+  .rsvp__conditional {
+    display: grid;
+    gap: 1.3rem;
+    padding: 1.3rem;
+    border-radius: 14px;
+    background: rgba(255, 61, 139, 0.08);
+    border: 1px dashed rgba(255, 61, 139, 0.35);
+  }
+  .rsvp__conditional--soft {
+    background: rgba(92, 214, 255, 0.07);
+    border-color: rgba(92, 214, 255, 0.32);
+  }
+  .rsvp__submit {
+    justify-content: center;
+    margin-top: 0.3rem;
+  }
+
+  .rsvp__success {
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 0.6rem;
+    padding: 1rem 0;
+  }
+  .rsvp__success-mark {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, var(--magenta), var(--gold));
+    color: #fff;
+    font-size: 1.8rem;
+  }
+  .rsvp__success h3 {
+    font-size: clamp(1.6rem, 5vw, 2.1rem);
+    color: var(--cream);
+  }
+  .rsvp__success p {
+    color: var(--cream-soft);
+    max-width: 46ch;
+    margin: 0 0 0.6rem;
+  }
+
+  @media (min-width: 560px) {
+    .choices {
+      grid-template-columns: 1fr 1fr;
+    }
+    .grid2 {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>
+
+<script>
+  const STORE_KEY = 'mia30-rsvp';
+  const form = document.querySelector<HTMLFormElement>('[data-rsvp]');
+  const success = document.querySelector('[data-success]');
+  const successTitle = document.querySelector('[data-success-title]');
+  const successBody = document.querySelector('[data-success-body]');
+  const resetBtn = document.querySelector('[data-reset]');
+  const plusOneField = document.querySelector('[data-plus-one]');
+  const conditionals = Array.from(document.querySelectorAll<HTMLElement>('[data-when]'));
+  const guestsSelect = form?.querySelector<HTMLSelectElement>('[name="guests"]');
+
+  const showError = (name: string, show: boolean) => {
+    const err = document.querySelector(`[data-error-for="${name}"]`);
+    const input = form?.querySelector(`[name="${name}"]`);
+    if (err) show ? err.removeAttribute('hidden') : err.setAttribute('hidden', '');
+    if (input instanceof HTMLElement && input.tagName !== 'FIELDSET') {
+      show ? input.setAttribute('aria-invalid', 'true') : input.removeAttribute('aria-invalid');
+    }
+  };
+
+  // Reveal the right conditional block for the chosen answer.
+  const syncConditional = () => {
+    const choice =
+      (form?.querySelector('[name="attendance"]:checked') as HTMLInputElement | null)?.value || '';
+    conditionals.forEach((el) => {
+      el.toggleAttribute('hidden', el.getAttribute('data-when') !== choice);
+    });
+  };
+  // Ask for a +1 name only when more than one guest is coming.
+  const syncPlusOne = () => {
+    const n = Number(guestsSelect?.value || '1');
+    plusOneField?.toggleAttribute('hidden', n < 2);
+  };
+
+  form?.querySelectorAll('[name="attendance"]').forEach((el) =>
+    el.addEventListener('change', () => {
+      syncConditional();
+      showError('attendance', false);
+    })
+  );
+  guestsSelect?.addEventListener('change', syncPlusOne);
+
+  const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+
+  const renderSuccess = (d: Record<string, string>) => {
+    const first = (d.name || '').split(' ')[0] || 'friend';
+    const accepting = d.attendance === 'accept';
+    if (successTitle) {
+      successTitle.textContent = accepting
+        ? `See you there, ${first}! 🎉`
+        : `We'll miss you, ${first} 💔`;
+    }
+    if (successBody) {
+      if (accepting) {
+        const count =
+          d.guests === '1' ? 'just you' : `${d.guests} of you${d.plusone ? ` (hi, ${d.plusone}!)` : ''}`;
+        successBody.textContent =
+          `You're down for ${count}. ` +
+          (d.song ? `"${d.song}" is going on the playlist. ` : '') +
+          `We've emailed the address and door details to ${d.email}.`;
+      } else {
+        successBody.textContent =
+          (d.message ? `Thank you for the note — it means a lot. ` : `Totally understood. `) +
+          `We'll raise a glass to you and send photos to ${d.email}.`;
+      }
+    }
+    form?.setAttribute('hidden', '');
+    success?.removeAttribute('hidden');
+  };
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!form) return;
+    const data = new FormData(form);
+    const name = String(data.get('name') || '').trim();
+    const email = String(data.get('email') || '').trim();
+    const attendance = String(data.get('attendance') || '');
+
+    let ok = true;
+    if (!name) (showError('name', true), (ok = false));
+    else showError('name', false);
+    if (!isEmail(email)) (showError('email', true), (ok = false));
+    else showError('email', false);
+    if (!attendance) (showError('attendance', true), (ok = false));
+
+    if (!ok) {
+      form
+        .querySelector<HTMLElement>('[aria-invalid="true"], .field__error:not([hidden])')
+        ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+
+    const reply = {
+      name,
+      email,
+      attendance,
+      guests: String(data.get('guests') || '1'),
+      plusone: String(data.get('plusone') || '').trim(),
+      meal: String(data.get('meal') || ''),
+      song: String(data.get('song') || '').trim(),
+      message: String(data.get('message') || '').trim(),
+    };
+    try {
+      localStorage.setItem(STORE_KEY, JSON.stringify(reply));
+    } catch {
+      /* private mode — no problem, the reply still shows */
+    }
+    renderSuccess(reply);
+    success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    success?.setAttribute('hidden', '');
+    form?.removeAttribute('hidden');
+    form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  // If they already replied on this device, greet them with their saved answer.
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved) renderSuccess(JSON.parse(saved));
+  } catch {
+    /* ignore */
+  }
+  syncPlusOne();
+</script>

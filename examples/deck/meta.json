@@ -1,0 +1,28 @@
+{
+  "name": "Northwind Seed Deck",
+  "slug": "deck",
+  "vertical": "Data, internal & startup",
+  "tech": "vanilla-js",
+  "based_on": "A standard seed-stage venture pitch deck (Sequoia / YC structure \u2014 problem, solution, market, traction, ask) rendered as a browser-native reveal.js presentation with speaker notes and PDF export.",
+  "summary": "A presentable reveal.js pitch deck for a fictional warehouse-native internal-tools startup, with keyboard navigation, a help overlay, speaker notes, PDF export, and bespoke data slides (TAM/SAM/SOM rings, an MRR bar chart, use-of-funds bars).",
+  "sections": [
+    "Title slide with logo, one-line pitch, and a darkened boardroom photo",
+    "Problem with stat cards and a customer quote",
+    "Solution with three pillars plus a nested 'how a write flows' slide (config snippet + flow diagram)",
+    "Market with a TAM/SAM/SOM concentric-ring diagram and bottom-up sizing",
+    "Traction with KPI tiles, an MRR bar chart, and customer logo chips",
+    "The Ask with use-of-funds bars, a milestones checklist, and a team bio",
+    "Closing slide with contact details",
+    "Speaker notes on every slide, plus a keyboard-shortcut help overlay and PDF export"
+  ],
+  "setup_questions": [
+    "What's the company and one-line pitch?",
+    "What are the 6-8 slide topics? (default: Title, Problem, Solution, Market, Traction, The Ask)",
+    "What's the ask / closing slide content? (round size, use of funds, milestones, team)"
+  ],
+  "photo_terms": [
+    "startup pitch meeting",
+    "modern boardroom presentation"
+  ],
+  "live_url": "https://deck.view.fast/"
+}

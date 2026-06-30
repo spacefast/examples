@@ -1,0 +1,107 @@
+---
+import { Code } from 'astro:components';
+import { quickStart, schemaSample, migrationSample } from '../data/site';
+---
+
+<section class="section example" id="quickstart">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Quick start</p>
+      <h2>Up and running in four commands</h2>
+      <p>{quickStart.intro}</p>
+    </div>
+
+    <div class="code-card example__shell">
+      <div class="code-card__bar">
+        <span class="code-card__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="code-card__name">~/projects/orders-api — zsh</span>
+      </div>
+      <Code code={quickStart.code} lang="bash" theme="github-dark" />
+    </div>
+
+    <div class="example__pair">
+      <figure class="example__panel">
+        <figcaption class="example__cap">
+          <span class="example__cap-dot" aria-hidden="true"></span>
+          {schemaSample.title}
+        </figcaption>
+        <div class="code-card">
+          <div class="code-card__bar">
+            <span class="code-card__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-card__name">schema.ts</span>
+          </div>
+          <Code code={schemaSample.code} lang="typescript" theme="github-dark" />
+        </div>
+      </figure>
+
+      <div class="example__arrow" aria-hidden="true">
+        <svg viewBox="0 0 40 24" width="40" height="24">
+          <path d="M2 12h32m0 0-7-7m7 7-7 7" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+
+      <figure class="example__panel">
+        <figcaption class="example__cap">
+          <span class="example__cap-dot example__cap-dot--violet" aria-hidden="true"></span>
+          {migrationSample.title}
+        </figcaption>
+        <div class="code-card">
+          <div class="code-card__bar">
+            <span class="code-card__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="code-card__name">0007_add_orders_table.sql</span>
+          </div>
+          <Code code={migrationSample.code} lang="sql" theme="github-dark" />
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style>
+  .example__shell {
+    max-width: 760px;
+  }
+  .example__pair {
+    display: grid;
+    gap: 1.4rem;
+    margin-top: 2.4rem;
+    align-items: center;
+  }
+  .example__panel {
+    margin: 0;
+    min-width: 0;
+  }
+  .example__cap {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.98rem;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+  }
+  .example__cap-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .example__cap-dot--violet {
+    background: var(--violet);
+  }
+  .example__arrow {
+    display: flex;
+    justify-content: center;
+    color: var(--accent);
+    transform: rotate(90deg);
+  }
+  @media (min-width: 880px) {
+    .example__pair {
+      grid-template-columns: 1fr auto 1fr;
+    }
+    .example__arrow {
+      transform: none;
+    }
+  }
+</style>

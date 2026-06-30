@@ -1,0 +1,30 @@
+{
+  "name": "Even Split",
+  "slug": "tip",
+  "vertical": "Tools & micro-apps",
+  "tech": "html",
+  "based_on": "Plates by Splitwise / 'Tip Calculator & Bill Split' \u2014 a restaurant bill splitter that computes tip on the pre-tax amount and divides per person.",
+  "summary": "A fast single-file bill-and-tip splitter: enter the bill, pick a tip percentage, set the number of people, and instantly see tip, tax handling, total, and a clean per-person amount with an optional round-up.",
+  "sections": [
+    "Bill amount entry",
+    "Tip selector (preset % buttons + custom)",
+    "Separate tax field so tip is calculated on the pre-tax bill",
+    "Split-by-people stepper",
+    "Live per-person and total breakdown",
+    "Round-up-per-person toggle",
+    "Reset / new bill"
+  ],
+  "setup_questions": [
+    "What's your default tip percentage and which presets should the buttons show (e.g. 15 / 18 / 20 / 25)?",
+    "What currency and locale should amounts use (e.g. USD $, EUR \u20ac)?",
+    "Should tip be calculated on the pre-tax or post-tax amount by default?",
+    "Typical party size to default to, and should it offer a 'round up each person' option?"
+  ],
+  "photo_terms": [
+    "friends splitting bill at restaurant table",
+    "hands with credit card and receipt cafe",
+    "dinner table from above with plates and glasses",
+    "group of friends laughing over dinner"
+  ],
+  "live_url": "https://tip.view.fast/"
+}

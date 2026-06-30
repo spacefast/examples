@@ -1,0 +1,100 @@
+---
+import { party, directions } from '../data/party';
+const embedSrc = `https://www.google.com/maps?q=${party.mapQuery}&output=embed`;
+---
+
+<section class="section" id="getting-there">
+  <div class="wrap center">
+    <p class="eyebrow">Getting there</p>
+    <h2 class="section-title">{party.venueName}</h2>
+    <p class="lede">{party.venueFloor} · {party.address}</p>
+  </div>
+
+  <div class="wrap loc">
+    <div class="loc__map">
+      <iframe
+        title={`Map to ${party.venueName}`}
+        src={embedSrc}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen></iframe>
+      <a class="btn btn--gold loc__open" href={party.mapUrl} target="_blank" rel="noopener">
+        Open in Google Maps ↗
+      </a>
+    </div>
+
+    <div class="loc__directions">
+      {
+        directions.map((d) => (
+          <div class="dir">
+            <h3 class="dir__name">{d.name}</h3>
+            <p class="dir__body">{d.body}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .loc {
+    margin-top: 2.8rem;
+    display: grid;
+    gap: 1.6rem;
+    grid-template-columns: 1fr;
+  }
+  .loc__map {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    min-height: 320px;
+  }
+  .loc__map iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.2) contrast(1.05);
+  }
+  .loc__open {
+    position: absolute;
+    left: 1rem;
+    bottom: 1rem;
+    font-size: 0.85rem;
+    padding: 0.7rem 1.2rem;
+    z-index: 1;
+  }
+  .loc__directions {
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .dir {
+    padding: 1.3rem 1.4rem;
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    border: 1px solid var(--line);
+  }
+  .dir__name {
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin-bottom: 0.35rem;
+  }
+  .dir__body {
+    color: var(--cream-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (min-width: 860px) {
+    .loc {
+      grid-template-columns: 1.25fr 1fr;
+      align-items: stretch;
+    }
+    .loc__map {
+      min-height: 440px;
+    }
+  }
+</style>

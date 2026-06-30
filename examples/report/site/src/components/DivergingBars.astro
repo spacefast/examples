@@ -1,0 +1,162 @@
+---
+// Likert diverging bars. Each row is a statement; the five-segment stacked bar
+// diverges left (disagree) and right (agree) out of a shared centre line.
+interface Item {
+  statement: string;
+  values: number[]; // [strongly disagree, disagree, neutral, agree, strongly agree]
+}
+interface Props {
+  items: Item[];
+  scale: string[];
+}
+const { items, scale } = Astro.props as Props;
+
+const colors = ['var(--neg-2)', 'var(--neg-1)', 'var(--neu)', 'var(--pos-1)', 'var(--pos-2)'];
+
+// Each side is scaled to 100%; the bar area is split into a left half and a
+// right half, with the neutral segment straddling the centre.
+function layout(values: number[]) {
+  const [sd, d, n, a, sa] = values;
+  const half = n / 2;
+  // Left side (disagree) widths as % of the FULL bar width (each half = 50%).
+  const leftTotal = sd + d + half;
+  const rightTotal = a + sa + half;
+  // Scale so the widest possible side fits in its 50%.
+  return {
+    left: [
+      { c: colors[0], v: sd },
+      { c: colors[1], v: d },
+      { c: colors[2], v: half },
+    ],
+    right: [
+      { c: colors[2], v: half },
+      { c: colors[3], v: a },
+      { c: colors[4], v: sa },
+    ],
+    leftTotal,
+    rightTotal,
+    agree: a + sa,
+    disagree: sd + d,
+  };
+}
+---
+
+<div class="diverge">
+  <ul class="dv-key" aria-hidden="true">
+    {
+      scale.map((s, i) => (
+        <li>
+          <span class="swatch" style={`background:${colors[i]}`} />
+          {s}
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="dv-rows">
+    {
+      items.map((it, idx) => {
+        const L = layout(it.values);
+        return (
+          <div class="dv-row" style={`--d:${idx * 70}ms`}>
+            <div class="dv-stmt">{it.statement}</div>
+            <div class="dv-bar" role="img" aria-label={`${it.statement}. ${L.agree}% agree, ${L.disagree}% disagree.`}>
+              <div class="dv-side left">
+                {L.left.map((s) => (
+                  <span class="dv-seg" style={`width:${s.v}%;background:${s.c}`} />
+                ))}
+              </div>
+              <div class="dv-mid" />
+              <div class="dv-side right">
+                {L.right.map((s) => (
+                  <span class="dv-seg" style={`width:${s.v}%;background:${s.c}`} />
+                ))}
+              </div>
+            </div>
+            <div class="dv-agree num">{L.agree}%<span class="dv-agree-cap"> agree</span></div>
+          </div>
+        );
+      })
+    }
+  </div>
+</div>
+
+<style>
+  .dv-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    list-style: none;
+    margin: 0 0 22px;
+    padding: 0;
+  }
+  .dv-key li {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12.5px;
+    color: var(--ink-2);
+  }
+  .swatch {
+    width: 11px;
+    height: 11px;
+    border-radius: 3px;
+  }
+  .dv-rows {
+    display: grid;
+    gap: 18px;
+  }
+  .dv-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .dv-stmt {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .dv-bar {
+    display: grid;
+    grid-template-columns: 1fr 2px 1fr;
+    height: 22px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--line-soft);
+  }
+  .dv-side {
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+  }
+  .dv-side.left {
+    justify-content: flex-end;
+  }
+  .dv-mid {
+    background: var(--ink-3);
+    opacity: 0.5;
+  }
+  .dv-seg {
+    height: 100%;
+    transition: width 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .dv-agree {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--pos);
+  }
+  .dv-agree-cap {
+    color: var(--ink-3);
+    font-weight: 400;
+    font-family: var(--font-body);
+  }
+  @media (min-width: 720px) {
+    .dv-row {
+      grid-template-columns: minmax(220px, 34%) 1fr auto;
+      align-items: center;
+      gap: 16px;
+    }
+    .dv-stmt {
+      text-align: right;
+    }
+  }
+</style>

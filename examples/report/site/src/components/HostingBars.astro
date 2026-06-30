@@ -1,0 +1,144 @@
+---
+// Hosting & deployment popularity. Horizontal bars with a year-over-year delta
+// chip. New-this-year entries get a "new" badge instead of a delta.
+interface Host {
+  label: string;
+  share: number;
+  delta: number | null;
+  isNew?: boolean;
+}
+interface Props {
+  hosts: Host[];
+}
+const { hosts } = Astro.props as Props;
+const max = Math.max(...hosts.map((h) => h.share));
+---
+
+<ul class="hosts">
+  {
+    hosts.map((h, i) => {
+      const w = (h.share / max) * 100;
+      const up = (h.delta ?? 0) > 0;
+      const down = (h.delta ?? 0) < 0;
+      return (
+        <li class={h.isNew ? 'is-new' : ''}>
+          <span class="h-name">
+            {h.label}
+            {h.isNew && <span class="h-badge">new</span>}
+          </span>
+          <span class="h-track">
+            <span class="h-fill" style={`--w:${w}%;--d:${i * 55}ms`} />
+          </span>
+          <span class="num h-share">{h.share}%</span>
+          <span
+            class={`h-delta ${up ? 'up' : ''} ${down ? 'down' : ''}`}
+            aria-label={
+              h.delta === null
+                ? 'new this year'
+                : `${up ? 'up' : down ? 'down' : 'no change'} ${Math.abs(h.delta)} points`
+            }
+          >
+            {h.delta === null
+              ? '—'
+              : h.delta === 0
+                ? '±0'
+                : `${up ? '▲' : '▼'} ${Math.abs(h.delta)}`}
+          </span>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .hosts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 12px;
+  }
+  .hosts li {
+    display: grid;
+    grid-template-columns: minmax(120px, 30%) 1fr auto auto;
+    align-items: center;
+    gap: 8px 12px;
+  }
+  .h-name {
+    font-size: 14.5px;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .is-new .h-name {
+    font-weight: 600;
+  }
+  .h-badge {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0b0c12;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    padding: 2px 6px;
+    border-radius: 999px;
+  }
+  .h-track {
+    height: 12px;
+    background: var(--line-soft);
+    border-radius: 7px;
+    overflow: hidden;
+  }
+  .h-fill {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: 7px;
+    background: linear-gradient(90deg, var(--c5), var(--accent));
+    transform-origin: left;
+    animation: hostgrow 0.85s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d);
+  }
+  .is-new .h-fill {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  @keyframes hostgrow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .h-fill {
+      animation: none;
+    }
+  }
+  .h-share {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    min-width: 38px;
+    text-align: right;
+  }
+  .h-delta {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    min-width: 46px;
+    text-align: right;
+  }
+  .h-delta.up {
+    color: var(--pos);
+  }
+  .h-delta.down {
+    color: var(--neg);
+  }
+  @media (max-width: 520px) {
+    .hosts li {
+      grid-template-columns: 1fr auto auto;
+    }
+    .h-name {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

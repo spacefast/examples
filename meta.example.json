@@ -1,0 +1,18 @@
+{
+  "name": "Midnight Tigers",
+  "slug": "midnight-tigers",
+  "vertical": "Personal & creative",
+  "tech": "html",
+  "based_on": "A real-feeling indie rock four-piece from Portland",
+  "summary": "A one-page site for an indie band: hero, tour dates, music, and a mailing-list signup.",
+  "sections": ["Hero with band photo", "Tour dates", "Listen / music", "About", "Mailing list signup", "Footer with socials"],
+  "setup_questions": [
+    "What's your band's name?",
+    "What genre, in two or three words?",
+    "When and where is your next show?",
+    "List 3 song titles to feature."
+  ],
+  "photo_terms": ["live concert crowd", "band performing stage lights", "vinyl record close up"],
+  "live_url": "",
+  "why_good": "Personal, emotional, and instantly recognizable — a perfect single-page HTML test of layout, type, and imagery."
+}

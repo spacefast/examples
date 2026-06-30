@@ -1,0 +1,28 @@
+{
+  "name": "Sam Rivera \u2014 CV",
+  "slug": "resume",
+  "vertical": "Personal & creative",
+  "tech": "html",
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: the single-page personal web resume / CV with a print-to-PDF stylesheet.",
+  "summary": "A clean single-page web resume: header with contact, an experience timeline, a skills sidebar with animated proficiency meters, education, and a print-to-PDF stylesheet behind a 'Download PDF' button.",
+  "sections": [
+    "Header with photo, role, one-line summary, and contact row",
+    "Profile paragraph",
+    "Experience timeline with outcome-led bullets",
+    "Selected work links",
+    "Skills sidebar (tag chips + proficiency meters)",
+    "Education and 'beyond work' blocks",
+    "Print-to-PDF styles via a Download PDF button"
+  ],
+  "setup_questions": [
+    "What's your name and current role/title?",
+    "What are your 3-4 most recent roles? (employer, dates, and a line on what you did)",
+    "What key skills should I highlight, and do you want a 'Download PDF' button?",
+    "Where should people reach you \u2014 email, location, and any links (site, LinkedIn)?"
+  ],
+  "photo_terms": [
+    "professional headshot neutral",
+    "minimal desk notebook pen"
+  ],
+  "live_url": "https://resume.view.fast/"
+}

@@ -1,0 +1,132 @@
+---
+import { project, databases } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <a class="footer__logo" href="#top">
+        <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+          <path d="M9 10.5h7.5c4 0 6.5 2.4 6.5 5.5s-2.5 5.5-6.5 5.5H9z" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linejoin="round"></path>
+          <circle cx="22.5" cy="9.5" r="2.2" fill="var(--violet)"></circle>
+        </svg>
+        <span>{project.name}</span>
+      </a>
+      <p class="footer__tag">{project.tagline}</p>
+      <p class="footer__meta">{project.version} · {project.license} · {project.ecosystem}</p>
+    </div>
+
+    <nav class="footer__cols" aria-label="Footer">
+      <div class="footer__col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#benchmark">Benchmarks</a>
+        <a href={project.npm}>npm package</a>
+      </div>
+      <div class="footer__col">
+        <h4>Docs</h4>
+        <a href={`${project.docs}/quickstart`}>Quickstart</a>
+        <a href={`${project.docs}/schema`}>Schema reference</a>
+        <a href={`${project.docs}/ci`}>CI recipes</a>
+        <a href={`${project.docs}/adopt`}>Migrating in</a>
+      </div>
+      <div class="footer__col">
+        <h4>Community</h4>
+        <a href={project.repo}>GitHub</a>
+        <a href={project.discord}>Discord</a>
+        <a href={`${project.repo}/releases`}>Changelog</a>
+        <a href={`${project.repo}/blob/main/CONTRIBUTING.md`}>Contributing</a>
+      </div>
+      <div class="footer__col">
+        <h4>Supports</h4>
+        {databases.map((d) => <a href={`${project.docs}/dialects`}>{d}</a>)}
+      </div>
+    </nav>
+  </div>
+
+  <div class="wrap footer__base">
+    <p>© {year} Drift Labs · Released under the {project.license} license.</p>
+    <p>
+      Built with <a href="https://astro.build">Astro</a> · Published with
+      <a href="https://spacefast.com">Spacefast</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+    padding-block: clamp(2.8rem, 6vw, 4rem) 1.6rem;
+  }
+  .footer__inner {
+    display: grid;
+    gap: 2.4rem;
+    grid-template-columns: 1fr;
+  }
+  .footer__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+  .footer__tag {
+    color: var(--ink-soft);
+    margin-top: 0.8rem;
+    max-width: 32ch;
+  }
+  .footer__meta {
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    color: var(--ink-faint);
+    margin-top: 0.7rem;
+  }
+  .footer__cols {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem 1rem;
+  }
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .footer__col h4 {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.35rem;
+  }
+  .footer__col a {
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+  }
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    justify-content: space-between;
+    margin-top: 2.6rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 0.82rem;
+  }
+  .footer__base a {
+    color: var(--ink-soft);
+  }
+  @media (min-width: 720px) {
+    .footer__inner {
+      grid-template-columns: 1.2fr 2fr;
+    }
+    .footer__cols {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jess Park · Recipe developer & plant-forward home cook</title>
+  <meta name="description" content="30-minute dinners, big flavor, no fuss. Get Jess Park's free meal-prep guide, weekly recipes, newsletter, shop, and more — all in one place." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="profile" />
+  <meta property="og:title" content="Jess Park · Recipe developer & plant-forward home cook" />
+  <meta property="og:description" content="30-minute dinners, big flavor, no fuss. Seoul-born, Brooklyn-based." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1200&q=70" />
+  <meta name="theme-color" content="#fbf6ee" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --cream: #fbf6ee;
+      --cream-2: #f3ead9;
+      --ink: #2c241c;
+      --ink-soft: #6b5d4d;
+      --line: #e7dcc8;
+      --terracotta: #d9622b;
+      --terracotta-dark: #b94e1d;
+      --sage: #5c7052;
+      --card: #ffffff;
+      --shadow: 0 1px 2px rgba(44, 36, 28, .04), 0 8px 24px rgba(44, 36, 28, .06);
+      --shadow-lift: 0 4px 8px rgba(44, 36, 28, .06), 0 18px 40px rgba(44, 36, 28, .12);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(120% 60% at 50% -10%, #fff7ec 0%, var(--cream) 45%, var(--cream-2) 100%) fixed;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; }
+
+    .wrap {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    /* ---------- Profile header ---------- */
+    .profile { text-align: center; }
+
+    .avatar-ring {
+      width: 116px; height: 116px;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      padding: 4px;
+      background: conic-gradient(from 200deg, var(--terracotta), #e9a23b, var(--sage), var(--terracotta));
+      box-shadow: var(--shadow);
+    }
+    .avatar-ring img {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--cream);
+      display: block;
+    }
+
+    .name {
+      font-family: "Fraunces", Georgia, serif;
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+      margin: 0 0 2px;
+    }
+    .verified {
+      display: inline-flex;
+      vertical-align: middle;
+      margin-left: 5px;
+      color: var(--terracotta);
+    }
+    .handle {
+      font-size: .95rem;
+      color: var(--ink-soft);
+      margin: 0 0 14px;
+      font-weight: 500;
+    }
+    .bio {
+      font-size: 1.02rem;
+      color: var(--ink);
+      max-width: 24em;
+      margin: 0 auto 16px;
+    }
+    .tags {
+      display: flex; flex-wrap: wrap; gap: 7px; justify-content: center;
+      margin-bottom: 6px;
+    }
+    .tag {
+      font-size: .8rem; font-weight: 600;
+      color: var(--sage);
+      background: rgba(92, 112, 82, .1);
+      border: 1px solid rgba(92, 112, 82, .18);
+      padding: 4px 11px; border-radius: 999px;
+    }
+
+    /* ---------- Primary CTA ---------- */
+    .cta {
+      display: block;
+      margin: 28px 0 8px;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--terracotta), #e0742f);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: 0 8px 22px rgba(217, 98, 43, .32);
+      position: relative;
+      overflow: hidden;
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .cta::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(120% 140% at 100% 0%, rgba(255,255,255,.22), transparent 55%);
+      pointer-events: none;
+    }
+    .cta:hover, .cta:focus-visible { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(217, 98, 43, .42); }
+    .cta-kicker { font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; opacity: .9; }
+    .cta-title { font-family: "Fraunces", serif; font-size: 1.32rem; font-weight: 600; line-height: 1.2; margin: 4px 0 3px; }
+    .cta-sub { font-size: .88rem; opacity: .92; }
+    .cta-arrow {
+      position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+      transition: transform .18s ease;
+    }
+    .cta:hover .cta-arrow { transform: translateY(-50%) translateX(4px); }
+
+    /* ---------- Link buttons ---------- */
+    .links { list-style: none; padding: 0; margin: 8px 0 0; }
+    .links li { margin: 12px 0; }
+
+    .link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .link:hover, .link:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lift);
+      border-color: #dcc9a6;
+    }
+    .link-thumb {
+      width: 48px; height: 48px; flex: 0 0 48px;
+      border-radius: 12px; object-fit: cover;
+      background: var(--cream-2);
+    }
+    .link-icon {
+      width: 48px; height: 48px; flex: 0 0 48px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: var(--cream-2);
+      color: var(--terracotta);
+    }
+    .link-body { flex: 1; min-width: 0; }
+    .link-title { font-weight: 600; font-size: 1rem; line-height: 1.25; }
+    .link-meta { font-size: .82rem; color: var(--ink-soft); margin-top: 1px; }
+    .link-chev { color: #c9b896; flex: 0 0 auto; transition: transform .16s ease, color .16s ease; }
+    .link:hover .link-chev { transform: translateX(3px); color: var(--terracotta); }
+
+    .pill {
+      display: inline-block;
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--terracotta-dark);
+      background: rgba(217, 98, 43, .12);
+      padding: 2px 8px; border-radius: 999px;
+      margin-left: 8px; vertical-align: 1px;
+    }
+    .pill.new { color: #fff; background: var(--sage); }
+
+    /* ---------- Section label ---------- */
+    .section-label {
+      display: flex; align-items: center; gap: 12px;
+      margin: 34px 4px 14px;
+      font-size: .76rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .section-label::before, .section-label::after {
+      content: ""; height: 1px; flex: 1; background: var(--line);
+    }
+
+    /* ---------- Featured video ---------- */
+    .video {
+      display: block; text-decoration: none;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--line);
+      background: var(--card);
+      transition: transform .16s ease, box-shadow .16s ease;
+    }
+    .video:hover, .video:focus-visible { transform: translateY(-2px); box-shadow: var(--shadow-lift); }
+    .video-media { position: relative; aspect-ratio: 16 / 9; }
+    .video-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .video-media::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(20,14,8,.55));
+    }
+    .play {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      width: 62px; height: 62px; border-radius: 50%;
+      background: rgba(255,255,255,.92);
+      display: grid; place-items: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,.3);
+      z-index: 2;
+      transition: transform .18s ease;
+    }
+    .video:hover .play { transform: translate(-50%, -50%) scale(1.08); }
+    .play svg { margin-left: 3px; color: var(--terracotta); }
+    .video-cap { position: absolute; left: 16px; right: 16px; bottom: 13px; z-index: 2; color: #fff; }
+    .video-cap .v-kicker { font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+    .video-cap .v-title { font-family: "Fraunces", serif; font-size: 1.18rem; font-weight: 600; line-height: 1.25; }
+    .video-foot {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 11px 16px; font-size: .84rem; color: var(--ink-soft);
+    }
+    .video-foot strong { color: var(--ink); font-weight: 600; }
+
+    /* ---------- Socials ---------- */
+    .socials {
+      display: flex; justify-content: center; gap: 14px;
+      margin: 30px 0 8px;
+    }
+    .social {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: grid; place-items: center;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      box-shadow: var(--shadow);
+      transition: transform .16s ease, color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+    .social:hover, .social:focus-visible {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lift);
+      color: var(--terracotta);
+    }
+
+    /* ---------- Footer ---------- */
+    footer { text-align: center; margin-top: 36px; }
+    .contact {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      font-weight: 600; font-size: .92rem;
+      color: var(--ink);
+      border-bottom: 1.5px solid transparent;
+      padding-bottom: 1px;
+      transition: border-color .16s ease, color .16s ease;
+    }
+    .contact:hover, .contact:focus-visible { color: var(--terracotta); border-color: var(--terracotta); }
+    .copyright { font-size: .78rem; color: var(--ink-soft); margin-top: 16px; }
+    .copyright a { color: var(--ink-soft); }
+
+    /* ---------- A11y / motion ---------- */
+    a:focus-visible { outline: 3px solid rgba(217,98,43,.45); outline-offset: 3px; border-radius: 8px; }
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; scroll-behavior: auto; }
+    }
+
+    /* Entrance animation */
+    @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+    .reveal { animation: rise .5s cubic-bezier(.2,.7,.3,1) both; }
+    .reveal:nth-child(2) { animation-delay: .04s; }
+
+    @media (max-width: 380px) {
+      .wrap { padding: 28px 16px 48px; }
+      .name { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+
+    <!-- Profile -->
+    <header class="profile reveal">
+      <div class="avatar-ring">
+        <img
+          src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=240&h=240&q=80"
+          alt="Jess Park smiling in a sunlit kitchen"
+          width="240" height="240" loading="eager" />
+      </div>
+      <h1 class="name">Jess Park
+        <span class="verified" aria-label="Verified creator" title="Verified creator">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l2.39 1.74 2.95-.06 1.04 2.76 2.49 1.6-.9 2.81.9 2.81-2.49 1.6-1.04 2.76-2.95-.06L12 22l-2.39-1.74-2.95.06-1.04-2.76L3.13 16l.9-2.81-.9-2.81 2.49-1.6 1.04-2.76 2.95.06L12 2z"/><path d="M10.6 14.6l-2.2-2.2 1.06-1.06 1.14 1.14 3.34-3.34 1.06 1.06-4.4 4.4z" fill="#fff"/></svg>
+        </span>
+      </h1>
+      <p class="handle">@jesscooks · Recipe developer</p>
+      <p class="bio">30-minute dinners with big flavor and no fuss. Plant-forward, weeknight-friendly, Seoul-born &amp; Brooklyn-based. Pull up a chair. 🌿🍜</p>
+      <div class="tags">
+        <span class="tag">Plant-forward</span>
+        <span class="tag">Korean home cooking</span>
+        <span class="tag">Meal prep</span>
+      </div>
+    </header>
+
+    <!-- Primary CTA -->
+    <a class="cta reveal" href="#newsletter" id="primary-cta">
+      <span class="cta-kicker">Free download</span>
+      <span class="cta-title">Get my 7-day meal-prep guide</span>
+      <span class="cta-sub">5 dinners, one grocery list, under $40 — straight to your inbox</span>
+      <span class="cta-arrow" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </span>
+    </a>
+
+    <!-- Links -->
+    <nav aria-label="Jess Park's links">
+      <ul class="links">
+        <li class="reveal">
+          <a class="link" href="https://jesspark.kitchen/recipes/gochujang-tofu-bowls" target="_blank" rel="noopener">
+            <img class="link-thumb"
+              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=96&h=96&q=80"
+              alt="Gochujang-glazed tofu rice bowl with greens" width="48" height="48" loading="lazy" />
+            <span class="link-body">
+              <span class="link-title">This week's recipe<span class="pill new">New</span></span>
+              <span class="link-meta">Gochujang-Glazed Tofu Bowls · 25 min</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li class="reveal">
+          <a class="link" href="#newsletter">
+            <span class="link-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+            </span>
+            <span class="link-body">
+              <span class="link-title">The Tuesday Plate</span>
+              <span class="link-meta">Weekly newsletter · 42,000 readers</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li class="reveal">
+          <a class="link" href="https://jesspark.kitchen/cookbook" target="_blank" rel="noopener">
+            <span class="link-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5A2.5 2.5 0 0 1 4 20.5z"/></svg>
+            </span>
+            <span class="link-body">
+              <span class="link-title">My cookbook: <em>Weeknight Seoul</em><span class="pill">Pre-order</span></span>
+              <span class="link-meta">90 fast recipes · ships this fall</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li class="reveal">
+          <a class="link" href="https://shopmy.us/jesspark" target="_blank" rel="noopener">
+            <img class="link-thumb"
+              src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=96&h=96&q=80"
+              alt="Cutting board with fresh herbs and a chef's knife" width="48" height="48" loading="lazy" />
+            <span class="link-body">
+              <span class="link-title">Shop my kitchen</span>
+              <span class="link-meta">The knives, pans &amp; pantry I actually use</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li class="reveal">
+          <a class="link" href="mailto:collabs@jesspark.kitchen?subject=Brand%20collab%20inquiry">
+            <span class="link-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 5.4 5.9.5-4.5 3.9 1.4 5.8L12 20l-5.2 2.6 1.4-5.8-4.5-3.9 5.9-.5z"/></svg>
+            </span>
+            <span class="link-body">
+              <span class="link-title">Brand collabs &amp; press</span>
+              <span class="link-meta">Rate card &amp; recent partners</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+
+        <li class="reveal">
+          <a class="link" href="https://jesspark.kitchen/coaching" target="_blank" rel="noopener">
+            <span class="link-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-7-7 18-2.5-7.5z"/></svg>
+            </span>
+            <span class="link-body">
+              <span class="link-title">1:1 recipe coaching</span>
+              <span class="link-meta">Build a 4-week dinner plan together</span>
+            </span>
+            <span class="link-chev" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Featured video -->
+    <div class="section-label">Latest video</div>
+    <a class="video" href="https://youtube.com/@jesscooks" target="_blank" rel="noopener">
+      <span class="video-media">
+        <img
+          src="https://images.unsplash.com/photo-1603133872878-684f208fb84b?auto=format&fit=crop&w=1000&h=563&q=80"
+          alt="Kimchi fried rice in a cast-iron pan topped with a fried egg" width="1000" height="563" loading="lazy" />
+        <span class="play" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="video-cap">
+          <span class="v-kicker">New on YouTube</span>
+          <span class="v-title">15-Minute Kimchi Fried Rice</span>
+        </span>
+      </span>
+      <span class="video-foot">
+        <span><strong>2:14</strong> · the one-pan dinner I make on repeat</span>
+        <span aria-hidden="true">Watch →</span>
+      </span>
+    </a>
+
+    <!-- Socials -->
+    <div class="section-label">Find me everywhere</div>
+    <div class="socials">
+      <a class="social" href="https://instagram.com/jesscooks" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg>
+      </a>
+      <a class="social" href="https://tiktok.com/@jesscooks" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.6 3.6 3.7 3.9v2.7c-1.4.1-2.7-.3-3.9-1v5.7a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.8a2.9 2.9 0 1 0 2 2.7V3z"/></svg>
+      </a>
+      <a class="social" href="https://youtube.com/@jesscooks" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.7 12 31 31 0 0 0 2 15.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 22.3 12 31 31 0 0 0 22 8.2zM10 15V9l5.2 3z"/></svg>
+      </a>
+      <a class="social" href="https://pinterest.com/jesscooks" target="_blank" rel="noopener" aria-label="Pinterest">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 .04-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.5 1.9-2.5.9 0 1.3.7 1.3 1.5 0 .9-.6 2.2-.9 3.5-.2 1 .5 1.9 1.6 1.9 1.9 0 3.2-2.4 3.2-5.3 0-2.2-1.5-3.8-4.1-3.8a4.7 4.7 0 0 0-4.9 4.7c0 .9.3 1.5.7 2 .2.2.2.3.1.6l-.2.9c-.1.3-.3.4-.6.2-1.2-.5-1.7-1.9-1.7-3.5 0-2.6 2.2-5.7 6.6-5.7 3.5 0 5.8 2.5 5.8 5.3 0 3.6-2 6.3-5 6.3-1 0-1.9-.5-2.3-1.1l-.6 2.5c-.2.8-.7 1.7-1 2.3A10 10 0 1 0 12 2z"/></svg>
+      </a>
+    </div>
+
+    <!-- Newsletter signup -->
+    <div class="section-label" id="newsletter">Join the Tuesday Plate</div>
+    <form id="signup" novalidate
+      style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 20px;box-shadow:var(--shadow);">
+      <p style="margin:0 0 12px;font-size:.92rem;color:var(--ink-soft);">
+        One short email every Tuesday: a fast dinner, a smart swap, and the grocery list. Free meal-prep guide on signup.
+      </p>
+      <label for="email" class="visually-hidden">Your email address</label>
+      <div id="form-row" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
+          placeholder="you@email.com" required
+          style="flex:1;min-width:0;font:inherit;font-size:1rem;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--cream);color:var(--ink);" />
+        <button type="submit"
+          style="font:inherit;font-weight:700;font-size:1rem;color:#fff;background:var(--terracotta);border:none;border-radius:12px;padding:13px 20px;cursor:pointer;box-shadow:0 6px 16px rgba(217,98,43,.3);transition:transform .15s ease,background .15s ease;">
+          Subscribe
+        </button>
+      </div>
+      <p id="form-error" role="alert" style="display:none;margin:9px 2px 0;color:var(--terracotta-dark);font-size:.85rem;font-weight:600;"></p>
+      <div id="form-success" role="status" hidden
+        style="display:flex;gap:12px;align-items:center;padding:4px 2px;">
+        <span style="width:42px;height:42px;flex:0 0 42px;border-radius:50%;background:rgba(92,112,82,.14);color:var(--sage);display:grid;place-items:center;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        <span>
+          <strong style="font-family:'Fraunces',serif;font-size:1.1rem;">You're on the list! 🎉</strong><br/>
+          <span style="font-size:.88rem;color:var(--ink-soft);">Check your inbox — your meal-prep guide is on the way.</span>
+        </span>
+      </div>
+    </form>
+
+    <!-- Footer -->
+    <footer>
+      <a class="contact" href="mailto:hello@jesspark.kitchen">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+        hello@jesspark.kitchen
+      </a>
+      <p class="copyright">
+        © <span id="year">2026</span> Jess Park · Made with 🥢 in Brooklyn<br/>
+        Built on <a href="https://spacefast.com" target="_blank" rel="noopener">Spacefast</a>
+      </p>
+    </footer>
+
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Newsletter signup — friendly client-side success, no backend.
+    (function () {
+      var form = document.getElementById('signup');
+      var email = document.getElementById('email');
+      var err = document.getElementById('form-error');
+      var row = document.getElementById('form-row');
+      var success = document.getElementById('form-success');
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      function showError(msg) {
+        err.textContent = msg;
+        err.style.display = 'block';
+        email.setAttribute('aria-invalid', 'true');
+        email.focus();
+      }
+
+      email.addEventListener('input', function () {
+        err.style.display = 'none';
+        email.removeAttribute('aria-invalid');
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var value = email.value.trim();
+        if (!value) { showError('Please enter your email so we know where to send it.'); return; }
+        if (!EMAIL_RE.test(value)) { showError("That email doesn't look quite right — mind checking it?"); return; }
+
+        // Success state
+        row.style.display = 'none';
+        err.style.display = 'none';
+        success.hidden = false;
+        success.style.display = 'flex';
+        try { localStorage.setItem('jp_subscribed', value); } catch (e) {}
+      });
+
+      // If they already subscribed in this browser, remember it.
+      try {
+        if (localStorage.getItem('jp_subscribed')) {
+          row.style.display = 'none';
+          success.hidden = false;
+          success.style.display = 'flex';
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <script src="https://spacefast.com/badge.js" data-example="links"></script>
+</body>
+</html>

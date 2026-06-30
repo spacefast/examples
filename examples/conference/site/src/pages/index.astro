@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Speakers from '../components/Speakers.astro';
+import Schedule from '../components/Schedule.astro';
+import Tickets from '../components/Tickets.astro';
+import Venue from '../components/Venue.astro';
+import Sponsors from '../components/Sponsors.astro';
+import Faq from '../components/Faq.astro';
+import Footer from '../components/Footer.astro';
+import { conf } from '../data/conf';
+
+const title = `${conf.name} ${conf.year} — ${conf.tagline}`;
+const description = `${conf.name} ${conf.year} is a one-day, single-track web development conference at ${conf.venue} in ${conf.city} on ${conf.dateLong}. Eight talks, one room, recordings included.`;
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main>
+    <Hero />
+    <About />
+    <Speakers />
+    <Schedule />
+    <Tickets />
+    <Venue />
+    <Sponsors />
+    <Faq />
+  </main>
+  <Footer />
+</Layout>

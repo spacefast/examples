@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getPosts, formatDate } from '../lib/wp';
+import type { Post } from '../lib/wp';
+
+// One static page per WordPress post. `getStaticPaths` runs at build time and
+// bakes /<slug>/ for every post returned by the API.
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const description = post.excerptHtml.replace(/<[^>]+>/g, '').trim().slice(0, 160);
+const initial = post.title.trim().charAt(0).toUpperCase() || 'W';
+---
+
+<Layout title={post.title} description={description}>
+  <article class="wrap post">
+    <a class="backlink" href="/">← All posts</a>
+
+    <header class="post__header">
+      {
+        post.categories.length > 0 && (
+          <div class="tags">
+            {post.categories.map((c) => (
+              <span class="tag">{c}</span>
+            ))}
+          </div>
+        )
+      }
+      <h1 class="post__title">{post.title}</h1>
+      <p class="byline">
+        {post.author.avatar && <img class="avatar" src={post.author.avatar} alt="" width="32" height="32" />}
+        <span>By <strong>{post.author.name}</strong></span>
+        <span aria-hidden="true">·</span>
+        <time datetime={post.date.toISOString()}>{formatDate(post.date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{post.readingMinutes} min read</span>
+      </p>
+    </header>
+
+    <figure class="post__hero">
+      {
+        post.image ? (
+          <img src={post.image.url} alt={post.image.alt} width="1400" height="700" />
+        ) : (
+          <div class="ph" aria-hidden="true">
+            <span>{initial}</span>
+          </div>
+        )
+      }
+    </figure>
+
+    <div class="prose" set:html={post.contentHtml} />
+
+    <footer class="post__foot">
+      <p>Edited in WordPress. Built with Astro. Served by Spacefast.</p>
+      <a class="btn" href="/">Read more posts</a>
+    </footer>
+  </article>
+</Layout>

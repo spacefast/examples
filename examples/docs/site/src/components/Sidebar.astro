@@ -1,0 +1,40 @@
+---
+import { nav } from '../data/site';
+const { path } = Astro.props as { path: string };
+const norm = (p: string) => (p.length > 1 ? p.replace(/\/$/, '') : p);
+const here = norm(path);
+---
+
+<aside class="sidebar" data-sidebar aria-label="Documentation navigation">
+  {
+    nav.map((group) => (
+      <div class="sidebar__group">
+        <p class="sidebar__title">{group.title}</p>
+        {group.items.map((item) => (
+          <a
+            class="sidebar__link"
+            href={item.href}
+            aria-current={norm(item.href) === here ? 'page' : undefined}
+          >
+            {item.title}
+          </a>
+        ))}
+      </div>
+    ))
+  }
+</aside>
+<div class="sidebar-scrim" data-sidebar-scrim></div>
+
+<script>
+  // Close mobile sidebar when a link is tapped or the scrim is clicked.
+  const sb = document.querySelector('[data-sidebar]');
+  const scrim = document.querySelector('[data-sidebar-scrim]');
+  const toggle = document.querySelector('[data-sidebar-toggle]');
+  const closeSidebar = () => {
+    sb?.removeAttribute('data-open');
+    scrim?.removeAttribute('data-show');
+    toggle?.setAttribute('aria-expanded', 'false');
+  };
+  scrim?.addEventListener('click', closeSidebar);
+  sb?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeSidebar));
+</script>

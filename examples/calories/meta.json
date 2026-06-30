@@ -1,0 +1,30 @@
+{
+  "name": "Plateful",
+  "slug": "calories",
+  "vertical": "Tools & micro-apps",
+  "tech": "vanilla-js",
+  "based_on": "MyFitnessPal / MacroFactor \u2014 a daily food diary with calorie and protein/carbs/fat macro tracking against custom goals.",
+  "summary": "A single-page daily macro tracker where you log foods into breakfast/lunch/dinner/snacks, watch animated calorie and macro rings fill toward your goals, and keep a list of favorite quick-add meals, all persisted in the browser.",
+  "sections": [
+    "Today dashboard with calorie ring + protein/carb/fat progress bars",
+    "Meal diary (Breakfast, Lunch, Dinner, Snacks) with per-entry calories and macros",
+    "Add-food form with quick-add and serving multiplier",
+    "Favorites / frequent foods you can re-add in one tap",
+    "Date switcher to review previous days",
+    "Goals & settings (daily calorie + macro targets)",
+    "Weekly summary with averages"
+  ],
+  "setup_questions": [
+    "What's your daily calorie goal, and your protein/carb/fat targets (in grams or percentages)?",
+    "What should the app be called, and whose diary is it (a name for the header)?",
+    "Any dietary style to theme it around \u2014 e.g. high-protein, keto, vegetarian, balanced?",
+    "List 4-6 go-to foods or meals you eat often so we can preload them as quick-add favorites (with rough calories/macros)."
+  ],
+  "photo_terms": [
+    "healthy meal prep containers overhead flat lay",
+    "colorful protein bowl on wooden table",
+    "grilled chicken and vegetables plate",
+    "person logging food on phone at table"
+  ],
+  "live_url": "https://calories.view.fast/"
+}

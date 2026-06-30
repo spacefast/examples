@@ -1,0 +1,102 @@
+---
+import '../styles/global.css';
+import { BLOG_TITLE, TAGLINE, ACCENT, WP_API_BASE } from '../config';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} — ${BLOG_TITLE}` : `${BLOG_TITLE} — ${TAGLINE}`;
+const pageDesc = description ?? TAGLINE;
+
+// The site URL the API lives on, for the "view source" pill in the header.
+const wpSite = WP_API_BASE.replace(/\/wp-json.*$/, '');
+const wpHost = wpSite.replace(/^https?:\/\//, '');
+const initial = BLOG_TITLE.trim().charAt(0).toUpperCase() || 'W';
+
+// Pick black or white text for on-accent surfaces so the brand mark and buttons
+// stay readable whatever accent color the builder chose.
+function readableInk(hex: string): string {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.trim());
+  if (!m) return '#ffffff';
+  const [r, g, b] = [m[1], m[2], m[3]].map((h) => parseInt(h, 16) / 255);
+  const lin = (c: number) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const lum = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b);
+  return lum > 0.45 ? '#1a1a17' : '#ffffff';
+}
+const accentInk = readableInk(ACCENT);
+const rootStyle = `--accent:${ACCENT};--accent-ink:${accentInk};`;
+---
+
+<!doctype html>
+<html lang="en" style={rootStyle}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:type" content="website" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="buildnote">
+      <div class="wrap buildnote__inner">
+        <span class="buildnote__chips" aria-hidden="true">
+          <span>WordPress</span><span>Astro</span><span class="is-accent">Spacefast</span>
+        </span>
+        <p>
+          Content from <strong>WordPress</strong>, rendered statically with
+          <strong>Astro</strong> at build time, hosted on <strong>Spacefast</strong>.
+        </p>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="wrap site-header__bar">
+        <a class="brand" href="/" aria-label={`${BLOG_TITLE} home`}>
+          <span class="brand__mark" aria-hidden="true">{initial}</span>
+          <span>
+            <span class="brand__name">{BLOG_TITLE}</span>
+            <span class="brand__tag">{TAGLINE}</span>
+          </span>
+        </a>
+        <a class="source-pill" href={wpSite} target="_blank" rel="noopener">
+          <span class="dot" aria-hidden="true"></span>
+          <span class="source-pill__text">Source:&nbsp;</span>{wpHost}
+        </a>
+      </div>
+    </header>
+
+    <main id="main" class="flow">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <span>
+          © {new Date().getFullYear()} {BLOG_TITLE}. Posts pulled from the
+          <a href={wpSite} target="_blank" rel="noopener">WordPress REST API</a>.
+        </span>
+        <span>
+          Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> ·
+          Published on
+          <a href="https://spacefast.com" target="_blank" rel="noopener">Spacefast</a>
+        </span>
+      </div>
+    </footer>
+
+    <script src="https://spacefast.com/badge.js" data-example="wp-astro"></script>
+  </body>
+</html>

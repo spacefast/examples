@@ -1,0 +1,30 @@
+---
+import { prints } from '../data/portfolio';
+---
+
+<section class="section" id="prints">
+  <div class="wrap">
+    <div class="reveal" style="max-width: 60ch;">
+      <p class="eyebrow">Prints</p>
+      <h2 class="section-title">Take one home</h2>
+      <p class="lede">{prints.blurb}</p>
+    </div>
+    <div class="prints-grid reveal">
+      {
+        prints.options.map((o) => (
+          <div class="print-card">
+            <div>
+              <span class="print-card__size">{o.size}</span>
+              <span class="print-card__price">{o.price}</span>
+            </div>
+            <p class="print-card__note">{o.note}</p>
+          </div>
+        ))
+      }
+    </div>
+    <p style="margin-top:1.6rem;color:var(--ink-faint);font-size:0.9rem;">
+      To order a print, mention the image title in the form below — every print is made and signed to
+      order.
+    </p>
+  </div>
+</section>

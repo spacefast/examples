@@ -1,0 +1,7 @@
+node_modules/
+dist/
+build/
+.stattic/
+.astro/
+.DS_Store
+*.log

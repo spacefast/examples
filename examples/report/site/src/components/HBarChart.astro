@@ -1,0 +1,108 @@
+---
+// Horizontal bar list, rendered as HTML/CSS (not SVG) so labels wrap and stay
+// crisp at any width. Used for the "where respondents are based" chart.
+interface Bar {
+  label: string;
+  value: number;
+  muted?: boolean;
+}
+interface Props {
+  bars: Bar[];
+  unit?: string;
+}
+const { bars, unit = '' } = Astro.props as Props;
+const max = Math.max(...bars.map((b) => b.value));
+const total = bars.reduce((s, b) => s + b.value, 0);
+---
+
+<ul class="hbars" aria-label={`Horizontal bar chart, ${unit}`}>
+  {
+    bars.map((b, i) => {
+      const w = (b.value / max) * 100;
+      const pct = Math.round((b.value / total) * 100);
+      return (
+        <li class={b.muted ? 'muted' : ''}>
+          <span class="hb-label">{b.label}</span>
+          <span class="hb-track">
+            <span class="hb-fill" style={`--w:${w}%;--d:${i * 55}ms`} />
+          </span>
+          <span class="num hb-val">{b.value.toLocaleString()}</span>
+          <span class="num hb-pct">{pct}%</span>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .hbars {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 13px;
+  }
+  .hbars li {
+    display: grid;
+    grid-template-columns: minmax(96px, 28%) 1fr auto auto;
+    align-items: center;
+    gap: 8px 12px;
+  }
+  .hb-label {
+    font-size: 14.5px;
+    color: var(--ink);
+  }
+  .muted .hb-label {
+    color: var(--ink-3);
+  }
+  .hb-track {
+    height: 12px;
+    background: var(--line-soft);
+    border-radius: 7px;
+    overflow: hidden;
+  }
+  .hb-fill {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: 7px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    transform-origin: left;
+    animation: hgrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d);
+  }
+  .muted .hb-fill {
+    background: var(--line);
+  }
+  @keyframes hgrow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hb-fill {
+      animation: none;
+    }
+  }
+  .hb-val {
+    font-size: 13.5px;
+    color: var(--ink);
+    font-weight: 600;
+    text-align: right;
+    min-width: 52px;
+  }
+  .hb-pct {
+    font-size: 12px;
+    color: var(--ink-3);
+    text-align: right;
+    min-width: 34px;
+  }
+  @media (max-width: 520px) {
+    .hbars li {
+      grid-template-columns: 1fr auto auto;
+    }
+    .hb-label {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

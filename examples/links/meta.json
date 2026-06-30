@@ -1,0 +1,29 @@
+{
+  "name": "Jess Park \u2014 Link in Bio",
+  "slug": "links",
+  "vertical": "Personal & life sites",
+  "tech": "html",
+  "based_on": "A Linktree/Beacons-style creator bio page for a food creator/recipe developer \u2014 the three-tier pattern (one current priority, then link buttons, then social icons) used by creators everywhere.",
+  "summary": "A clean, mobile-first link-in-bio page for a food creator: avatar and bio, a highlighted primary call-to-action, a stack of tappable link buttons, a featured video, and social icons.",
+  "sections": [
+    "Avatar, name, and short bio",
+    "Highlighted primary CTA (e.g. 'Get my free meal-prep guide')",
+    "Stack of link buttons (newsletter, latest recipe, shop, collab inquiries)",
+    "Featured latest video/reel embed",
+    "Row of social icons (Instagram, TikTok, YouTube, Pinterest)",
+    "Subtle footer with email/contact"
+  ],
+  "setup_questions": [
+    "What's your name, what do you make/create, and a one-line bio?",
+    "What's the single most important thing you want visitors to click right now (the primary CTA)?",
+    "List 4-6 links you want as buttons, with their labels and URLs.",
+    "Which social platforms should show, and do you have a recent video to feature?"
+  ],
+  "photo_terms": [
+    "food creator portrait kitchen natural light",
+    "overhead colorful healthy meal prep bowls",
+    "hands plating food styled flat lay",
+    "cozy kitchen herbs cutting board"
+  ],
+  "live_url": "https://links.view.fast/"
+}

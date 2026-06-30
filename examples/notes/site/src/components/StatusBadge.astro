@@ -1,0 +1,13 @@
+---
+import { STATUS_META, type Status } from '../lib/garden';
+interface Props {
+  status: Status;
+  withLabel?: boolean;
+}
+const { status, withLabel = true } = Astro.props;
+const meta = STATUS_META[status];
+---
+<span class={`status status--${status}`} title={meta.blurb}>
+  <span class="status__glyph" aria-hidden="true">{meta.glyph}</span>
+  {withLabel && <span class="status__label">{meta.label}</span>}
+</span>

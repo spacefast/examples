@@ -1,0 +1,26 @@
+---
+import { studio } from '../data/portfolio';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" id="footer">
+  <div class="wrap footer__inner">
+    <div>
+      <div class="footer__name">{studio.name}</div>
+      <div class="footer__tag">{studio.tagline} — {studio.base}</div>
+    </div>
+    <ul class="footer__links">
+      <li><a href="/#work">Work</a></li>
+      <li><a href="/about">About</a></li>
+      <li><a href="/#prints">Prints</a></li>
+      <li><a href={`mailto:${studio.email}`}>{studio.email}</a></li>
+      <li><a href={studio.instagramUrl} rel="me noopener" target="_blank">Instagram</a></li>
+    </ul>
+  </div>
+  <div class="wrap">
+    <p class="footer__fine">
+      © {year} {studio.name}. All images made on location and printed by hand. Built with Astro,
+      published on Spacefast.
+    </p>
+  </div>
+</footer>

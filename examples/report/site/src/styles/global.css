@@ -1,0 +1,297 @@
+/* ---------------------------------------------------------------------------
+   The State of the Indie Web 2025 — design system.
+   A dark, editorial "survey results" aesthetic: deep ink background, a curated
+   chart palette, characterful display type over a clean reading sans, and a
+   mono for every number on the page.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Surfaces */
+  --bg: #0c0d14;
+  --bg-soft: #12131d;
+  --panel: #161826;
+  --panel-2: #1c1f30;
+  --line: #272a3d;
+  --line-soft: #1e2030;
+
+  /* Text */
+  --ink: #f2f3f8;
+  --ink-2: #b9bdce;
+  --ink-3: #888da3;
+
+  /* Brand accent (gradient endpoints) */
+  --accent: #8b7bff;
+  --accent-2: #46e0c8;
+  --accent-warm: #ff8a5c;
+
+  /* Categorical chart palette */
+  --c1: #8b7bff;
+  --c2: #46e0c8;
+  --c3: #ffb454;
+  --c4: #ff6f91;
+  --c5: #5aa9ff;
+
+  /* Likert diverging palette (disagree -> agree) */
+  --neg-2: #ff6f91;
+  --neg-1: #f7a2b3;
+  --neu: #4a4f68;
+  --pos-1: #7fe6cf;
+  --pos-2: #2bb89c;
+
+  --pos: #46e0c8;
+  --neg: #ff6f91;
+
+  --maxw: 940px;
+  --radius: 16px;
+
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* Subtle ambient glow at the top of the page */
+  background-image: radial-gradient(
+      1200px 600px at 80% -10%,
+      rgba(139, 123, 255, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(900px 500px at 0% 0%, rgba(70, 224, 200, 0.1), transparent 55%);
+  background-repeat: no-repeat;
+}
+
+::selection {
+  background: var(--accent);
+  color: #0c0d14;
+}
+
+a {
+  color: var(--accent-2);
+  text-decoration-color: color-mix(in oklab, var(--accent-2) 45%, transparent);
+  text-underline-offset: 3px;
+}
+a:hover {
+  text-decoration-color: var(--accent-2);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* --- Layout helpers --------------------------------------------------------- */
+.wrap {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: 22px;
+}
+
+.section {
+  padding-block: clamp(48px, 8vw, 88px);
+  border-top: 1px solid var(--line-soft);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-2);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  width: 26px;
+  height: 1px;
+  background: var(--accent-2);
+  opacity: 0.7;
+}
+
+.section-title {
+  font-size: clamp(28px, 5vw, 40px);
+  max-width: 16ch;
+}
+
+.lede {
+  color: var(--ink-2);
+  font-size: clamp(17px, 2.4vw, 19px);
+  max-width: 60ch;
+  margin-top: 16px;
+}
+
+.section p + p {
+  margin-top: 1em;
+}
+
+/* Number styling for all data labels */
+.num {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* --- Card / panel ----------------------------------------------------------- */
+.panel {
+  background: linear-gradient(180deg, var(--panel), var(--bg-soft));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(18px, 3vw, 28px);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.panel-head h3 {
+  font-size: 19px;
+}
+.panel-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.grid-2 {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* --- Legend ---------------------------------------------------------------- */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-top: 16px;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+.legend .swatch {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex: none;
+}
+.legend ul {
+  margin: 0;
+  padding: 0;
+  display: contents;
+}
+
+/* --- Reveal-on-scroll ------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Animated chart bars fill in once their panel reveals */
+.chart-grow rect.bar,
+.chart-grow .bar-fill {
+  transform-box: fill-box;
+}
+
+/* --- Footer ----------------------------------------------------------------- */
+footer.site {
+  border-top: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.2s ease, border-color 0.2s ease;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #0b0c12;
+}
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+.btn-ghost {
+  background: transparent;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+.btn:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}

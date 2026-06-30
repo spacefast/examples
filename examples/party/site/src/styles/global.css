@@ -1,0 +1,195 @@
+/* =========================================================================
+   Mia's 30th — a late-night rooftop party invite.
+   Mood: midnight plum sky, warm string lights, neon magenta, party gold.
+   ========================================================================= */
+
+:root {
+  /* Night-sky base */
+  --night: #150a26;
+  --night-deep: #0d0518;
+  --plum: #241036;
+  --plum-soft: #2e1646;
+  --card: rgba(46, 22, 70, 0.66);
+  --line: rgba(255, 209, 122, 0.22);
+
+  /* Party accents */
+  --magenta: #ff3d8b;
+  --magenta-soft: #ff6aa7;
+  --gold: #ffce5c;
+  --gold-soft: #ffe7a0;
+  --cyan: #5cd6ff;
+
+  /* Text */
+  --cream: #fdf3e7;
+  --cream-soft: #e7d6ef;
+  --muted: #b9a4cf;
+
+  --radius: 20px;
+  --radius-sm: 12px;
+  --shadow: 0 24px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-glow: 0 0 0 1px rgba(255, 206, 92, 0.18), 0 24px 60px -30px rgba(255, 61, 139, 0.5);
+
+  --serif: 'Unbounded', system-ui, sans-serif;
+  --sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--cream);
+  background-color: var(--night-deep);
+  background-image:
+    radial-gradient(120% 80% at 12% -8%, rgba(255, 61, 139, 0.28), transparent 55%),
+    radial-gradient(120% 80% at 92% -2%, rgba(92, 214, 255, 0.16), transparent 50%),
+    radial-gradient(140% 120% at 50% 120%, rgba(255, 206, 92, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--night) 0%, var(--night-deep) 100%);
+  background-attachment: fixed;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 600;
+  line-height: 1.08;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+.wrap {
+  width: min(1080px, 100% - 2.4rem);
+  margin-inline: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+/* ---- Section scaffolding ---- */
+.section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  position: relative;
+}
+
+.eyebrow {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 0.9rem;
+}
+
+.section-title {
+  font-size: clamp(1.9rem, 5.5vw, 3rem);
+  max-width: 18ch;
+  margin-inline: auto;
+}
+
+.lede {
+  font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+  color: var(--cream-soft);
+  max-width: 56ch;
+  margin: 1.1rem auto 0;
+}
+
+/* ---- Buttons ---- */
+.btn {
+  --btn-bg: var(--magenta);
+  --btn-fg: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  padding: 0.95rem 1.7rem;
+  border-radius: 999px;
+  border: 1.5px solid transparent;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  box-shadow: 0 12px 34px -14px rgba(255, 61, 139, 0.85);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px -16px rgba(255, 61, 139, 0.95);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn--gold {
+  --btn-bg: var(--gold);
+  --btn-fg: #2a1408;
+  box-shadow: 0 12px 34px -14px rgba(255, 206, 92, 0.85);
+}
+.btn--gold:hover {
+  box-shadow: 0 18px 44px -16px rgba(255, 206, 92, 0.95);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--cream);
+  border-color: rgba(255, 206, 92, 0.4);
+  box-shadow: none;
+}
+.btn--ghost:hover {
+  background: rgba(255, 206, 92, 0.1);
+  box-shadow: none;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ---- String lights, used as a section divider ---- */
+.lights {
+  display: block;
+  width: 100%;
+  height: 26px;
+  opacity: 0.9;
+}

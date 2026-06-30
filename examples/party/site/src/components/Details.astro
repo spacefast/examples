@@ -1,0 +1,138 @@
+---
+import { party, details } from '../data/party';
+---
+
+<section class="section" id="details">
+  <div class="wrap center">
+    <p class="eyebrow">The essentials</p>
+    <h2 class="section-title">Everything you need to know</h2>
+  </div>
+
+  <div class="wrap">
+    <div class="dress">
+      <div class="dress__tag">Dress code</div>
+      <h3 class="dress__code">{party.dressCode}</h3>
+      <p class="dress__note">{party.dressCodeNote}</p>
+    </div>
+
+    <div class="cards">
+      {
+        details.map((d) => (
+          <article class="card">
+            <div class="card__icon" aria-hidden="true">{d.icon}</div>
+            <h3 class="card__title">{d.title}</h3>
+            <p class="card__body">{d.body}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="hostnote">
+      <span class="hostnote__quote" aria-hidden="true">“</span>
+      {party.note}
+      <span class="hostnote__sign">— {party.host}</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .dress {
+    text-align: center;
+    max-width: 640px;
+    margin: 2.8rem auto 0;
+    padding: clamp(1.8rem, 5vw, 2.8rem);
+    border-radius: var(--radius);
+    background: linear-gradient(160deg, rgba(255, 61, 139, 0.16), rgba(92, 214, 255, 0.08));
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-glow);
+  }
+  .dress__tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 0.35rem 0.9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+  }
+  .dress__code {
+    font-size: clamp(2rem, 7vw, 3.2rem);
+    margin: 1rem 0 0.7rem;
+    background: linear-gradient(90deg, var(--magenta-soft), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .dress__note {
+    color: var(--cream-soft);
+    max-width: 48ch;
+    margin-inline: auto;
+  }
+
+  .cards {
+    margin-top: 2.5rem;
+    display: grid;
+    gap: 1.1rem;
+    grid-template-columns: 1fr;
+  }
+  .card {
+    padding: 1.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--card);
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(255, 206, 92, 0.45);
+  }
+  .card__icon {
+    font-size: 1.9rem;
+    line-height: 1;
+  }
+  .card__title {
+    font-size: 1.18rem;
+    margin: 0.8rem 0 0.4rem;
+    color: var(--cream);
+  }
+  .card__body {
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+
+  .hostnote {
+    position: relative;
+    max-width: 640px;
+    margin: 3rem auto 0;
+    text-align: center;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.1rem, 3vw, 1.45rem);
+    line-height: 1.5;
+    color: var(--cream);
+  }
+  .hostnote__quote {
+    position: absolute;
+    top: -1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 4rem;
+    color: rgba(255, 206, 92, 0.4);
+    line-height: 1;
+  }
+  .hostnote__sign {
+    display: block;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+
+  @media (min-width: 680px) {
+    .cards {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

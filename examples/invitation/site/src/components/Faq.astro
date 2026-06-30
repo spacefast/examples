@@ -1,0 +1,86 @@
+---
+import { faqs } from '../data/wedding';
+---
+
+<section class="section" id="faq">
+  <div class="wrap center">
+    <p class="eyebrow">Good to know</p>
+    <h2 class="section-title">Questions &amp; answers</h2>
+  </div>
+
+  <div class="wrap faq">
+    {
+      faqs.map((f, i) => (
+        <details class="faq__item" open={i === 0}>
+          <summary>
+            <span>{f.q}</span>
+            <span class="faq__icon" aria-hidden="true" />
+          </summary>
+          <p>{f.a}</p>
+        </details>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .faq {
+    max-width: 760px;
+    margin-inline: auto;
+    margin-top: 2.4rem;
+  }
+  .faq__item {
+    border-bottom: 1px solid var(--line);
+  }
+  .faq__item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    color: var(--olive);
+  }
+  .faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq__icon {
+    position: relative;
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+  .faq__icon::before,
+  .faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--terracotta);
+    border-radius: 2px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+  .faq__icon::before {
+    top: 8px;
+    left: 0;
+    width: 18px;
+    height: 2px;
+  }
+  .faq__icon::after {
+    top: 0;
+    left: 8px;
+    width: 2px;
+    height: 18px;
+  }
+  .faq__item[open] .faq__icon::after {
+    opacity: 0;
+    transform: rotate(90deg);
+  }
+  .faq__item p {
+    margin: 0;
+    padding: 0 0 1.4rem;
+    color: var(--ink-soft);
+    max-width: 64ch;
+  }
+</style>

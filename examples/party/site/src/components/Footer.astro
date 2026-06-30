@@ -1,0 +1,50 @@
+---
+import { party } from '../data/party';
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <p class="footer__big">{party.host} turns 30 · {party.dateShort}</p>
+    <p class="footer__meta">
+      {party.venueName} · {party.address}
+    </p>
+    <div class="footer__actions">
+      <a class="btn btn--gold" href="#rsvp">RSVP by {party.rsvpBy}</a>
+      <a class="btn btn--ghost" href={party.mapUrl} target="_blank" rel="noopener">Directions ↗</a>
+    </div>
+    <p class="footer__tag">{party.hashtag} · Made with confetti and a little help from Spacefast.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding-block: clamp(3rem, 8vw, 5rem);
+    border-top: 1px solid var(--line);
+    text-align: center;
+    background: rgba(13, 5, 24, 0.6);
+  }
+  .footer__big {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    color: var(--cream);
+  }
+  .footer__meta {
+    color: var(--muted);
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+  }
+  .footer__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 1.6rem;
+  }
+  .footer__tag {
+    margin-top: 1.8rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+</style>

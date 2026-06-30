@@ -1,0 +1,149 @@
+---
+import { faqs, coc } from '../data/conf';
+---
+
+<section class="section section--line faq" id="faq">
+  <div class="wrap faq__inner">
+    <div class="faq__col">
+      <p class="eyebrow">Good to know</p>
+      <h2 class="section-title">Questions, answered.</h2>
+      <div class="faq__list">
+        {
+          faqs.map((f, i) => (
+            <details class="qa" open={i === 0}>
+              <summary class="qa__q">
+                <span>{f.q}</span>
+                <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                  <path
+                    d="M3 8h10M8 3v10"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </summary>
+              <p class="qa__a">{f.a}</p>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+
+    <aside class="coc">
+      <p class="eyebrow">Code of conduct</p>
+      <h3 class="coc__title">Everyone gets to enjoy the day.</h3>
+      <p class="coc__summary">{coc.summary}</p>
+      <ul class="coc__points">
+        {coc.points.map((p) => <li>{p}</li>)}
+      </ul>
+      <p class="coc__contact">
+        Report anything to <a href={`mailto:${coc.contact}`}>{coc.contact}</a> — confidential, day or
+        night.
+      </p>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .faq__inner {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(1.8rem, 5vw, 3.5rem);
+    align-items: start;
+  }
+  .faq__list {
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+  }
+  .qa {
+    border-bottom: 1px solid var(--line);
+  }
+  .qa__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 0;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--ink);
+  }
+  .qa__q::-webkit-details-marker {
+    display: none;
+  }
+  .qa__q svg {
+    flex: none;
+    color: var(--teal);
+    transition: transform 0.2s ease;
+  }
+  .qa[open] .qa__q svg {
+    transform: rotate(45deg);
+  }
+  .qa__a {
+    margin: 0;
+    padding: 0 0 1.3rem;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    max-width: 60ch;
+  }
+
+  .coc {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    padding: clamp(1.5rem, 4vw, 2.1rem);
+    position: sticky;
+    top: 96px;
+  }
+  .coc__title {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+  }
+  .coc__summary {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+  .coc__points {
+    list-style: none;
+    margin: 1.2rem 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .coc__points li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--ink);
+    font-size: 0.93rem;
+  }
+  .coc__points li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--grad);
+  }
+  .coc__contact {
+    margin: 0;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.9rem;
+    color: var(--ink-faint);
+  }
+
+  @media (max-width: 880px) {
+    .faq__inner {
+      grid-template-columns: 1fr;
+    }
+    .coc {
+      position: static;
+    }
+  }
+</style>

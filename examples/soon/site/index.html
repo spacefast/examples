@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Northpeak — Metrics your whole team actually reads</title>
+  <meta name="description" content="Northpeak is the analytics layer for small product teams: every metric that matters, on one calm screen, with no setup meeting. Launching soon — get early access." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Northpeak — coming soon" />
+  <meta property="og:description" content="One calm screen for every metric that matters. Early access opens at launch." />
+  <meta property="og:image" content="https://picsum.photos/seed/soon-og/1200/630" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M2 26 L12 8 L18 18 L22 12 L30 26 Z' fill='%23f5c46b'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#signup">Skip to early-access signup</a>
+
+  <!-- Animated atmosphere -->
+  <div class="sky" aria-hidden="true">
+    <div class="aurora aurora--one"></div>
+    <div class="aurora aurora--two"></div>
+    <div class="aurora aurora--three"></div>
+    <div class="grain"></div>
+  </div>
+
+  <main class="shell">
+    <article class="card" role="region" aria-labelledby="headline">
+
+      <header class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" width="40" height="40" focusable="false">
+            <path d="M3 33 L15 9 L22 21 L27 13 L37 33 Z" fill="url(#peak)"/>
+            <defs>
+              <linearGradient id="peak" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#ffd58a"/>
+                <stop offset="1" stop-color="#f0973f"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <span class="brand__name">Northpeak</span>
+        <span class="brand__status" aria-hidden="true"><span class="dot"></span>Building in public</span>
+      </header>
+
+      <h1 id="headline">
+        Every metric that matters,<br />
+        on <em>one calm screen.</em>
+      </h1>
+
+      <p class="promise">
+        Northpeak is the analytics layer for small product teams — revenue,
+        activation, churn and the three numbers you actually check each morning,
+        with no setup meeting and no dashboard sprawl. We open early access at
+        launch.
+      </p>
+
+      <!-- Countdown -->
+      <section class="countdown" aria-labelledby="cd-label">
+        <h2 id="cd-label" class="countdown__label">Launching in</h2>
+        <ol class="countdown__grid" id="countdown" aria-live="polite">
+          <li class="unit"><span class="unit__num" data-days>--</span><span class="unit__cap">Days</span></li>
+          <li class="unit"><span class="unit__num" data-hours>--</span><span class="unit__cap">Hours</span></li>
+          <li class="unit"><span class="unit__num" data-mins>--</span><span class="unit__cap">Minutes</span></li>
+          <li class="unit"><span class="unit__num" data-secs>--</span><span class="unit__cap">Seconds</span></li>
+        </ol>
+        <p class="countdown__date" id="launch-date">Targeting <time datetime="2026-09-16">September 16, 2026</time></p>
+      </section>
+
+      <!-- Email capture -->
+      <section class="signup" id="signup" aria-labelledby="signup-label">
+        <h2 id="signup-label" class="signup__label">Get early access</h2>
+
+        <form class="form" id="signup-form" novalidate>
+          <div class="form__row">
+            <label class="visually-hidden" for="email">Email address</label>
+            <input
+              class="form__input"
+              type="email"
+              id="email"
+              name="email"
+              inputmode="email"
+              autocomplete="email"
+              placeholder="you@company.com"
+              aria-describedby="form-msg"
+              required
+            />
+            <button class="form__btn" type="submit">
+              <span class="form__btn-text">Notify me</span>
+              <svg class="form__btn-icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1 8h12M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <p class="form__msg" id="form-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <!-- Success state (revealed via JS) -->
+        <div class="success" id="success" hidden>
+          <span class="success__check" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <div class="success__body">
+            <p class="success__title">You're on the list.</p>
+            <p class="success__sub" id="success-sub">We'll email you the moment Northpeak opens. No spam, just the invite.</p>
+          </div>
+        </div>
+
+        <p class="signup__meta" id="count-line">Join <strong id="count">1,294</strong> builders already waiting.</p>
+      </section>
+
+      <!-- Social -->
+      <footer class="social" aria-label="Follow Northpeak">
+        <a class="social__link" href="https://x.com/northpeakhq" rel="noopener" aria-label="Northpeak on X">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M17.5 3h3.2l-7 8 8.2 10.9h-6.4l-5-6.6-5.8 6.6H1.5l7.5-8.6L1.1 3h6.5l4.5 6 5.4-6Zm-1.1 16.9h1.8L7.7 4.8H5.8l10.6 15.1Z"/></svg>
+        </a>
+        <a class="social__link" href="https://github.com/northpeak" rel="noopener" aria-label="Northpeak on GitHub">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.36 1.09 2.94.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"/></svg>
+        </a>
+        <a class="social__link" href="https://www.linkedin.com/company/northpeak" rel="noopener" aria-label="Northpeak on LinkedIn">
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0ZM.2 8h4.6v13H.2V8Zm7.5 0h4.4v1.78h.06c.61-1.16 2.1-2.38 4.32-2.38 4.62 0 5.47 3.04 5.47 7v6.6h-4.6v-5.85c0-1.4-.03-3.2-1.95-3.2-1.95 0-2.25 1.52-2.25 3.1V21H7.7V8Z"/></svg>
+        </a>
+        <a class="social__link social__link--text" href="mailto:hello@northpeak.app">hello@northpeak.app</a>
+      </footer>
+    </article>
+
+    <p class="legal">© 2026 Northpeak Labs · Made for teams who'd rather build than report.</p>
+  </main>
+
+  <script src="assets/app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="soon"></script>
+</body>
+</html>

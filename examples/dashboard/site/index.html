@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brightside Coffee — Growth Dashboard</title>
+  <meta name="description" content="Live growth dashboard for Brightside Coffee: revenue, orders, traffic sources, top products, and marketing channel performance on one auto-refreshing screen." />
+  <meta name="theme-color" content="#15110d" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23f4a259'/%3E%3Cpath d='M9 11h11a5 5 0 0 1 0 10h-1' fill='none' stroke='%23191310' stroke-width='2.4'/%3E%3Cpath d='M9 11v10h10' fill='none' stroke='%23191310' stroke-width='2.4'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to dashboard</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="34" height="34"><rect width="32" height="32" rx="9" fill="#f4a259"/><path d="M9 11h11a5 5 0 0 1 0 10h-1" fill="none" stroke="#191310" stroke-width="2.4" stroke-linecap="round"/><path d="M9 11v10h10" fill="none" stroke="#191310" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <div class="brand-text">
+        <h1>Brightside Coffee</h1>
+        <p>Growth Dashboard · DTC subscription roastery</p>
+      </div>
+    </div>
+
+    <div class="topbar-meta">
+      <div class="live-pill" title="Data refreshes automatically">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span>Live</span>
+      </div>
+      <div class="clock">
+        <span class="clock-time" id="clock-time">—</span>
+        <span class="clock-date" id="clock-date">—</span>
+      </div>
+      <div class="updated">
+        <span class="updated-label">Last updated</span>
+        <span class="updated-time" id="updated-time">just now</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="grid">
+
+    <!-- KPI tiles -->
+    <section class="kpi-row" aria-label="Key metrics">
+      <article class="kpi" data-kpi="revenue-today">
+        <header><span class="kpi-name">Revenue today</span></header>
+        <div class="kpi-value" data-value>$0</div>
+        <div class="kpi-foot">
+          <span class="delta" data-delta>—</span>
+          <span class="kpi-sub">vs yesterday</span>
+        </div>
+        <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
+      </article>
+
+      <article class="kpi" data-kpi="revenue-mtd">
+        <header><span class="kpi-name">Revenue MTD</span></header>
+        <div class="kpi-value" data-value>$0</div>
+        <div class="kpi-target">
+          <div class="kpi-target-bar"><span data-target-fill></span></div>
+          <div class="kpi-target-meta">
+            <span data-target-pct>0%</span>
+            <span class="kpi-sub">of <span data-target-goal>$0</span> goal</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="kpi" data-kpi="orders">
+        <header><span class="kpi-name">Orders today</span></header>
+        <div class="kpi-value" data-value>0</div>
+        <div class="kpi-foot">
+          <span class="delta" data-delta>—</span>
+          <span class="kpi-sub">vs yesterday</span>
+        </div>
+        <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
+      </article>
+
+      <article class="kpi" data-kpi="aov">
+        <header><span class="kpi-name">Avg. order value</span></header>
+        <div class="kpi-value" data-value>$0</div>
+        <div class="kpi-foot">
+          <span class="delta" data-delta>—</span>
+          <span class="kpi-sub">vs yesterday</span>
+        </div>
+        <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
+      </article>
+
+      <article class="kpi" data-kpi="conversion">
+        <header><span class="kpi-name">Conversion rate</span></header>
+        <div class="kpi-value" data-value>0%</div>
+        <div class="kpi-foot">
+          <span class="delta" data-delta>—</span>
+          <span class="kpi-sub">vs yesterday</span>
+        </div>
+        <svg class="spark" viewBox="0 0 120 36" preserveAspectRatio="none" aria-hidden="true" data-spark></svg>
+      </article>
+    </section>
+
+    <!-- Revenue trend -->
+    <section class="card card-trend" aria-label="Revenue trend">
+      <header class="card-head">
+        <div>
+          <h2>Revenue — last 30 days</h2>
+          <p class="card-sub">Daily net revenue with a 7-day moving average</p>
+        </div>
+        <div class="legend">
+          <span class="legend-item"><i class="swatch swatch-bars"></i>Daily</span>
+          <span class="legend-item"><i class="swatch swatch-line"></i>7-day avg</span>
+        </div>
+      </header>
+      <div class="trend-wrap">
+        <svg class="trend" id="trend-chart" viewBox="0 0 720 260" preserveAspectRatio="none" role="img" aria-label="Daily revenue bar chart with a seven-day moving average line for the last 30 days"></svg>
+      </div>
+      <div class="trend-axis" id="trend-axis"></div>
+    </section>
+
+    <!-- Traffic donut -->
+    <section class="card card-traffic" aria-label="Traffic by source">
+      <header class="card-head">
+        <h2>Traffic by source</h2>
+        <p class="card-sub">Sessions, last 24h</p>
+      </header>
+      <div class="donut-wrap">
+        <svg class="donut" id="donut" viewBox="0 0 200 200" role="img" aria-label="Donut chart of sessions split by traffic source"></svg>
+        <div class="donut-center">
+          <span class="donut-total" id="donut-total">0</span>
+          <span class="donut-label">sessions</span>
+        </div>
+      </div>
+      <ul class="source-legend" id="source-legend"></ul>
+    </section>
+
+    <!-- Top products -->
+    <section class="card card-products" aria-label="Top products">
+      <header class="card-head">
+        <h2>Top products</h2>
+        <p class="card-sub">By revenue, last 7 days</p>
+      </header>
+      <table class="products">
+        <thead>
+          <tr><th scope="col">Product</th><th scope="col" class="num">Units</th><th scope="col" class="bar-col">Revenue</th></tr>
+        </thead>
+        <tbody id="products-body"></tbody>
+      </table>
+    </section>
+
+    <!-- Channel leaderboard -->
+    <section class="card card-channels" aria-label="Marketing channels">
+      <header class="card-head">
+        <h2>Marketing channels</h2>
+        <p class="card-sub">Spend &amp; return on ad spend, this month</p>
+      </header>
+      <ul class="channels" id="channels"></ul>
+    </section>
+
+    <!-- Email growth -->
+    <section class="card card-email" aria-label="Email list growth">
+      <header class="card-head">
+        <h2>Email list</h2>
+        <p class="card-sub">Subscribers &amp; daily signups</p>
+      </header>
+      <div class="email-count">
+        <span class="email-total" id="email-total">0</span>
+        <span class="email-sub">total subscribers</span>
+      </div>
+      <div class="email-new">
+        <span class="delta delta-up" id="email-new">+0</span>
+        <span class="kpi-sub">new today</span>
+      </div>
+      <svg class="email-spark" id="email-spark" viewBox="0 0 260 70" preserveAspectRatio="none" aria-hidden="true"></svg>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>Brightside Coffee · Internal growth view</span>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <span>Auto-refreshing every 8s</span>
+    <span class="footer-dot" aria-hidden="true">·</span>
+    <span>Built on <a href="https://spacefast.com">Spacefast</a></span>
+  </footer>
+
+  <script src="app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="dashboard"></script>
+</body>
+</html>

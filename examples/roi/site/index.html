@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beacon ROI Calculator — See what AI support saves your team</title>
+  <meta name="description" content="Beacon resolves up to 42% of support tickets automatically. Plug in your team size and support spend to see your projected annual savings, payback period, and reclaimed agent hours." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M16 6l3 7 7 .6-5.3 4.6 1.7 7L16 27.5 9.6 31.2l1.7-7L6 19.6 13 19z' fill='%23ffffff' opacity='.0'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23fff'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fff' stroke-width='1.6' opacity='.55'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="site-nav" aria-label="Primary">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="Beacon home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Beacon</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#calculator">Calculator</a>
+        <a href="#how">How it works</a>
+        <a href="#proof">Customers</a>
+      </nav>
+      <a class="btn btn-ghost" href="#report">Book a demo</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Interactive ROI calculator</span>
+          <h1>See what AI support resolution<br />saves your team this year.</h1>
+          <p class="lede">
+            Beacon reads every incoming ticket, resolves the repetitive ones on its own, and
+            hands your agents only the conversations that need a human. Move the sliders below
+            with your real numbers — the savings update live.
+          </p>
+          <div class="hero-stats" role="list">
+            <div role="listitem"><strong>42%</strong><span>tickets auto-resolved</span></div>
+            <div role="listitem"><strong>9&nbsp;min</strong><span>saved per deflected ticket</span></div>
+            <div role="listitem"><strong>3&nbsp;wks</strong><span>median time to payback</span></div>
+          </div>
+          <a class="btn btn-primary hero-cta" href="#calculator">Calculate my savings ↓</a>
+        </div>
+        <figure class="hero-figure">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1100&q=80"
+            alt="A laptop on a desk showing a business analytics dashboard with line and bar charts"
+            loading="eager"
+            width="1100" height="733"
+            onerror="this.onerror=null;this.src='https://picsum.photos/seed/roi-hero/1100/733';"
+          />
+          <figcaption>Real customers cut first-response time by 61% in the first month.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CALCULATOR -->
+    <section id="calculator" class="calc">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Your support ROI, in real numbers</h2>
+          <p>Three inputs. Beacon does the math the way our finance team does it for every new customer.</p>
+        </div>
+
+        <div class="calc-grid">
+          <!-- INPUTS -->
+          <form class="card inputs" id="calc-form" novalidate aria-describedby="calc-help">
+            <p class="card-kicker">Tell us about your support desk</p>
+
+            <div class="field">
+              <label for="team">Support agents on the team</label>
+              <div class="field-row">
+                <input type="range" id="team-range" min="1" max="120" step="1" value="8" aria-hidden="true" tabindex="-1" />
+                <div class="num">
+                  <span class="num-prefix" aria-hidden="true"></span>
+                  <input type="number" id="team" inputmode="numeric" min="1" max="120" step="1" value="8" aria-label="Number of support agents" />
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="spend">Current monthly support spend</label>
+              <p class="field-hint">Fully loaded — agent salaries, contractors, and tooling.</p>
+              <div class="field-row">
+                <input type="range" id="spend-range" min="2000" max="400000" step="1000" value="32000" aria-hidden="true" tabindex="-1" />
+                <div class="num">
+                  <span class="num-prefix">$</span>
+                  <input type="number" id="spend" inputmode="numeric" min="0" step="500" value="32000" aria-label="Current monthly support spend in dollars" />
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="tickets">Support tickets per month</label>
+              <div class="field-row">
+                <input type="range" id="tickets-range" min="100" max="100000" step="100" value="4200" aria-hidden="true" tabindex="-1" />
+                <div class="num">
+                  <span class="num-prefix" aria-hidden="true"></span>
+                  <input type="number" id="tickets" inputmode="numeric" min="0" step="50" value="4200" aria-label="Support tickets per month" />
+                </div>
+              </div>
+            </div>
+
+            <p id="calc-help" class="card-foot">
+              We assume Beacon auto-resolves 42% of tickets and bills $49 per agent / month.
+              <button type="button" class="link-btn" id="reset-btn">Reset to a typical mid-market desk</button>
+            </p>
+          </form>
+
+          <!-- RESULTS -->
+          <div class="card results" aria-live="polite">
+            <p class="card-kicker">Your projected savings</p>
+            <div class="headline">
+              <span class="headline-label">Net savings, year one</span>
+              <span class="headline-value" id="r-annual">$156,576</span>
+              <span class="headline-sub" id="r-annual-sub">after Beacon's subscription</span>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat">
+                <span class="stat-value" id="r-monthly">$13,048</span>
+                <span class="stat-label">Net savings / month</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="r-hours">265</span>
+                <span class="stat-label">Agent hours reclaimed / month</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="r-payback">3 days</span>
+                <span class="stat-label">Payback on monthly fee</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value" id="r-roi">34×</span>
+                <span class="stat-label">Return on Beacon spend</span>
+              </div>
+            </div>
+
+            <div class="chart">
+              <div class="chart-head">
+                <h3>Monthly support cost</h3>
+                <div class="legend">
+                  <span class="key key-now"></span> Today
+                  <span class="key key-beacon"></span> With Beacon
+                </div>
+              </div>
+              <svg id="bar-chart" viewBox="0 0 520 220" role="img" aria-label="Bar chart comparing your monthly support cost today versus with Beacon">
+                <!-- bars injected by JS -->
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- CUMULATIVE -->
+        <div class="card cumulative">
+          <div class="chart-head">
+            <h3>Cumulative net savings over 12 months</h3>
+            <p class="trend-total" id="r-cumulative">$156,576 banked by month 12</p>
+          </div>
+          <svg id="area-chart" viewBox="0 0 1000 320" role="img" aria-label="Area chart showing cumulative net savings climbing across twelve months">
+            <!-- area injected by JS -->
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="how">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Where the savings come from</h2>
+          <p>No hand-waving. Here's the chain of events behind the number above.</p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span class="step-n">1</span>
+            <h3>Beacon triages every ticket</h3>
+            <p>Each incoming message is classified and matched against your help center, past resolutions, and product data in under a second.</p>
+          </li>
+          <li>
+            <span class="step-n">2</span>
+            <h3>The repetitive 42% resolve themselves</h3>
+            <p>Password resets, order status, plan changes, refund eligibility — Beacon answers, acts, and closes the loop without a human touching it.</p>
+          </li>
+          <li>
+            <span class="step-n">3</span>
+            <h3>Agents focus on the hard 58%</h3>
+            <p>Your team inherits clean, context-rich threads. Average handle time drops, and you stop hiring just to keep up with volume.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- GATED REPORT CTA -->
+    <section id="report" class="report">
+      <div class="wrap report-grid">
+        <div class="report-copy">
+          <span class="eyebrow eyebrow-light">Take it to your CFO</span>
+          <h2>Get the full ROI report as a PDF</h2>
+          <p>
+            We'll turn the numbers above into a one-page board-ready report — three-year projection,
+            assumptions, and a side-by-side cost comparison — and email it to you in about a minute.
+          </p>
+          <ul class="report-list">
+            <li>Three-year cumulative savings model</li>
+            <li>Per-agent productivity breakdown</li>
+            <li>Implementation timeline &amp; payback curve</li>
+          </ul>
+        </div>
+
+        <form class="card report-form" id="lead-form" novalidate>
+          <div class="field">
+            <label for="lead-name">Your name</label>
+            <input type="text" id="lead-name" name="name" autocomplete="name" required placeholder="Jordan Avery" />
+          </div>
+          <div class="field">
+            <label for="lead-email">Work email</label>
+            <input type="email" id="lead-email" name="email" autocomplete="email" required placeholder="jordan@company.com" />
+            <span class="error" id="email-error" role="alert" hidden>Enter a valid work email so we can send the report.</span>
+          </div>
+          <div class="field">
+            <label for="lead-company">Company</label>
+            <input type="text" id="lead-company" name="company" autocomplete="organization" placeholder="Acme Inc." />
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Email me the report</button>
+          <p class="form-fine">Your snapshot: <strong id="lead-summary">$156,576 / year</strong>. No spam — one report, then we'll get out of your inbox.</p>
+
+          <div class="success" id="lead-success" hidden>
+            <div class="success-check" aria-hidden="true">✓</div>
+            <h3>Report's on its way</h3>
+            <p id="success-line">We just emailed your ROI report. Check your inbox in a minute.</p>
+            <button type="button" class="link-btn" id="lead-reset">Run another scenario</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section id="proof" class="proof">
+      <div class="wrap">
+        <p class="proof-kicker">Support teams that stopped scaling headcount with volume</p>
+        <div class="logos" aria-label="Customer logos">
+          <span>Northwind</span>
+          <span>Atlas Pay</span>
+          <span>Brightline</span>
+          <span>Verdure</span>
+          <span>Cobalt</span>
+          <span>Hearth&nbsp;&amp;&nbsp;Co</span>
+        </div>
+        <blockquote class="quote">
+          <p>“We were three hires away from blowing the support budget. Beacon deflected almost half our volume in the first six weeks — we put the calculator's number in front of the board and the renewal signed itself.”</p>
+          <footer>
+            <img
+              src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=200&q=80"
+              alt="A calculator and financial documents on a desk"
+              width="56" height="56"
+              onerror="this.onerror=null;this.src='https://picsum.photos/seed/roi-quote/56/56';"
+            />
+            <div>
+              <strong>Priya Nair</strong>
+              <span>VP Customer Operations, Atlas Pay</span>
+            </div>
+          </footer>
+        </blockquote>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">Beacon</span>
+      </div>
+      <p>AI support resolution for teams that refuse to scale headcount with volume.</p>
+      <p class="footer-fine">Illustrative model for demonstration. Built on <a href="https://spacefast.com">Spacefast</a>.</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="roi"></script>
+</body>
+</html>

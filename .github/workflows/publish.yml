@@ -1,0 +1,69 @@
+name: Publish examples to Spacefast
+
+# Builds each example and publishes it to Spacefast at its slug. Static examples
+# are published as-is; examples with a package.json are built first and the build
+# output (dist/ or build/) is published. Requires a SPACEFAST_DEPLOY_KEY secret.
+
+on:
+  push:
+    branches: [main]
+    paths: ["examples/**"]
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "Publish only this example slug (optional)"
+        required: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      slugs: ${{ steps.list.outputs.slugs }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: list
+        run: |
+          only="${{ github.event.inputs.only }}"
+          if [ -n "$only" ]; then
+            echo "slugs=[\"$only\"]" >> "$GITHUB_OUTPUT"
+          else
+            slugs=$(ls -1 examples | jq -R -s -c 'split("\n") | map(select(length > 0))')
+            echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
+          fi
+
+  publish:
+    needs: discover
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        slug: ${{ fromJson(needs.discover.outputs.slugs) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - name: Install Spacefast CLI
+        run: bun add -g @spacefast/cli
+      - name: Build (if the example has a build step)
+        working-directory: examples/${{ matrix.slug }}
+        run: |
+          if [ -f site/package.json ]; then
+            cd site
+            bun install --frozen-lockfile || bun install
+            bun run build
+          fi
+      - name: Resolve publish directory
+        id: dir
+        working-directory: examples/${{ matrix.slug }}
+        run: |
+          if   [ -d site/dist ];  then echo "dir=site/dist"  >> "$GITHUB_OUTPUT"
+          elif [ -d site/build ]; then echo "dir=site/build" >> "$GITHUB_OUTPUT"
+          else echo "dir=site" >> "$GITHUB_OUTPUT"; fi
+      - name: Publish to Spacefast
+        working-directory: examples/${{ matrix.slug }}
+        env:
+          SPACEFAST_DEPLOY_KEY: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
+        run: |
+          sf publish "${{ steps.dir.outputs.dir }}" \
+            --slug "${{ matrix.slug }}" \
+            --token "$SPACEFAST_DEPLOY_KEY" \
+            --json

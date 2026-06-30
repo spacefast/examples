@@ -1,0 +1,85 @@
+---
+import { party, schedule } from '../data/party';
+---
+
+<section class="section section--tint" id="schedule">
+  <div class="wrap center">
+    <p class="eyebrow">Run of show</p>
+    <h2 class="section-title">How the night unfolds</h2>
+    <p class="lede">{party.doorsNote}</p>
+  </div>
+
+  <ol class="timeline wrap">
+    {
+      schedule.map((s) => (
+        <li class="timeline__item">
+          <div class="timeline__time">{s.time}</div>
+          <div class="timeline__dot" aria-hidden="true" />
+          <div class="timeline__body">
+            <h3 class="timeline__title">{s.title}</h3>
+            <p class="timeline__detail">{s.detail}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .section--tint {
+    background: linear-gradient(180deg, transparent, rgba(36, 16, 54, 0.55), transparent);
+  }
+  .timeline {
+    list-style: none;
+    margin: 2.8rem auto 0;
+    padding: 0;
+    max-width: 640px;
+    position: relative;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 78px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--magenta), var(--gold), var(--cyan));
+    opacity: 0.45;
+  }
+  .timeline__item {
+    display: grid;
+    grid-template-columns: 64px 24px 1fr;
+    align-items: start;
+    gap: 0.4rem;
+    padding-block: 0.9rem;
+  }
+  .timeline__time {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-align: right;
+    color: var(--gold);
+    padding-top: 0.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .timeline__dot {
+    width: 14px;
+    height: 14px;
+    margin-top: 0.35rem;
+    border-radius: 50%;
+    background: var(--magenta);
+    box-shadow: 0 0 0 4px rgba(255, 61, 139, 0.22);
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+  }
+  .timeline__title {
+    font-size: 1.12rem;
+    color: var(--cream);
+  }
+  .timeline__detail {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-top: 0.2rem;
+  }
+</style>

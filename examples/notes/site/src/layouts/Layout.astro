@@ -1,0 +1,79 @@
+---
+import '../styles/global.css';
+import { SITE } from '../lib/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.title}` : `${SITE.title} — ${SITE.tagline}`;
+const pageDesc = description ?? SITE.about;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDesc} />
+    <meta name="author" content={SITE.author} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDesc} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#27332b" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="wrap site-header__bar">
+        <a class="brand" href="/" aria-label={`${SITE.title} home`}>
+          <span class="brand__mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" width="26" height="26">
+              <path d="M16 26c0-6 0-9 0-15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none" />
+              <path d="M16 15c-3.4 0-5.7-2.1-5.7-5.3C13.7 9.7 16 11.8 16 15z" fill="currentColor" opacity="0.55" />
+              <path d="M16 19c3.4 0 5.7-2.1 5.7-5.3C18.3 13.7 16 15.8 16 19z" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="brand__text">
+            <span class="brand__name">{SITE.title}</span>
+            <span class="brand__tag">{SITE.tagline}</span>
+          </span>
+        </a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/#graph">Graph</a>
+          <a href="/#index">Index</a>
+          <a href="/notes/why-this-glasshouse/">Start here</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap site-footer__inner">
+        <span>
+          {SITE.title} · tended by {SITE.author}.
+          {SITE.access === 'shared' ? 'Shared privately.' : 'Open to read.'}
+        </span>
+        <span>
+          Grown with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a> ·
+          Published on <a href="https://spacefast.com" target="_blank" rel="noopener">Spacefast</a>
+        </span>
+      </div>
+    </footer>
+
+    <script src="https://spacefast.com/badge.js" data-example="notes"></script>
+  </body>
+</html>

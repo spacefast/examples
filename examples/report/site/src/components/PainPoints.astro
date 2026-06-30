@@ -1,0 +1,114 @@
+---
+// Ranked pain points with vote counts. Respondents could pick up to three, so
+// these are votes, not respondents.
+interface Pain {
+  label: string;
+  votes: number;
+}
+interface Props {
+  items: Pain[];
+}
+const { items } = Astro.props as Props;
+const max = Math.max(...items.map((p) => p.votes));
+const respondents = 4812;
+---
+
+<ol class="pains">
+  {
+    items.map((p, i) => {
+      const w = (p.votes / max) * 100;
+      const pct = Math.round((p.votes / respondents) * 100);
+      return (
+        <li>
+          <span class="num p-rank">{String(i + 1).padStart(2, '0')}</span>
+          <div class="p-body">
+            <div class="p-top">
+              <span class="p-label">{p.label}</span>
+              <span class="num p-votes">
+                {p.votes.toLocaleString()}
+                <span class="p-pct">· {pct}%</span>
+              </span>
+            </div>
+            <span class="p-track">
+              <span class="p-fill" style={`--w:${w}%;--d:${i * 50}ms`} />
+            </span>
+          </div>
+        </li>
+      );
+    })
+  }
+</ol>
+
+<style>
+  .pains {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: none;
+    display: grid;
+    gap: 16px;
+  }
+  .pains li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .p-rank {
+    font-size: 15px;
+    color: var(--accent-2);
+    font-weight: 600;
+    padding-top: 1px;
+  }
+  .p-body {
+    display: grid;
+    gap: 7px;
+  }
+  .p-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .p-label {
+    font-size: 15.5px;
+    color: var(--ink);
+  }
+  .p-votes {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .p-pct {
+    color: var(--ink-3);
+    font-weight: 400;
+    font-size: 12px;
+  }
+  .p-track {
+    height: 9px;
+    background: var(--line-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .p-fill {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: 6px;
+    background: linear-gradient(90deg, var(--accent-warm), var(--c4));
+    transform-origin: left;
+    animation: pgrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+    animation-delay: var(--d);
+  }
+  @keyframes pgrow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .p-fill {
+      animation: none;
+    }
+  }
+</style>

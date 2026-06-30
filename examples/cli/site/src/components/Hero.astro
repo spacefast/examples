@@ -1,0 +1,274 @@
+---
+import { project, databases } from '../data/site';
+---
+
+<section class="hero" id="top">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <a class="hero__pill" href={project.repo}>
+      <span class="hero__pill-dot" aria-hidden="true"></span>
+      Open source · {project.license} · {project.starsExact} stars on GitHub
+    </a>
+
+    <h1 class="hero__title">
+      Database migrations<br />
+      that <span class="grad-text">never drift</span>.
+    </h1>
+
+    <p class="hero__lede">{project.blurb}</p>
+
+    <!-- The copy-able install command — the centerpiece of any dev-tool page. -->
+    <div class="install" data-copy-root>
+      <code class="install__cmd">
+        <span class="install__prompt" aria-hidden="true">$</span>
+        <span data-copy-text>{project.install}</span>
+      </code>
+      <button class="install__btn" type="button" data-copy-btn aria-label="Copy install command">
+        <svg class="install__icon install__icon--copy" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="9" width="11" height="11" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"></rect>
+          <path d="M5 15V6a2.5 2.5 0 0 1 2.5-2.5H15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"></path>
+        </svg>
+        <svg class="install__icon install__icon--check" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 13l4 4L19 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        <span data-copy-label>Copy</span>
+      </button>
+    </div>
+
+    <div class="hero__cta">
+      <a class="btn" href="#quickstart">Get started</a>
+      <a class="btn btn--ghost" href={project.repo}>
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+          <path fill="currentColor" d="M8 .25a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.34c-2.23.49-2.7-1.07-2.7-1.07-.36-.93-.89-1.18-.89-1.18-.73-.5.05-.49.05-.49.81.06 1.23.83 1.23.83.72 1.23 1.88.87 2.34.67.07-.52.28-.87.5-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.83-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.03 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.52.56.83 1.28.83 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48v2.2c0 .21.15.46.55.38A8 8 0 0 0 8 .25Z"></path>
+        </svg>
+        Star on GitHub
+      </a>
+    </div>
+
+    <ul class="hero__dbs" aria-label="Supported databases">
+      <li class="hero__dbs-label">Works with</li>
+      {databases.map((d) => <li class="hero__db">{d}</li>)}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: -20% -10% auto;
+    height: 75%;
+    z-index: -2;
+    background:
+      radial-gradient(60% 60% at 50% 0%, rgba(52, 225, 196, 0.18), transparent 70%),
+      radial-gradient(40% 50% at 80% 10%, rgba(167, 139, 250, 0.16), transparent 70%);
+    filter: blur(10px);
+  }
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(75% 60% at 50% 18%, #000 35%, transparent 78%);
+  }
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: clamp(3.4rem, 9vw, 6rem) clamp(3rem, 7vw, 5rem);
+  }
+  .hero__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 999px;
+    padding: 0.42rem 0.95rem;
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .hero__pill:hover {
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .hero__pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 rgba(52, 225, 196, 0.6);
+    animation: heroPulse 2.6s ease-out infinite;
+  }
+  @keyframes heroPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(52, 225, 196, 0.55);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 8px rgba(52, 225, 196, 0);
+    }
+  }
+  .hero__title {
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    font-weight: 700;
+    margin-top: 1.6rem;
+    max-width: 16ch;
+  }
+  .hero__lede {
+    margin-top: 1.5rem;
+    max-width: 60ch;
+    color: var(--ink-soft);
+    font-size: clamp(1.02rem, 2.4vw, 1.2rem);
+  }
+
+  .install {
+    display: flex;
+    align-items: stretch;
+    gap: 0.4rem;
+    margin-top: 2.2rem;
+    padding: 0.4rem 0.4rem 0.4rem 0.5rem;
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    background: var(--panel);
+    box-shadow: 0 24px 60px -38px rgba(0, 0, 0, 0.9);
+    max-width: 100%;
+  }
+  .install__cmd {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-family: var(--mono);
+    font-size: clamp(0.82rem, 2.5vw, 0.98rem);
+    color: var(--ink);
+    padding: 0.55rem 0.7rem 0.55rem 0.6rem;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
+  .install__prompt {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .install__btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    flex-shrink: 0;
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 0.86rem;
+    color: var(--ink);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--line);
+    border-radius: 9px;
+    padding: 0 0.95rem;
+    cursor: pointer;
+    transition: background 0.16s ease, color 0.16s ease, border-color 0.16s ease;
+  }
+  .install__btn:hover {
+    background: rgba(52, 225, 196, 0.12);
+    border-color: var(--accent);
+  }
+  .install__icon {
+    width: 17px;
+    height: 17px;
+    color: currentColor;
+  }
+  .install__icon--check {
+    display: none;
+    color: var(--accent);
+  }
+  .install__btn[data-copied] {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .install__btn[data-copied] .install__icon--copy {
+    display: none;
+  }
+  .install__btn[data-copied] .install__icon--check {
+    display: block;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .hero__dbs {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.55rem 0.9rem;
+    padding: 0;
+    margin: 3rem 0 0;
+  }
+  .hero__dbs-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .hero__db {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.3rem 0.66rem;
+    background: rgba(255, 255, 255, 0.02);
+  }
+</style>
+
+<script>
+  const root = document.querySelector('[data-copy-root]');
+  const btn = root?.querySelector<HTMLButtonElement>('[data-copy-btn]');
+  const text = root?.querySelector('[data-copy-text]')?.textContent?.trim() ?? '';
+  const label = root?.querySelector('[data-copy-label]');
+  let resetId: ReturnType<typeof setTimeout> | undefined;
+
+  btn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Fallback for browsers/contexts without the async clipboard API.
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch {
+        /* give up quietly */
+      }
+      ta.remove();
+    }
+    btn.setAttribute('data-copied', '');
+    if (label) label.textContent = 'Copied';
+    clearTimeout(resetId);
+    resetId = setTimeout(() => {
+      btn.removeAttribute('data-copied');
+      if (label) label.textContent = 'Copy';
+    }, 2000);
+  });
+</script>

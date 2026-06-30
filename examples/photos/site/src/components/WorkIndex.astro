@@ -1,0 +1,42 @@
+---
+import { series, studio } from '../data/portfolio';
+const num = (i: number) => String(i + 1).padStart(2, '0');
+---
+
+<section class="section" id="work">
+  <div class="wrap">
+    <div class="work__head reveal">
+      <div>
+        <p class="eyebrow">Selected work</p>
+        <h2 class="section-title">Four series</h2>
+      </div>
+      <p class="work__intro">{studio.intro}</p>
+    </div>
+
+    <div class="work-grid">
+      {
+        series.map((s, i) => (
+          <a class="work-card reveal" href={`/series/${s.slug}`} aria-label={`View the series ${s.title}`}>
+            <div class="work-card__frame">
+              <span class="work-card__num">{num(i)}</span>
+              <img
+                src={`https://picsum.photos/seed/${s.cover.seed}/900/700${s.grayscale ? '?grayscale' : ''}`}
+                alt={s.cover.alt}
+                loading={i < 2 ? 'eager' : 'lazy'}
+                width="900"
+                height="700"
+              />
+            </div>
+            <div class="work-card__meta">
+              <span class="work-card__title">{s.title}</span>
+              <span class="work-card__place">
+                {s.place} · {s.year}
+              </span>
+            </div>
+            <p class="work-card__blurb">{s.blurb}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

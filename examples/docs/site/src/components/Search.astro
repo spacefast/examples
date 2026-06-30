@@ -1,0 +1,142 @@
+---
+import { searchIndex } from '../data/site';
+---
+
+<dialog class="searchdlg" data-search-dialog aria-label="Search documentation">
+  <div class="searchdlg__panel">
+    <div class="searchdlg__field">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#6f7d8f" stroke-width="1.6">
+        <circle cx="7" cy="7" r="4.5"></circle>
+        <path d="M11 11l3 3" stroke-linecap="round"></path>
+      </svg>
+      <input
+        type="search"
+        placeholder="Search the docs…"
+        data-search-input
+        aria-label="Search query"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <kbd>Esc</kbd>
+    </div>
+    <ul class="searchdlg__results" data-search-results></ul>
+    <div class="searchdlg__foot">
+      <span><kbd>↑</kbd><kbd>↓</kbd> navigate</span>
+      <span><kbd>↵</kbd> open</span>
+      <span><kbd>Esc</kbd> close</span>
+    </div>
+  </div>
+</dialog>
+
+<script is:inline define:vars={{ index: searchIndex }}>
+  const dialog = document.querySelector('[data-search-dialog]');
+  const input = document.querySelector('[data-search-input]');
+  const list = document.querySelector('[data-search-results]');
+  let sel = 0;
+
+  const score = (doc, q) => {
+    const hay = (doc.title + ' ' + doc.section + ' ' + doc.text).toLowerCase();
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    let s = 0;
+    for (const t of terms) {
+      if (doc.title.toLowerCase().includes(t)) s += 5;
+      if (hay.includes(t)) s += 2;
+      else return -1; // every term must appear
+    }
+    return s;
+  };
+
+  const render = (q) => {
+    let results;
+    if (!q.trim()) {
+      results = index.slice(0, 6);
+    } else {
+      results = index
+        .map((d) => ({ d, s: score(d, q) }))
+        .filter((r) => r.s > 0)
+        .sort((a, b) => b.s - a.s)
+        .map((r) => r.d);
+    }
+    sel = 0;
+    if (results.length === 0) {
+      list.innerHTML = '<li class="searchdlg__empty">No results for “' + q + '”.</li>';
+      return;
+    }
+    list.innerHTML = results
+      .map(
+        (d, i) =>
+          '<li><a href="' +
+          d.href +
+          '" data-result' +
+          (i === 0 ? ' data-sel' : '') +
+          '>' +
+          '<span class="searchdlg__rtitle"><span class="searchdlg__sec">' +
+          d.section +
+          '</span>' +
+          d.title +
+          '</span>' +
+          '<span class="searchdlg__rmeta">' +
+          d.text +
+          '</span></a></li>'
+      )
+      .join('');
+  };
+
+  const items = () => Array.from(list.querySelectorAll('[data-result]'));
+  const highlight = () => {
+    const all = items();
+    all.forEach((a, i) => {
+      if (i === sel) {
+        a.setAttribute('data-sel', '');
+        a.scrollIntoView({ block: 'nearest' });
+      } else a.removeAttribute('data-sel');
+    });
+  };
+
+  const open = () => {
+    if (!dialog.open) dialog.showModal();
+    input.value = '';
+    render('');
+    requestAnimationFrame(() => input.focus());
+  };
+  const close = () => {
+    if (dialog.open) dialog.close();
+  };
+
+  document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+
+  document.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      dialog.open ? close() : open();
+    }
+    if (e.key === '/' && !dialog.open && !/INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) {
+      e.preventDefault();
+      open();
+    }
+  });
+
+  input?.addEventListener('input', () => render(input.value));
+
+  input?.addEventListener('keydown', (e) => {
+    const all = items();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      sel = Math.min(sel + 1, all.length - 1);
+      highlight();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      sel = Math.max(sel - 1, 0);
+      highlight();
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      const a = all[sel];
+      if (a) window.location.href = a.getAttribute('href');
+    }
+  });
+
+  // click backdrop closes
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) close();
+  });
+</script>

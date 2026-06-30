@@ -1,0 +1,399 @@
+---
+// A stylised, CSS-only mock of the Tideline app. Variants render different
+// surfaces (board, cycle burndown, roadmap, command menu) so each feature
+// section can show the relevant view. No images — it's all markup + CSS,
+// which renders crisp at any size and stays fast.
+interface Props {
+  variant?: "hero" | "issues" | "cycle" | "roadmap" | "flow";
+  label?: string;
+}
+const { variant = "hero", label = "tideline.app — Northwind" } = Astro.props;
+
+const nav = [
+  { icon: "▤", name: "Inbox", count: "3" },
+  { icon: "◷", name: "My issues", count: "" },
+  { icon: "◎", name: "Active", count: "", active: true },
+  { icon: "↻", name: "Cycles", count: "" },
+  { icon: "▲", name: "Roadmap", count: "" },
+];
+
+const groups = [
+  {
+    status: "In Progress",
+    dot: "var(--amber)",
+    rows: [
+      { id: "NOR-412", title: "Stream large file uploads to object storage", pri: "high", who: "PR", label: "infra" },
+      { id: "NOR-418", title: "Debounce the search index on bulk edits", pri: "med", who: "MB", label: "perf" },
+    ],
+  },
+  {
+    status: "Todo",
+    dot: "var(--text-dim)",
+    rows: [
+      { id: "NOR-431", title: "Add keyboard shortcut to merge duplicate issues", pri: "high", who: "HO", label: "ux" },
+      { id: "NOR-433", title: "Roadmap share links should respect SSO", pri: "urgent", who: "PR", label: "security" },
+      { id: "NOR-440", title: "Empty-state illustration for new cycles", pri: "low", who: "MB", label: "design" },
+    ],
+  },
+];
+
+const priColor: Record<string, string> = {
+  urgent: "var(--pink)",
+  high: "var(--amber)",
+  med: "var(--blue)",
+  low: "var(--text-dim)",
+};
+const priBars: Record<string, number> = { urgent: 3, high: 3, med: 2, low: 1 };
+---
+
+<div class={`mock mock-${variant}`} role="img" aria-label={`Tideline app — ${variant} view`}>
+  <div class="chrome">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="addr">{label}</span>
+    <span class="chrome-key">⌘K</span>
+  </div>
+
+  <div class="body">
+    <aside class="side">
+      <div class="org">
+        <span class="org-badge">N</span>
+        <span class="org-name">Northwind</span>
+      </div>
+      <nav>
+        {nav.map((n) => (
+          <span class={`nav-item ${n.active ? "on" : ""}`}>
+            <span class="nav-ic">{n.icon}</span>
+            <span class="nav-label">{n.name}</span>
+            {n.count && <span class="nav-count">{n.count}</span>}
+          </span>
+        ))}
+      </nav>
+      <div class="teams">
+        <span class="teams-h">Teams</span>
+        <span class="team"><i style="background:var(--violet)"></i>Web</span>
+        <span class="team"><i style="background:var(--cyan)"></i>Platform</span>
+        <span class="team"><i style="background:var(--green)"></i>Mobile</span>
+      </div>
+    </aside>
+
+    <main class="pane">
+      {/* ---- BOARD / ISSUES ---- */}
+      {(variant === "hero" || variant === "issues") && (
+        <div class="board">
+          <div class="board-head">
+            <span class="crumb">Active <b>·</b> Web</span>
+            <span class="board-tools">
+              <span class="pill">Filter</span>
+              <span class="pill on">Group: Status</span>
+            </span>
+          </div>
+          {groups.map((g) => (
+            <div class="grp">
+              <div class="grp-head">
+                <span class="grp-dot" style={`background:${g.dot}`}></span>
+                {g.status}
+                <span class="grp-n">{g.rows.length}</span>
+              </div>
+              {g.rows.map((r) => (
+                <div class="row">
+                  <span class="pri" aria-hidden="true">
+                    {[1, 2, 3].map((b) => (
+                      <i style={`height:${b * 3 + 2}px;background:${b <= priBars[r.pri] ? priColor[r.pri] : "var(--line-strong)"}`}></i>
+                    ))}
+                  </span>
+                  <span class="rid">{r.id}</span>
+                  <span class="rtitle">{r.title}</span>
+                  <span class="rtag">{r.label}</span>
+                  <span class="who">{r.who}</span>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ---- CYCLE ---- */}
+      {variant === "cycle" && (
+        <div class="cycle">
+          <div class="board-head">
+            <span class="crumb">Cycle 24 <b>·</b> Jun 23 – Jun 29</span>
+            <span class="pill on">5 days left</span>
+          </div>
+          <div class="cyc-stats">
+            <div class="stat"><b>34</b><span>Scope</span></div>
+            <div class="stat"><b>21</b><span>Started</span></div>
+            <div class="stat"><b>13</b><span>Completed</span></div>
+            <div class="stat hl"><b>1.9</b><span>Velocity / day</span></div>
+          </div>
+          <div class="burn">
+            <svg viewBox="0 0 320 130" preserveAspectRatio="none" aria-hidden="true">
+              <defs>
+                <linearGradient id="bgrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgba(139,123,255,0.35)" />
+                  <stop offset="1" stop-color="rgba(139,123,255,0)" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="20" x2="320" y2="118" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="4 4" />
+              <path d="M0,18 L46,40 L92,44 L138,70 L184,72 L230,96 L276,104 L320,118" fill="none" stroke="var(--violet)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M0,18 L46,40 L92,44 L138,70 L184,72 L230,96 L276,104 L320,118 L320,130 L0,130 Z" fill="url(#bgrad)" />
+            </svg>
+            <div class="burn-x"><span>Mon</span><span>Wed</span><span>Fri</span><span>Sun</span></div>
+          </div>
+        </div>
+      )}
+
+      {/* ---- ROADMAP ---- */}
+      {variant === "roadmap" && (
+        <div class="road">
+          <div class="board-head">
+            <span class="crumb">Roadmap <b>·</b> Q3 2026</span>
+            <span class="pill">Share ↗</span>
+          </div>
+          <div class="road-grid">
+            <span class="road-q">Jul</span><span class="road-q">Aug</span><span class="road-q">Sep</span>
+          </div>
+          {[
+            { name: "Realtime sync v2", c: "var(--violet)", l: 4, w: 52, pct: "72%" },
+            { name: "Public roadmap sharing", c: "var(--cyan)", l: 28, w: 40, pct: "40%" },
+            { name: "Insights & reporting", c: "var(--green)", l: 12, w: 64, pct: "25%" },
+            { name: "Mobile app GA", c: "var(--amber)", l: 46, w: 44, pct: "8%" },
+          ].map((p) => (
+            <div class="road-row">
+              <span class="road-name">{p.name}</span>
+              <span class="road-track">
+                <span class="road-bar" style={`left:${p.l}%;width:${p.w}%;background:${p.c}`}>
+                  <span class="road-pct">{p.pct}</span>
+                </span>
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* ---- COMMAND MENU ---- */}
+      {variant === "flow" && (
+        <div class="flow">
+          <div class="board faded">
+            {groups[0].rows.concat(groups[1].rows).slice(0, 4).map((r) => (
+              <div class="row">
+                <span class="rid">{r.id}</span>
+                <span class="rtitle">{r.title}</span>
+              </div>
+            ))}
+          </div>
+          <div class="cmd">
+            <div class="cmd-in"><span class="cmd-caret">⌘K</span> Assign issue to…</div>
+            {[
+              { k: "→ A", t: "Assign to me", sub: "Priya Raman" },
+              { k: "→ S", t: "Change status", sub: "In Progress" },
+              { k: "→ L", t: "Add label", sub: "perf, infra…" },
+              { k: "→ C", t: "Move to cycle", sub: "Cycle 24" },
+            ].map((c, i) => (
+              <div class={`cmd-row ${i === 0 ? "on" : ""}`}>
+                <span class="cmd-t">{c.t}</span>
+                <span class="cmd-sub">{c.sub}</span>
+                <span class="cmd-k">{c.k}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </main>
+  </div>
+</div>
+
+<style>
+  .mock {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    background: #0a0b11;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.05) inset,
+      0 30px 80px -20px rgba(0, 0, 0, 0.8),
+      0 0 0 1px rgba(139, 123, 255, 0.06);
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 38px;
+    padding-inline: 14px;
+    background: linear-gradient(180deg, #15161f, #0e0f16);
+    border-bottom: 1px solid var(--line);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; }
+  .dot.y { background: #febc2e; }
+  .dot.g { background: #28c840; }
+  .addr {
+    margin-inline: 12px auto;
+    font-size: 12px;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .chrome-key {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 1px 6px;
+  }
+
+  .body { display: grid; grid-template-columns: 168px 1fr; min-height: 340px; }
+
+  .side {
+    background: #0a0b10;
+    border-right: 1px solid var(--line);
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .org { display: flex; align-items: center; gap: 8px; padding: 4px 6px; }
+  .org-badge {
+    width: 22px; height: 22px; border-radius: 6px;
+    background: var(--accent-grad);
+    color: #0a0a12; font-weight: 700; font-size: 12px;
+    display: grid; place-items: center;
+  }
+  .org-name { font-weight: 600; color: var(--text); font-size: 13px; }
+  nav { display: flex; flex-direction: column; gap: 2px; }
+  .nav-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 6px 8px; border-radius: 7px; font-size: 12.5px;
+  }
+  .nav-item.on { background: rgba(139, 123, 255, 0.14); color: var(--text); }
+  .nav-ic { width: 14px; text-align: center; color: var(--text-dim); }
+  .nav-item.on .nav-ic { color: var(--violet); }
+  .nav-label { flex: 1; }
+  .nav-count {
+    font-size: 11px; background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px; padding: 0 6px; color: var(--text-soft);
+  }
+  .teams { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+  .teams-h { font-size: 11px; color: var(--text-dim); padding: 0 8px 2px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .team { display: flex; align-items: center; gap: 9px; padding: 5px 8px; font-size: 12.5px; }
+  .team i { width: 8px; height: 8px; border-radius: 3px; display: inline-block; }
+
+  .pane { padding: 14px 16px; overflow: hidden; }
+
+  .board-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .crumb { font-size: 13px; color: var(--text); font-weight: 600; }
+  .crumb b { color: var(--text-dim); margin-inline: 4px; font-weight: 400; }
+  .board-tools { display: flex; gap: 6px; }
+  .pill {
+    font-size: 11.5px; padding: 3px 9px; border-radius: 7px;
+    border: 1px solid var(--line); color: var(--text-soft);
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .pill.on { color: var(--text); border-color: var(--line-strong); background: rgba(255,255,255,0.05); }
+
+  .grp { margin-bottom: 12px; }
+  .grp-head {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; color: var(--text-soft);
+    padding: 5px 6px; margin-bottom: 2px;
+  }
+  .grp-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .grp-n { color: var(--text-dim); font-weight: 500; }
+
+  .row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 7px 8px; border-radius: 8px;
+    border-top: 1px solid transparent;
+  }
+  .row:hover { background: rgba(255, 255, 255, 0.03); }
+  .pri { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .pri i { width: 3px; border-radius: 1px; display: inline-block; }
+  .rid { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); min-width: 52px; }
+  .rtitle { flex: 1; color: var(--text); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .rtag {
+    font-size: 11px; color: var(--violet);
+    border: 1px solid rgba(139, 123, 255, 0.35);
+    background: rgba(139, 123, 255, 0.1);
+    border-radius: 20px; padding: 1px 8px;
+  }
+  .who {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: linear-gradient(135deg, #3a3b4d, #25262f);
+    color: var(--text); font-size: 10px; font-weight: 600;
+    display: grid; place-items: center; flex: none;
+    border: 1px solid var(--line-strong);
+  }
+
+  /* cycle */
+  .cyc-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat {
+    border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.02); display: flex; flex-direction: column; gap: 2px;
+  }
+  .stat b { font-size: 20px; color: var(--text); font-weight: 650; letter-spacing: -0.02em; }
+  .stat span { font-size: 11px; color: var(--text-dim); }
+  .stat.hl { border-color: rgba(139, 123, 255, 0.4); background: rgba(139, 123, 255, 0.08); }
+  .stat.hl b { color: var(--violet); }
+  .burn { border: 1px solid var(--line); border-radius: 12px; padding: 14px; background: rgba(255,255,255,0.015); }
+  .burn svg { width: 100%; height: 130px; display: block; }
+  .burn-x { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); margin-top: 6px; }
+
+  /* roadmap */
+  .road-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    font-size: 11px; color: var(--text-dim); margin-bottom: 8px;
+    padding-left: 130px; border-bottom: 1px solid var(--line); padding-bottom: 6px;
+  }
+  .road-q { text-align: left; }
+  .road-row { display: grid; grid-template-columns: 130px 1fr; align-items: center; gap: 8px; padding: 7px 0; }
+  .road-name { font-size: 12.5px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .road-track { position: relative; height: 22px; background: rgba(255,255,255,0.03); border-radius: 7px; }
+  .road-bar {
+    position: absolute; top: 0; height: 22px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: flex-end;
+    padding-right: 8px; opacity: 0.92;
+  }
+  .road-pct { font-size: 10px; font-weight: 700; color: rgba(0,0,0,0.6); }
+
+  /* command menu */
+  .flow { position: relative; min-height: 280px; }
+  .board.faded { opacity: 0.35; filter: blur(1px); pointer-events: none; }
+  .cmd {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    width: min(94%, 380px);
+    background: rgba(20, 21, 30, 0.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line-strong);
+    border-radius: 12px;
+    box-shadow: 0 24px 60px -10px rgba(0, 0, 0, 0.7);
+    overflow: hidden;
+  }
+  .cmd-in {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 14px; border-bottom: 1px solid var(--line);
+    color: var(--text); font-size: 13.5px;
+  }
+  .cmd-caret { font-family: var(--font-mono); font-size: 10px; color: var(--violet); border: 1px solid rgba(139,123,255,0.4); border-radius: 5px; padding: 1px 5px; }
+  .cmd-row { display: flex; align-items: center; gap: 10px; padding: 10px 14px; }
+  .cmd-row.on { background: rgba(139, 123, 255, 0.16); }
+  .cmd-t { color: var(--text); font-size: 13px; }
+  .cmd-sub { color: var(--text-dim); font-size: 11.5px; margin-left: auto; }
+  .cmd-k { font-family: var(--font-mono); font-size: 11px; color: var(--text-soft); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; }
+
+  @media (max-width: 640px) {
+    .body { grid-template-columns: 1fr; }
+    .side { display: none; }
+    .cyc-stats { grid-template-columns: repeat(2, 1fr); }
+    .road-grid { padding-left: 96px; }
+    .road-row { grid-template-columns: 96px 1fr; }
+  }
+</style>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>No. 86 — Soft Edges · Offcuts</title>
+  <meta name="description" content="Why everything got rounded, the quiet politics of a border-radius, and a CSS trick I keep reaching for. Offcuts Issue 86, 18 June 2026." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="brand" href="../index.html" aria-label="Offcuts home">
+        <span class="brand__mark">Offcuts</span>
+        <span class="brand__cut">Issue 87</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="../index.html">Home</a>
+        <a href="../archive.html">Archive</a>
+        <a href="../about.html">About</a>
+        <a class="nav__sub" href="../subscribe.html">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <article>
+        <header class="issue-hero">
+          <div class="issue-hero__meta">
+            <span class="tag">No. 86</span>
+            <span class="mono">18 June 2026 · 4 min read</span>
+          </div>
+          <h1>Soft Edges</h1>
+          <p class="issue-hero__dek">
+            Sometime in the last decade, the whole interface world rounded its
+            corners. It’s worth asking what we were trying to say.
+          </p>
+        </header>
+
+        <figure class="issue-figure">
+          <img src="https://picsum.photos/seed/offcuts-newsletter-2/1280/680"
+               alt="A stack of design books with rounded spines on a wooden table, lit by soft window light" />
+          <figcaption>A border-radius is a posture. Most of the web is now leaning back.</figcaption>
+        </figure>
+
+        <div class="prose">
+          <p>
+            Pull up a screenshot from 2011 and the thing that dates it isn’t the
+            colour or the gradient — it’s the corners. They’re sharp. Hard
+            ninety-degree turns, like the page was cut with a guillotine. Now look
+            at anything shipped this year. Everything is rounded. Buttons, cards,
+            avatars, the search box, the search box <em>inside</em> the card. We
+            have, collectively and almost without discussion, decided that software
+            should feel like a river stone.
+          </p>
+          <p>
+            I don’t think that’s an accident, and I don’t think it’s only fashion.
+          </p>
+
+          <h2>What a corner says</h2>
+          <p>
+            A sharp corner is architectural. It says: this is a document, a form, a
+            serious surface, handle it carefully. A rounded one is bodily. It says:
+            this is a thing, pick it up, it won’t hurt you. As interfaces moved from
+            desks to palms — from things we operated to things we held — the corners
+            softened to match. Rounding is the design language of <em>approachable.</em>
+          </p>
+          <blockquote>
+            “The radius is small, but the message isn’t: nothing here has a sharp
+            edge to catch you.”
+          </blockquote>
+          <p>
+            The trap is that softness has a saturation point. Round everything and
+            nothing reads as solid; the whole screen turns to marshmallow and your
+            eye has nowhere firm to land. The skill isn’t rounding. It’s knowing the
+            one or two places to leave a hard edge so the soft ones mean something.
+          </p>
+
+          <h2>Five hand-picked links</h2>
+          <ul class="links">
+            <li>
+              <p class="links__title">The squircle, explained without the maths <span class="links__src">Essay</span></p>
+              <p>Why Apple’s corners aren’t circles, what a superellipse actually is, and how to fake one in CSS. <a href="https://example.com" rel="noopener">Read →</a></p>
+            </li>
+            <li>
+              <p class="links__title">A field guide to border-radius <span class="links__src">Reference</span></p>
+              <p>Nested radii, the “inner = outer minus padding” rule, and why your buttons look slightly wrong. <a href="https://example.com" rel="noopener">Read →</a></p>
+            </li>
+            <li>
+              <p class="links__title">Brutalism’s last stand <span class="links__src">Gallery</span></p>
+              <p>A loving archive of sites that kept their corners sharp on purpose. Bracing, in a good way. <a href="https://example.com" rel="noopener">Look →</a></p>
+            </li>
+            <li>
+              <p class="links__title">Why your rounded card looks cheap <span class="links__src">Thread</span></p>
+              <p>A designer diagnoses the “bubble UI” trap — too much radius, not enough contrast — with fixes. <a href="https://example.com" rel="noopener">Read →</a></p>
+            </li>
+            <li>
+              <p class="links__title">Corner Smoothing in 60 seconds <span class="links__src">Tool</span></p>
+              <p>A playground that shows the difference between a radius and a real squircle, live. Strangely soothing. <a href="https://example.com" rel="noopener">Play →</a></p>
+            </li>
+          </ul>
+
+          <aside class="tool">
+            <p class="tool__label">Tool of the week</p>
+            <h3>Smoothie</h3>
+            <p>
+              A one-purpose CSS generator for proper corner smoothing — the
+              superellipse kind, not the lazy big-radius kind. I used it to round the
+              cards on a client’s pricing page; the page didn’t change much, but it
+              suddenly felt twice as expensive. That’s the whole job, sometimes.
+            </p>
+            <a class="btn" href="https://example.com" rel="noopener">See what I used it for</a>
+          </aside>
+
+          <p>
+            Reply and tell me: are you a sharp-corner holdout, or did you round
+            everything years ago and never look back? I’m genuinely curious where
+            people landed.
+          </p>
+          <p style="font-family:'Fraunces',serif;font-style:italic;color:var(--accent)">— Mara</p>
+        </div>
+
+        <nav class="issue-nav" aria-label="Between issues">
+          <a href="issue-87.html">← No. 87 — The Long Undo</a>
+          <a href="issue-85.html">No. 85 — Paper Brains →</a>
+        </nav>
+      </article>
+
+      <div class="section">
+        <div class="subscribe subscribe--lg">
+          <h2>Get the next one in your inbox</h2>
+          <p>One issue, every Thursday. Free, and easy to leave.</p>
+          <form class="subscribe__form" novalidate>
+            <div class="subscribe__field">
+              <label for="email-i86">Your email</label>
+              <input id="email-i86" type="email" name="email" required
+                     autocomplete="email" placeholder="you@studio.com" />
+            </div>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+          <p class="subscribe__meta">Free, weekly, one-click out.</p>
+          <p class="subscribe__ok">
+            <span class="check" aria-hidden="true">✓</span>
+            <span>You’re in, <strong class="subscribe__ok-name">friend</strong>. See you Thursday.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__brand">
+        <span class="brand__mark">Offcuts</span>
+        <p>A weekly trim of design, craft, and the slow web. Written by hand in Bristol, every Thursday since 2023.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="../index.html">Latest issue</a></li>
+          <li><a href="../archive.html">Archive</a></li>
+          <li><a href="../about.html">About Mara</a></li>
+          <li><a href="../subscribe.html">Subscribe</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://example.com" rel="noopener">RSS feed</a></li>
+          <li><a href="https://example.com" rel="noopener">Mastodon</a></li>
+          <li><a href="https://example.com" rel="noopener">Bluesky</a></li>
+          <li><a href="mailto:mara@offcuts.email">mara@offcuts.email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>© <span data-year>2026</span> Offcuts · Mara Ellison</span>
+      <span>Made with attention, not automation.</span>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="newsletter"></script>
+</body>
+</html>

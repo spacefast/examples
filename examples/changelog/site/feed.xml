@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plank — Changelog</title>
+    <link>https://plank.app/changelog/</link>
+    <atom:link href="https://plank.app/changelog/feed.xml" rel="self" type="application/rss+xml" />
+    <description>What's new in Plank, the calm markdown notes app. New features, improvements, and fixes — shipped roughly every two weeks.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 24 Jun 2026 17:00:00 GMT</lastBuildDate>
+    <pubDate>Wed, 24 Jun 2026 17:00:00 GMT</pubDate>
+    <generator>Plank</generator>
+
+    <item>
+      <title>New — Daily notes &amp; a calendar in the sidebar (v2.4.0)</title>
+      <link>https://plank.app/changelog/#v2-4-0</link>
+      <guid isPermaLink="false">plank-changelog-v2-4-0</guid>
+      <category>New</category>
+      <pubDate>Wed, 24 Jun 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[Open a fresh note for any day with ⌘D. A month calendar in the sidebar marks days that already have a note, daily-note templates support placeholders like {{date:dddd}}, and ⌘[ / ⌘] jump between yesterday and tomorrow.]]></description>
+    </item>
+
+    <item>
+      <title>Fixed — Sync conflicts on large vaults (v2.3.2)</title>
+      <link>https://plank.app/changelog/#v2-3-2</link>
+      <guid isPermaLink="false">plank-changelog-v2-3-2</guid>
+      <category>Fixed</category>
+      <pubDate>Fri, 12 Jun 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[Phantom "conflicted copy" files on 5,000+ note vaults are gone — Plank now compares content hashes and millisecond timestamps instead of second-resolution mtimes. The sync indicator no longer hangs on folder rename, and initial indexing uses ~40% less memory.]]></description>
+    </item>
+
+    <item>
+      <title>Improved — Full-text search that keeps up with your typing (v2.3.0)</title>
+      <link>https://plank.app/changelog/#v2-3-0</link>
+      <guid isPermaLink="false">plank-changelog-v2-3-0</guid>
+      <category>Improved</category>
+      <pubDate>Wed, 28 May 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[Search rebuilt on a new on-disk index returns results in under 15ms on a 10,000-note vault. New operators tag:#idea, path:journal/ and "exact phrase", recent and saved searches, and recency-aware ranking.]]></description>
+    </item>
+
+    <item>
+      <title>New — Wikilinks and a live backlinks panel (v2.2.0)</title>
+      <link>https://plank.app/changelog/#v2-2-0</link>
+      <guid isPermaLink="false">plank-changelog-v2-2-0</guid>
+      <category>New</category>
+      <pubDate>Sat, 09 May 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[Type [[ to link to any note with title autocomplete and create-on-the-fly. Every note now has a backlinks panel, hover previews, and rename-safe links that update every [[reference]] automatically.]]></description>
+    </item>
+
+    <item>
+      <title>Fixed — Pasted code blocks keep their indentation (v2.1.1)</title>
+      <link>https://plank.app/changelog/#v2-1-1</link>
+      <guid isPermaLink="false">plank-changelog-v2-1-1</guid>
+      <category>Fixed</category>
+      <pubDate>Wed, 22 Apr 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[Plank now preserves leading whitespace exactly inside fenced code blocks, Tab inserts a tab instead of moving focus, smart quotes are disabled inside code, and the cursor no longer jumps after pasting a long block.]]></description>
+    </item>
+
+    <item>
+      <title>Improved — A faster, smarter command palette (v2.1.0)</title>
+      <link>https://plank.app/changelog/#v2-1-0</link>
+      <guid isPermaLink="false">plank-changelog-v2-1-0</guid>
+      <category>Improved</category>
+      <pubDate>Fri, 03 Apr 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[The ⌘K command palette is now fuzzy, ranked, and learns your most-used commands. New quick actions — Move note…, Pin to sidebar, Export to PDF — and it opens in about half the time on first launch.]]></description>
+    </item>
+
+    <item>
+      <title>New — Plank 2.0: a brand-new editor core (v2.0.0)</title>
+      <link>https://plank.app/changelog/#v2-0-0</link>
+      <guid isPermaLink="false">plank-changelog-v2-0-0</guid>
+      <category>New</category>
+      <pubDate>Sat, 14 Mar 2026 17:00:00 GMT</pubDate>
+      <description><![CDATA[A from-scratch rewrite for live-preview editing: markdown styles itself as you type, with raw syntax shown only on the cursor's line. Native tables, callouts, task lists and inline math, local-first .md files, and a new theming engine.]]></description>
+    </item>
+
+  </channel>
+</rss>

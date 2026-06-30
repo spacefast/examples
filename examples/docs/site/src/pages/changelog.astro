@@ -1,0 +1,60 @@
+---
+import Docs from '../layouts/Docs.astro';
+
+const headings = [
+  { depth: 2, slug: 'v2-4-0', text: 'v2.4.0' },
+  { depth: 2, slug: 'v2-3-0', text: 'v2.3.0' },
+  { depth: 2, slug: 'v2-0-0', text: 'v2.0.0' },
+  { depth: 2, slug: 'v1-6-0', text: 'v1.6.0' },
+];
+---
+
+<Docs
+  title="Changelog"
+  description="Release notes for Ledger — what changed in each version."
+  headings={headings}
+>
+  <span class="eyebrow">Reference</span>
+  <h1>Changelog</h1>
+  <p class="lead">
+    Ledger follows semantic versioning. Breaking changes only land on majors, and every
+    release ships a migration note when stored data is affected.
+  </p>
+
+  <h2 id="v2-4-0">v2.4.0 <span style="color:var(--brand);font-size:0.7em;font-family:var(--mono)">latest</span></h2>
+  <p style="color:var(--ink-dim);font-size:0.85rem">Released June 18, 2026</p>
+  <ul>
+    <li><strong>New:</strong> <code>offset()</code> on queries for cursor-free pagination.</li>
+    <li><strong>New:</strong> Svelte binding (<code>ledger/svelte</code>) with a <code>$query</code> store.</li>
+    <li><strong>Improved:</strong> Live queries now diff results by shallow identity, cutting redundant re-renders by ~40% in the benchmark app.</li>
+    <li><strong>Fixed:</strong> <code>db.ready</code> could resolve before the final hydration batch on very large IndexedDB stores.</li>
+  </ul>
+
+  <h2 id="v2-3-0">v2.3.0</h2>
+  <p style="color:var(--ink-dim);font-size:0.85rem">Released April 2, 2026</p>
+  <ul>
+    <li><strong>New:</strong> <code>onMigrate: 'log'</code> option for verbose migration output in development.</li>
+    <li><strong>New:</strong> <code>unset()</code> to delete a single field from a record.</li>
+    <li><strong>Improved:</strong> Secondary indexes via the <code>index</code> option speed up equality filters on large collections.</li>
+    <li><strong>Fixed:</strong> Comparator <code>sort()</code> was not stable across re-runs.</li>
+  </ul>
+
+  <h2 id="v2-0-0">v2.0.0</h2>
+  <p style="color:var(--ink-dim);font-size:0.85rem">Released January 14, 2026</p>
+  <div class="callout callout--warn">
+    <span class="callout__icon" aria-hidden="true">⚠️</span>
+    <p><strong>Breaking:</strong> <code>store.query()</code> was removed in favour of collection-first chaining (<code>db.notes.where(...)</code>). See the v1→v2 migration guide.</p>
+  </div>
+  <ul>
+    <li><strong>New:</strong> Reactive query engine with fine-grained change tracking.</li>
+    <li><strong>New:</strong> Schema migrations with <code>schemaVersion</code> + ordered steps.</li>
+    <li><strong>Improved:</strong> Core shrank from 9 kB to 4 kB by dropping the legacy observer layer.</li>
+  </ul>
+
+  <h2 id="v1-6-0">v1.6.0</h2>
+  <p style="color:var(--ink-dim);font-size:0.85rem">Released September 30, 2025</p>
+  <ul>
+    <li><strong>New:</strong> IndexedDB adapter (previously localStorage only).</li>
+    <li><strong>Fixed:</strong> Type inference for nested record fields under TypeScript 5.4.</li>
+  </ul>
+</Docs>

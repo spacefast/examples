@@ -1,0 +1,26 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import Details from '../components/Details.astro';
+import Schedule from '../components/Schedule.astro';
+import Location from '../components/Location.astro';
+import Rsvp from '../components/Rsvp.astro';
+import Footer from '../components/Footer.astro';
+import { party } from '../data/party';
+
+const title = `${party.host} turns 30 — ${party.dateLong}`;
+const description = `${party.host} ${party.occasion}! Join us at ${party.venueName} in ${party.city} on ${party.dateLong}, ${party.timeRange}. Dress code, directions, and RSVP inside.`;
+---
+
+<Layout title={title} description={description}>
+  <Nav />
+  <main>
+    <Hero />
+    <Details />
+    <Schedule />
+    <Location />
+    <Rsvp />
+  </main>
+  <Footer />
+</Layout>

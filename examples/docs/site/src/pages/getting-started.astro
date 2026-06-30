@@ -1,0 +1,146 @@
+---
+import Docs from '../layouts/Docs.astro';
+import CodeBlock from '../components/CodeBlock.astro';
+
+const headings = [
+  { depth: 2, slug: 'install', text: 'Install' },
+  { depth: 2, slug: 'create-a-store', text: 'Create a store' },
+  { depth: 2, slug: 'insert-and-read', text: 'Insert and read' },
+  { depth: 2, slug: 'go-reactive', text: 'Go reactive' },
+  { depth: 2, slug: 'wire-up-react', text: 'Wire up React' },
+  { depth: 2, slug: 'next-steps', text: 'Next steps' },
+];
+
+const install = `# npm
+npm install ledger
+
+# pnpm
+pnpm add ledger
+
+# bun
+bun add ledger`;
+
+const store = `import { createLedger, collection } from 'ledger';
+
+type Note = {
+  id: string;
+  title: string;
+  body: string;
+  pinned: boolean;
+  createdAt: number;
+};
+
+export const db = createLedger({
+  notes: collection<Note>({ key: 'id' }),
+});`;
+
+const insert = `db.notes.insert({
+  id: crypto.randomUUID(),
+  title: 'Welcome to Ledger',
+  body: 'Edit me, delete me, query me.',
+  pinned: true,
+  createdAt: Date.now(),
+});
+
+// Read everything, or read one record by key:
+const all = db.notes.all();
+const one = db.notes.get('some-id');`;
+
+const reactive = `// .live() returns a Query you can subscribe to.
+const pinned = db.notes
+  .where((n) => n.pinned)
+  .sort('createdAt', 'desc')
+  .live();
+
+const stop = pinned.subscribe((notes) => {
+  console.log('pinned notes changed:', notes.length);
+});
+
+// Later, when you're done:
+stop();`;
+
+const react = `import { useQuery } from 'ledger/react';
+import { db } from './db';
+
+export function PinnedNotes() {
+  const notes = useQuery(() =>
+    db.notes.where((n) => n.pinned).sort('createdAt', 'desc').live()
+  );
+
+  return (
+    <ul>
+      {notes.map((n) => (
+        <li key={n.id}>{n.title}</li>
+      ))}
+    </ul>
+  );
+}`;
+---
+
+<Docs
+  title="Getting started"
+  description="Install Ledger, create your first store, and render a reactive list."
+  headings={headings}
+>
+  <span class="eyebrow">Introduction</span>
+  <h1>Getting started</h1>
+  <p class="lead">
+    Ledger is a tiny reactive store for TypeScript. In about five minutes you'll
+    install it, define a typed collection, write a live query, and render it in
+    React. No server, no build plugin, no config.
+  </p>
+
+  <h2 id="install">Install</h2>
+  <p>Ledger ships as an ESM package with bundled type definitions. Add it with your package manager of choice:</p>
+  <CodeBlock code={install} lang="bash" />
+  <div class="callout callout--note">
+    <span class="callout__icon" aria-hidden="true">ℹ️</span>
+    <p>Ledger requires TypeScript 5.0+ for full inference, but it runs fine in plain JavaScript — you just lose the compile-time checks.</p>
+  </div>
+
+  <h2 id="create-a-store">Create a store</h2>
+  <p>
+    A store is a map of named <strong>collections</strong>. Each collection is typed by the
+    record it holds, and you tell it which field is the primary key.
+  </p>
+  <CodeBlock code={store} lang="ts" file="db.ts" />
+  <p>
+    That's the whole schema. <code>db.notes</code> is now a fully-typed collection: TypeScript
+    knows its records are <code>Note</code> objects keyed by <code>id</code>.
+  </p>
+
+  <h2 id="insert-and-read">Insert and read</h2>
+  <p>Inserts are synchronous and type-checked. Reads come straight from the in-memory index:</p>
+  <CodeBlock code={insert} lang="ts" />
+  <div class="callout callout--tip">
+    <span class="callout__icon" aria-hidden="true">💡</span>
+    <p>Inserting a record whose key already exists throws. Use <code>upsert()</code> if you want insert-or-replace semantics instead.</p>
+  </div>
+
+  <h2 id="go-reactive">Go reactive</h2>
+  <p>
+    The point of Ledger is live data. Turn any query into a subscription with
+    <code>.live()</code>, and your callback fires once immediately and again every time
+    the result changes — and only when it actually changes.
+  </p>
+  <CodeBlock code={reactive} lang="ts" />
+
+  <h2 id="wire-up-react">Wire up React</h2>
+  <p>
+    The <code>ledger/react</code> binding wraps all of that in a single hook. Pass a function
+    that returns a live query; the component re-renders with fresh data and unsubscribes on unmount.
+  </p>
+  <CodeBlock code={react} lang="tsx" file="PinnedNotes.tsx" />
+  <p>
+    Vue and Svelte bindings (<code>ledger/vue</code>, <code>ledger/svelte</code>) follow the same shape.
+  </p>
+
+  <h2 id="next-steps">Next steps</h2>
+  <p>You have a working reactive store. From here:</p>
+  <ul>
+    <li><a href="/guides/reactive-queries/">Reactive queries</a> — filters, sorting, and derived queries in depth.</li>
+    <li><a href="/guides/persistence/">Persistence</a> — keep your data across reloads with the IndexedDB adapter.</li>
+    <li><a href="/guides/migrations/">Schema migrations</a> — evolve your data shape safely as the app grows.</li>
+    <li><a href="/api/">API reference</a> — every method and option, with examples.</li>
+  </ul>
+</Docs>

@@ -1,0 +1,28 @@
+{
+  "name": "Proposal for Acme Co.",
+  "slug": "proposal",
+  "vertical": "Data, internal & startup",
+  "tech": "astro",
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: the personalized client sales proposal a freelancer or studio sends to win a project \u2014 scope, timeline, tiered pricing, and an accept/sign button \u2014 the kind normally trapped in PandaDoc/Qwilr behind a login.",
+  "summary": "A personalized sales proposal page for a brand & website studio: a 'prepared for Acme Co.' cover, scope of work, a five-phase timeline, three selectable pricing tiers, and a working accept/sign CTA that recomputes the agreement and remembers the acceptance \u2014 built to pair with Spacefast space-password gating.",
+  "sections": [
+    "Cover: 'prepared for Acme Co.' with project, dates, proposal number, and three outcome stat cards",
+    "Intro letter in the studio's voice, signed by a named person",
+    "Scope of work as workstream cards with fixed-scope deliverable checklists",
+    "Five-phase, gated project timeline with week ranges and milestones",
+    "Three selectable pricing tiers (Essential / Signature / Partner) with a recommended badge",
+    "Accept & sign CTA: tier-aware agreement summary + typed e-signature, success state, and localStorage persistence",
+    "FAQ and studio contact footer"
+  ],
+  "setup_questions": [
+    "What's your service and the client name?",
+    "What are the pricing tiers/options, with prices, and which one is recommended?",
+    "What are the scope bullets and the timeline (phases and rough weeks)?",
+    "Who's it from and what are the dates (studio name, contact, proposal date, valid-until date)?"
+  ],
+  "photo_terms": [
+    "business handshake meeting",
+    "clean office desk contract"
+  ],
+  "live_url": "https://proposal.view.fast/"
+}

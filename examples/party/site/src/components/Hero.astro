@@ -1,0 +1,297 @@
+---
+import { party } from '../data/party';
+---
+
+<section class="hero" id="top">
+  <img
+    class="hero__bg"
+    src="https://picsum.photos/seed/mia30-rooftop/1800/1200"
+    alt="A rooftop terrace strung with warm fairy lights glowing against a deep blue dusk sky"
+    fetchpriority="high"
+    width="1800"
+    height="1200"
+  />
+  <div class="hero__scrim"></div>
+  <div class="hero__confetti" aria-hidden="true" data-confetti></div>
+
+  <div class="wrap hero__inner">
+    <p class="hero__kicker">You're invited · {party.hashtag}</p>
+    <h1 class="hero__name">{party.host}</h1>
+    <p class="hero__occasion">{party.occasion}</p>
+    <p class="hero__tagline">{party.tagline}</p>
+
+    <p class="hero__meta">
+      {party.dateLong} &nbsp;·&nbsp; {party.timeRange}<br />
+      <span>{party.venueName} — {party.city}</span>
+    </p>
+
+    <div
+      class="countdown"
+      role="timer"
+      aria-live="off"
+      data-countdown
+      data-target={party.dateISO}
+    >
+      <div class="countdown__unit"><span data-d>—</span><small>Days</small></div>
+      <div class="countdown__sep" aria-hidden="true">:</div>
+      <div class="countdown__unit"><span data-h>—</span><small>Hrs</small></div>
+      <div class="countdown__sep" aria-hidden="true">:</div>
+      <div class="countdown__unit"><span data-m>—</span><small>Min</small></div>
+      <div class="countdown__sep" aria-hidden="true">:</div>
+      <div class="countdown__unit"><span data-s>—</span><small>Sec</small></div>
+    </div>
+    <p class="countdown__done" data-done hidden>
+      It's happening tonight — let's celebrate! 🥂
+    </p>
+
+    <div class="hero__actions">
+      <a class="btn" href="#rsvp">RSVP by {party.rsvpBy}</a>
+      <a class="btn btn--ghost" href="#details">See the details</a>
+    </div>
+  </div>
+
+  <a class="hero__scroll" href="#details" aria-label="Scroll to the details">
+    <span></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05) contrast(1.02) brightness(0.82);
+  }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(120% 90% at 50% 18%, rgba(21, 10, 38, 0.1), rgba(13, 5, 24, 0.74)),
+      linear-gradient(180deg, rgba(13, 5, 24, 0.55) 0%, rgba(13, 5, 24, 0.35) 38%, rgba(13, 5, 24, 0.92) 100%);
+  }
+  .hero__inner {
+    position: relative;
+    padding-block: 6.5rem 5rem;
+    z-index: 2;
+  }
+  .hero__kicker {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0 0 1.1rem;
+    color: var(--gold);
+  }
+  .hero__name {
+    font-size: clamp(4.2rem, 19vw, 11rem);
+    line-height: 0.92;
+    color: var(--cream);
+    text-shadow: 0 4px 50px rgba(255, 61, 139, 0.45);
+  }
+  .hero__occasion {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: clamp(1.3rem, 5vw, 2.3rem);
+    color: var(--magenta-soft);
+    margin-top: 0.3rem;
+  }
+  .hero__tagline {
+    font-size: clamp(1rem, 2.8vw, 1.25rem);
+    color: var(--cream-soft);
+    margin: 1rem auto 0;
+    max-width: 32ch;
+    font-style: italic;
+  }
+  .hero__meta {
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2.4vw, 1.1rem);
+    letter-spacing: 0.02em;
+    margin: 1.7rem auto 0;
+    color: var(--cream);
+  }
+  .hero__meta span {
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .countdown {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: clamp(0.4rem, 2vw, 1rem);
+    margin: 2.4rem auto 0;
+    padding: 1rem clamp(1rem, 4vw, 1.8rem);
+    border-radius: var(--radius);
+    background: rgba(13, 5, 24, 0.45);
+    border: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .countdown__unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 52px;
+  }
+  .countdown__unit span {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 7vw, 2.9rem);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: var(--gold);
+  }
+  .countdown__unit small {
+    margin-top: 0.5rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .countdown__sep {
+    font-family: var(--serif);
+    font-size: clamp(1.4rem, 5vw, 2.3rem);
+    color: var(--magenta);
+    line-height: 1.1;
+  }
+  .countdown__done {
+    font-family: var(--serif);
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    margin: 2.4rem auto 0;
+    color: var(--gold);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-top: 2.4rem;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 42px;
+    border: 2px solid rgba(255, 206, 92, 0.6);
+    border-radius: 999px;
+    display: grid;
+    place-items: start center;
+    padding-top: 7px;
+    z-index: 2;
+  }
+  .hero__scroll span {
+    width: 4px;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--gold);
+    animation: scrolldot 1.8s ease-in-out infinite;
+  }
+  @keyframes scrolldot {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    60% {
+      transform: translateY(10px);
+      opacity: 0.2;
+    }
+  }
+
+  /* Confetti */
+  .hero__confetti {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero__confetti :global(i) {
+    position: absolute;
+    top: -8%;
+    width: 8px;
+    height: 12px;
+    border-radius: 2px;
+    opacity: 0.85;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% {
+      transform: translateY(-10vh) rotate(0deg);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(112vh) rotate(540deg);
+      opacity: 0.9;
+    }
+  }
+</style>
+
+<script>
+  // --- Countdown ---
+  const root = document.querySelector('[data-countdown]');
+  const done = document.querySelector('[data-done]');
+  if (root) {
+    const target = new Date(root.getAttribute('data-target') || '').getTime();
+    const elD = root.querySelector('[data-d]');
+    const elH = root.querySelector('[data-h]');
+    const elM = root.querySelector('[data-m]');
+    const elS = root.querySelector('[data-s]');
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        root.setAttribute('hidden', '');
+        done?.removeAttribute('hidden');
+        return false;
+      }
+      const s = Math.floor(diff / 1000);
+      if (elD) elD.textContent = String(Math.floor(s / 86400));
+      if (elH) elH.textContent = pad(Math.floor((s % 86400) / 3600));
+      if (elM) elM.textContent = pad(Math.floor((s % 3600) / 60));
+      if (elS) elS.textContent = pad(s % 60);
+      return true;
+    };
+
+    if (tick()) {
+      const id = setInterval(() => {
+        if (!tick()) clearInterval(id);
+      }, 1000);
+    }
+  }
+
+  // --- Confetti (skipped if the visitor prefers reduced motion) ---
+  const stage = document.querySelector('[data-confetti]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (stage && !reduce) {
+    const colors = ['#ff3d8b', '#ffce5c', '#5cd6ff', '#ff6aa7', '#fdf3e7'];
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 36; i++) {
+      const bit = document.createElement('i');
+      bit.style.left = Math.random() * 100 + '%';
+      bit.style.background = colors[i % colors.length];
+      bit.style.animationDuration = 5 + Math.random() * 6 + 's';
+      bit.style.animationDelay = -Math.random() * 8 + 's';
+      bit.style.transform = `scale(${0.6 + Math.random()})`;
+      if (i % 3 === 0) bit.style.borderRadius = '50%';
+      frag.appendChild(bit);
+    }
+    stage.appendChild(frag);
+  }
+</script>

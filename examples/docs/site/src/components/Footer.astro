@@ -1,0 +1,26 @@
+---
+import { site } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div>
+      <div class="footer__brand">
+        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="7" fill="#121823" />
+          <path d="M9 9.5h14M9 16h14M9 22.5h9" fill="none" stroke="#34d399" stroke-width="2.6" stroke-linecap="round" />
+        </svg>
+        {site.name}
+      </div>
+      <small>MIT licensed · {site.name} is a community open-source project · © {year}</small>
+    </div>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="/getting-started/">Getting started</a>
+      <a href="/api/">API reference</a>
+      <a href="/changelog/">Changelog</a>
+      <a href={site.repo}>GitHub</a>
+      <a href={site.npm}>npm</a>
+    </nav>
+  </div>
+</footer>

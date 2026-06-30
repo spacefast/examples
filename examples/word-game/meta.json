@@ -1,0 +1,29 @@
+{
+  "name": "Lexicle",
+  "slug": "word-game",
+  "vertical": "Games & interactive",
+  "tech": "vanilla-js",
+  "based_on": "Wordle (Josh Wardle / NYT) \u2014 one daily five-letter word, six guesses, green/yellow/gray letter feedback, an on-screen keyboard, streaks, and a shareable emoji-grid result.",
+  "summary": "A clean daily word-guessing game: six tries to find the day's five-letter word, with green/yellow/gray tile feedback, a color-coded on-screen keyboard, a win/loss stats modal, and one-tap emoji-grid sharing.",
+  "sections": [
+    "6x5 guess board with flip-reveal tile animations",
+    "On-screen QWERTY keyboard that recolors keys by best-known status",
+    "Daily-word logic (deterministic word-of-the-day from the date, same for everyone)",
+    "Stats modal: games played, win %, current streak, max streak, guess-distribution bars",
+    "Share button producing the spoiler-free emoji grid to clipboard",
+    "How-to-play modal with example tiles, plus localStorage so refreshing keeps your progress"
+  ],
+  "setup_questions": [
+    "What should the game be named, and is there a theme for the word list (general English, movies, food, or your own custom word pack)?",
+    "What accent color should the correct (green) tiles use to match your brand?",
+    "What hashtag or site name should appear when players share their result grid?",
+    "Should it be a fresh word every day, or an unlimited 'play again' practice mode?"
+  ],
+  "photo_terms": [
+    "scrabble letter tiles flat lay",
+    "minimal puzzle game app screenshot",
+    "green and yellow color swatch palette",
+    "clean typographic poster bold letters"
+  ],
+  "live_url": "https://word-game.view.fast/"
+}

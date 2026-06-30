@@ -1,0 +1,283 @@
+---
+import { conf, stats } from '../data/conf';
+---
+
+<section class="hero" id="top">
+  <img
+    class="hero__bg"
+    src="https://picsum.photos/seed/devhorizon-2026-hero/1900/1200"
+    alt="The DevHorizon auditorium filling up before the first talk"
+    fetchpriority="high"
+    width="1900"
+    height="1200"
+  />
+  <div class="hero__scrim"></div>
+  <div class="hero__grid" aria-hidden="true"></div>
+
+  <div class="wrap hero__inner">
+    <p class="hero__badge">
+      <span class="hero__dot" aria-hidden="true"></span>
+      {conf.dateShort} · {conf.city}
+    </p>
+
+    <h1 class="hero__title">
+      Dev<span class="grad-text">Horizon</span>
+      <span class="hero__year">{conf.year}</span>
+    </h1>
+
+    <p class="hero__tagline">{conf.tagline}</p>
+    <p class="hero__sub">{conf.theme}</p>
+
+    <div class="hero__cta">
+      <a class="btn" href="#tickets">Get tickets — from €279</a>
+      <a class="btn btn--ghost" href="#speakers">See the lineup</a>
+    </div>
+
+    <div
+      class="countdown"
+      role="timer"
+      aria-label="Countdown to the first talk"
+      aria-live="off"
+      data-countdown
+      data-target={conf.dateISO}
+    >
+      <div class="countdown__unit"><span data-d>—</span><small>days</small></div>
+      <span class="countdown__sep" aria-hidden="true">:</span>
+      <div class="countdown__unit"><span data-h>—</span><small>hrs</small></div>
+      <span class="countdown__sep" aria-hidden="true">:</span>
+      <div class="countdown__unit"><span data-m>—</span><small>min</small></div>
+      <span class="countdown__sep" aria-hidden="true">:</span>
+      <div class="countdown__unit"><span data-s>—</span><small>sec</small></div>
+    </div>
+    <p class="countdown__done" data-done hidden>
+      We're live. Welcome to DevHorizon {conf.year} — find your seat. 🎤
+    </p>
+
+    <dl class="hero__stats">
+      {
+        stats.map((s) => (
+          <div class="hero__stat">
+            <dt>{s.value}</dt>
+            <dd>{s.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -3;
+    filter: saturate(0.7) brightness(0.5) contrast(1.05);
+  }
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(80% 70% at 50% 20%, rgba(7, 7, 13, 0.25), rgba(7, 7, 13, 0.82) 75%),
+      linear-gradient(180deg, rgba(7, 7, 13, 0.55), rgba(7, 7, 13, 0.4) 45%, var(--bg));
+  }
+  .hero__grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(139, 123, 255, 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139, 123, 255, 0.07) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(70% 60% at 50% 30%, #000 30%, transparent 75%);
+  }
+  .hero__inner {
+    position: relative;
+    padding-block: 8rem 4.5rem;
+  }
+  .hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    border: 1px solid var(--line-strong);
+    background: rgba(255, 255, 255, 0.04);
+    padding: 0.42rem 0.95rem;
+    border-radius: 999px;
+    margin: 0 0 1.6rem;
+  }
+  .hero__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(52, 225, 196, 0.6);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(52, 225, 196, 0.55);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 9px rgba(52, 225, 196, 0);
+    }
+  }
+
+  .hero__title {
+    font-size: clamp(3.4rem, 14vw, 8.5rem);
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+  .hero__year {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: clamp(1rem, 3.5vw, 1.8rem);
+    letter-spacing: 0.5em;
+    color: var(--ink-soft);
+    margin-top: 1rem;
+    padding-left: 0.5em;
+  }
+  .hero__tagline {
+    font-size: clamp(1.25rem, 4vw, 1.9rem);
+    font-family: var(--display);
+    font-weight: 500;
+    color: var(--ink);
+    margin: 1.8rem auto 0;
+    max-width: 22ch;
+  }
+  .hero__sub {
+    color: var(--ink-soft);
+    max-width: 56ch;
+    margin: 1rem auto 0;
+    font-size: clamp(1rem, 2.4vw, 1.12rem);
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    justify-content: center;
+    margin-top: 2.4rem;
+  }
+
+  .countdown {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: clamp(0.5rem, 2.5vw, 1.3rem);
+    margin: 3rem auto 0;
+    padding: 1.1rem 1.6rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: rgba(13, 13, 26, 0.5);
+    backdrop-filter: blur(6px);
+  }
+  .countdown__unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 52px;
+  }
+  .countdown__unit span {
+    font-family: var(--mono);
+    font-size: clamp(1.7rem, 6vw, 2.6rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .countdown__unit small {
+    margin-top: 0.5rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .countdown__sep {
+    font-family: var(--mono);
+    font-size: clamp(1.4rem, 5vw, 2.2rem);
+    color: var(--violet);
+    line-height: 1;
+    margin-top: 0.1em;
+  }
+  .countdown__done {
+    font-family: var(--display);
+    font-size: clamp(1.2rem, 4vw, 1.7rem);
+    color: var(--teal);
+    margin: 2.6rem auto 0;
+  }
+
+  .hero__stats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(1.4rem, 6vw, 3.6rem);
+    margin: 3.2rem 0 0;
+  }
+  .hero__stat dt {
+    font-family: var(--display);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .hero__stat dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+</style>
+
+<script>
+  const root = document.querySelector('[data-countdown]');
+  const done = document.querySelector('[data-done]');
+  if (root) {
+    const target = new Date(root.getAttribute('data-target') || '').getTime();
+    const elD = root.querySelector('[data-d]');
+    const elH = root.querySelector('[data-h]');
+    const elM = root.querySelector('[data-m]');
+    const elS = root.querySelector('[data-s]');
+    const pad = (n: number) => String(n).padStart(2, '0');
+
+    const tick = () => {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        root.setAttribute('hidden', '');
+        done?.removeAttribute('hidden');
+        return false;
+      }
+      const s = Math.floor(diff / 1000);
+      if (elD) elD.textContent = String(Math.floor(s / 86400));
+      if (elH) elH.textContent = pad(Math.floor((s % 86400) / 3600));
+      if (elM) elM.textContent = pad(Math.floor((s % 3600) / 60));
+      if (elS) elS.textContent = pad(s % 60);
+      return true;
+    };
+
+    if (tick()) {
+      const id = setInterval(() => {
+        if (!tick()) clearInterval(id);
+      }, 1000);
+    }
+  }
+</script>

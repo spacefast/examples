@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostList from '../../components/PostList.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+  const tags = new Set<string>();
+  for (const post of posts) for (const tag of post.data.tags) tags.add(tag);
+
+  return [...tags].map((tag) => {
+    const tagged = posts
+      .filter((p) => p.data.tags.includes(tag))
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    return { params: { tag }, props: { tag, posts: tagged } };
+  });
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Layout
+  title={`#${tag}`}
+  description={`Posts tagged ${tag} on Margins.`}
+  current="/tags/"
+>
+  <div class="wrap">
+    <h1 class="page-title">#{tag}</h1>
+    <p class="lede">
+      {posts.length} {posts.length === 1 ? 'post' : 'posts'} tagged
+      <strong>{tag}</strong>. <a href="/tags/" style="color:var(--accent)">See all tags →</a>
+    </p>
+    <div class="section-label">Posts</div>
+    <PostList posts={posts} />
+  </div>
+</Layout>

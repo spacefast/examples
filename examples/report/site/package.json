@@ -1,0 +1,14 @@
+{
+  "name": "state-of-indie-web-2025",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.0.0"
+  }
+}

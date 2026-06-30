@@ -1,0 +1,109 @@
+---
+import { features } from '../data/site';
+
+const icons: Record<string, string> = {
+  bolt: 'M13 2 4 14h6l-1 8 9-12h-6l1-8Z',
+  shield: 'M12 2 4 5v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V5l-8-3Z',
+  spark: 'M12 2v6m0 8v6m10-10h-6M8 12H2m15.5-5.5-4 4m-7 7-4 4m0-15 4 4m7 7 4 4',
+  plug: 'M9 2v6m6-6v6M6 8h12v3a6 6 0 0 1-12 0V8Zm6 9v5',
+  eye: 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  undo: 'M3 9h11a5 5 0 0 1 0 10H8M3 9l4-4M3 9l4 4',
+};
+---
+
+<section class="section features" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Why Drift</p>
+      <h2>A migration tool that gets out of your way</h2>
+      <p>
+        Drift owns one job — keeping your schema and your database in sync — and does it
+        fast, safely, and in plain SQL you can read.
+      </p>
+    </div>
+
+    <ul class="features__grid">
+      {
+        features.map((f) => (
+          <li class="feature">
+            <span class="feature__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d={icons[f.icon]}
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <h3 class="feature__title">{f.title}</h3>
+            <p class="feature__body">{f.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .features {
+    border-top: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--bg), var(--bg-soft));
+  }
+  .features__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  .feature {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    padding: 1.6rem;
+    transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+  }
+  .feature:hover {
+    border-color: var(--line-strong);
+    transform: translateY(-3px);
+    background: var(--panel-2);
+  }
+  .feature__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 11px;
+    color: var(--accent);
+    background: rgba(52, 225, 196, 0.1);
+    border: 1px solid rgba(52, 225, 196, 0.22);
+  }
+  .feature__icon svg {
+    width: 22px;
+    height: 22px;
+  }
+  .feature__title {
+    font-size: 1.18rem;
+    font-weight: 600;
+    margin: 1.1rem 0 0.5rem;
+  }
+  .feature__body {
+    color: var(--ink-soft);
+    font-size: 0.96rem;
+  }
+  @media (min-width: 640px) {
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 960px) {
+    .features__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

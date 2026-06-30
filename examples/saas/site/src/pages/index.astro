@@ -1,0 +1,812 @@
+---
+import Base from "../layouts/Base.astro";
+import ProductMock from "../components/ProductMock.astro";
+import {
+  site,
+  nav,
+  logos,
+  features,
+  stats,
+  testimonials,
+  pricing,
+  faqs,
+  footer,
+} from "../data/site";
+---
+
+<Base
+  title={`${site.name} — ${site.tagline}`}
+  description={site.sub}
+>
+  <!-- ===================== NAV ===================== -->
+  <header class="nav" id="top">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Tideline home">
+        <svg class="logo" viewBox="0 0 32 32" width="26" height="26" aria-hidden="true">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="0" x2="32" y2="32">
+              <stop offset="0" stop-color="#8b7bff" />
+              <stop offset="1" stop-color="#4cc2ff" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M3 18c2.6 0 2.6-3.4 5.2-3.4S10.8 18 13.4 18 16 14.6 18.6 14.6 21.2 18 23.8 18 26.4 14.6 29 14.6"
+            fill="none" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round"
+          />
+          <path
+            d="M3 24c2.6 0 2.6-3.4 5.2-3.4S10.8 24 13.4 24 16 20.6 18.6 20.6 21.2 24 23.8 24 26.4 20.6 29 20.6"
+            fill="none" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round" opacity="0.45"
+          />
+        </svg>
+        <span>Tideline</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        {nav.map((l) => <a href={l.href}>{l.label}</a>)}
+      </nav>
+
+      <div class="nav-cta">
+        <a class="signin" href="#pricing">Sign in</a>
+        <a class="btn btn-primary" href="#cta">Start free</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero">
+    <div class="container">
+      <a class="badge-pill" href="#features">
+        <span class="ping"></span> New — Realtime sync v2 is live
+        <span aria-hidden="true">→</span>
+      </a>
+      <h1>{site.tagline}</h1>
+      <p class="lede">{site.sub}</p>
+
+      <form class="signup" id="hero-form" novalidate>
+        <label class="sr" for="hero-email">Work email</label>
+        <input
+          id="hero-email"
+          name="email"
+          type="email"
+          inputmode="email"
+          autocomplete="email"
+          placeholder="you@company.com"
+          required
+        />
+        <button class="btn btn-grad" type="submit">Start free</button>
+        <p class="signup-ok" id="hero-ok" role="status" aria-live="polite" hidden>
+          You're in — check <b id="hero-ok-email">your inbox</b> for the magic link.
+        </p>
+      </form>
+      <p class="micro">Free for up to 10 members · No credit card · SOC 2 Type II</p>
+
+      <div class="hero-shot">
+        <ProductMock variant="hero" label="tideline.app — Northwind / Web" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOGO CLOUD ===================== -->
+  <section class="logos" aria-label="Companies using Tideline">
+    <div class="container">
+      <p class="logos-kicker">Trusted by product teams shipping every day</p>
+      <div class="logo-row">
+        {logos.map((name) => <span class="logo-word">{name}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEATURES ===================== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Everything in one place</span>
+        <h2>The tracker that gets out of your way</h2>
+        <p>
+          Tideline replaces the sprawl of trackers, spreadsheets, and status
+          docs with one fast, opinionated tool — from a single issue to the
+          whole roadmap.
+        </p>
+      </div>
+
+      <div class="features">
+        {features.map((f) => (
+          <div class={`feature ${f.align === "right" ? "rev" : ""}`}>
+            <div class="feature-copy">
+              <span class="eyebrow">{f.eyebrow}</span>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+              <ul class="checks">
+                {f.points.map((p) => (
+                  <li>
+                    <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true">
+                      <circle cx="10" cy="10" r="9" fill="rgba(139,123,255,0.16)" />
+                      <path d="M6 10.4l2.6 2.6L14 7.6" fill="none" stroke="#8b7bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div class="feature-shot">
+              <ProductMock variant={f.mock as any} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STAT BAND ===================== -->
+  <section class="stats-band">
+    <div class="container">
+      <div class="stats-head">
+        <span class="eyebrow" style="justify-content:center">By the numbers</span>
+        <h2>Teams ship 30% faster on Tideline</h2>
+      </div>
+      <div class="stats-grid">
+        {stats.map((s) => (
+          <div class="stat-card">
+            <span class="stat-v">{s.value}</span>
+            <span class="stat-l">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TESTIMONIALS ===================== -->
+  <section class="section" id="customers">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Customers</span>
+        <h2>Loved by the people who plan the work</h2>
+      </div>
+      <div class="quotes">
+        {testimonials.map((t) => (
+          <figure class="quote card">
+            <blockquote>"{t.quote}"</blockquote>
+            <figcaption>
+              <img
+                class="avatar"
+                src={t.avatar}
+                width="44"
+                height="44"
+                loading="lazy"
+                alt={`Portrait of ${t.name}`}
+              />
+              <span class="q-meta">
+                <b>{t.name}</b>
+                <span>{t.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING ===================== -->
+  <section class="section" id="pricing">
+    <div class="container">
+      <div class="section-head" style="margin-inline:auto;text-align:center">
+        <span class="eyebrow" style="justify-content:center">Pricing</span>
+        <h2>Simple plans that scale with the team</h2>
+        <p style="margin-inline:auto">
+          Start free, upgrade when you outgrow it. Every paid plan is billed only
+          for active members.
+        </p>
+      </div>
+
+      <div class="plans">
+        {pricing.map((p) => (
+          <div class={`plan ${p.featured ? "featured" : ""}`}>
+            {p.featured && <span class="plan-flag">Most popular</span>}
+            <h3 class="plan-name">{p.name}</h3>
+            <p class="plan-blurb">{p.blurb}</p>
+            <div class="plan-price">
+              <span class="amt">{p.price}</span>
+              <span class="cad">{p.cadence}</span>
+            </div>
+            <a
+              class={`btn ${p.ctaStyle === "grad" ? "btn-grad" : "btn-ghost"} plan-cta`}
+              href="#cta"
+            >
+              {p.cta}
+            </a>
+            <ul class="plan-feats">
+              {p.features.map((feat) => (
+                <li>
+                  <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                    <path d="M3.5 8.5l3 3L13 5" fill="none" stroke="#8b7bff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  {feat}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section class="section faq" id="faq">
+    <div class="container faq-inner">
+      <div class="section-head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Questions, answered</h2>
+        <p>Still curious? Email <a class="ilink" href="#cta">hello@tideline.app</a> and a human will reply.</p>
+      </div>
+      <div class="faq-list">
+        {faqs.map((f, i) => (
+          <details class="faq-item" open={i === 0}>
+            <summary>
+              <span>{f.q}</span>
+              <svg class="chev" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER CTA ===================== -->
+  <section class="cta" id="cta">
+    <div class="container">
+      <div class="cta-card">
+        <h2>Plan your next cycle in Tideline</h2>
+        <p>Set up your workspace in under two minutes. Free for up to 10 members.</p>
+        <form class="signup signup-cta" id="cta-form" novalidate>
+          <label class="sr" for="cta-email">Work email</label>
+          <input
+            id="cta-email"
+            name="email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            placeholder="you@company.com"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Start free</button>
+          <p class="signup-ok" id="cta-ok" role="status" aria-live="polite" hidden>
+            You're in — check <b id="cta-ok-email">your inbox</b> to finish setup.
+          </p>
+        </form>
+        <p class="micro">No credit card required · Cancel anytime</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="foot">
+    <div class="container foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top">
+          <svg class="logo" viewBox="0 0 32 32" width="24" height="24" aria-hidden="true">
+            <path
+              d="M3 18c2.6 0 2.6-3.4 5.2-3.4S10.8 18 13.4 18 16 14.6 18.6 14.6 21.2 18 23.8 18 26.4 14.6 29 14.6"
+              fill="none" stroke="url(#lg)" stroke-width="2.6" stroke-linecap="round"
+            />
+          </svg>
+          <span>Tideline</span>
+        </a>
+        <p class="foot-tag">The issue tracker for teams that ship.</p>
+        <div class="foot-social" aria-label="Social links">
+          <a href="#top" aria-label="Tideline on X">X</a>
+          <a href="#top" aria-label="Tideline on GitHub">GitHub</a>
+          <a href="#top" aria-label="Tideline on LinkedIn">in</a>
+        </div>
+      </div>
+      {footer.columns.map((col) => (
+        <div class="foot-col">
+          <h4>{col.title}</h4>
+          <ul>
+            {col.links.map((link) => <li><a href="#top">{link}</a></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="container foot-base">
+      <span>© 2026 Tideline, Inc.</span>
+      <span class="foot-legal">
+        <a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Security</a>
+      </span>
+    </div>
+  </footer>
+
+  <script is:inline>
+    // Email signup → friendly success state (no backend).
+    function wire(formId, okId, okEmailId) {
+      var form = document.getElementById(formId);
+      if (!form) return;
+      var ok = document.getElementById(okId);
+      var okEmail = document.getElementById(okEmailId);
+      var input = form.querySelector('input[type="email"]');
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!input.value || !input.checkValidity()) {
+          input.focus();
+          input.reportValidity && input.reportValidity();
+          return;
+        }
+        okEmail.textContent = input.value;
+        ok.hidden = false;
+        input.disabled = true;
+        var btn = form.querySelector("button");
+        if (btn) { btn.disabled = true; btn.textContent = "Sent ✓"; }
+      });
+    }
+    wire("hero-form", "hero-ok", "hero-ok-email");
+    wire("cta-form", "cta-ok", "cta-ok-email");
+
+    // Subtle elevation on the nav once the page scrolls.
+    var header = document.querySelector(".nav");
+    var onScroll = function () {
+      if (window.scrollY > 12) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+  </script>
+
+  <style>
+    /* ===================== NAV ===================== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: background 0.2s ease, border-color 0.2s ease;
+      border-bottom: 1px solid transparent;
+    }
+    .nav.scrolled {
+      background: rgba(8, 8, 12, 0.72);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom-color: var(--line);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      height: 64px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 650;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      margin-left: 14px;
+    }
+    .nav-links a {
+      color: var(--text-soft);
+      font-size: 0.92rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .signin {
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--text-soft);
+    }
+    .signin:hover { color: var(--text); }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      padding-top: 64px;
+      padding-bottom: 40px;
+      text-align: center;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--text-soft);
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 100px;
+      padding: 5px 14px;
+      margin-bottom: 28px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .badge-pill:hover { border-color: var(--line-strong); color: var(--text); }
+    .ping {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(81, 216, 138, 0.6);
+      animation: ping 2s ease-out infinite;
+    }
+    @keyframes ping {
+      0% { box-shadow: 0 0 0 0 rgba(81, 216, 138, 0.5); }
+      70% { box-shadow: 0 0 0 7px rgba(81, 216, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(81, 216, 138, 0); }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 1.2rem + 4.6vw, 4.2rem);
+      max-width: 14ch;
+      margin-inline: auto;
+      background: linear-gradient(180deg, #ffffff, #c3c2d8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .lede {
+      max-width: 56ch;
+      margin: 22px auto 0;
+      color: var(--text-soft);
+      font-size: clamp(1rem, 0.9rem + 0.5vw, 1.18rem);
+    }
+    .signup {
+      display: flex;
+      gap: 9px;
+      max-width: 440px;
+      margin: 30px auto 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .signup input {
+      flex: 1;
+      min-width: 220px;
+      height: 46px;
+      padding-inline: 16px;
+      border-radius: 11px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text);
+      font-size: 0.96rem;
+      font-family: inherit;
+    }
+    .signup input::placeholder { color: var(--text-dim); }
+    .signup input:focus { background: rgba(255, 255, 255, 0.07); }
+    .signup .btn { height: 46px; padding-inline: 22px; }
+    .signup-ok {
+      flex-basis: 100%;
+      margin-top: 4px;
+      color: var(--green);
+      font-size: 0.9rem;
+    }
+    .signup-ok b { color: var(--text); }
+    .micro {
+      margin-top: 16px;
+      color: var(--text-dim);
+      font-size: 0.82rem;
+    }
+    .hero-shot {
+      max-width: 1000px;
+      margin: 56px auto 0;
+      perspective: 1600px;
+    }
+    .hero-shot :global(.mock) {
+      animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(28px) rotateX(8deg); }
+      to { opacity: 1; transform: translateY(0) rotateX(0); }
+    }
+    .sr {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+
+    /* ===================== LOGOS ===================== */
+    .logos { padding-block: 30px 12px; }
+    .logos-kicker {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.84rem;
+      margin-bottom: 22px;
+    }
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px 44px;
+      opacity: 0.72;
+    }
+    .logo-word {
+      font-weight: 650;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+      color: var(--text-soft);
+      filter: grayscale(1);
+    }
+
+    /* ===================== FEATURES ===================== */
+    .features {
+      display: flex;
+      flex-direction: column;
+      gap: 72px;
+      margin-top: 56px;
+    }
+    .feature {
+      display: grid;
+      grid-template-columns: 1fr 1.12fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .feature.rev .feature-copy { order: 2; }
+    .feature.rev .feature-shot { order: 1; }
+    .feature-copy h3 {
+      font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem);
+      margin: 14px 0 14px;
+    }
+    .feature-copy > p {
+      color: var(--text-soft);
+      font-size: 1.04rem;
+    }
+    .checks {
+      list-style: none;
+      margin: 22px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .checks li {
+      display: flex;
+      gap: 11px;
+      align-items: flex-start;
+      color: var(--text);
+      font-size: 0.97rem;
+    }
+    .checks svg { flex: none; margin-top: 1px; }
+    .feature-shot { min-width: 0; }
+
+    /* ===================== STAT BAND ===================== */
+    .stats-band {
+      padding-block: 76px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(600px 300px at 50% 0%, rgba(139, 123, 255, 0.1), transparent 70%),
+        var(--bg-soft);
+    }
+    .stats-head { text-align: center; margin-bottom: 44px; }
+    .stats-head h2 { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.5rem); margin-top: 12px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 28px 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .stat-v {
+      display: block;
+      font-size: clamp(2rem, 1.4rem + 2.4vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .stat-l { color: var(--text-soft); font-size: 0.9rem; }
+
+    /* ===================== TESTIMONIALS ===================== */
+    .quotes {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+    .quote { padding: 26px; display: flex; flex-direction: column; gap: 22px; }
+    .quote blockquote {
+      margin: 0;
+      font-size: 1rem;
+      color: var(--text);
+      line-height: 1.62;
+    }
+    .quote figcaption { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .avatar { border-radius: 50%; border: 1px solid var(--line-strong); }
+    .q-meta { display: flex; flex-direction: column; line-height: 1.35; }
+    .q-meta b { color: var(--text); font-size: 0.92rem; }
+    .q-meta span { color: var(--text-dim); font-size: 0.84rem; }
+
+    /* ===================== PRICING ===================== */
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .plan {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 28px 26px;
+      background: linear-gradient(180deg, var(--surface), var(--bg-soft));
+      display: flex;
+      flex-direction: column;
+    }
+    .plan.featured {
+      border-color: rgba(139, 123, 255, 0.5);
+      background:
+        radial-gradient(420px 220px at 50% -10%, rgba(139, 123, 255, 0.16), transparent 70%),
+        linear-gradient(180deg, var(--surface-2), var(--bg-soft));
+      box-shadow: 0 24px 60px -28px rgba(109, 92, 240, 0.5);
+    }
+    .plan-flag {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.72rem;
+      font-weight: 650;
+      color: #0a0a12;
+      background: var(--accent-grad);
+      padding: 4px 12px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .plan-name { font-size: 1.2rem; }
+    .plan-blurb { color: var(--text-dim); font-size: 0.88rem; margin-top: 8px; min-height: 38px; }
+    .plan-price { display: flex; align-items: baseline; gap: 8px; margin: 18px 0 20px; }
+    .plan-price .amt { font-size: 2.4rem; font-weight: 700; letter-spacing: -0.03em; }
+    .plan-price .cad { color: var(--text-dim); font-size: 0.86rem; }
+    .plan-cta { width: 100%; }
+    .plan-feats {
+      list-style: none;
+      margin: 24px 0 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+    }
+    .plan-feats li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--text-soft);
+      font-size: 0.9rem;
+    }
+    .plan-feats svg { flex: none; margin-top: 3px; }
+
+    /* ===================== FAQ ===================== */
+    .faq-inner {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+      padding: 4px 0;
+    }
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 2px;
+      font-weight: 600;
+      font-size: 1.02rem;
+      color: var(--text);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item .chev { color: var(--text-dim); transition: transform 0.2s ease; flex: none; }
+    .faq-item[open] .chev { transform: rotate(180deg); }
+    .faq-item p {
+      color: var(--text-soft);
+      font-size: 0.96rem;
+      padding: 0 2px 20px;
+      max-width: 60ch;
+    }
+    .ilink { color: var(--violet); border-bottom: 1px solid rgba(139,123,255,0.4); }
+
+    /* ===================== CTA ===================== */
+    .cta { padding-block: 40px 90px; }
+    .cta-card {
+      text-align: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 24px;
+      padding: 60px 28px;
+      background:
+        radial-gradient(640px 320px at 50% 0%, rgba(139, 123, 255, 0.22), transparent 72%),
+        radial-gradient(500px 300px at 50% 110%, rgba(76, 194, 255, 0.12), transparent 70%),
+        var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card h2 { font-size: clamp(1.8rem, 1.2rem + 2.4vw, 2.7rem); }
+    .cta-card > p { color: var(--text-soft); margin-top: 14px; font-size: 1.05rem; }
+    .signup-cta { margin-top: 28px; }
+
+    /* ===================== FOOTER ===================== */
+    .foot {
+      border-top: 1px solid var(--line);
+      padding-top: 56px;
+      padding-bottom: 28px;
+      background: var(--bg-soft);
+    }
+    .foot-grid {
+      display: grid;
+      grid-template-columns: 1.6fr repeat(3, 1fr);
+      gap: 36px;
+      padding-bottom: 44px;
+    }
+    .foot-tag { color: var(--text-dim); font-size: 0.9rem; margin: 14px 0 18px; max-width: 30ch; }
+    .foot-social { display: flex; gap: 10px; }
+    .foot-social a {
+      width: 32px; height: 32px; border-radius: 8px;
+      display: grid; place-items: center;
+      border: 1px solid var(--line);
+      color: var(--text-soft);
+      font-size: 0.8rem; font-weight: 600;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .foot-social a:hover { border-color: var(--line-strong); color: var(--text); }
+    .foot-col h4 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+    .foot-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .foot-col a { color: var(--text-soft); font-size: 0.9rem; }
+    .foot-col a:hover { color: var(--text); }
+    .foot-base {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--text-dim);
+      font-size: 0.84rem;
+    }
+    .foot-legal { display: flex; gap: 20px; }
+    .foot-legal a:hover { color: var(--text); }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .feature, .feature.rev .feature-copy, .feature.rev .feature-shot { grid-template-columns: 1fr; order: initial; }
+      .feature { grid-template-columns: 1fr; gap: 28px; }
+      .feature.rev .feature-shot { order: 2; }
+      .feature.rev .feature-copy { order: 1; }
+      .quotes { grid-template-columns: 1fr; }
+      .plans { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
+      .plan.featured { order: -1; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .faq-inner { grid-template-columns: 1fr; gap: 24px; }
+      .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+    }
+    @media (max-width: 560px) {
+      .nav-cta .signin { display: none; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .foot-grid { grid-template-columns: 1fr; }
+      .foot-base { flex-direction: column; gap: 12px; }
+      .signup .btn { width: 100%; }
+    }
+  </style>
+</Base>

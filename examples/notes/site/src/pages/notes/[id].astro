@@ -1,0 +1,118 @@
+---
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import StatusBadge from '../../components/StatusBadge.astro';
+import { allNotes, buildGraph, STATUS_META, type Note } from '../../lib/garden';
+
+export async function getStaticPaths() {
+  const notes = await allNotes();
+  const graph = await buildGraph(notes);
+  return notes.map((note) => ({
+    params: { id: note.id },
+    props: {
+      note,
+      backlinks: graph.backlinks.get(note.id) ?? [],
+      outgoing: graph.outgoing.get(note.id) ?? [],
+    },
+  }));
+}
+
+interface Props {
+  note: Note;
+  backlinks: Note[];
+  outgoing: Note[];
+}
+const { note, backlinks, outgoing } = Astro.props;
+const { Content } = await render(note);
+const meta = STATUS_META[note.data.status];
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+const sameDay = note.data.planted.getTime() === note.data.updated.getTime();
+---
+
+<Layout title={note.data.title} description={note.data.summary}>
+  <article class={`note note--${note.data.status}`}>
+    <div class="wrap note__wrap">
+      <header class="note__head">
+        <nav class="crumbs" aria-label="Breadcrumb">
+          <a href="/">Glasshouse</a>
+          <span aria-hidden="true">/</span>
+          <span>note</span>
+        </nav>
+        <div class="note__status">
+          <StatusBadge status={note.data.status} />
+          <span class="note__statusblurb">{meta.blurb}</span>
+        </div>
+        <h1 class="note__title">{note.data.title}</h1>
+        <p class="note__summary">{note.data.summary}</p>
+        <dl class="note__meta">
+          <div>
+            <dt>Planted</dt>
+            <dd><time datetime={note.data.planted.toISOString()}>{fmt(note.data.planted)}</time></dd>
+          </div>
+          {!sameDay && (
+            <div>
+              <dt>Last tended</dt>
+              <dd><time datetime={note.data.updated.toISOString()}>{fmt(note.data.updated)}</time></dd>
+            </div>
+          )}
+          {note.data.tags.length > 0 && (
+            <div>
+              <dt>Tags</dt>
+              <dd class="note__tags">
+                {note.data.tags.map((t) => <span class="tag">#{t}</span>)}
+              </dd>
+            </div>
+          )}
+        </dl>
+      </header>
+
+      <div class="note__body flow">
+        <Content />
+      </div>
+
+      <footer class="note__foot">
+        {outgoing.length > 0 && (
+          <section class="panel">
+            <h2 class="panel__head">Links out <span>{outgoing.length}</span></h2>
+            <ul class="panel__list">
+              {outgoing.map((n) => (
+                <li>
+                  <a href={`/notes/${n.id}/`}>
+                    <StatusBadge status={n.data.status} withLabel={false} />
+                    <span class="panel__title">{n.data.title}</span>
+                    <span class="panel__summary">{n.data.summary}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <section class="panel panel--back">
+          <h2 class="panel__head">Linked from <span>{backlinks.length}</span></h2>
+          {backlinks.length > 0 ? (
+            <ul class="panel__list">
+              {backlinks.map((n) => (
+                <li>
+                  <a href={`/notes/${n.id}/`}>
+                    <StatusBadge status={n.data.status} withLabel={false} />
+                    <span class="panel__title">{n.data.title}</span>
+                    <span class="panel__summary">{n.data.summary}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p class="panel__empty">
+              Nothing points here yet — this note is a quiet corner of the garden.
+            </p>
+          )}
+        </section>
+
+        <a class="note__back" href="/#index">← Back to the index</a>
+      </footer>
+    </div>
+  </article>
+</Layout>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Offcuts</title>
+  <meta name="description" content="Offcuts is written by Mara Ellison, a designer and writer in Bristol. Here's the why behind the weekly letter." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="masthead__inner">
+      <a class="brand" href="index.html" aria-label="Offcuts home">
+        <span class="brand__mark">Offcuts</span>
+        <span class="brand__cut">Issue 87</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="archive.html">Archive</a>
+        <a href="about.html" aria-current="page">About</a>
+        <a class="nav__sub" href="subscribe.html">Subscribe</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <div class="page-head">
+        <p class="kicker">The person behind the letter</p>
+        <h1>Hi, I’m Mara.</h1>
+      </div>
+
+      <div class="about-grid">
+        <img src="https://picsum.photos/seed/offcuts-newsletter-4/480/600"
+             alt="Mara Ellison at her desk, lit by soft window light, looking toward the camera" />
+        <div class="prose" style="font-size:1.12rem">
+          <p style="margin-top:0">
+            I’m a designer and writer in Bristol. For fifteen years I’ve made things
+            for screens — interfaces, type, the occasional book — mostly for small
+            studios and stubborn independent companies who care more about getting it
+            right than getting it fast.
+          </p>
+          <p>
+            <strong>Offcuts</strong> started in 2023 as a way to keep the good scraps.
+            Every week I’d come across something — an essay, a tool, a turn of phrase,
+            a way of working — that didn’t fit into any project but felt too good to
+            lose. The newsletter is that pile, trimmed and tidied, sent to anyone who
+            wants it. The name is a workshop word: an offcut is the piece left over
+            after the cut. Useful, just not for the thing you were making.
+          </p>
+          <p>
+            The whole letter is written by hand. No AI summaries, no automated
+            “content,” no tracking pixels watching whether you opened it. If a link is
+            in here, it’s because I read the whole thing. If a tool is in here, it’s
+            because I actually used it. That’s the only editorial rule, and it’s the
+            one I’m proudest of.
+          </p>
+
+          <h2>Why it’s free</h2>
+          <p>
+            Because the best thing about a newsletter is forwarding it, and paywalls
+            kill that. Offcuts will always be free to read and free to leave. If you
+            ever want to support it, the most valuable thing you can do is send one
+            issue to one person who’d like it.
+          </p>
+
+          <div class="stats">
+            <div class="stat"><b>87</b><span>Issues sent</span></div>
+            <div class="stat"><b>6,400</b><span>Readers</span></div>
+            <div class="stat"><b>Thu</b><span>Every week</span></div>
+            <div class="stat"><b>£0</b><span>Forever</span></div>
+          </div>
+
+          <p class="signature">— Mara Ellison</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="subscribe subscribe--lg">
+          <h2>Read along with me</h2>
+          <p>If any of that sounds like your kind of thing, the next issue is yours.</p>
+          <form class="subscribe__form" novalidate>
+            <div class="subscribe__field">
+              <label for="email-about">Your email</label>
+              <input id="email-about" type="email" name="email" required
+                     autocomplete="email" placeholder="you@studio.com" />
+            </div>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+          <p class="subscribe__meta">Free, weekly, one-click unsubscribe.</p>
+          <p class="subscribe__ok">
+            <span class="check" aria-hidden="true">✓</span>
+            <span>Lovely to have you, <strong class="subscribe__ok-name">friend</strong>. See you Thursday.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="foot__inner">
+      <div class="foot__brand">
+        <span class="brand__mark">Offcuts</span>
+        <p>A weekly trim of design, craft, and the slow web. Written by hand in Bristol, every Thursday since 2023.</p>
+      </div>
+      <div>
+        <h4>Read</h4>
+        <ul>
+          <li><a href="index.html">Latest issue</a></li>
+          <li><a href="archive.html">Archive</a></li>
+          <li><a href="about.html">About Mara</a></li>
+          <li><a href="subscribe.html">Subscribe</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Elsewhere</h4>
+        <ul>
+          <li><a href="https://example.com" rel="noopener">RSS feed</a></li>
+          <li><a href="https://example.com" rel="noopener">Mastodon</a></li>
+          <li><a href="https://example.com" rel="noopener">Bluesky</a></li>
+          <li><a href="mailto:mara@offcuts.email">mara@offcuts.email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__legal">
+      <span>© <span data-year>2026</span> Offcuts · Mara Ellison</span>
+      <span>Made with attention, not automation.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="https://spacefast.com/badge.js" data-example="newsletter"></script>
+</body>
+</html>

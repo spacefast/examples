@@ -1,0 +1,3 @@
+# The Tidal Wolves
+
+A bold, full-bleed one-page band site for a fictional Portland indie-folk quartet, built as a no-build-step vanilla-JS app (`site/index.html` plus a CSS and JS file). It pairs a moody coastal hero with a working sticky bottom audio player (play/pause, seek, prev/next, click-a-song-to-load), a clickable tracklist, a tour-date list with sold-out and "few left" states, a merch shelf, an "About" lineup, a booking/press block, and a mailing-list signup that validates input and remembers returning visitors via localStorage. `prompt.md` is the copy-paste prompt that recreates the site from a few answers and publishes it live to Spacefast.

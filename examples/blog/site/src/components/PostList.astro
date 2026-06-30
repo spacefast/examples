@@ -1,0 +1,33 @@
+---
+import { formatDate, isoDate, readingTime } from '../lib/site';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+}
+const { posts } = Astro.props;
+---
+
+<ul class="posts">
+  {
+    posts.map((post) => (
+      <li class="post-item">
+        <time datetime={isoDate(post.data.pubDate)}>
+          {formatDate(post.data.pubDate)}
+        </time>
+        <h2>
+          <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
+        <div class="post-meta-row">
+          {post.data.tags.map((tag) => (
+            <a class="tag" href={`/tags/${tag}/`}>
+              #{tag}
+            </a>
+          ))}
+          <span class="read-min">· {readingTime(post.body ?? '')} min read</span>
+        </div>
+      </li>
+    ))
+  }
+</ul>

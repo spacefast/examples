@@ -1,0 +1,139 @@
+---
+// Usage vs. satisfaction, two horizontal bars per tool.
+// Usage = how many people used it; satisfaction = how many would use it again.
+interface Tool {
+  label: string;
+  usage: number;
+  sat: number;
+}
+interface Props {
+  tools: Tool[];
+}
+const { tools } = Astro.props as Props;
+---
+
+<div class="toolbars">
+  {
+    tools.map((t, i) => (
+      <div class="tb-row" style={`--d:${i * 50}ms`}>
+        <div class="tb-name">{t.label}</div>
+        <div class="tb-metric">
+          <span class="tb-tag">used</span>
+          <span class="tb-track">
+            <span class="tb-fill usage" style={`--w:${t.usage}%`} />
+          </span>
+          <span class="num tb-val">{t.usage}%</span>
+        </div>
+        <div class="tb-metric">
+          <span class="tb-tag">would use again</span>
+          <span class="tb-track">
+            <span class="tb-fill sat" style={`--w:${t.sat}%`} />
+          </span>
+          <span class="num tb-val">{t.sat}%</span>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .toolbars {
+    display: grid;
+    gap: 18px;
+  }
+  .tb-row {
+    display: grid;
+    grid-template-columns: minmax(78px, 110px) 1fr;
+    gap: 6px 16px;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: tbin 0.5s ease forwards;
+    animation-delay: var(--d);
+  }
+  @keyframes tbin {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tb-row {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+  .tb-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 15px;
+    grid-row: span 2;
+  }
+  .tb-metric {
+    display: grid;
+    grid-template-columns: 108px 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+  .tb-tag {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-3);
+    text-align: right;
+  }
+  .tb-track {
+    height: 10px;
+    background: var(--line-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .tb-fill {
+    display: block;
+    height: 100%;
+    width: var(--w);
+    border-radius: 6px;
+    transform-origin: left;
+    animation: tbgrow 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .tb-fill.usage {
+    background: var(--c5);
+  }
+  .tb-fill.sat {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  }
+  @keyframes tbgrow {
+    from {
+      transform: scaleX(0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tb-fill {
+      animation: none;
+    }
+  }
+  .tb-val {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    min-width: 34px;
+    text-align: right;
+  }
+  @media (max-width: 560px) {
+    .tb-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .tb-name {
+      grid-row: auto;
+    }
+    .tb-metric {
+      grid-template-columns: 92px 1fr auto;
+    }
+    .tb-tag {
+      font-size: 10px;
+    }
+  }
+</style>

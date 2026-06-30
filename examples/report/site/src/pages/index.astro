@@ -1,0 +1,696 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BarChart from '../components/BarChart.astro';
+import DonutChart from '../components/DonutChart.astro';
+import HBarChart from '../components/HBarChart.astro';
+import ToolBars from '../components/ToolBars.astro';
+import HostingBars from '../components/HostingBars.astro';
+import PainPoints from '../components/PainPoints.astro';
+import DivergingBars from '../components/DivergingBars.astro';
+import {
+  meta,
+  headline,
+  methodology,
+  experience,
+  companySize,
+  role,
+  countries,
+  tools,
+  hosting,
+  painPoints,
+  sentiment,
+  sentimentScale,
+  takeaways,
+  appendix,
+} from '../data/survey';
+
+const toc = [
+  { id: 'methodology', label: 'Methodology' },
+  { id: 'demographics', label: 'Demographics' },
+  { id: 'tools', label: 'Tools & frameworks' },
+  { id: 'hosting', label: 'Hosting' },
+  { id: 'pain', label: 'Pain points' },
+  { id: 'sentiment', label: 'Sentiment' },
+  { id: 'takeaways', label: 'Takeaways' },
+  { id: 'appendix', label: 'Appendix' },
+];
+---
+
+<Layout>
+  <!-- ======================= HERO ======================= -->
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <p class="hero-kicker num">Annual community survey · {meta.year} edition</p>
+      <h1 class="hero-title">
+        The State of the<br /><span class="grad">Indie Web</span>
+      </h1>
+      <p class="hero-lede">{meta.tagline}</p>
+
+      <ul class="hero-stats">
+        {
+          headline.map((h) => (
+            <li>
+              <span class="num hs-val">{h.value}</span>
+              <span class="hs-label">{h.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="hero-by">
+        Published by <a href={meta.publisherUrl}>{meta.publisher}</a> · Fieldwork
+        {meta.fieldStart}–{meta.fieldEnd}
+      </p>
+
+      <a href="#methodology" class="hero-scroll" aria-label="Scroll to the report">
+        Read the report <span aria-hidden="true">↓</span>
+      </a>
+    </div>
+    <div class="hero-photo" aria-hidden="true"></div>
+  </header>
+
+  <!-- floating table of contents -->
+  <nav class="toc" data-toc aria-label="Sections">
+    <ul>
+      {
+        toc.map((t) => (
+          <li>
+            <a href={`#${t.id}`}>
+              <span class="toc-dot" />
+              {t.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ==================== METHODOLOGY ==================== -->
+    <section id="methodology" class="section">
+      <div class="wrap reveal">
+        <p class="eyebrow">01 — Methodology</p>
+        <h2 class="section-title">How this survey was run</h2>
+        <div class="prose">
+          {methodology.map((p) => <p>{p}</p>)}
+        </div>
+        <dl class="meta-grid">
+          <div>
+            <dt>Responses</dt>
+            <dd class="num">{meta.respondents.toLocaleString()}</dd>
+          </div>
+          <div>
+            <dt>Countries</dt>
+            <dd class="num">{meta.countries}</dd>
+          </div>
+          <div>
+            <dt>In the field</dt>
+            <dd class="num">{meta.fieldDays} days</dd>
+          </div>
+          <div>
+            <dt>Completion</dt>
+            <dd class="num">{meta.completionRate}%</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- ==================== DEMOGRAPHICS ==================== -->
+    <section id="demographics" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">02 — Who answered</p>
+          <h2 class="section-title">A community of mostly one</h2>
+          <p class="lede">
+            The 2025 respondent is, more than ever, a single person: experienced,
+            full-stack, and running their own shop. Here is the shape of who showed up.
+          </p>
+        </div>
+
+        <div class="grid-2 demo-grid">
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h3>Years building for the web</h3>
+              <span class="panel-sub">single choice</span>
+            </div>
+            <BarChart bars={experience.bars} unit={experience.unit} />
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h3>Team size</h3>
+              <span class="panel-sub">single choice</span>
+            </div>
+            <DonutChart slices={companySize.slices} centerLabel={companySize.centerLabel} />
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h3>Primary role</h3>
+              <span class="panel-sub">single choice</span>
+            </div>
+            <DonutChart slices={role.slices} centerLabel={role.centerLabel} />
+          </div>
+
+          <div class="panel reveal">
+            <div class="panel-head">
+              <h3>Where they're based</h3>
+              <span class="panel-sub">top responses</span>
+            </div>
+            <HBarChart bars={countries.bars} unit={countries.unit} />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TOOLS ==================== -->
+    <section id="tools" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">03 — Tools & frameworks</p>
+          <h2 class="section-title">Used a lot ≠ loved a lot</h2>
+          <p class="lede">
+            We asked which tools people reached for this year, and — separately —
+            which they'd happily use again. The gap between the two is the whole story:
+            React leads on reach, but the lighter, newer tools own satisfaction.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h3>Usage vs. would-use-again</h3>
+            <span class="panel-sub">sorted by satisfaction</span>
+          </div>
+          <ToolBars tools={tools} />
+        </div>
+        <p class="callout reveal">
+          <strong>The takeaway in one line:</strong> Astro (92%), Svelte (89%), and HTMX
+          (86%) top satisfaction; React (61%) and Next.js (58%) sit at the bottom despite
+          leading usage — and "no framework at all" climbed to 44%.
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== HOSTING ==================== -->
+    <section id="hosting" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">04 — Hosting & deployment</p>
+          <h2 class="section-title">The static-first wave</h2>
+          <p class="lede">
+            Where do indie builders actually ship? Share of respondents who deployed to
+            each platform at least once this year, with the change since the 2024 survey.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h3>Platforms shipped to this year</h3>
+            <span class="panel-sub">% of respondents · Δ vs 2024</span>
+          </div>
+          <HostingBars hosts={hosting} />
+        </div>
+        <p class="callout reveal">
+          <strong>Mover of the year:</strong> Cloudflare Pages (+7), with a cohort of
+          newer static hosts — including first-year entrant Spacefast at 18% — chipping
+          away at the incumbents. The recurring write-in: <em>"I want to push files and
+          get a URL, not configure a platform."</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- ==================== PAIN POINTS ==================== -->
+    <section id="pain" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">05 — Pain points</p>
+          <h2 class="section-title">What keeps indie builders up at night</h2>
+          <p class="lede">
+            Respondents picked up to three. Churn and burnout top the list — and notice
+            how many of the leaders are about the <em>person</em>, not the code.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <div class="panel-head">
+            <h3>Biggest pain points</h3>
+            <span class="panel-sub">pick up to 3 · votes</span>
+          </div>
+          <PainPoints items={painPoints} />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SENTIMENT ==================== -->
+    <section id="sentiment" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">06 — Sentiment</p>
+          <h2 class="section-title">Tired, but optimistic</h2>
+          <p class="lede">
+            Six statements about the web platform, each on a five-point agree/disagree
+            scale. The bars diverge from a shared centre line — agreement to the right,
+            disagreement to the left.
+          </p>
+        </div>
+        <div class="panel reveal">
+          <DivergingBars items={sentiment} scale={sentimentScale} />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAKEAWAYS ==================== -->
+    <section id="takeaways" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">07 — Editor's takeaways</p>
+          <h2 class="section-title">What changed since last year</h2>
+          <p class="lede">
+            Four things we can't stop thinking about, from <strong>{meta.editor}</strong>,
+            editor of {meta.publisher}.
+          </p>
+        </div>
+        <div class="takeaways">
+          {
+            takeaways.map((t) => (
+              <article class="take panel reveal">
+                <div class="take-head">
+                  <h3>{t.heading}</h3>
+                  <span class={`take-delta ${t.deltaUp ? 'up' : 'down'}`}>
+                    <span aria-hidden="true">{t.deltaUp ? '▲' : '▼'}</span> {t.delta}
+                  </span>
+                </div>
+                <p>{t.body}</p>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== APPENDIX ==================== -->
+    <section id="appendix" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <p class="eyebrow">08 — Appendix</p>
+          <h2 class="section-title">Full respondent counts</h2>
+          <p class="lede">
+            Raw numbers behind every chart above, for anyone who wants to check our math
+            or cite a figure.
+          </p>
+        </div>
+        <div class="appendix-grid">
+          {
+            appendix.map((tbl) => (
+              <div class="appx panel reveal">
+                <div class="panel-head">
+                  <h3>{tbl.title}</h3>
+                  <span class="panel-sub">{tbl.note}</span>
+                </div>
+                <table>
+                  <tbody>
+                    {tbl.rows.map((r) => (
+                      <tr>
+                        <th scope="row">{r.label}</th>
+                        <td class="num">{r.count.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site">
+    <div class="wrap foot-inner reveal">
+      <div class="foot-share">
+        <h2 class="foot-title">Share the report</h2>
+        <p>
+          Found a number worth arguing about? Send it to a friend who builds on the
+          side. The full {meta.year} dataset is open and the methodology is above.
+        </p>
+        <div class="foot-actions">
+          <a
+            class="btn btn-primary"
+            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(
+              'The State of the Indie Web 2025 is out — 4,812 solo builders on tools, hosting, and burnout.'
+            )}`}
+            target="_blank"
+            rel="noopener"
+          >
+            Share on Bluesky
+          </a>
+          <a class="btn btn-ghost" href="#methodology">Back to top ↑</a>
+        </div>
+      </div>
+      <div class="foot-meta">
+        <p class="num">{meta.respondents.toLocaleString()} respondents · {meta.countries} countries</p>
+        <p>
+          © {meta.year} {meta.publisher}. An independent, reader-supported survey of the
+          indie web. Numbers are self-reported and rounded.
+        </p>
+        <p class="foot-built">
+          Built with Astro · published on
+          <a href="https://spacefast.com">Spacefast</a>.
+        </p>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: clamp(64px, 12vw, 120px) clamp(48px, 8vw, 80px);
+    border-bottom: 1px solid var(--line);
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+  }
+  .hero-photo {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1600&q=70');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.14;
+    mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 70%, transparent);
+  }
+  .hero-kicker {
+    font-size: 12.5px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin: 0 0 22px;
+  }
+  .hero-title {
+    font-size: clamp(46px, 12vw, 104px);
+    line-height: 0.94;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+  .grad {
+    background: linear-gradient(100deg, var(--accent), var(--accent-2) 60%, var(--accent-warm));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero-lede {
+    margin: 26px 0 0;
+    font-size: clamp(18px, 2.6vw, 22px);
+    line-height: 1.45;
+    color: var(--ink-2);
+    max-width: 46ch;
+  }
+  .hero-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(24px, 6vw, 56px);
+    list-style: none;
+    margin: 38px 0 0;
+    padding: 0;
+  }
+  .hero-stats li {
+    display: flex;
+    flex-direction: column;
+  }
+  .hs-val {
+    font-size: clamp(34px, 6vw, 52px);
+    font-weight: 600;
+    line-height: 1;
+    background: linear-gradient(120deg, var(--ink), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hs-label {
+    margin-top: 6px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .hero-by {
+    margin: 34px 0 0;
+    color: var(--ink-3);
+    font-size: 14.5px;
+  }
+  .hero-scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 30px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+  .hero-scroll:hover {
+    border-color: var(--accent-2);
+    transform: translateY(2px);
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    display: none;
+  }
+  @media (min-width: 1180px) {
+    .toc {
+      display: block;
+      position: fixed;
+      top: 50%;
+      left: max(16px, calc((100vw - var(--maxw)) / 2 - 188px));
+      transform: translateY(-50%);
+      z-index: 20;
+    }
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 4px;
+    }
+    .toc a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--ink-3);
+      text-decoration: none;
+      padding: 5px 8px;
+      border-radius: 7px;
+      transition: color 0.2s ease;
+    }
+    .toc-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--line);
+      flex: none;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    .toc a:hover {
+      color: var(--ink-2);
+    }
+    .toc a[aria-current='true'] {
+      color: var(--ink);
+    }
+    .toc a[aria-current='true'] .toc-dot {
+      background: var(--accent-2);
+      transform: scale(1.4);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent-2) 20%, transparent);
+    }
+  }
+
+  /* ---------- Prose / methodology ---------- */
+  .prose {
+    max-width: 64ch;
+    margin-top: 22px;
+    color: var(--ink-2);
+  }
+  .prose p {
+    margin: 0 0 1em;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    margin: 30px 0 0;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  @media (min-width: 620px) {
+    .meta-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .meta-grid > div {
+    background: var(--panel);
+    padding: 18px 20px;
+  }
+  .meta-grid dt {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-3);
+    font-family: var(--font-mono);
+  }
+  .meta-grid dd {
+    margin: 8px 0 0;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* ---------- Demographics ---------- */
+  .demo-grid {
+    margin-top: 34px;
+  }
+
+  /* ---------- Callout ---------- */
+  .callout {
+    margin: 24px 0 0;
+    padding: 18px 22px;
+    border-left: 3px solid var(--accent-2);
+    background: var(--bg-soft);
+    border-radius: 0 12px 12px 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
+  .callout strong {
+    color: var(--ink);
+  }
+
+  /* ---------- Takeaways ---------- */
+  .takeaways {
+    margin-top: 34px;
+    display: grid;
+    gap: 20px;
+  }
+  @media (min-width: 760px) {
+    .takeaways {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .take-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .take-head h3 {
+    font-size: 21px;
+  }
+  .take p {
+    margin: 0;
+    color: var(--ink-2);
+    font-size: 15.5px;
+  }
+  .take-delta {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    white-space: nowrap;
+    padding: 4px 9px;
+    border-radius: 999px;
+    background: var(--bg-soft);
+  }
+  .take-delta.up {
+    color: var(--pos);
+  }
+  .take-delta.down {
+    color: var(--neg);
+  }
+
+  /* ---------- Appendix ---------- */
+  .appendix-grid {
+    margin-top: 34px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 680px) {
+    .appendix-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .appx table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .appx th[scope='row'] {
+    text-align: left;
+    font-weight: 400;
+    color: var(--ink-2);
+    font-size: 14.5px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .appx td {
+    text-align: right;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 14.5px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .appx tr:last-child th,
+  .appx tr:last-child td {
+    border-bottom: 0;
+  }
+
+  /* ---------- Footer ---------- */
+  .foot-inner {
+    display: grid;
+    gap: 34px;
+    padding-block: clamp(48px, 8vw, 80px);
+  }
+  @media (min-width: 760px) {
+    .foot-inner {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+    }
+  }
+  .foot-title {
+    font-size: clamp(26px, 4vw, 34px);
+  }
+  .foot-share p {
+    margin: 14px 0 0;
+    color: var(--ink-2);
+    max-width: 42ch;
+  }
+  .foot-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .foot-meta {
+    align-self: end;
+    color: var(--ink-3);
+    font-size: 13.5px;
+  }
+  .foot-meta p {
+    margin: 0 0 10px;
+  }
+  .foot-meta .num {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 15px;
+  }
+</style>

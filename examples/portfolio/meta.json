@@ -1,0 +1,30 @@
+{
+  "name": "Avery Chen's Room \u2014 Explorable Portfolio",
+  "slug": "portfolio",
+  "vertical": "Personal & life sites",
+  "tech": "canvas-game",
+  "based_on": "The 'explorable pixel-art room' developer portfolio trend (Bruno Simon-style interactive portfolios, scaled down to 2D) \u2014 walk an avatar around a room and interact with objects to reveal projects, about, resume, and contact.",
+  "summary": "A playful 2D pixel-art portfolio rendered on canvas: walk a little avatar around a cozy room with arrow keys and interact with objects \u2014 the desk opens projects, the bookshelf tells your story, a poster shows your resume, and the mailbox reveals contact links.",
+  "sections": [
+    "Tile-based room with a movable avatar (keyboard + on-screen controls)",
+    "Interactable desk/computer \u2192 Projects panel (3-5 projects with stack + links)",
+    "Bookshelf \u2192 About me",
+    "Framed poster \u2192 Resume / skills",
+    "Mailbox \u2192 Contact & social links",
+    "Intro overlay with controls and a 'press E to interact' hint",
+    "Mobile fallback: tappable hotspots"
+  ],
+  "setup_questions": [
+    "What's your name and the one-line title you want under it (e.g. 'frontend engineer')?",
+    "Which 3-5 projects should the desk reveal \u2014 name, one-line description, tech stack, and link for each?",
+    "What's the short 'about me' the bookshelf should tell, and what are your top skills for the resume poster?",
+    "What contact and social links should the mailbox open (email, GitHub, LinkedIn)?"
+  ],
+  "photo_terms": [
+    "pixel art cozy room game asset",
+    "16-bit interior tileset desk bookshelf",
+    "retro game character sprite walk cycle",
+    "isometric pixel workspace plants lamp"
+  ],
+  "live_url": "https://portfolio.view.fast/"
+}

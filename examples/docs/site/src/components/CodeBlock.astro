@@ -1,0 +1,21 @@
+---
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang?: string;
+  file?: string;
+}
+const { code, lang = 'ts', file } = Astro.props;
+const trimmed = code.replace(/^\n+/, '').replace(/\n+$/, '');
+const langLabel = lang === 'ts' ? 'typescript' : lang === 'js' ? 'javascript' : lang;
+---
+
+<figure class="codeblock">
+  <figcaption class="codeblock__bar">
+    {file && <span class="codeblock__file">{file}</span>}
+    <span class="codeblock__lang">{langLabel}</span>
+    <button class="codeblock__copy" type="button" data-copy aria-label="Copy code">Copy</button>
+  </figcaption>
+  <Code code={trimmed} lang={lang as any} theme="github-dark-default" />
+</figure>

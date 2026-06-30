@@ -1,0 +1,28 @@
+{
+  "name": "Glasshouse",
+  "slug": "notes",
+  "vertical": "Personal & creative",
+  "tech": "astro",
+  "based_on": "A personal digital garden in the lineage of Andy Matuschak's notes and Maggie Appleton's garden \u2014 interlinked atomic notes with wiki-style links, automatic backlinks, a link graph, search, and planted/growing/evergreen growth tags.",
+  "summary": "A warm, greenhouse-themed digital garden built with Astro: Markdown notes that link to each other with [[wiki links]], an automatically computed backlinks panel on every note, a build-time force-directed link graph, instant client-side search, and 'planted / growing / evergreen' status tags.",
+  "sections": [
+    "Hero with the garden name, what it's about, and instant search over every note",
+    "Growth-status legend (planted / growing / evergreen) with live counts",
+    "Recently tended \u2014 the notes watered most lately",
+    "The map \u2014 a build-time force-directed SVG graph of every note and its links, with hover highlighting",
+    "Full index grouped by growth status, with backlink counts",
+    "Note pages with [[wiki link]] prose, a 'Links out' panel, and an automatic 'Linked from' backlinks panel",
+    "Metadata per note: status, planted date, last-tended date, tags"
+  ],
+  "setup_questions": [
+    "What's the topic area of the notes?",
+    "Give 4-5 starter note titles and how they link.",
+    "Public or password-shared?",
+    "What should the garden be called, and who's tending it?"
+  ],
+  "photo_terms": [
+    "plants greenhouse light",
+    "notebook mind map sketches"
+  ],
+  "live_url": "https://notes.view.fast/"
+}

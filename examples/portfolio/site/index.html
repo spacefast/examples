@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>Avery Chen — Explorable Portfolio</title>
+<meta name="description" content="Walk around Avery Chen's room and interact with objects to explore projects, about, resume, and contact. A playful pixel-art developer portfolio." />
+<meta property="og:title" content="Avery Chen — Explorable Portfolio" />
+<meta property="og:description" content="A cozy pixel-art room you can actually walk around. Visit the desk, bookshelf, poster, and mailbox to explore Avery's work." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%237a9a93'/%3E%3Crect x='5' y='3' width='6' height='5' fill='%23f2c6a0'/%3E%3Crect x='4' y='2' width='8' height='3' fill='%233a2a22'/%3E%3Crect x='5' y='8' width='6' height='6' fill='%23c0573f'/%3E%3C/svg%3E" />
+<style>
+  :root{
+    --bg:#14110f;
+    --panel:#1d1916;
+    --panel-2:#262019;
+    --ink:#f4ece0;
+    --muted:#b6a892;
+    --accent:#e08a4c;
+    --accent-2:#6fd3c9;
+    --line:#3a3128;
+    --rad:14px;
+    --shadow:0 18px 50px rgba(0,0,0,.55);
+    --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+    --sans:ui-rounded,"Segoe UI",system-ui,-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:
+      radial-gradient(1200px 700px at 50% -10%, #2a2018 0%, var(--bg) 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    -webkit-font-smoothing:antialiased;
+    overflow:hidden;
+    touch-action:none;
+  }
+  .stage{
+    position:fixed; inset:0;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:14px;
+    gap:12px;
+  }
+  .titlebar{
+    display:flex; align-items:center; gap:10px;
+    width:100%; max-width:960px;
+    color:var(--muted);
+    font-size:13px; letter-spacing:.04em;
+  }
+  .titlebar .dot{width:9px;height:9px;border-radius:50%;background:var(--accent)}
+  .titlebar b{color:var(--ink); font-weight:700; letter-spacing:0}
+  .titlebar .spacer{flex:1}
+  .titlebar a{color:var(--muted);text-decoration:none;border-bottom:1px dotted #564a3b}
+  .titlebar a:hover{color:var(--ink)}
+
+  .frame{
+    position:relative;
+    width:min(96vw, 960px);
+    max-height:74vh;
+    aspect-ratio:320/208;
+    border-radius:var(--rad);
+    box-shadow:var(--shadow);
+    background:#0c0a08;
+    border:1px solid #2c241c;
+    overflow:hidden;
+  }
+  canvas#game{
+    display:block; width:100%; height:100%;
+    image-rendering:pixelated;
+    image-rendering:crisp-edges;
+  }
+
+  /* Floating interaction prompt is drawn on canvas; this is the object label */
+  .hud{
+    position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
+    background:rgba(20,16,12,.82); border:1px solid #4a3d2e;
+    color:var(--ink); padding:7px 13px; border-radius:999px;
+    font-size:13px; letter-spacing:.01em; pointer-events:none;
+    display:none; align-items:center; gap:8px; backdrop-filter:blur(3px);
+    white-space:nowrap;
+  }
+  .hud.show{display:flex}
+  .hud kbd{
+    font-family:var(--mono); font-size:11px; background:#3a2e20;
+    border:1px solid #5a4a36; border-bottom-width:2px;
+    border-radius:5px; padding:1px 6px; color:#ffd9a8;
+  }
+
+  /* ---- Intro / overlay panels ---- */
+  .overlay{
+    position:absolute; inset:0; z-index:20;
+    display:flex; align-items:center; justify-content:center;
+    padding:18px;
+    background:rgba(8,6,5,.55); backdrop-filter:blur(5px);
+  }
+  .overlay[hidden]{display:none}
+  .card{
+    width:min(560px,100%); max-height:100%;
+    background:linear-gradient(180deg,var(--panel),var(--panel-2));
+    border:1px solid #3a3026; border-radius:16px;
+    box-shadow:var(--shadow);
+    overflow:auto; -webkit-overflow-scrolling:touch;
+  }
+  .card .pad{padding:22px 22px 24px}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--accent);
+    display:flex; align-items:center; gap:8px; margin:0 0 6px;
+  }
+  .eyebrow .ic{font-size:15px}
+  .card h2{margin:2px 0 4px; font-size:23px; letter-spacing:-.01em}
+  .card .lede{color:var(--muted); margin:0 0 16px; font-size:14px; line-height:1.5}
+  .closex{
+    position:sticky; top:10px; float:right; margin:10px 12px -28px 0;
+    width:30px;height:30px;border-radius:8px; z-index:2;
+    border:1px solid #4a3d2e; background:#2a2219; color:var(--muted);
+    cursor:pointer; font-size:16px; line-height:1;
+  }
+  .closex:hover{color:var(--ink); border-color:#6a583f}
+
+  /* intro */
+  .intro h1{font-size:30px; margin:4px 0 2px; letter-spacing:-.02em}
+  .intro .role{color:var(--accent-2); font-family:var(--mono); font-size:13px; margin:0 0 14px}
+  .keys{display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 6px}
+  .keycap{
+    display:flex; align-items:center; gap:9px; flex:1 1 150px;
+    background:#221b14; border:1px solid #3a3026; border-radius:11px; padding:11px 12px;
+    font-size:13px; color:var(--muted);
+  }
+  .keycap b{color:var(--ink); font-weight:600}
+  .glyphs{display:flex; gap:3px}
+  .glyph{
+    font-family:var(--mono); font-size:12px; min-width:22px; text-align:center;
+    background:#372b1e; border:1px solid #574635; border-bottom-width:2px;
+    border-radius:6px; padding:3px 0; color:#ffd9a8;
+  }
+  .btn{
+    appearance:none; cursor:pointer; font:inherit; font-weight:700;
+    border:none; border-radius:11px; padding:12px 18px; margin-top:16px;
+    background:linear-gradient(180deg,#f0a05a,#e0823c); color:#241405;
+    box-shadow:0 6px 16px rgba(224,130,76,.32);
+  }
+  .btn:hover{filter:brightness(1.05)}
+  .btn:active{transform:translateY(1px)}
+
+  /* content panels */
+  .proj{border:1px solid #34291d; border-radius:12px; padding:14px; margin:0 0 12px; background:#211a13}
+  .proj:last-child{margin-bottom:0}
+  .proj h3{margin:0 0 3px; font-size:16px}
+  .proj p{margin:0 0 9px; color:var(--muted); font-size:13.5px; line-height:1.45}
+  .tags{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px}
+  .tag{font-family:var(--mono); font-size:11px; color:#cdbda4; background:#2e251a;
+       border:1px solid #463829; border-radius:999px; padding:3px 9px}
+  .proj a.link{color:var(--accent-2); text-decoration:none; font-size:13px; font-weight:600}
+  .proj a.link:hover{text-decoration:underline}
+  .proj a.link::after{content:" ↗"; opacity:.7}
+
+  .about p{color:#ded2c0; line-height:1.6; font-size:14.5px; margin:0 0 12px}
+  .about .sig{font-family:var(--mono); color:var(--accent); font-size:13px}
+
+  .skills{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:6px}
+  @media (max-width:460px){.skills{grid-template-columns:1fr}}
+  .skillcol h4{margin:0 0 8px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent)}
+  .skillcol ul{margin:0; padding:0; list-style:none}
+  .skillcol li{padding:5px 0; font-size:13.5px; color:#ded2c0; border-bottom:1px dashed #2c241b}
+  .skillcol li:last-child{border-bottom:none}
+  .meterrow{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .meter{flex:1; height:6px; background:#2c241b; border-radius:4px; overflow:hidden; margin-left:10px; max-width:110px}
+  .meter > i{display:block; height:100%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); border-radius:4px}
+  .timeline{margin:14px 0 0; padding:0; list-style:none}
+  .timeline li{position:relative; padding:0 0 14px 18px; border-left:2px solid #34291d}
+  .timeline li:last-child{padding-bottom:0}
+  .timeline li::before{content:""; position:absolute; left:-6px; top:3px; width:10px;height:10px;border-radius:50%; background:var(--accent)}
+  .timeline b{font-size:14px}
+  .timeline .when{font-family:var(--mono); font-size:11px; color:var(--muted)}
+  .timeline p{margin:3px 0 0; color:var(--muted); font-size:13px}
+
+  .contacts{display:grid; gap:10px; margin-top:6px}
+  .contact{
+    display:flex; align-items:center; gap:13px; text-decoration:none;
+    background:#211a13; border:1px solid #34291d; border-radius:12px; padding:12px 14px;
+    color:var(--ink);
+  }
+  .contact:hover{border-color:#5a4a36; background:#261e15}
+  .contact .ci{width:34px;height:34px;border-radius:9px; display:grid; place-items:center;
+    background:#2e251a; border:1px solid #463829; font-size:17px}
+  .contact .meta{display:flex; flex-direction:column}
+  .contact .meta b{font-size:14px}
+  .contact .meta span{font-size:12.5px; color:var(--muted); font-family:var(--mono)}
+
+  /* mobile touch controls */
+  .touch{
+    position:absolute; inset:0; z-index:10; pointer-events:none;
+    display:none;
+  }
+  .touch.show{display:block}
+  .dpad{
+    position:absolute; left:14px; bottom:14px;
+    width:130px; height:130px; pointer-events:auto;
+    touch-action:none; user-select:none; -webkit-user-select:none;
+  }
+  .dbtn{
+    position:absolute; width:44px;height:44px; border-radius:11px;
+    background:rgba(40,32,24,.78); border:1px solid #54452f; color:#ffd9a8;
+    display:grid; place-items:center; font-size:18px;
+  }
+  .dbtn:active,.dbtn.on{background:rgba(224,130,76,.85); color:#241405}
+  .dbtn.up{left:43px; top:0}
+  .dbtn.down{left:43px; bottom:0}
+  .dbtn.left{left:0; top:43px}
+  .dbtn.right{right:0; top:43px}
+  .abtn{
+    position:absolute; right:18px; bottom:24px; pointer-events:auto;
+    width:74px;height:74px;border-radius:50%;
+    background:rgba(224,130,76,.9); border:none; color:#241405;
+    font-weight:800; font-size:13px; letter-spacing:.05em;
+    box-shadow:0 8px 20px rgba(0,0,0,.4); touch-action:none;
+  }
+  .abtn:active{transform:translateY(2px)}
+
+  @media (prefers-reduced-motion:no-preference){
+    .card{animation:pop .18s ease}
+    @keyframes pop{from{transform:translateY(10px) scale(.98); opacity:0}to{transform:none;opacity:1}}
+  }
+  .visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="titlebar">
+    <span class="dot" aria-hidden="true"></span>
+    <span><b>Avery Chen</b> · creative frontend engineer</span>
+    <span class="spacer"></span>
+    <a href="#" id="helpLink">Controls</a>
+  </div>
+
+  <div class="frame">
+    <canvas id="game" width="320" height="208" role="img"
+      aria-label="A cozy pixel-art room with a desk and computer, a bookshelf, a framed poster, and a mailbox. Use the controls to walk Avery's avatar around and interact with objects."></canvas>
+
+    <div class="hud" id="hud" aria-hidden="true">
+      <span id="hudLabel"></span>
+      <span><kbd>E</kbd> to open</span>
+    </div>
+
+    <!-- mobile touch controls -->
+    <div class="touch" id="touch" aria-hidden="true">
+      <div class="dpad" id="dpad">
+        <button class="dbtn up"    data-dir="up"    aria-label="Move up">▲</button>
+        <button class="dbtn down"  data-dir="down"  aria-label="Move down">▼</button>
+        <button class="dbtn left"  data-dir="left"  aria-label="Move left">◀</button>
+        <button class="dbtn right" data-dir="right" aria-label="Move right">▶</button>
+      </div>
+      <button class="abtn" id="abtn" aria-label="Interact">OPEN</button>
+    </div>
+
+    <!-- intro overlay -->
+    <div class="overlay" id="introOverlay">
+      <div class="card intro">
+        <div class="pad">
+          <p class="eyebrow"><span class="ic">✦</span> a portfolio you can walk around</p>
+          <h1>Welcome to Avery's room</h1>
+          <p class="role">// frontend · creative coding · design systems</p>
+          <p class="lede">Move the little avatar around the room and step up to objects to explore.
+            The <b>desk</b> shows my projects, the <b>bookshelf</b> tells my story,
+            the <b>poster</b> is my resume, and the <b>mailbox</b> has my links.</p>
+          <div class="keys">
+            <div class="keycap">
+              <span class="glyphs"><span class="glyph">←</span><span class="glyph">↑</span><span class="glyph">↓</span><span class="glyph">→</span></span>
+              <span>or <b>WASD</b> to walk</span>
+            </div>
+            <div class="keycap">
+              <span class="glyphs"><span class="glyph">E</span></span>
+              <span>or <b>tap an object</b> to interact</span>
+            </div>
+          </div>
+          <button class="btn" id="startBtn" autofocus>Enter the room →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- content overlay (filled dynamically) -->
+    <div class="overlay" id="contentOverlay" hidden>
+      <div class="card" id="contentCard" role="dialog" aria-modal="true" aria-labelledby="cTitle" tabindex="-1">
+        <button class="closex" id="closeBtn" aria-label="Close">✕</button>
+        <div class="pad" id="contentBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="titlebar" style="justify-content:center;font-size:12px;opacity:.75">
+    <span>Made with Spacefast · walk in, look around, say hi</span>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   Avery Chen's Room — an explorable pixel-art portfolio rendered on canvas.
+   Pure vanilla JS, no assets: every sprite is drawn procedurally.
+   ========================================================================= */
+(() => {
+  "use strict";
+
+  // ---- The content. Swap these for your own. -------------------------------
+  const DATA = {
+    name: "Avery Chen",
+    role: "creative frontend engineer",
+    projects: [
+      { name:"Lumen", blurb:"A real-time collaborative whiteboard where cursors leave light trails. Built the CRDT sync layer and the buttery 120fps canvas renderer.",
+        stack:["React","WebRTC","Canvas","Yjs"], link:"https://github.com/averychen/lumen" },
+      { name:"Tidepool", blurb:"A generative-art toy: drag to stir a pool of living color that reacts to sound. A love letter to shaders.",
+        stack:["WebGL","GLSL","Web Audio","Vite"], link:"https://github.com/averychen/tidepool" },
+      { name:"Postcard", blurb:"A tiny static-site generator that turns a folder of Markdown into a fast, themed site in one command. Powers this very portfolio's blog.",
+        stack:["TypeScript","Node","esbuild"], link:"https://github.com/averychen/postcard" },
+      { name:"Chiptune Studio", blurb:"A browser music tracker for writing 8-bit songs. Sequencer, synth voices, and export to .wav — all client-side.",
+        stack:["Svelte","Web Audio","WASM"], link:"https://github.com/averychen/chiptune-studio" },
+    ],
+    about: [
+      "Hi — I'm Avery. I build playful, fast interfaces for the web, and I'm happiest when the line between “app” and “toy” gets blurry.",
+      "I started as a kid making Flash games, took a long detour through design systems at a fintech, and came back around to creative coding. These days I care about three things: things that feel alive, ship quickly, and stay accessible to everyone.",
+      "When I'm not pushing pixels you'll find me restoring an old mechanical keyboard, over-watering my plants, or losing at chess online.",
+    ],
+    skills: {
+      craft: [
+        ["TypeScript / JavaScript", 95],
+        ["React & Svelte", 90],
+        ["Canvas / WebGL / GLSL", 82],
+        ["CSS & design systems", 92],
+      ],
+      tools: [
+        ["Accessibility (WCAG)", 85],
+        ["Node & build tooling", 80],
+        ["Figma → code", 88],
+        ["Web Audio / WASM", 70],
+      ],
+    },
+    timeline: [
+      { when:"2023 — now", what:"Senior Frontend, Northlight Labs", note:"Design-system lead for a 30-person product team." },
+      { when:"2020 — 2023", what:"Frontend Engineer, Cardinal (fintech)", note:"Built the component library and a11y program." },
+      { when:"2018 — 2020", what:"Freelance / creative dev", note:"Interactive sites & generative art commissions." },
+    ],
+    contacts: [
+      { icon:"✉", label:"Email", value:"avery@averychen.dev", href:"mailto:avery@averychen.dev" },
+      { icon:"⌘", label:"GitHub", value:"github.com/averychen", href:"https://github.com/averychen" },
+      { icon:"in", label:"LinkedIn", value:"linkedin.com/in/averychen", href:"https://linkedin.com/in/averychen" },
+      { icon:"≈", label:"Bluesky", value:"@averychen.dev", href:"https://bsky.app/profile/averychen.dev" },
+    ],
+  };
+
+  // ---- Canvas setup --------------------------------------------------------
+  const W = 320, H = 208;
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  ctx.imageSmoothingEnabled = false;
+
+  // ---- World geometry ------------------------------------------------------
+  // Walls form a border; furniture footprints block movement.
+  const FLOOR = { x0:16, y0:42, x1:304, y1:194 }; // walkable bounds (foot box)
+
+  // Solid rectangles (collision) — furniture bases & inner walls.
+  const solids = [
+    {x:34,  y:36, w:64, h:14},   // desk base
+    {x:208, y:34, w:56, h:16},   // bookshelf base
+    {x:272, y:150,w:30, h:30},   // mailbox stand
+    {x:18,  y:150,w:24, h:30},   // potted plant (corner)
+    {x:286, y:44, w:18, h:34},   // floor lamp footprint
+  ];
+
+  // Interactables: trigger zone (where player stands) + content key + label.
+  const interactables = [
+    { id:"projects", label:"Workstation",  zone:{x:40, y:50, w:54, h:22}, marker:{x:66, y:30} },
+    { id:"about",    label:"Bookshelf",    zone:{x:214,y:50, w:46, h:22}, marker:{x:236,y:28} },
+    { id:"resume",   label:"Framed poster",zone:{x:128,y:44, w:44, h:20}, marker:{x:150,y:18} },
+    { id:"contact",  label:"Mailbox",      zone:{x:244,y:152,w:26, h:30}, marker:{x:287,y:144} },
+  ];
+
+  // ---- Player --------------------------------------------------------------
+  const player = {
+    x:150, y:150,      // foot-box top-left
+    w:12, h:7,         // foot-box size (collision)
+    spd:0.95,
+    dir:"down",
+    moving:false,
+    anim:0, frame:0,
+    shirt:"#c0573f", hair:"#3a2a22", skin:"#f2c6a0",
+  };
+
+  // ---- Input ---------------------------------------------------------------
+  const keys = { up:false, down:false, left:false, right:false };
+  const KEYMAP = {
+    ArrowUp:"up", KeyW:"up", ArrowDown:"down", KeyS:"down",
+    ArrowLeft:"left", KeyA:"left", ArrowRight:"right", KeyD:"right",
+  };
+  let started = false;
+  let overlayOpen = false;
+
+  addEventListener("keydown", (e) => {
+    if (e.repeat) return;
+    if (KEYMAP[e.code]) { keys[KEYMAP[e.code]] = true; e.preventDefault(); }
+    else if (e.code === "KeyE" || e.code === "Space" || e.code === "Enter") {
+      if (started && !overlayOpen) { tryInteract(); e.preventDefault(); }
+    } else if (e.code === "Escape") {
+      if (overlayOpen) closeContent();
+    }
+  });
+  addEventListener("keyup", (e) => {
+    if (KEYMAP[e.code]) { keys[KEYMAP[e.code]] = false; e.preventDefault(); }
+  });
+
+  // Click / tap on canvas -> interact with object under pointer (or nearest).
+  canvas.addEventListener("pointerdown", (e) => {
+    if (!started || overlayOpen) return;
+    const r = canvas.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width  * W;
+    const py = (e.clientY - r.top)  / r.height * H;
+    // hit-test generous boxes around each marker / zone
+    for (const it of interactables) {
+      const z = it.zone;
+      const box = { x:z.x-12, y:z.y-26, w:z.w+24, h:z.h+30 };
+      if (px>=box.x && px<=box.x+box.w && py>=box.y && py<=box.y+box.h) {
+        openContent(it.id); return;
+      }
+    }
+  });
+
+  // ---- Touch controls ------------------------------------------------------
+  const touch = document.getElementById("touch");
+  const isTouch = matchMedia("(pointer:coarse)").matches || "ontouchstart" in window;
+  if (isTouch) touch.classList.add("show");
+
+  function bindHold(el, on, off){
+    const start=(e)=>{e.preventDefault(); on(); el.classList.add("on");};
+    const end=(e)=>{e&&e.preventDefault(); off(); el.classList.remove("on");};
+    el.addEventListener("pointerdown",start);
+    el.addEventListener("pointerup",end);
+    el.addEventListener("pointercancel",end);
+    el.addEventListener("pointerleave",end);
+  }
+  document.querySelectorAll(".dbtn").forEach((b) => {
+    const d = b.dataset.dir;
+    bindHold(b, () => keys[d]=true, () => keys[d]=false);
+  });
+  document.getElementById("abtn").addEventListener("pointerdown", (e) => {
+    e.preventDefault(); if (started && !overlayOpen) tryInteract();
+  });
+
+  // ---- Overlays ------------------------------------------------------------
+  const introOverlay   = document.getElementById("introOverlay");
+  const contentOverlay = document.getElementById("contentOverlay");
+  const contentBody    = document.getElementById("contentBody");
+  const contentCard    = document.getElementById("contentCard");
+  const hud            = document.getElementById("hud");
+  const hudLabel       = document.getElementById("hudLabel");
+
+  document.getElementById("startBtn").addEventListener("click", start);
+  document.getElementById("helpLink").addEventListener("click", (e) => { e.preventDefault(); introOverlay.hidden=false; started=false; });
+  document.getElementById("closeBtn").addEventListener("click", closeContent);
+  contentOverlay.addEventListener("pointerdown", (e) => { if (e.target===contentOverlay) closeContent(); });
+
+  function start(){ introOverlay.hidden = true; started = true; canvas.focus?.(); }
+
+  let activeInteractable = null;
+  function tryInteract(){ if (activeInteractable) openContent(activeInteractable.id); }
+
+  function openContent(id){
+    contentBody.innerHTML = renderPanel(id);
+    contentOverlay.hidden = false;
+    overlayOpen = true;
+    // reset movement so avatar doesn't drift while reading
+    keys.up=keys.down=keys.left=keys.right=false;
+    blip(id);
+    requestAnimationFrame(() => contentCard.focus());
+  }
+  function closeContent(){
+    contentOverlay.hidden = true;
+    overlayOpen = false;
+  }
+
+  // ---- Tiny WebAudio blip (optional, polish) -------------------------------
+  let actx;
+  const NOTE = { projects:523, about:392, resume:659, contact:466, intro:440 };
+  function blip(id){
+    try{
+      actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+      const o = actx.createOscillator(), g = actx.createGain();
+      o.type="square"; o.frequency.value = NOTE[id]||440;
+      g.gain.value=0.0001; o.connect(g); g.connect(actx.destination);
+      const t=actx.currentTime;
+      g.gain.exponentialRampToValueAtTime(0.05,t+0.01);
+      g.gain.exponentialRampToValueAtTime(0.0001,t+0.16);
+      o.start(t); o.stop(t+0.17);
+    }catch(_){}
+  }
+
+  // ---- Panel renderers -----------------------------------------------------
+  function esc(s){ return String(s).replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+
+  function renderPanel(id){
+    if (id==="projects"){
+      const items = DATA.projects.map((p)=>`
+        <article class="proj">
+          <h3>${esc(p.name)}</h3>
+          <p>${esc(p.blurb)}</p>
+          <div class="tags">${p.stack.map((t)=>`<span class="tag">${esc(t)}</span>`).join("")}</div>
+          <a class="link" href="${esc(p.link)}" target="_blank" rel="noopener">View project</a>
+        </article>`).join("");
+      return `<p class="eyebrow"><span class="ic">🖥️</span> at the desk</p>
+        <h2 id="cTitle">Things I've built</h2>
+        <p class="lede">A few projects I keep coming back to — most are open source.</p>
+        ${items}`;
+    }
+    if (id==="about"){
+      const paras = DATA.about.map((p)=>`<p>${esc(p)}</p>`).join("");
+      return `<p class="eyebrow"><span class="ic">📚</span> from the bookshelf</p>
+        <h2 id="cTitle">A little about me</h2>
+        <div class="about">${paras}<p class="sig">— ${esc(DATA.name)}</p></div>`;
+    }
+    if (id==="resume"){
+      const col = (title, rows) => `
+        <div class="skillcol"><h4>${title}</h4><ul>
+        ${rows.map(([k,v])=>`<li class="meterrow"><span>${esc(k)}</span>
+          <span class="meter"><i style="width:${v}%"></i></span></li>`).join("")}
+        </ul></div>`;
+      const tl = DATA.timeline.map((t)=>`
+        <li><span class="when">${esc(t.when)}</span><br><b>${esc(t.what)}</b>
+          <p>${esc(t.note)}</p></li>`).join("");
+      return `<p class="eyebrow"><span class="ic">🪧</span> the framed poster</p>
+        <h2 id="cTitle">Resume &amp; skills</h2>
+        <p class="lede">Six years turning designs into fast, accessible interfaces.</p>
+        <div class="skills">${col("Craft",DATA.skills.craft)}${col("Toolkit",DATA.skills.tools)}</div>
+        <ul class="timeline">${tl}</ul>`;
+    }
+    if (id==="contact"){
+      const c = DATA.contacts.map((x)=>`
+        <a class="contact" href="${esc(x.href)}" ${x.href.startsWith("http")?'target="_blank" rel="noopener"':""}>
+          <span class="ci" aria-hidden="true">${esc(x.icon)}</span>
+          <span class="meta"><b>${esc(x.label)}</b><span>${esc(x.value)}</span></span>
+        </a>`).join("");
+      return `<p class="eyebrow"><span class="ic">📬</span> check the mailbox</p>
+        <h2 id="cTitle">Say hello</h2>
+        <p class="lede">I'm open to collaborations and the occasional good problem. Drop a line.</p>
+        <div class="contacts">${c}</div>`;
+    }
+    return "";
+  }
+
+  // =========================================================================
+  //  GAME LOOP
+  // =========================================================================
+  let last = performance.now();
+  function loop(now){
+    const dt = Math.min(34, now - last) / (1000/60); // normalized to 60fps steps
+    last = now;
+    if (started && !overlayOpen) update(dt);
+    render();
+    requestAnimationFrame(loop);
+  }
+
+  function update(dt){
+    let dx=0, dy=0;
+    if (keys.left)  dx-=1;
+    if (keys.right) dx+=1;
+    if (keys.up)    dy-=1;
+    if (keys.down)  dy+=1;
+
+    player.moving = (dx||dy)!==0;
+    if (dx||dy){
+      if (Math.abs(dx) > Math.abs(dy)) player.dir = dx<0?"left":"right";
+      else player.dir = dy<0?"up":"down";
+      // normalize diagonal
+      const len = Math.hypot(dx,dy) || 1;
+      const step = player.spd * dt;
+      moveAxis(dx/len*step, 0);
+      moveAxis(0, dy/len*step);
+      player.anim += dt*0.22;
+      player.frame = (Math.floor(player.anim)%4); // 0,1,2,3 walk cycle
+    } else {
+      player.anim = 0; player.frame = 0;
+    }
+
+    // figure out active interactable (player center inside a zone)
+    const cx = player.x + player.w/2, cy = player.y + player.h/2;
+    activeInteractable = null;
+    for (const it of interactables){
+      const z = it.zone;
+      if (cx>=z.x && cx<=z.x+z.w && cy>=z.y-6 && cy<=z.y+z.h+6){ activeInteractable = it; break; }
+    }
+    if (activeInteractable){ hudLabel.textContent = activeInteractable.label; hud.classList.add("show"); }
+    else hud.classList.remove("show");
+  }
+
+  function moveAxis(mx, my){
+    const nx = player.x + mx, ny = player.y + my;
+    const box = { x:nx, y:ny, w:player.w, h:player.h };
+    // bounds
+    if (box.x < FLOOR.x0 || box.x+box.w > FLOOR.x1) return;
+    if (box.y < FLOOR.y0 || box.y+box.h > FLOOR.y1) return;
+    // solids
+    for (const s of solids){
+      if (box.x < s.x+s.w && box.x+box.w > s.x && box.y < s.y+s.h && box.y+box.h > s.y) return;
+    }
+    player.x = nx; player.y = ny;
+  }
+
+  // =========================================================================
+  //  RENDER — everything drawn as pixel blocks
+  // =========================================================================
+  function px(x,y,w,h,c){ ctx.fillStyle=c; ctx.fillRect(x|0,y|0,w,h); }
+
+  function render(){
+    drawRoom();
+    // draw furniture & player in y-sorted order for simple depth
+    const drawables = [
+      { y:50,  fn:drawDesk },
+      { y:50,  fn:drawBookshelf },
+      { y:34,  fn:drawPoster },
+      { y:180, fn:drawMailbox },
+      { y:180, fn:drawPlant },
+      { y:78,  fn:drawLamp },
+      { y:player.y+player.h, fn:drawPlayer },
+      { y:60,  fn:drawRugTop }, // (rug already under floor; noop placeholder)
+    ].sort((a,b)=>a.y-b.y);
+    for (const d of drawables) d.fn();
+
+    drawMarkers();
+  }
+
+  function drawRoom(){
+    // upper wall (sage)
+    px(0,0,W,42,"#7f9a92");
+    // wall shading band
+    px(0,0,W,6,"#8fa9a0");
+    // wainscot (wood) strip just above floor line
+    px(0,32,W,10,"#7a4e2e");
+    px(0,32,W,2,"#8a5a36");
+    px(0,40,W,2,"#5e3a20");
+    // floor (warm wood)
+    px(0,42,W,H-42,"#c79a6b");
+    // plank lines
+    ctx.fillStyle="#b88a59";
+    for (let y=50;y<H;y+=12) ctx.fillRect(0,y,W,1);
+    for (let x=0;x<W;x+=2){ /* vertical seams staggered */ }
+    ctx.fillStyle="#bd9060";
+    for (let y=42;y<H;y+=12){
+      const off = ((y/12)|0)%2 ? 0 : 32;
+      for (let x=off;x<W;x+=64){ ctx.fillRect(x,y,1,12); }
+    }
+    // baseboard at very bottom
+    px(0,H-6,W,6,"#6b4226");
+    px(0,H-6,W,1,"#8a5a36");
+
+    // window on upper-left wall
+    drawWindow(112,6,52,24);
+
+    // rug (center)
+    drawRug(96,120,128,64);
+  }
+
+  function drawWindow(x,y,w,h){
+    px(x-2,y-2,w+4,h+4,"#5e7b73");       // frame outer
+    px(x,y,w,h,"#bfe6ef");               // sky
+    // gradient-ish sky bands
+    px(x,y,w,8,"#a9dbe8");
+    px(x,y+h-8,w,8,"#cfeef4");
+    // distant hills
+    px(x,y+h-12,w,12,"#9ed1c6");
+    px(x+8,y+h-16,16,8,"#8fc7bb");
+    px(x+w-22,y+h-15,18,7,"#8fc7bb");
+    // sun
+    px(x+w-14,y+5,7,7,"#ffe9a8");
+    // mullions
+    px(x+w/2-1,y,2,h,"#5e7b73");
+    px(x,y+h/2-1,w,2,"#5e7b73");
+    // sill
+    px(x-3,y+h+2,w+6,3,"#8a5a36");
+  }
+
+  function drawRug(x,y,w,h){
+    px(x,y,w,h,"#b14a39");
+    px(x+4,y+4,w-8,h-8,"#c75f44");
+    px(x+10,y+10,w-20,h-20,"#b14a39");
+    px(x+16,y+16,w-32,h-32,"#e0a05a");
+    // little diamonds
+    ctx.fillStyle="#8c3528";
+    for (let i=x+8;i<x+w-8;i+=20){ ctx.fillRect(i,y+2,3,3); ctx.fillRect(i,y+h-5,3,3); }
+  }
+
+  function drawDesk(){
+    const x=34,y=18;
+    // desk top
+    px(x,y+14,64,6,"#8a5a34");
+    px(x,y+14,64,2,"#9a6a40");
+    // legs
+    px(x+2,y+20,5,16,"#6e4524");
+    px(x+57,y+20,5,16,"#6e4524");
+    // monitor
+    px(x+18,y-6,28,20,"#26303a");
+    px(x+20,y-4,24,15,"#0e2a2e");
+    // screen code glow
+    const glow = ["#6fd3c9","#e0a05a","#9ad0ff","#6fd3c9","#cdbda4"];
+    for (let i=0;i<5;i++){ px(x+22, y-2+i*3, 4+((i*7)%14), 1, glow[i%glow.length]); }
+    px(x+30,y+14,4,4,"#1c242c"); // stand
+    px(x+24,y+18,16,2,"#1c242c");
+    // keyboard
+    px(x+24,y+20,22,3,"#d9d2c4");
+    // mug
+    px(x+52,y+9,5,5,"#d96b4a"); px(x+57,y+10,2,2,"#d96b4a");
+    // little plant on desk
+    px(x+6,y+8,6,6,"#b0633a"); px(x+6,y+3,2,5,"#5fa86a"); px(x+9,y+2,2,6,"#5fa86a"); px(x+12,y+4,2,4,"#5fa86a");
+  }
+
+  function drawBookshelf(){
+    const x=208,y=8;
+    px(x,y,56,42,"#6e4524");           // case
+    px(x+2,y+2,52,38,"#8a5a34");
+    // shelves
+    px(x+2,y+13,52,2,"#5e3a20");
+    px(x+2,y+26,52,2,"#5e3a20");
+    // books row 1
+    const cols=["#c0573f","#e0a05a","#6fa8c9","#7bb06a","#b07bc9","#d9c24a","#c0573f","#5f9ea0"];
+    function books(by){
+      let bx=x+4;
+      for (let i=0;bx<x+52;i++){ const w=2+((i*5)%4); px(bx,by,w,11,cols[(i*3)%cols.length]); px(bx,by,w,2,"#00000022"); bx+=w+1; }
+    }
+    books(y+2); books(y+15);
+    // bottom shelf: a plant + a framed photo
+    px(x+4,y+30,8,8,"#b0633a"); px(x+6,y+25,2,6,"#5fa86a"); px(x+9,y+26,2,5,"#5fa86a");
+    px(x+40,y+30,12,8,"#2a2018"); px(x+42,y+32,8,4,"#9ad0ff");
+  }
+
+  function drawPoster(){
+    const x=130,y=4;
+    px(x,y,40,28,"#caa24a");            // gold frame
+    px(x+2,y+2,36,24,"#243042");        // mat
+    // abstract generative art print
+    px(x+5,y+5,30,18,"#101820");
+    const c=["#e0824c","#6fd3c9","#9ad0ff","#f0c46a"];
+    for (let i=0;i<14;i++){
+      const rx=x+6+((i*11)%28), ry=y+6+((i*7)%16), s=1+(i%3);
+      px(rx,ry,s,s,c[i%4]);
+    }
+    px(x+6,y+19,28,1,"#e0824c");
+    // "title plate"
+    px(x+10,y+29,20,3,"#8a5a34");
+  }
+
+  function drawMailbox(){
+    const x=274,y=148;
+    // post
+    px(x+12,y+14,4,18,"#6e4524");
+    // box body (rounded-ish red)
+    px(x+2,y+2,24,16,"#b03a2e");
+    px(x+2,y+2,24,4,"#c75f44");
+    px(x+4,y+18,4,3,"#5e3a20");
+    // door slot
+    px(x+6,y+8,14,2,"#7a221a");
+    // flag (up = you've got mail vibe)
+    px(x+24,y,3,10,"#e0a05a");
+    px(x+26,y,4,4,"#e0824c");
+    // a couple letters peeking
+    px(x+9,y-2,8,4,"#f4ece0"); px(x+11,y-3,8,4,"#fff");
+  }
+
+  function drawPlant(){
+    const x=18,y=150;
+    px(x+2,y+18,16,12,"#b0633a");       // pot
+    px(x+2,y+18,16,3,"#c2784a");
+    // leaves
+    const g="#4f9a5c", g2="#5fb06a";
+    px(x+8,y+2,3,18,g);
+    px(x+4,y+6,3,12,g2); px(x+12,y+6,3,12,g2);
+    px(x+1,y+10,3,9,g); px(x+15,y+10,3,9,g);
+    px(x+6,y,3,8,g2); px(x+10,y,3,8,g2);
+  }
+
+  function drawLamp(){
+    const x=286,y=44;
+    // soft warm glow on wall/floor
+    ctx.globalAlpha=0.16; px(x-8,y-6,30,46,"#ffd98a"); ctx.globalAlpha=1;
+    px(x+7,y+8,3,30,"#3a3026");         // pole
+    px(x+2,y+34,12,4,"#2a2218");        // base
+    // shade
+    px(x+1,y,15,9,"#e0a05a");
+    px(x+1,y,15,3,"#f0c46a");
+    px(x+3,y+9,11,2,"#ffe9a8");
+  }
+
+  function drawRugTop(){ /* depth placeholder, rug drawn in drawRoom */ }
+
+  // ---- Avatar with 4-dir walk cycle ----------------------------------------
+  function drawPlayer(){
+    const x = Math.round(player.x - 1); // sprite slightly wider than foot box
+    const footY = player.y + player.h;
+    const y = Math.round(footY - 20);   // sprite is ~20px tall
+    const f = player.moving ? player.frame : 0;
+    const legSwing = (f===1?1:f===3?-1:0);
+
+    // shadow
+    ctx.globalAlpha=0.22; px(player.x-1, footY-2, player.w+2, 4, "#000"); ctx.globalAlpha=1;
+
+    const { skin, hair, shirt } = player;
+    const pants="#3a4a6a", shoe="#2a2218";
+
+    // legs (animated)
+    px(x+3, y+14, 3, 6, pants);
+    px(x+8, y+14, 3, 6, pants);
+    px(x+3+(legSwing>0?-1:0), y+19, 3, 2, shoe);
+    px(x+8+(legSwing<0?1:0), y+19, 3, 2, shoe);
+
+    // body / shirt
+    px(x+2, y+8, 10, 7, shirt);
+    px(x+2, y+8, 10, 2, lighten(shirt));
+
+    // arms depending on direction
+    if (player.dir==="left"){ px(x+1, y+9, 2, 5, shirt); }
+    else if (player.dir==="right"){ px(x+11, y+9, 2, 5, shirt); }
+    else { px(x+1, y+9, 2, 5, shirt); px(x+11, y+9, 2, 5, shirt); }
+
+    // head
+    px(x+3, y+1, 8, 8, skin);
+    // hair
+    px(x+2, y, 10, 4, hair);
+    if (player.dir==="left"){ px(x+2,y,3,8,hair); }
+    else if (player.dir==="right"){ px(x+9,y,3,8,hair); }
+    else { px(x+2,y,2,6,hair); px(x+10,y,2,6,hair); }
+
+    // face (only when facing down or sideways)
+    if (player.dir==="down"){
+      px(x+5, y+4, 1, 2, "#2a2018"); px(x+8, y+4, 1, 2, "#2a2018"); // eyes
+      px(x+6, y+6, 2, 1, "#b06a55"); // mouth
+    } else if (player.dir==="left"){
+      px(x+4, y+4, 1, 2, "#2a2018");
+    } else if (player.dir==="right"){
+      px(x+9, y+4, 1, 2, "#2a2018");
+    }
+  }
+
+  function drawMarkers(){
+    // floating "!" bubble over the active object
+    if (!started || overlayOpen) return;
+    const it = activeInteractable;
+    if (!it) {
+      // gentle ambient bobbing dot over each object so they read as interactive
+      const t = performance.now()/400;
+      for (const o of interactables){
+        const by = o.marker.y + Math.sin(t + o.marker.x)*1.5;
+        ctx.globalAlpha=0.55;
+        px(o.marker.x-1, by, 2, 2, "#fff7e0");
+        ctx.globalAlpha=1;
+      }
+      return;
+    }
+    const m = it.marker;
+    const t = performance.now()/220;
+    const by = m.y - 4 + Math.sin(t)*1.6;
+    // bubble
+    px(m.x-4, by, 8, 8, "#fff7e0");
+    px(m.x-4, by, 8, 2, "#ffd98a");
+    px(m.x-1, by+1, 2, 4, "#e0824c"); // exclamation
+    px(m.x-1, by+6, 2, 1, "#e0824c");
+    px(m.x-1, by+8, 2, 2, "#fff7e0"); // tail
+  }
+
+  function lighten(hex){
+    const n=parseInt(hex.slice(1),16); let r=(n>>16)+24,g=((n>>8)&255)+24,b=(n&255)+24;
+    r=Math.min(255,r);g=Math.min(255,g);b=Math.min(255,b);
+    return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);
+  }
+
+  // ---- go ------------------------------------------------------------------
+  requestAnimationFrame(loop);
+})();
+</script>
+<script src="https://spacefast.com/badge.js" data-example="portfolio"></script>
+</body>
+</html>

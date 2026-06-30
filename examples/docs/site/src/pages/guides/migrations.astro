@@ -1,0 +1,106 @@
+---
+import Docs from '../../layouts/Docs.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const headings = [
+  { depth: 2, slug: 'why-migrations', text: 'Why migrations' },
+  { depth: 2, slug: 'declaring-a-version', text: 'Declaring a version' },
+  { depth: 2, slug: 'writing-a-step', text: 'Writing a migration step' },
+  { depth: 2, slug: 'renaming-and-backfilling', text: 'Renaming and backfilling' },
+  { depth: 2, slug: 'rules-of-thumb', text: 'Rules of thumb' },
+];
+
+const version = `export const db = createLedger(
+  { users: collection<User>({ key: 'id' }) },
+  {
+    persist: indexedDB({ name: 'app' }),
+    schemaVersion: 3,
+    migrations: {
+      2: addFullName,
+      3: splitName,
+    },
+  }
+);`;
+
+const step = `// A migration receives a tx scoped to the upgrade and runs exactly once,
+// in order, before the store becomes ready.
+function addFullName(tx) {
+  for (const user of tx.users.all()) {
+    tx.users.update(user.id, {
+      fullName: \`\${user.first} \${user.last}\`,
+    });
+  }
+}`;
+
+const rename = `// v3: split a single 'fullName' back into first / last and drop the old field.
+function splitName(tx) {
+  for (const user of tx.users.all()) {
+    const [first, ...rest] = (user.fullName ?? '').split(' ');
+    tx.users.update(user.id, {
+      first,
+      last: rest.join(' '),
+    });
+    tx.users.unset(user.id, 'fullName');
+  }
+}`;
+---
+
+<Docs
+  title="Schema migrations"
+  description="Evolve your stored data shape safely with versioned schemas and ordered migration steps."
+  headings={headings}
+>
+  <span class="eyebrow">Guides</span>
+  <h1>Schema migrations</h1>
+  <p class="lead">
+    Apps change shape. When your record types evolve, persisted data on a user's device
+    still has the old shape — migrations bring it up to date, in order and exactly once,
+    before your code ever reads it.
+  </p>
+
+  <h2 id="why-migrations">Why migrations</h2>
+  <p>
+    A persisted store may contain data written by any past version of your app. Without
+    migrations you'd have to defensively handle every historical shape forever. Instead,
+    you describe the steps from one version to the next and Ledger replays whichever ones
+    a given device still needs.
+  </p>
+
+  <h2 id="declaring-a-version">Declaring a version</h2>
+  <p>
+    Bump <code>schemaVersion</code> whenever your record shape changes, and register a
+    migration for each new version number:
+  </p>
+  <CodeBlock code={version} lang="ts" file="db.ts" />
+  <p>
+    A device on version 1 runs <code>2</code> then <code>3</code>. A device on version 2 runs only
+    <code>3</code>. A fresh install jumps straight to the current version and runs nothing.
+  </p>
+
+  <h2 id="writing-a-step">Writing a migration step</h2>
+  <p>
+    Each step gets an upgrade transaction with the same query and mutation API you already know.
+    It runs once, then Ledger records the new version on disk.
+  </p>
+  <CodeBlock code={step} lang="ts" />
+
+  <h2 id="renaming-and-backfilling">Renaming and backfilling</h2>
+  <p>Migrations are just code, so renames, splits, and backfills are straightforward:</p>
+  <CodeBlock code={rename} lang="ts" />
+  <div class="callout callout--warn">
+    <span class="callout__icon" aria-hidden="true">⚠️</span>
+    <p>Migrations are not reversible. If a user downgrades the app, an older build won't understand a newer <code>schemaVersion</code> and will refuse to load that store. Treat version bumps as forward-only.</p>
+  </div>
+
+  <h2 id="rules-of-thumb">Rules of thumb</h2>
+  <ul>
+    <li><strong>One version per shipped change.</strong> Never edit a migration that's already in production — add the next one.</li>
+    <li><strong>Keep steps pure and deterministic.</strong> No network calls; a migration must finish from local data alone.</li>
+    <li><strong>Backfill, don't assume.</strong> New required fields need a default for every existing record.</li>
+    <li><strong>Test the chain.</strong> Seed a v1 store in a test and assert it ends up correct at the latest version.</li>
+  </ul>
+  <div class="callout callout--tip">
+    <span class="callout__icon" aria-hidden="true">💡</span>
+    <p>In development you can pass <code>onMigrate: 'log'</code> to print each step and its record counts as it runs — useful for catching a backfill that missed rows.</p>
+  </div>
+</Docs>

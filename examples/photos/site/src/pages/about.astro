@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { about, studio } from '../data/portfolio';
+---
+
+<Layout title={`About — ${studio.name}`} description={about.bio[0]}>
+  <Nav base="/" />
+  <main>
+    <section class="section about-band" style="border-top:none;">
+      <div class="wrap about-grid">
+        <img
+          class="reveal"
+          src={`https://picsum.photos/seed/${about.headshot.seed}/800/1000?grayscale`}
+          alt={about.headshot.alt}
+          loading="eager"
+          width="800"
+          height="1000"
+        />
+        <div class="about-body reveal">
+          <p class="eyebrow">About</p>
+          <h1 class="section-title" style="margin-bottom:1.4rem;">{studio.name}</h1>
+          {about.bio.map((p) => <p>{p}</p>)}
+          <p style="margin-top:1.6rem;">
+            <a class="btn" href="/#contact">Get in touch →</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap" style="display:grid;gap:clamp(2.4rem,6vw,4.5rem);grid-template-columns:1fr;">
+        <div class="reveal">
+          <p class="eyebrow">Selected clients</p>
+          <ul class="clients__list" style="font-size:1.05rem;gap:0.7rem 2rem;">
+            {about.clients.map((c) => <li>{c}</li>)}
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <p class="eyebrow">Recognition</p>
+          <ul style="list-style:none;margin:0;padding:0;">
+            {
+              about.press.map((pr) => (
+                <li
+                  style="display:flex;gap:1.4rem;padding:1rem 0;border-top:1px solid var(--line);align-items:baseline;"
+                >
+                  <span style="font-family:var(--serif);font-size:1.2rem;color:var(--ink-faint);min-width:3.5rem;">
+                    {pr.year}
+                  </span>
+                  <span style="color:var(--ink-soft);">{pr.item}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

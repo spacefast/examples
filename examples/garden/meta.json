@@ -1,0 +1,32 @@
+{
+  "name": "Maple Street Community Garden",
+  "slug": "garden",
+  "vertical": "Events & community",
+  "tech": "html",
+  "based_on": "A neighborhood community garden with rentable raised-bed plots, a volunteer-hours requirement, a plot waitlist, and seasonal events \u2014 modeled on programs like the East Hollywood Community Garden and municipal plot rentals.",
+  "summary": "A warm, welcoming static site for a neighborhood community garden covering its mission, plot rentals and pricing, how to join the waitlist, monthly volunteer workdays, garden rules, and seasonal events.",
+  "sections": [
+    "Hero with garden name, neighborhood, and 'Join the plot waitlist' CTA",
+    "About \u2014 mission, history, and who tends the garden",
+    "Plots & pricing \u2014 bed sizes (e.g. 4x8, 4x12), annual fees, what's included (water, tools, compost)",
+    "How to join \u2014 waitlist signup form and the 48-hour response policy",
+    "Volunteer workdays \u2014 calendar of monthly drop-in days and the required volunteer hours",
+    "Garden rules \u2014 organic-only, plot upkeep, shared-area etiquette",
+    "Events \u2014 seed swap, spring kickoff, potlucks, harvest festival",
+    "Find us \u2014 address, map, and gate-access notes",
+    "Photo gallery of the beds across the seasons"
+  ],
+  "setup_questions": [
+    "What's the garden's name and which neighborhood or street is it on?",
+    "What plot sizes do you rent and what's the annual fee for each?",
+    "How many volunteer hours are members expected to contribute (e.g. 2 hours/month)?",
+    "What's the best contact email or person for the waitlist?"
+  ],
+  "photo_terms": [
+    "community garden raised beds vegetables volunteers",
+    "hands planting seedlings in soil close up",
+    "ripe tomatoes and leafy greens garden harvest",
+    "community potluck outdoor table garden"
+  ],
+  "live_url": "https://garden.view.fast/"
+}

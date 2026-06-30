@@ -61,9 +61,11 @@ jobs:
       - name: Publish to Spacefast
         working-directory: examples/${{ matrix.slug }}
         env:
-          SPACEFAST_DEPLOY_KEY: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
+          SPACEFAST_TOKEN: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
+          SPACEFAST_API_URL: https://api.spacefast.com
         run: |
           sf publish "${{ steps.dir.outputs.dir }}" \
             --slug "${{ matrix.slug }}" \
-            --token "$SPACEFAST_DEPLOY_KEY" \
+            --name "${{ matrix.slug }}" \
             --json
+          # SPACEFAST_TOKEN + SPACEFAST_API_URL are read from the env above.

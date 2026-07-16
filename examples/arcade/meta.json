@@ -1,23 +1,17 @@
 {
   "name": "Quarter Up Barcade",
+  "title": "Arcade",
   "slug": "arcade",
-  "vertical": "Local business",
-  "tech": "canvas-game",
-  "based_on": "A retro arcade bar in the vein of Barcade (Brooklyn) and Ground Kontrol (Portland) \u2014 classic cabinets, craft beer on draft, weekly high-score tournaments, neon-and-CRT aesthetic.",
-  "summary": "A neon barcade site whose hero is a playable retro mini-game (Breakout/Pong-style) with a live score, wrapped around real business content: games list, draft beer, events, and hours.",
-  "sections": [
-    "Playable canvas hero mini-game with score and 'Press start' overlay",
-    "The cabinets \u2014 list of featured arcade games",
-    "On tap \u2014 rotating draft beer / cocktail list",
-    "Events \u2014 tournament nights and happy hour",
-    "Hours, location, age policy, and map",
-    "Footer with socials and private-event booking"
-  ],
+  "vertical": "Local & small business",
+  "tech": "HTML5 canvas game",
+  "summary": "A neon barcade site whose hero is a playable retro brick-breaker game, wrapped around a real cabinets list, draft beer menu, events, and hours.",
+  "order": 4,
+  "live_url": "https://arcade.view.fast/",
   "setup_questions": [
-    "What's the bar's name and era/theme (e.g. '80s arcade, all-neon')?",
+    "What's the bar's name and era/theme (e.g. \"'80s arcade, all-neon\")?",
     "Name a few signature cabinets/games you have on the floor.",
-    "What are 4-6 drinks on your draft/cocktail list?",
-    "Address, weekly hours, and any recurring event night (e.g. 'Tuesday Tetris tournament')?"
+    "What are 4–6 drinks on your draft/cocktail list?",
+    "Address, weekly hours, and any recurring event night (e.g. \"Tuesday Tetris tournament\")?"
   ],
   "photo_terms": [
     "retro arcade bar neon glow cabinets row",
@@ -25,5 +19,13 @@
     "craft beer taps bar nightlife",
     "neon sign arcade bar interior"
   ],
-  "live_url": "https://arcade.view.fast/"
+  "sections": [
+    "Playable canvas hero mini-game with score and 'Press start' overlay",
+    "The cabinets — list of featured arcade games",
+    "On tap — rotating draft beer / cocktail list",
+    "Events — tournament nights and happy hour",
+    "Hours, location, age policy, and map",
+    "Footer with socials and private-event booking"
+  ],
+  "based_on": "A retro arcade bar in the vein of Barcade (Brooklyn) and Ground Kontrol (Portland) — classic cabinets, craft beer on draft, weekly high-score tournaments, neon-and-CRT aesthetic."
 }

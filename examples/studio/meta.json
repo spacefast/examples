@@ -1,20 +1,12 @@
 {
   "name": "Northbound Studio",
+  "title": "Design studio",
   "slug": "studio",
-  "vertical": "Startup & marketing",
-  "tech": "vanilla-js",
-  "based_on": "Boutique brand-and-web studios in the Pentagram / Locomotive / Studio Lovelock mold \u2014 strategy-led, work-first portfolio sites with category-filtered case studies.",
-  "summary": "A portfolio site for a small brand-and-web design studio, led by a confident statement hero and a filterable selected-work grid, with case-study highlights, a services list, an about section, client logos, and a contact form.",
-  "sections": [
-    "Bold full-bleed statement hero ('We build brands people remember')",
-    "Selected work: project grid with category filter chips (Branding / Web / Motion) toggled in JS",
-    "Featured case-study highlight with before/after process imagery",
-    "Services list (brand identity, web design, art direction, motion)",
-    "About / studio philosophy + small team",
-    "Client logo strip",
-    "Contact form with name/email/project-type/message",
-    "Footer with email, socials, and location"
-  ],
+  "vertical": "Data, internal & startup",
+  "tech": "Vanilla JS",
+  "summary": "A work-first portfolio for a brand & web design studio — statement hero, a JS-filtered project grid, a before/after case study, and a contact form.",
+  "order": 22,
+  "live_url": "https://studio.view.fast/",
   "setup_questions": [
     "What's the studio name and your one-line positioning?",
     "What disciplines do you offer (branding, web, motion, packaging)?",
@@ -27,5 +19,15 @@
     "bold typographic poster design",
     "packaging design product photography"
   ],
-  "live_url": "https://studio.view.fast/"
+  "sections": [
+    "Bold full-bleed statement hero ('We build brands people remember')",
+    "Selected work: project grid with category filter chips (Branding / Web / Motion) toggled in JS",
+    "Featured case-study highlight with before/after process imagery",
+    "Services list (brand identity, web design, art direction, motion)",
+    "About / studio philosophy + small team",
+    "Client logo strip",
+    "Contact form with name/email/project-type/message",
+    "Footer with email, socials, and location"
+  ],
+  "based_on": "Boutique brand-and-web studios in the Pentagram / Locomotive / Studio Lovelock mold — strategy-led, work-first portfolio sites with category-filtered case studies."
 }

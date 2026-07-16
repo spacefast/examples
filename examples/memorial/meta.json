@@ -1,27 +1,30 @@
 {
   "name": "Remembering Eleanor",
+  "title": "Memorial",
   "slug": "memorial",
   "vertical": "Personal & creative",
-  "tech": "html",
-  "based_on": "A realistic, evergreen example modeled on a common real-world need \u2014 the kind of dignified tribute page families build to remember a loved one and share service details.",
-  "summary": "A quiet, dignified tribute: a framed portrait with dates and epitaph, a life story with a timeline, a black-and-white photo gallery with a lightbox, service and donation details, and a working memory wall that saves and persists visitors' messages.",
-  "sections": [
-    "Hero \u2014 framed portrait, name, years, and epitaph",
-    "Life story with drop cap, pull-quote, and a milestone timeline",
-    "Photo gallery in a click-to-enlarge lightbox with captions and keyboard nav",
-    "Service & celebration cards (service, reception, live stream) with directions",
-    "In-lieu-of-flowers donation card",
-    "Memory wall \u2014 seeded memories plus a validating form that persists via localStorage",
-    "Soft footer with a candle motif"
-  ],
+  "tech": "Plain HTML & CSS",
+  "summary": "A quiet, dignified tribute page — a framed portrait with dates and epitaph, a life story and timeline, a black-and-white photo gallery with a lightbox, service details, and a working memory wall that saves visitors' messages.",
+  "order": 300,
+  "live_url": "https://memorial.view.fast/",
   "setup_questions": [
-    "Whose memorial is this \u2014 their full name, the years (born\u2013passed), and a short epitaph or line they lived by?",
-    "Share a short life story and 5\u20136 photos or moments worth featuring.",
-    "What service or celebration details should I include \u2014 date, time, place, reception, live stream, and any donation request in lieu of flowers?"
+    "Whose memorial is this — their full name, the years (born–passed), and a short epitaph or line they lived by?",
+    "Share a short life story and 5–6 photos or moments worth featuring.",
+    "What service or celebration details should I include — date, time, place, reception, live stream, and any donation request in lieu of flowers?",
+    "Should visitors be able to leave memories, and if so should entries stay on this device, be sent somewhere for review, or link to an existing guestbook?"
   ],
   "photo_terms": [
     "soft floral arrangement",
     "candle warm memorial light"
   ],
-  "live_url": "https://memorial.view.fast/"
+  "sections": [
+    "Hero — framed portrait, name, years, and epitaph",
+    "Life story with drop cap, pull-quote, and a milestone timeline",
+    "Photo gallery in a click-to-enlarge lightbox with captions and keyboard nav",
+    "Service & celebration cards (service, reception, live stream) with directions",
+    "In-lieu-of-flowers donation card",
+    "Memory wall — seeded memories plus a validating form that persists via localStorage",
+    "Soft footer with a candle motif"
+  ],
+  "based_on": "A realistic, evergreen example modeled on a common real-world need — the kind of dignified tribute page families build to remember a loved one and share service details."
 }

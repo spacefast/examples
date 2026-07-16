@@ -1,20 +1,12 @@
 {
   "name": "RamHacks 2026",
+  "title": "Hackathon",
   "slug": "hackathon",
-  "vertical": "Events & community",
-  "tech": "vanilla-js",
-  "based_on": "A 36-hour student hackathon in the MLH ecosystem (think MHacks / UofTHacks) \u2014 hundreds of students, a weekend build sprint, sponsor prize tracks, MLH code of conduct.",
-  "summary": "An energetic landing site for a 36-hour student hackathon with a live countdown to kickoff, a two-day toggleable schedule, prize tracks, tiered sponsors, and an FAQ.",
-  "sections": [
-    "Hero with event name, host school, dates, and a live countdown timer to kickoff",
-    "About \u2014 what a hackathon is, who can join, team size, cost (free)",
-    "Schedule \u2014 36-hour timeline with a Saturday/Sunday day toggle (opening ceremony, workshops, midnight snack, judging, closing)",
-    "Prizes & tracks \u2014 grand prize plus sponsor category prizes (Best Beginner Hack, Best Use of AI, etc.)",
-    "Sponsors \u2014 tiered logos (Title / Gold / Startup) with 'Sponsor us' CTA",
-    "FAQ accordion (do I need experience, what to bring, travel reimbursement)",
-    "Register CTA banner",
-    "Footer with MLH Code of Conduct link and Discord/social links"
-  ],
+  "vertical": "Local & small business",
+  "tech": "Vanilla JS",
+  "summary": "An energetic landing site for a 36-hour student hackathon — a live countdown to kickoff, a Saturday/Sunday schedule toggle, prize tracks, tiered sponsors, and an FAQ.",
+  "order": 6,
+  "live_url": "https://hackathon.view.fast/",
   "setup_questions": [
     "What's the hackathon called and which school or org is hosting?",
     "When does it start, and how long does it run (e.g. 36 hours starting Sat 10am)?",
@@ -27,5 +19,15 @@
     "hackathon winners holding oversized check on stage",
     "university auditorium opening ceremony crowd"
   ],
-  "live_url": "https://hackathon.view.fast/"
+  "sections": [
+    "Hero with event name, host school, dates, and a live countdown timer to kickoff",
+    "About — what a hackathon is, who can join, team size, cost (free)",
+    "Schedule — 36-hour timeline with a Saturday/Sunday day toggle (opening ceremony, workshops, midnight snack, judging, closing)",
+    "Prizes & tracks — grand prize plus sponsor category prizes (Best Beginner Hack, Best Use of AI, etc.)",
+    "Sponsors — tiered logos (Title / Gold / Startup) with 'Sponsor us' CTA",
+    "FAQ accordion (do I need experience, what to bring, travel reimbursement)",
+    "Register CTA banner",
+    "Footer with MLH Code of Conduct link and Discord/social links"
+  ],
+  "based_on": "A 36-hour student hackathon in the MLH ecosystem (think MHacks / UofTHacks) — hundreds of students, a weekend build sprint, sponsor prize tracks, MLH code of conduct."
 }

@@ -1,20 +1,15 @@
-# Mia's 30th — build it yourself
-
-Copy everything below the line into your AI agent (Claude, ChatGPT, Codex, Cursor,
-or any agent that can write files and run a command). It will ask you a few quick
-questions, build the site, and publish it live to Spacefast.
-
----
-
 Build me a **themed party invite — a one-page site with the occasion, the details,
 a map, and a real RSVP form** as an **Astro site** (a small static project, no SSR,
 just `astro build` to a `dist/` folder).
 
-**First, ask me these questions and wait for my answers:**
+**Before you build, ask me these questions in one message and wait for my answers. If I skip anything, choose a sensible default and tell me what you chose:**
 
-1. What's the occasion and who's hosting? (e.g. "Mia's 30th birthday", and the vibe — playful, black-tie, backyard cookout?)
-2. What's the date, time, and venue? (full address so we can drop a real map)
-3. What RSVP fields do you need? (e.g. guest count, +1 name, dietary needs, a song request — and whether you want a "can't make it" path with a note to the host)
+1. What's the occasion, who's hosting, and what mood should the invitation set
+   (playful, black-tie, backyard cookout, or something else)?
+2. What's the date, time, venue, full address, and weather backup plan?
+3. What should guests know about dress, food, gifts, parking, or accessibility?
+4. Where should RSVPs go, and which details should the form collect (guest count,
+   +1 name, dietary needs, song request, or a note when someone can't attend)?
 
 **Then build a complete, polished, responsive site with:**
 
@@ -38,16 +33,28 @@ just `astro build` to a `dist/` folder).
 <script src="https://spacefast.com/badge.js" data-example="party"></script>
 ```
 
-**Finally, publish it to Spacefast so it's live in seconds — no account needed:**
+**When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
 
-- Zip the site (or point at the folder) and publish:
-  ```bash
-  curl -F archive=@site.zip https://api.spacefast.com/v1/publish
-  ```
-  (or just say: _"fetch https://spacefast.com/ai and publish this to Spacefast"_)
-- You'll get a **live URL**, a permanent version URL, and a one-time **claim link**.
-- Open the claim link and sign in within 24 hours to keep it forever — same URL.
-- Want to change it later? Edit the files and publish again; every version keeps
-  its own URL and you can roll back anytime.
+1. Use `./dist` as the publish folder. For no-build projects, put only the finished public files in that dedicated folder. Confirm it has `index.html` at its root and no secrets, source files, `.git`, or `.spacefast` state.
+2. First publish: send every file as multipart form data. This Bash/Zsh block preserves relative paths and works for one file or a whole folder:
+   ```bash
+   PUBLISH_ROOT=./dist
+   publish_files=()
+   while IFS= read -r -d "" file; do
+     relative=${file#"$PUBLISH_ROOT"/}
+     publish_files+=(-F "files=@$file;filename=$relative")
+   done < <(find "$PUBLISH_ROOT" -type f -print0)
+   curl -sS "${publish_files[@]}" "https://api.spacefast.com/v1/publish?wait=1"
+   ```
+3. From the `{ "data": ... }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret.
+4. Save `data.space.id` and `data.claim.token` locally (for example in an ignored, mode-600 `.spacefast/state.json`). For a quick update, rebuild the `publish_files` array above and publish to the same space:
+   ```bash
+   SPACEFAST_SPACE_ID=<saved-space-id>
+   SPACEFAST_TOKEN=<saved-claim-token-or-access-token>
+   curl -sS -H "Authorization: Bearer $SPACEFAST_TOKEN" \
+     -F "spaceId=$SPACEFAST_SPACE_ID" "${publish_files[@]}" \
+     "https://api.spacefast.com/v1/publish?wait=1"
+   ```
+   If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
 
-Learn more at **https://spacefast.com**.
+**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./dist --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/docs/agents) · [files and folders](https://spacefast.com/docs/publishing) · [claiming](https://spacefast.com/docs/anonymous-publish) · [updates and rollback](https://spacefast.com/docs/rollback)

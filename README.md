@@ -1,44 +1,54 @@
 # Spacefast Examples
 
-Thirty real, buildable example websites — a band site, a calorie tracker, a
+Forty-seven real, buildable example websites — a band site, a calorie tracker, a
 playable game, a restaurant menu, an internal sales dashboard, and more. Each one
-is **self-contained** (no shared components) and ships with the exact **prompt**
-that produces it.
+is self-contained and ships with the exact prompt that produces it.
 
 Every example exists to answer one question: _given the prompt, can any AI agent
-build this exact site and publish it to Spacefast?_ They double as the public
-gallery at **[spacefast.com/examples](https://spacefast.com/examples)**.
+build this site and publish it to Spacefast?_ They also power the public gallery
+at [spacefast.com/examples](https://spacefast.com/examples).
 
 ## Layout
 
-```
+```text
 examples/
   <slug>/
-    prompt.md      ← the copy-paste prompt (asks you setup questions, then builds + publishes)
-    meta.json      ← name, vertical, tech, setup questions, live URL
-    site/          ← the built site (plain files, or a buildable project)
-    README.md      ← what it is + the live link
+    prompt.md      ← the copy-paste prompt
+    meta.json      ← gallery metadata and live URL
+    site/          ← the built site or buildable project
+    README.md      ← implementation notes and live link
 ```
 
-No shared packages, no monorepo tooling, no cross-imports. Each `examples/<slug>/`
-is its own little world so you can copy one folder and have a complete project.
+This repository is the canonical source for the gallery. Prompts and metadata
+are compiled into a public JSON feed by GitHub Actions:
+
+<https://spacefast.github.io/examples/manifest.json>
+
+The Spacefast website and the badges on the live examples read that feed. Do not
+copy prompts or gallery metadata into another repository.
 
 ## The badge
 
-Every published example loads the Spacefast badge, a small floating
-"Published on Spacefast" pill that links back to that example's build-your-own
-page:
+Every published example loads the shared Spacefast badge. The panel is always
+open, and the shared script reads the current prompt from the canonical feed:
 
 ```html
 <script src="https://spacefast.com/badge.js" data-example="<slug>"></script>
 ```
 
+Do not vendor `badge.js` or embed a prompt in an example build. Keeping the badge
+shared means a prompt or badge improvement reaches every example without another
+47-site publish.
+
 ## Publishing
 
-CI (`.github/workflows/publish.yml`) builds each example and publishes it to
-Spacefast at its slug, using a `SPACEFAST_DEPLOY_KEY` repo secret. Static examples
-are published as-is; examples with a `package.json` are built first and the build
-output is published.
+GitHub Actions (`.github/workflows/publish.yml`) validates the full catalog,
+publishes the JSON feed to GitHub Pages, and rebuilds and publishes changed
+examples to their existing Spacefast spaces. It authenticates with the
+team-owned `SPACEFAST_DEPLOY_KEY` repository secret. Static examples are
+published as-is; examples with a `package.json` are built first.
 
 To add an example: copy `TEMPLATE.md` into `examples/<slug>/prompt.md`, fill it in,
-drop the built site in `examples/<slug>/site/`, and add `meta.json`. CI does the rest.
+drop the site in `examples/<slug>/site/`, and add `meta.json` using
+`meta.example.json` as the schema. Run `bun scripts/build-manifest.mjs` locally;
+CI does the same validation and handles the rest.

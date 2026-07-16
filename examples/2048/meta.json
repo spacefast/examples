@@ -1,10 +1,18 @@
 {
   "name": "2048",
+  "title": "2048",
   "slug": "2048",
   "vertical": "Tools, apps & games",
-  "tech": "vanilla-js",
-  "based_on": "A faithful remake of Gabriele Cirulli's classic 2048 sliding-tile puzzle \u2014 the canonical evergreen single-file browser game.",
-  "summary": "The classic 2048 sliding-tile game: arrow-key and swipe controls, a 4x4 grid, smooth tile-merge animations, score and persistent best score (localStorage), and a win/lose overlay with restart and one-step undo.",
+  "tech": "Vanilla JS",
+  "summary": "The classic 2048 sliding-tile puzzle — arrow-key and swipe controls, smooth merge animations, score and persistent best score, and a win/lose overlay with restart and undo.",
+  "order": 300,
+  "live_url": "https://2048.view.fast/",
+  "setup_questions": [
+    "What tile theme or color palette do you want?",
+    "Board size (default 4x4)?",
+    "What's the winning tile (default 2048)?"
+  ],
+  "photo_terms": [],
   "sections": [
     "4x4 grid on a rounded board frame",
     "Arrow-key + touch-swipe controls",
@@ -14,11 +22,5 @@
     "Win overlay with 'keep going', game-over overlay, and restart",
     "New Game button, one-step Undo, and moves counter"
   ],
-  "setup_questions": [
-    "What tile theme or color palette do you want?",
-    "Board size (default 4x4)?",
-    "What's the winning tile (default 2048)?"
-  ],
-  "photo_terms": [],
-  "live_url": "https://2048.view.fast/"
+  "based_on": "A faithful remake of Gabriele Cirulli's classic 2048 sliding-tile puzzle — the canonical evergreen single-file browser game."
 }

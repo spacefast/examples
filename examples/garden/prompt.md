@@ -1,16 +1,8 @@
-# Maple Street Community Garden — build it yourself
-
-Copy everything below the line into your AI agent (Claude, ChatGPT, Codex, Cursor,
-or any agent that can write files and run a command). It will ask you a few quick
-questions, build the site, and publish it live to Spacefast.
-
----
-
 Build me a **one-page website for my neighborhood community garden** as plain HTML &
 CSS with a touch of vanilla JavaScript (no build step, no framework — just an
 `index.html`, a stylesheet, and a small script).
 
-**First, ask me these questions and wait for my answers:**
+**Before you build, ask me these questions in one message and wait for my answers. If I skip anything, choose a sensible default and tell me what you chose:**
 
 1. What's the garden's name and which neighborhood or street is it on?
 2. What plot sizes do you rent and what's the annual fee for each?
@@ -59,8 +51,8 @@ CSS with a touch of vanilla JavaScript (no build step, no framework — just an
   flourishes are welcome.
 - Use realistic content based on my answers — never "lorem ipsum". Invent believable
   bed descriptions, an origin story, plausible event dates, and a coordinator's name.
-- Use real images. Pull free photos that fit, e.g. from Unsplash
-  (`https://source.unsplash.com/1200x800/?community,garden,raised,beds`) or Pexels,
+- Use real images. Pull free photos that fit, e.g.
+  `https://picsum.photos/seed/community-garden-1/1200/800` (vary the seed) or Pexels,
   with descriptive `alt` text. Good search terms: community garden raised beds
   vegetables volunteers; hands planting seedlings in soil close up; ripe tomatoes and
   leafy greens garden harvest; community potluck outdoor table garden.
@@ -76,16 +68,28 @@ CSS with a touch of vanilla JavaScript (no build step, no framework — just an
 <script src="https://spacefast.com/badge.js" data-example="garden"></script>
 ```
 
-**Finally, publish it to Spacefast so it's live in seconds — no account needed:**
+**When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
 
-- Zip the site (or point at the folder) and publish:
-  ```bash
-  curl -F archive=@site.zip https://api.spacefast.com/v1/publish
-  ```
-  (or just say: _"fetch https://spacefast.com/ai and publish this to Spacefast"_)
-- You'll get a **live URL**, a permanent version URL, and a one-time **claim link**.
-- Open the claim link and sign in within 24 hours to keep it forever — same URL.
-- Want to change it later? Edit the files and publish again; every version keeps
-  its own URL and you can roll back anytime.
+1. Use `./site` as the publish folder. For no-build projects, put only the finished public files in that dedicated folder. Confirm it has `index.html` at its root and no secrets, source files, `.git`, or `.spacefast` state.
+2. First publish: send every file as multipart form data. This Bash/Zsh block preserves relative paths and works for one file or a whole folder:
+   ```bash
+   PUBLISH_ROOT=./site
+   publish_files=()
+   while IFS= read -r -d "" file; do
+     relative=${file#"$PUBLISH_ROOT"/}
+     publish_files+=(-F "files=@$file;filename=$relative")
+   done < <(find "$PUBLISH_ROOT" -type f -print0)
+   curl -sS "${publish_files[@]}" "https://api.spacefast.com/v1/publish?wait=1"
+   ```
+3. From the `{ "data": ... }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret.
+4. Save `data.space.id` and `data.claim.token` locally (for example in an ignored, mode-600 `.spacefast/state.json`). For a quick update, rebuild the `publish_files` array above and publish to the same space:
+   ```bash
+   SPACEFAST_SPACE_ID=<saved-space-id>
+   SPACEFAST_TOKEN=<saved-claim-token-or-access-token>
+   curl -sS -H "Authorization: Bearer $SPACEFAST_TOKEN" \
+     -F "spaceId=$SPACEFAST_SPACE_ID" "${publish_files[@]}" \
+     "https://api.spacefast.com/v1/publish?wait=1"
+   ```
+   If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
 
-Learn more at **https://spacefast.com**.
+**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./site --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/docs/agents) · [files and folders](https://spacefast.com/docs/publishing) · [claiming](https://spacefast.com/docs/anonymous-publish) · [updates and rollback](https://spacefast.com/docs/rollback)

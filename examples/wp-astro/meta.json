@@ -1,10 +1,23 @@
 {
   "name": "Headless WordPress + Astro",
+  "title": "WordPress + Astro",
   "slug": "wp-astro",
   "vertical": "Developers & integrations",
-  "tech": "astro",
-  "based_on": "A real headless-CMS setup: WordPress as the editor, Astro as the static front end, pulling posts from the public WordPress REST API at build time (demo source: wordpress.org/news).",
-  "summary": "A static editorial blog whose posts are fetched from a public WordPress REST API at build time and rendered to flat HTML with Astro \u2014 headless WordPress, no server at request time.",
+  "tech": "Astro + WP REST API",
+  "summary": "A static editorial blog whose posts are pulled from a public WordPress REST API at build time and rendered to flat HTML with Astro — headless WordPress, no server at request time.",
+  "order": 200,
+  "live_url": "https://wp-astro.view.fast/",
+  "setup_questions": [
+    "What's the WordPress site to pull from (the REST API base, e.g. https://wordpress.org/news/wp-json/wp/v2)?",
+    "What should the blog be called?",
+    "Which categories, authors, or content types should be featured or excluded?",
+    "What's the accent color (a hex like"
+  ],
+  "photo_terms": [
+    "wordpress dashboard on laptop screen",
+    "developer writing code editor closeup",
+    "abstract content management network nodes"
+  ],
   "sections": [
     "Header strip explaining 'Content from WordPress, rendered statically with Astro, hosted on Spacefast' with a source link",
     "Blog index: full-width lead story plus a responsive grid of post cards (image, tags, title, excerpt, author, date, reading time)",
@@ -12,16 +25,6 @@
     "Per-post static pages with title, byline, hero image, and the post's rendered HTML as editorial prose",
     "Footer crediting the WordPress REST API source, Astro, and Spacefast"
   ],
-  "setup_questions": [
-    "What's the WordPress site to pull from (the REST API base, e.g. https://wordpress.org/news/wp-json/wp/v2)?",
-    "What should the blog be called?",
-    "What's the accent color (a hex like #0b6e4f)?"
-  ],
-  "photo_terms": [
-    "wordpress dashboard on laptop screen",
-    "developer writing code editor closeup",
-    "abstract content management network nodes"
-  ],
-  "live_url": "https://wp-astro.view.fast/",
-  "why_good": "The canonical 'real developer integration' example \u2014 proves an agent can wire a live REST API into a static build, normalize messy CMS data, and ship a polished blog with zero backend at request time."
+  "based_on": "A real headless-CMS setup: WordPress as the editor, Astro as the static front end, pulling posts from the public WordPress REST API at build time (demo source: wordpress.org/news).",
+  "why_good": "The canonical 'real developer integration' example — proves an agent can wire a live REST API into a static build, normalize messy CMS data, and ship a polished blog with zero backend at request time."
 }

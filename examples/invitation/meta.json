@@ -1,20 +1,12 @@
 {
-  "name": "Maya & Daniel \u2014 June 2026",
+  "name": "Maya & Daniel",
+  "title": "Wedding invite",
   "slug": "invitation",
-  "vertical": "Personal & life sites",
-  "tech": "astro",
-  "based_on": "A Sonoma vineyard wedding site in the Zola/The Knot/With Joy mold \u2014 the canonical multi-section guest site with a countdown, Our Story, details, travel, registry, RSVP, and FAQ.",
-  "summary": "An elegant multi-section wedding site with a live date countdown, the couple's story, event logistics, travel and lodging, a photo gallery, registry links, a validating RSVP form with meal choice, and a guest FAQ.",
-  "sections": [
-    "Hero with names, date, venue, and a live countdown",
-    "Our Story (how they met, the proposal, a timeline)",
-    "The Details (ceremony + reception times, address, dress code)",
-    "Travel & Stay (airport, hotel block, directions)",
-    "Photo gallery",
-    "Registry links",
-    "RSVP form (attendance, guest count, meal preference, song request)",
-    "FAQ (parking, kids, plus-ones, weather)"
-  ],
+  "vertical": "Personal & creative",
+  "tech": "Astro",
+  "summary": "An elegant multi-section wedding site — live countdown, our story, details, travel, gallery, registry, a validating RSVP form, and an FAQ.",
+  "order": 2,
+  "live_url": "https://invitation.view.fast/",
   "setup_questions": [
     "What are both your names, your wedding date, and the venue/city?",
     "Where and when are the ceremony and reception, and is there a dress code?",
@@ -27,5 +19,15 @@
     "wedding table setting florals candles",
     "couple holding hands walking countryside"
   ],
-  "live_url": "https://invitation.view.fast/"
+  "sections": [
+    "Hero with names, date, venue, and a live countdown",
+    "Our Story (how they met, the proposal, a timeline)",
+    "The Details (ceremony + reception times, address, dress code)",
+    "Travel & Stay (airport, hotel block, directions)",
+    "Photo gallery",
+    "Registry links",
+    "RSVP form (attendance, guest count, meal preference, song request)",
+    "FAQ (parking, kids, plus-ones, weather)"
+  ],
+  "based_on": "A Sonoma vineyard wedding site in the Zola/The Knot/With Joy mold — the canonical multi-section guest site with a countdown, Our Story, details, travel, registry, RSVP, and FAQ."
 }

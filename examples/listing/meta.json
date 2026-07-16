@@ -1,10 +1,24 @@
 {
   "name": "1428 Vista Del Mar",
+  "title": "Real-estate listing",
   "slug": "listing",
-  "vertical": "Local business",
-  "tech": "vite-react",
-  "based_on": "A dedicated single-property listing microsite of the kind agents spin up for premium homes (PhotoUp / CribFlyer style) \u2014 big gallery, key facts, floor plan, neighborhood, agent card, tour request.",
-  "summary": "An interactive single-listing site for one home: a filmstrip photo gallery with lightbox, key stats, an interactive mortgage estimator, floor plan, and a tour-request form.",
+  "vertical": "Local & small business",
+  "tech": "Vite + React",
+  "summary": "An interactive single-listing site for one home — a photo gallery with lightbox, key stats, a live mortgage estimator, floor plan, and a tour-request form.",
+  "order": 2,
+  "live_url": "https://listing.view.fast/",
+  "setup_questions": [
+    "What's the property address, list price, and beds/baths/square footage?",
+    "What are 4–6 standout features (e.g. \"chef's kitchen, ocean-view primary suite, pool\")?",
+    "Who's the listing agent — name, brokerage, phone, email?",
+    "Roughly what neighborhood/lifestyle should the copy lean into?"
+  ],
+  "photo_terms": [
+    "modern luxury home exterior dusk twilight",
+    "open concept living room large windows",
+    "primary bedroom suite ocean view",
+    "backyard pool patio sunset"
+  ],
   "sections": [
     "Hero with address, price, beds/baths/sqft and a hero photo",
     "Photo gallery with click-to-open lightbox and thumbnails",
@@ -14,17 +28,5 @@
     "Schedule-a-tour form and agent contact card",
     "Footer with disclaimer and MLS-style details"
   ],
-  "setup_questions": [
-    "What's the property address, list price, and beds/baths/square footage?",
-    "What are 4-6 standout features (e.g. 'chef's kitchen, ocean-view primary suite, pool')?",
-    "Who's the listing agent \u2014 name, brokerage, phone, email?",
-    "Roughly what neighborhood/lifestyle should the copy lean into?"
-  ],
-  "photo_terms": [
-    "modern luxury home exterior dusk twilight",
-    "open concept living room large windows",
-    "primary bedroom suite ocean view",
-    "backyard pool patio sunset"
-  ],
-  "live_url": "https://listing.view.fast/"
+  "based_on": "A dedicated single-property listing microsite of the kind agents spin up for premium homes (PhotoUp / CribFlyer style) — big gallery, key facts, floor plan, neighborhood, agent card, tour request."
 }

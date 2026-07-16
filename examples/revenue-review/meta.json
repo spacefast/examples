@@ -1,19 +1,12 @@
 {
-  "name": "Lumen Analytics \u2014 FY2025 Revenue Review",
+  "name": "Lumen Analytics — FY2025 Revenue Review",
+  "title": "Revenue analysis",
   "slug": "revenue-review",
-  "vertical": "Data & dashboards",
-  "tech": "vite-react",
-  "based_on": "A Series B SaaS company's annual board-deck revenue review rendered as an interactive web page \u2014 the kind of ARR/MRR breakdown ChartMogul, Mosaic, or a VP of Finance assembles for the board (analytics SaaS at ~$14M ARR, 112% net revenue retention).",
-  "summary": "An internal end-of-year revenue analysis for a SaaS company: an executive KPI strip, an ARR bridge waterfall, MRR movement, retention cohorts, and segment breakdowns, all interactive.",
-  "sections": [
-    "Executive summary strip (ARR, Net Revenue Retention, gross logo churn, ACV, CAC payback months)",
-    "ARR bridge / waterfall chart: starting ARR + new + expansion \u2212 contraction \u2212 churned = ending ARR",
-    "MRR movement bar chart by month (new vs expansion vs contraction vs churned)",
-    "Cohort retention heatmap (signup month vs months-since-signup)",
-    "Revenue by plan tier (Starter / Growth / Enterprise) and by segment (SMB / Mid-Market / Enterprise)",
-    "Churn analysis with top stated churn reasons and a 'logos at risk' table",
-    "Next-year forecast with a base / bull / bear scenario toggle"
-  ],
+  "vertical": "Data, internal & startup",
+  "tech": "Vite + React",
+  "summary": "An interactive year-end SaaS revenue review — an executive KPI strip, an ARR bridge waterfall that sums, MRR movement, cohort retention, revenue mix, churn, and a base/bull/bear forecast.",
+  "order": 2,
+  "live_url": "https://revenue-review.view.fast/",
   "setup_questions": [
     "What's your company name and what does the product do?",
     "What's your current ARR (or MRR) and net revenue retention, roughly?",
@@ -26,5 +19,14 @@
     "minimal data dashboard ui dark mode",
     "corporate office boardroom presentation screen"
   ],
-  "live_url": "https://revenue-review.view.fast/"
+  "sections": [
+    "Executive summary strip (ARR, Net Revenue Retention, gross logo churn, ACV, CAC payback months)",
+    "ARR bridge / waterfall chart: starting ARR + new + expansion − contraction − churned = ending ARR",
+    "MRR movement bar chart by month (new vs expansion vs contraction vs churned)",
+    "Cohort retention heatmap (signup month vs months-since-signup)",
+    "Revenue by plan tier (Starter / Growth / Enterprise) and by segment (SMB / Mid-Market / Enterprise)",
+    "Churn analysis with top stated churn reasons and a 'logos at risk' table",
+    "Next-year forecast with a base / bull / bear scenario toggle"
+  ],
+  "based_on": "A Series B SaaS company's annual board-deck revenue review rendered as an interactive web page — the kind of ARR/MRR breakdown ChartMogul, Mosaic, or a VP of Finance assembles for the board (analytics SaaS at ~$14M ARR, 112% net revenue retention)."
 }

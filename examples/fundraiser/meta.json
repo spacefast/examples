@@ -1,10 +1,24 @@
 {
   "name": "Help Fund the Maple Street Mural",
+  "title": "Fundraiser",
   "slug": "fundraiser",
   "vertical": "Personal & creative",
-  "tech": "vanilla-js",
-  "based_on": "A realistic, evergreen neighborhood-fundraiser page in the vein of a GoFundMe / community-grant campaign \u2014 story, animated goal thermometer, donate flow, and a growing donor wall (the pattern every cause page reaches for).",
-  "summary": "A one-page campaign site for a community mural fund: an emotional cause story, an animated progress bar toward a $24,000 goal, a working donate button and modal, and a live donor wall that grows as people give \u2014 all persisted in localStorage.",
+  "tech": "Vanilla JS",
+  "summary": "A one-page community-fundraiser site with an animated goal thermometer, a working donate button and modal, and a live donor wall that grows as people give.",
+  "order": 300,
+  "live_url": "https://fundraiser.view.fast/",
+  "setup_questions": [
+    "What's the cause and who does it help? (Name, one-line summary, and a few sentences of story.)",
+    "What's the goal amount and how much is raised so far — and when does the campaign end?",
+    "What payment link should the \"Donate\" button use (Stripe / PayPal / GoFundMe)? Leave it as a demo if you don't have one yet.",
+    "List a handful of real donors (name + amount, optional note) to seed the donor wall, plus a 4–6 line budget breakdown."
+  ],
+  "photo_terms": [
+    "community mural painting on a neighborhood brick wall",
+    "volunteers working together on a neighborhood project",
+    "children painting at an outdoor art workshop",
+    "neighbors gathered together at a community center"
+  ],
   "sections": [
     "Hero with a community photo, the cause, an emotional lede, and the live fundraising widget",
     "Animated progress bar with dollars raised, goal, percentage, donor count, and days left",
@@ -15,17 +29,5 @@
     "Share section with a working copy-link button and X / Facebook / email links",
     "Footer with org name, contact, and nonprofit fine print"
   ],
-  "setup_questions": [
-    "What's the cause and who does it help? (Name, one-line summary, and a few sentences of story.)",
-    "What's the goal amount and how much is raised so far \u2014 and when does the campaign end?",
-    "What payment link should the 'Donate' button use (Stripe / PayPal / GoFundMe)? Leave it as a demo if you don't have one yet.",
-    "List a handful of real donors (name + amount, optional note) to seed the donor wall, plus a 4-6 line budget breakdown."
-  ],
-  "photo_terms": [
-    "community mural painting",
-    "volunteers neighborhood project",
-    "children painting art workshop",
-    "neighbors gathered community center"
-  ],
-  "live_url": "https://fundraiser.view.fast/"
+  "based_on": "A realistic, evergreen neighborhood-fundraiser page in the vein of a GoFundMe / community-grant campaign — story, animated goal thermometer, donate flow, and a growing donor wall (the pattern every cause page reaches for)."
 }

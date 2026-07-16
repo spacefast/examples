@@ -82,7 +82,8 @@ jobs:
               | sed 's#^examples/##' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))'
           }
 
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] \
+          if [ "${{ github.event_name }}" = "pull_request" ] \
+            || [ "${{ github.event_name }}" = "workflow_dispatch" ] \
             || [ -z "$BEFORE" ] \
             || [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
             echo "slugs=$(all_slugs)" >> "$GITHUB_OUTPUT"

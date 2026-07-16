@@ -130,19 +130,35 @@ jobs:
           fi
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
           bun ../../scripts/validate-publish-dir.mjs "${{ matrix.slug }}" "$dir"
-      - name: Publish existing Spacefast space
+      - name: Publish Spacefast space
         if: github.event_name != 'pull_request'
         working-directory: examples/${{ matrix.slug }}
         env:
           SPACEFAST_TOKEN: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
           SPACEFAST_API_URL: https://api.spacefast.com
         run: |
-          sf publish "${{ steps.dir.outputs.dir }}" \
-            --space "${{ matrix.slug }}" \
-            --team spacefast-examples \
-            --source-type git \
-            --git-repository "${{ github.repository }}" \
-            --git-branch "${{ github.ref_name }}" \
-            --git-commit "${{ github.sha }}" \
-            --wait \
+          publish_args=(
+            "${{ steps.dir.outputs.dir }}"
+            --team spacefast-examples
+            --source-type git
+            --git-repository "${{ github.repository }}"
+            --git-branch "${{ github.ref_name }}"
+            --git-commit "${{ github.sha }}"
+            --wait
             --json
+          )
+
+          set +e
+          result=$(sf publish "${publish_args[@]}" --space "${{ matrix.slug }}" 2>&1)
+          exit_code=$?
+          set -e
+          printf '%s\n' "$result"
+
+          if [ "$exit_code" -eq 0 ]; then
+            exit 0
+          fi
+          if ! jq -e '.error.code == "not_found"' <<<"$result" >/dev/null; then
+            exit "$exit_code"
+          fi
+
+          sf publish "${publish_args[@]}" --slug "${{ matrix.slug }}"

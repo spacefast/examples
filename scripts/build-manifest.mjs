@@ -47,8 +47,13 @@ for (const slug of slugs) {
   }
 
   const liveUrl = requiredString(meta.live_url, "live_url", slug);
+  const publishSlug =
+    meta.publish_slug === undefined
+      ? slug
+      : requiredString(meta.publish_slug, "publish_slug", slug);
   items.push({
     slug,
+    publishSlug,
     title: requiredString(meta.title, "title", slug),
     name: requiredString(meta.name, "name", slug),
     vertical: requiredString(meta.vertical, "vertical", slug),

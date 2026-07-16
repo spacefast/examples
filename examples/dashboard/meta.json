@@ -2,11 +2,12 @@
   "name": "Brightside Coffee — Growth Dashboard",
   "title": "Growth dashboard",
   "slug": "dashboard",
+  "publish_slug": "brightside-growth-dashboard",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
   "summary": "A single-screen, auto-refreshing growth dashboard for an online store — live KPI tiles with sparklines, a revenue trend, traffic sources, top products, and a channel leaderboard.",
   "order": 1,
-  "live_url": "https://dashboard.view.fast/",
+  "live_url": "https://brightside-growth-dashboard.view.fast/",
   "setup_questions": [
     "What's the brand name and what do you sell?",
     "Which 4-6 metrics matter most to your team day to day?",

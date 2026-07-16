@@ -128,7 +128,7 @@ jobs:
           else dir=site
           fi
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
-          bun ../../../scripts/validate-publish-dir.mjs "${{ matrix.slug }}" "$dir"
+          bun ../../scripts/validate-publish-dir.mjs "${{ matrix.slug }}" "$dir"
       - name: Publish existing Spacefast space
         if: github.event_name != 'pull_request'
         working-directory: examples/${{ matrix.slug }}

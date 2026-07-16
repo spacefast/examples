@@ -91,13 +91,9 @@ jobs:
           fi
 
           changed=$(git diff --name-only "$BEFORE" "${{ github.sha }}")
-          if printf '%s\n' "$changed" | grep -Eq '^(scripts/|TEMPLATE.md$|meta.example.json$|.github/workflows/publish.yml$)'; then
-            echo "slugs=$(all_slugs)" >> "$GITHUB_OUTPUT"
-          else
-            slugs=$(printf '%s\n' "$changed" | sed -n 's#^examples/\([^/]*\)/.*#\1#p' \
-              | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
-            echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
-          fi
+          slugs=$(printf '%s\n' "$changed" | sed -n 's#^examples/\([^/]*\)/site/.*#\1#p' \
+            | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
 
   publish:
     needs: discover
@@ -105,6 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      max-parallel: 4
       matrix:
         slug: ${{ fromJson(needs.discover.outputs.slugs) }}
     steps:

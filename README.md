@@ -52,3 +52,8 @@ To add an example: copy `TEMPLATE.md` into `examples/<slug>/prompt.md`, fill it 
 drop the site in `examples/<slug>/site/`, and add `meta.json` using
 `meta.example.json` as the schema. Run `bun scripts/build-manifest.mjs` locally;
 CI does the same validation and handles the rest.
+
+The directory slug is also the Spacefast space slug by default. If that hostname
+is reserved or the example deliberately publishes elsewhere, add `publish_slug`
+to `meta.json` and make `live_url` match it. The gallery route and badge continue
+to use the directory slug.

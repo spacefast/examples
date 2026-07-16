@@ -134,6 +134,7 @@ jobs:
           SPACEFAST_TOKEN: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
           SPACEFAST_API_URL: https://api.spacefast.com
         run: |
+          space_slug=$(jq -er '.publish_slug // .slug' meta.json)
           publish_args=(
             "${{ steps.dir.outputs.dir }}"
             --team spacefast-examples
@@ -146,7 +147,7 @@ jobs:
           )
 
           set +e
-          result=$(sf publish "${publish_args[@]}" --space "${{ matrix.slug }}" 2>&1)
+          result=$(sf publish "${publish_args[@]}" --space "$space_slug" 2>&1)
           exit_code=$?
           set -e
           printf '%s\n' "$result"
@@ -158,4 +159,4 @@ jobs:
             exit "$exit_code"
           fi
 
-          sf publish "${publish_args[@]}" --slug "${{ matrix.slug }}"
+          sf publish "${publish_args[@]}" --slug "$space_slug"

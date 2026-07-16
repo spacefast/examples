@@ -1,10 +1,24 @@
 {
   "name": "Beacon ROI Calculator",
+  "title": "ROI calculator",
   "slug": "roi",
   "vertical": "Data, internal & startup",
-  "tech": "vanilla-js",
-  "based_on": "A B2B SaaS ROI / savings calculator landing page \u2014 the lead-gen pattern marketing teams build to turn a few inputs (spend, team size, volume) into a projected-savings number with a chart and a gated 'email me the report' CTA. Modeled on an AI customer-support tool that auto-resolves a share of tickets.",
-  "summary": "A B2B ROI / lead-gen calculator: enter current support spend, team size, and ticket volume, and a live results panel computes projected annual savings, payback, and reclaimed hours with animated SVG charts, behind a gated 'email me the report' CTA.",
+  "tech": "Vanilla JS",
+  "summary": "A B2B ROI / lead-gen calculator — enter your support spend, team size, and ticket volume and watch projected savings, payback, and reclaimed hours compute live with animated SVG charts, behind a gated \"email me the report\" CTA.",
+  "order": 300,
+  "live_url": "https://roi.view.fast/",
+  "setup_questions": [
+    "What does your product save customers — time, money, or both — and what's the product called?",
+    "What are the 2-3 input variables a visitor types in, and the formula that turns them into savings?",
+    "What's the lead-capture CTA at the end — what do they get for handing over an email (a PDF report, a demo, a custom quote)?",
+    "Any brand details — product name, accent color, a one-line value prop, and a customer quote I can show?"
+  ],
+  "photo_terms": [
+    "business analytics chart blue gradient dashboard",
+    "calculator finance desk documents",
+    "minimal data dashboard ui dark mode",
+    "professional headshot operations leader neutral"
+  ],
   "sections": [
     "Compact hero with value prop, proof stats, and a scroll-to-calculator CTA",
     "Inputs panel: support spend, team size, and ticket volume (number fields synced to range sliders)",
@@ -15,17 +29,5 @@
     "Gated 'email me the report' lead-capture CTA with validation and success state",
     "Social proof: customer logos and a testimonial"
   ],
-  "setup_questions": [
-    "What does your product save customers \u2014 time, money, or both \u2014 and what's the product called?",
-    "What are the 2-3 input variables a visitor types in, and the formula that turns them into savings?",
-    "What's the lead-capture CTA at the end \u2014 what do they get for handing over an email (a PDF report, a demo, a custom quote)?",
-    "Any brand details \u2014 product name, accent color, a one-line value prop, and a customer quote I can show?"
-  ],
-  "photo_terms": [
-    "business analytics chart blue gradient dashboard",
-    "calculator finance desk documents",
-    "minimal data dashboard ui dark mode",
-    "professional headshot operations leader neutral"
-  ],
-  "live_url": "https://roi.view.fast/"
+  "based_on": "A B2B SaaS ROI / savings calculator landing page — the lead-gen pattern marketing teams build to turn a few inputs (spend, team size, volume) into a projected-savings number with a chart and a gated 'email me the report' CTA. Modeled on an AI customer-support tool that auto-resolves a share of tickets."
 }

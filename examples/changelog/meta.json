@@ -1,22 +1,17 @@
 {
   "name": "Plank",
+  "title": "Changelog",
   "slug": "changelog",
-  "vertical": "Content & media",
-  "tech": "vanilla-js",
-  "based_on": "A SaaS product changelog in the Linear / Stripe / Clerk style \u2014 dated entries, New/Improved/Fixed category badges, tag filtering, and an RSS feed.",
-  "summary": "A calm, dated changelog for a markdown notes app, with category badges, client-side tag filtering, inline screenshots per release, and subscribe-by-RSS/email links.",
-  "sections": [
-    "Header \u2014 product name, one-liner, and Subscribe (RSS + email) actions",
-    "Filter bar \u2014 toggle by New / Improved / Fixed",
-    "Release timeline \u2014 dated entries with version, badge, title, description, and optional screenshot",
-    "Per-entry permalink anchors",
-    "Footer subscribe block and RSS link"
-  ],
+  "vertical": "Data, internal & startup",
+  "tech": "Vanilla JS",
+  "summary": "A calm product changelog in the Linear / Stripe style — dated New/Improved/Fixed entries, live tag filtering, inline screenshots, and an RSS feed.",
+  "order": 1,
+  "live_url": "https://changelog.view.fast/",
   "setup_questions": [
     "What's the product name and a one-line description of what it does?",
-    "Give me 3-4 recent release notes \u2014 version, date, category, and what changed.",
+    "Give me 3-4 recent release notes — version, date, category, and what changed.",
     "What's your brand accent color?",
-    "Where should 'subscribe to updates' point (email signup URL or just RSS)?"
+    "Where should \"subscribe to updates\" point (email signup URL or just RSS)?"
   ],
   "photo_terms": [
     "macbook on minimal desk workspace",
@@ -24,5 +19,12 @@
     "abstract gradient background soft",
     "clean product screenshot on laptop"
   ],
-  "live_url": "https://changelog.view.fast/"
+  "sections": [
+    "Header — product name, one-liner, and Subscribe (RSS + email) actions",
+    "Filter bar — toggle by New / Improved / Fixed",
+    "Release timeline — dated entries with version, badge, title, description, and optional screenshot",
+    "Per-entry permalink anchors",
+    "Footer subscribe block and RSS link"
+  ],
+  "based_on": "A SaaS product changelog in the Linear / Stripe / Clerk style — dated entries, New/Improved/Fixed category badges, tag filtering, and an RSS feed."
 }

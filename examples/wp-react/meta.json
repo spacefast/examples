@@ -1,27 +1,30 @@
 {
   "name": "WordPress + React SPA",
+  "title": "WordPress + React",
   "slug": "wp-react",
   "vertical": "Developers & integrations",
-  "tech": "vite-react",
-  "based_on": "A headless-WordPress reading app: a React single-page app that fetches posts from a public, CORS-enabled WordPress REST API straight from the browser \u2014 the kind of decoupled front end developers build on top of an existing WP install.",
-  "summary": "A polished reading app \u2014 post list and article views \u2014 that fetches content at runtime from a public WordPress REST API, with client-side routing, search, pagination, and real loading/error states.",
+  "tech": "Vite + React + WP REST API",
+  "summary": "A polished reading app that fetches posts live from a WordPress REST API in the browser — card list, article view, client-side routing, search, and real loading/error states.",
+  "order": 201,
+  "live_url": "https://wp-react.view.fast/",
+  "setup_questions": [
+    "What's the WordPress REST API base URL? (e.g. https://your-site.com/wp-json/wp/v2; or use the demo https://wordpress.org/news/wp-json/wp/v2)",
+    "What should the app be called, and what's a one-line tagline?",
+    "Which categories, authors, or post types should be searchable or featured?",
+    "Light theme, dark theme, or a toggle that remembers my choice?"
+  ],
+  "photo_terms": [],
   "sections": [
-    "Post list \u2014 responsive card grid with featured image, title, excerpt, author, date, and reading time, led by a larger featured card",
-    "Post detail \u2014 title, author avatar + byline, hero image with caption, and the sanitized rendered article body",
+    "Post list — responsive card grid with featured image, title, excerpt, author, date, and reading time, led by a larger featured card",
+    "Post detail — title, author avatar + byline, hero image with caption, and the sanitized rendered article body",
     "Client-side hash routing (#/ list, #/post/:id detail) so every post has a deep-linkable URL",
     "Debounced search against the REST API's search parameter",
     "Newer/Older pagination driven by the X-WP-TotalPages header",
     "Loading skeletons, empty state, and a recoverable error panel with Try again",
     "Light/dark theme toggle persisted to localStorage",
-    "SPA fallback (_redirects \u2192 /* /index.html 200) so deep links work on static hosting"
+    "SPA fallback (_redirects → /* /index.html 200) so deep links work on static hosting"
   ],
-  "setup_questions": [
-    "What's the WordPress REST API base URL? (e.g. https://your-site.com/wp-json/wp/v2; or use the demo https://wordpress.org/news/wp-json/wp/v2)",
-    "What should the app be called, and what's a one-line tagline?",
-    "Light theme, dark theme, or a toggle that remembers my choice?"
-  ],
-  "photo_terms": [],
-  "live_url": "https://wp-react.view.fast/",
-  "notes": "Content is fetched live from the WordPress REST API at runtime, so there are no Unsplash/stock photo terms \u2014 images come from each post's _embedded featured media. Default API base is wordpress.org/news (the classic demo.wp-api.org demo is frequently offline). Build with `npm install && npm run build`; publish the dist/ folder.",
+  "based_on": "A headless-WordPress reading app: a React single-page app that fetches posts from a public, CORS-enabled WordPress REST API straight from the browser — the kind of decoupled front end developers build on top of an existing WP install.",
+  "notes": "Content is fetched live from the WordPress REST API at runtime, so there are no Unsplash/stock photo terms — images come from each post's _embedded featured media. Default API base is wordpress.org/news (the classic demo.wp-api.org demo is frequently offline). Build with `npm install && npm run build`; publish the dist/ folder.",
   "build_verified": true
 }

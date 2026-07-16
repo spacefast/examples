@@ -1,10 +1,22 @@
 {
   "name": "Soon by Northpeak",
+  "title": "Coming-soon",
   "slug": "soon",
   "vertical": "Data, internal & startup",
-  "tech": "vanilla-js",
-  "based_on": "A realistic, evergreen example modeled on a common real-world need: the single-screen 'coming soon' / waitlist teaser every new product ships before launch.",
-  "summary": "A single-screen coming-soon teaser for a fictional analytics startup: serif headline and promise, a live launch countdown, a validating email capture with a friendly success state and waitlist counter, and social links \u2014 all client-side, no backend.",
+  "tech": "Vanilla JS",
+  "summary": "A single-screen coming-soon teaser with a live launch countdown, a validating email capture that confirms and remembers you, a waitlist counter, and social links.",
+  "order": 300,
+  "live_url": "https://soon.view.fast/",
+  "setup_questions": [
+    "What's the product name, one-line promise, and intended audience?",
+    "What's the target launch date, and should the page show an exact date or a looser season/month?",
+    "Where should signups go, and what consent or privacy note belongs beside the form?",
+    "Which contact and social links should appear, if any?"
+  ],
+  "photo_terms": [
+    "minimal gradient abstract",
+    "sunrise horizon minimal"
+  ],
   "sections": [
     "Logo + serif headline + one-line promise",
     "Live launch countdown (days/hours/minutes/seconds) with a 'we're live' end state",
@@ -12,14 +24,5 @@
     "Waitlist counter that ticks up once you've joined",
     "Social links + contact email"
   ],
-  "setup_questions": [
-    "What's the product name and one-line promise?",
-    "What's the target launch date?",
-    "Where do signups go, or just demo the confirmation?"
-  ],
-  "photo_terms": [
-    "minimal gradient abstract",
-    "sunrise horizon minimal"
-  ],
-  "live_url": "https://soon.view.fast/"
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: the single-screen 'coming soon' / waitlist teaser every new product ships before launch."
 }

@@ -1,28 +1,32 @@
 {
   "name": "Tasklane",
+  "title": "App prototype",
   "slug": "app",
   "vertical": "Tools, apps & games",
-  "tech": "vite-react",
-  "based_on": "A realistic, evergreen example modeled on a common real-world need \u2014 a small product team's task tracker in the vein of Trello / Linear / Height.",
-  "summary": "An AI-made multi-view app prototype: a kanban board with draggable cards, a sortable list view, and a task detail drawer with subtasks, comments, filters, and search \u2014 all client-side and persisted to localStorage.",
+  "tech": "Vite + React",
+  "summary": "A multi-view task app prototype — a draggable kanban board, a sortable list view, and a task detail drawer with subtasks, comments, filters, and search, all saved on your device.",
+  "order": 300,
+  "live_url": "https://app.view.fast/",
+  "setup_questions": [
+    "What does the app track and who's it for (a product sprint, freelance client work, a content calendar)?",
+    "What are the workflow lanes/columns (e.g. Backlog → To Do → In Progress → In Review → Done)?",
+    "Who's on the team — 3–5 names with a role each — and what labels do you use (Design, Frontend, Bug, Growth)?",
+    "Seed it with a believable starter set of ~12 tasks across the lanes, or name a project and we'll invent realistic ones."
+  ],
+  "photo_terms": [
+    "kanban board sticky notes overhead",
+    "team product planning workspace whiteboard",
+    "software team standup laptops desk",
+    "portrait headshot friendly colleague"
+  ],
   "sections": [
     "Kanban board with draggable cards across workflow lanes",
-    "List view \u2014 sortable, grouped by status, mobile-friendly",
+    "List view — sortable, grouped by status, mobile-friendly",
     "Task detail drawer with inline edit, subtasks, and comments",
     "Toolbar with full-text search and person/priority/label filters",
     "Header with live sprint stats and a cycle-progress ring",
     "Seeded sample data with a reset button",
     "localStorage persistence and a light/dark theme"
   ],
-  "setup_questions": [
-    "What does the app track and who's it for?",
-    "What are the workflow lanes/columns?",
-    "Who's on the team (names + roles) and what labels do you use?",
-    "What sample tasks should it seed?"
-  ],
-  "photo_terms": [
-    "kanban board sticky notes",
-    "team product planning workspace"
-  ],
-  "live_url": "https://app.view.fast/"
+  "based_on": "A realistic, evergreen example modeled on a common real-world need — a small product team's task tracker in the vein of Trello / Linear / Height."
 }

@@ -1,10 +1,24 @@
 {
   "name": "The Tidal Wolves",
+  "title": "Band site",
   "slug": "band",
-  "vertical": "Personal & life sites",
-  "tech": "vanilla-js",
-  "based_on": "A Portland indie-folk quartet in the vein of Sons of the East / DeVotchKa \u2014 one-page, image-forward band sites with a sticky audio player, tour dates, and a merch shelf (Bandzoogle/Wix band-site pattern).",
-  "summary": "A bold, full-bleed one-page site for an indie-folk band with a persistent bottom audio player, live tour dates, embedded music, a merch shelf, and a mailing-list signup.",
+  "vertical": "Personal & creative",
+  "tech": "Vanilla JS",
+  "summary": "A bold one-page band site with a working sticky audio player, tour dates, a merch shelf, and a mailing-list signup.",
+  "order": 3,
+  "live_url": "https://band.view.fast/",
+  "setup_questions": [
+    "What's your band name and genre, and the one-line vibe you want the hero to say?",
+    "What's your latest single, and where can people stream it?",
+    "List three to five upcoming shows (city, venue, date) — or say you have none yet.",
+    "Give two or three merch items with prices, plus three song titles."
+  ],
+  "photo_terms": [
+    "indie folk band performing on stage moody lighting",
+    "four piece band group portrait outdoors film grain",
+    "live concert crowd silhouette warm stage lights",
+    "vinyl record and band tee flat lay merch"
+  ],
   "sections": [
     "Full-bleed hero with band photo, logo, and latest-single tagline",
     "Sticky bottom audio player streaming the new single",
@@ -15,17 +29,5 @@
     "Band bio / about",
     "Booking & press contact with social links"
   ],
-  "setup_questions": [
-    "What's your band name and genre, and the one-line vibe you want the hero to say?",
-    "What's your latest single or release, and where can people stream it (Spotify/Apple/Bandcamp links)?",
-    "List 3-5 upcoming shows (city, venue, date) \u2014 or say you have none yet and we'll show a 'tour TBA' state.",
-    "Give 2-3 merch items with names and prices, plus 3 song titles for the music section."
-  ],
-  "photo_terms": [
-    "indie folk band performing on stage moody lighting",
-    "four piece band group portrait outdoors film grain",
-    "live concert crowd silhouette warm stage lights",
-    "vinyl record and band tee flat lay merch"
-  ],
-  "live_url": "https://band.view.fast/"
+  "based_on": "A Portland indie-folk quartet in the vein of Sons of the East / DeVotchKa — one-page, image-forward band sites with a sticky audio player, tour dates, and a merch shelf (Bandzoogle/Wix band-site pattern)."
 }

@@ -1,21 +1,16 @@
 {
   "name": "The Copper Skillet",
+  "title": "Recipe blog",
   "slug": "recipes",
-  "vertical": "Content & media",
-  "tech": "vite-react",
-  "based_on": "A home-cook recipe blog in the RecipeTin Eats / Pinch of Yum tradition \u2014 categorized recipe index, printable cards, and a personable about page.",
-  "summary": "A weeknight-dinner recipe collection with a filterable/searchable index and recipe pages that include a serving-size scaler, a print-friendly card, and step-by-step method.",
-  "sections": [
-    "Home \u2014 featured recipe plus latest grid",
-    "Recipe index with category, cuisine, and dietary filters and a search box",
-    "Recipe page \u2014 hero photo, ingredients, numbered method, serving-size scaler, print card, prep/cook times",
-    "About the cook",
-    "Newsletter / save-this-recipe signup"
-  ],
+  "vertical": "Personal & creative",
+  "tech": "Vite + React",
+  "summary": "A weeknight recipe blog with a searchable, filterable index and recipe pages that scale servings and print a clean card.",
+  "order": 5,
+  "live_url": "https://recipes.view.fast/",
   "setup_questions": [
     "What's your name and the blog's name?",
     "What cuisine or style is the focus (e.g. Mediterranean weeknight, baking, one-pot)?",
-    "Give me 3-5 starter recipes, including one signature dish, with ingredients and steps.",
+    "Give me 3–5 starter recipes, including one signature dish, with ingredients and steps.",
     "Which dietary tags should the filters support (e.g. vegetarian, gluten-free, 30-minute)?"
   ],
   "photo_terms": [
@@ -24,5 +19,12 @@
     "homemade dessert close up macro",
     "cook plating food in home kitchen"
   ],
-  "live_url": "https://recipes.view.fast/"
+  "sections": [
+    "Home — featured recipe plus latest grid",
+    "Recipe index with category, cuisine, and dietary filters and a search box",
+    "Recipe page — hero photo, ingredients, numbered method, serving-size scaler, print card, prep/cook times",
+    "About the cook",
+    "Newsletter / save-this-recipe signup"
+  ],
+  "based_on": "A home-cook recipe blog in the RecipeTin Eats / Pinch of Yum tradition — categorized recipe index, printable cards, and a personable about page."
 }

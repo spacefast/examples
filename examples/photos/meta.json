@@ -1,21 +1,15 @@
 {
   "name": "Eliot Vance Photography",
+  "title": "Photo portfolio",
   "slug": "photos",
-  "vertical": "Content & media",
-  "tech": "astro",
-  "based_on": "A minimalist single-photographer portfolio in the mold of Format/22Slides sites like William Lambelet \u2014 image-first, lots of whitespace, work organized into a few named series.",
+  "vertical": "Personal & creative",
+  "tech": "Astro",
   "summary": "A calm, image-first portfolio for a landscape and travel photographer, with named photo series, a full-screen lightbox, an about page, and a contact form.",
-  "sections": [
-    "Full-bleed hero image with name and tagline",
-    "Work index \u2014 thumbnail grid of named series (e.g. Iceland, Coastline, Portraits)",
-    "Series gallery page with masonry grid and keyboard-navigable lightbox",
-    "About \u2014 bio, headshot, client list",
-    "Prints / shop teaser",
-    "Contact \u2014 short form plus Instagram and email"
-  ],
+  "order": 4,
+  "live_url": "https://photos.view.fast/",
   "setup_questions": [
     "What's the photographer's name and one-line specialty (e.g. landscape, weddings, editorial)?",
-    "What are 3-4 photo series you want as galleries, and their names?",
+    "What are 3–4 photo series you want as galleries, and their names?",
     "What's your contact email and Instagram handle?",
     "Do you sell prints, or is this portfolio-and-inquiry only?"
   ],
@@ -25,5 +19,13 @@
     "coastal cliffs golden hour wide shot",
     "minimalist desert dunes aerial"
   ],
-  "live_url": "https://photos.view.fast/"
+  "sections": [
+    "Full-bleed hero image with name and tagline",
+    "Work index — thumbnail grid of named series (e.g. Iceland, Coastline, Portraits)",
+    "Series gallery page with masonry grid and keyboard-navigable lightbox",
+    "About — bio, headshot, client list",
+    "Prints / shop teaser",
+    "Contact — short form plus Instagram and email"
+  ],
+  "based_on": "A minimalist single-photographer portfolio in the mold of Format/22Slides sites like William Lambelet — image-first, lots of whitespace, work organized into a few named series."
 }

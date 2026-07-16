@@ -1,17 +1,12 @@
 {
   "name": "Offcuts",
+  "title": "Newsletter",
   "slug": "newsletter",
-  "vertical": "Content & media",
-  "tech": "html",
-  "based_on": "A curated weekly newsletter with a clean public archive in the Dense Discovery / The Browser mold \u2014 typographic, numbered issues, prominent subscribe.",
-  "summary": "A typographic home and archive for a curated weekly newsletter, listing every numbered issue with a blurb and rendering each past issue as a readable web page with a subscribe call to action.",
-  "sections": [
-    "Home \u2014 what-it-is intro, sample, and email subscribe form",
-    "Issue archive \u2014 reverse-chronological list of numbered issues with date and one-line summary",
-    "Issue page \u2014 rendered issue with intro, curated links, and a 'tool of the week' section",
-    "About the author",
-    "Subscribe page with email capture"
-  ],
+  "vertical": "Personal & creative",
+  "tech": "Plain HTML & CSS",
+  "summary": "A typographic home and archive for a curated weekly newsletter — featured issue, a full back catalogue, readable issue pages, and a working subscribe form.",
+  "order": 7,
+  "live_url": "https://newsletter.view.fast/",
   "setup_questions": [
     "What's the newsletter's name and a one-line tagline?",
     "What topic or niche does it cover?",
@@ -24,5 +19,12 @@
     "abstract textured paper background",
     "author portrait at desk window light"
   ],
-  "live_url": "https://newsletter.view.fast/"
+  "sections": [
+    "Home — what-it-is intro, sample, and email subscribe form",
+    "Issue archive — reverse-chronological list of numbered issues with date and one-line summary",
+    "Issue page — rendered issue with intro, curated links, and a 'tool of the week' section",
+    "About the author",
+    "Subscribe page with email capture"
+  ],
+  "based_on": "A curated weekly newsletter with a clean public archive in the Dense Discovery / The Browser mold — typographic, numbered issues, prominent subscribe."
 }

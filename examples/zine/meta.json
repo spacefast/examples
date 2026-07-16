@@ -1,10 +1,24 @@
 {
-  "name": "OFFCUTS \u211601 \u2014 Night Bloom",
+  "name": "OFFCUTS №01 — Night Bloom",
+  "title": "Web zine",
   "slug": "zine",
   "vertical": "Personal & creative",
-  "tech": "html",
-  "based_on": "An indie risograph art-and-writing zine in the spirit of small-press perzines and riso studios (e.g. the kind made on a Risograph and sold at zine fairs) \u2014 reimagined as a scrollable, art-directed web issue where 'each issue is a version'.",
-  "summary": "A scrollable, art-directed web zine issue with riso/CRT texture, custom display type, asymmetric magazine spreads (cover, editor's letter, photo essay, poem, interview, field notes, colophon), and an 'issue-as-version' framing. Single self-contained index.html, no build.",
+  "tech": "Plain HTML & CSS",
+  "summary": "A scrollable, art-directed riso web zine — seven full-viewport magazine spreads with custom display type, live film-grain and halftone texture, duotoned photos, and an \"issue-as-version\" colophon.",
+  "order": 300,
+  "live_url": "https://zine.view.fast/",
+  "setup_questions": [
+    "What's the theme/mood of the issue, and a title for it (e.g. \"Night Bloom\", \"Concrete & Moss\")?",
+    "What are the 4–6 spreads of content (an editor's letter, a photo essay, a poem, an interview, field notes — tell me what each is about)?",
+    "Aesthetic: retro-web, brutalist, or riso? And any colors to lean into?",
+    "Any real contributors, quotes, or images to feature — or should I invent believable ones?"
+  ],
+  "photo_terms": [
+    "riso print texture colorful",
+    "experimental editorial layout",
+    "neon sign workshop glowing glass tubes",
+    "rain slicked empty city street at night"
+  ],
   "sections": [
     "Cover spread with huge display type, issue number, and a scroll cue",
     "Editor's letter with drop-cap and a riso-duotone desk photo",
@@ -14,17 +28,5 @@
     "Field-notes card collage ('Specimens of the Dark')",
     "Colophon with issue-as-version note and a validating newsletter signup"
   ],
-  "setup_questions": [
-    "What's the theme/mood of the issue, and a title for it?",
-    "What are the 4-6 spreads of content (editor's letter, photo essay, poem, interview, field notes)?",
-    "Aesthetic: retro-web, brutalist, or riso?",
-    "Any real contributors, quotes, or images to feature \u2014 or should I invent believable ones?"
-  ],
-  "photo_terms": [
-    "riso print texture colorful",
-    "experimental editorial layout",
-    "neon sign workshop glowing glass tubes",
-    "rain slicked empty city street at night"
-  ],
-  "live_url": "https://zine.view.fast/"
+  "based_on": "An indie risograph art-and-writing zine in the spirit of small-press perzines and riso studios (e.g. the kind made on a Risograph and sold at zine fairs) — reimagined as a scrollable, art-directed web issue where 'each issue is a version'."
 }

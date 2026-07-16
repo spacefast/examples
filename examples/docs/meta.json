@@ -1,29 +1,34 @@
 {
-  "name": "Ledger \u2014 Docs",
+  "name": "Ledger — Docs",
+  "title": "Docs site",
   "slug": "docs",
   "vertical": "Developers & integrations",
-  "tech": "astro",
-  "based_on": "A realistic, evergreen open-source documentation site in the mold of Astro Starlight / VitePress / Docusaurus \u2014 landing page, sidebar nav, getting-started, guides, API reference, and changelog for a fictional TypeScript library.",
-  "summary": "A multi-page docs site for a fictional open-source library (Ledger, a tiny reactive store for TypeScript): grouped sidebar nav, a landing page, getting-started and guide pages, an API reference, build-time syntax-highlighted code blocks, a working \u2318K search, an 'on this page' TOC with scroll-spy, and a version dropdown.",
-  "sections": [
-    "Landing page \u2014 hero with install command, feature grid, code panels, stats, and next-steps cards",
-    "Docs shell \u2014 grouped sidebar nav, article column, and a scroll-spy 'On this page' TOC",
-    "Getting started \u2014 install, create a store, first reactive query, React binding",
-    "Guides \u2014 reactive queries, persistence, and schema migrations with prose, tables, and callouts",
-    "API reference \u2014 function signatures, option tables, and per-method anchors",
-    "Changelog \u2014 versioned release notes",
-    "Syntax-highlighted code blocks with filename bar, language label, and copy button",
-    "Search modal (\u2318K / slash) over a static index with full keyboard navigation",
-    "Version dropdown with an older-version banner"
-  ],
+  "tech": "Astro",
+  "summary": "A multi-page documentation site for an open-source library — grouped sidebar nav, getting-started and guides, an API reference, build-time syntax-highlighted code, a working ⌘K search, and a version dropdown.",
+  "order": 300,
+  "live_url": "https://docs.view.fast/",
   "setup_questions": [
-    "What's the library/product and a one-line description?",
-    "What are the top 4-5 doc sections?",
-    "Give one real code example to feature on the landing."
+    "What's the library/product and a one-line description of what it does?",
+    "What are the top 4–5 doc sections (e.g. Getting started, Guides, API reference, Changelog)?",
+    "Give me one real code example to feature on the landing page.",
+    "(Optional) What's the brand accent color, and the GitHub / npm links?"
   ],
   "photo_terms": [
-    "abstract code editor screen",
-    "developer desk laptop terminal"
+    "abstract code editor screen dark theme",
+    "developer desk laptop terminal",
+    "typescript source code on monitor",
+    "software documentation reference page"
   ],
-  "live_url": "https://docs.view.fast/"
+  "sections": [
+    "Landing page — hero with install command, feature grid, code panels, stats, and next-steps cards",
+    "Docs shell — grouped sidebar nav, article column, and a scroll-spy 'On this page' TOC",
+    "Getting started — install, create a store, first reactive query, React binding",
+    "Guides — reactive queries, persistence, and schema migrations with prose, tables, and callouts",
+    "API reference — function signatures, option tables, and per-method anchors",
+    "Changelog — versioned release notes",
+    "Syntax-highlighted code blocks with filename bar, language label, and copy button",
+    "Search modal (⌘K / slash) over a static index with full keyboard navigation",
+    "Version dropdown with an older-version banner"
+  ],
+  "based_on": "A realistic, evergreen open-source documentation site in the mold of Astro Starlight / VitePress / Docusaurus — landing page, sidebar nav, getting-started, guides, API reference, and changelog for a fictional TypeScript library."
 }

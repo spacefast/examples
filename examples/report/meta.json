@@ -1,10 +1,24 @@
 {
   "name": "State of Indie Web 2025",
+  "title": "Annual report",
   "slug": "report",
-  "vertical": "Data & dashboards",
-  "tech": "astro",
-  "based_on": "An annual community survey results writeup in the lineage of State of JS and the Stack Overflow Developer Survey \u2014 a long scrollable report of charts, rankings, and commentary published by a developer community (here, indie web developers and solo founders).",
-  "summary": "A long-form annual community survey report: methodology, respondent demographics, ranked tool/tech popularity charts, sentiment scales, and a written takeaways section.",
+  "vertical": "Data, internal & startup",
+  "tech": "Astro",
+  "summary": "A long-form annual community survey report — methodology, demographic charts, tool rankings, sentiment scales, and an editor's takeaways.",
+  "order": 3,
+  "live_url": "https://report.view.fast/",
+  "setup_questions": [
+    "What community or audience is this survey for?",
+    "How many people responded, and when did the survey run?",
+    "What are the 3–4 headline questions or findings you want to feature?",
+    "What tools, platforms, or options should appear in the ranking charts?"
+  ],
+  "photo_terms": [
+    "diverse developers coworking laptops candid",
+    "abstract colorful bar chart illustration",
+    "person coding at desk dual monitors",
+    "conference audience tech meetup crowd"
+  ],
   "sections": [
     "Intro + methodology (how many responded, how they were sampled, dates the survey ran)",
     "Demographics: years of experience, company size, country, role (bar and donut charts)",
@@ -15,17 +29,5 @@
     "Key takeaways / editor's commentary and 'what changed since last year'",
     "Appendix: full respondent counts and a 'share this report' footer"
   ],
-  "setup_questions": [
-    "What community or audience is this survey for?",
-    "How many people responded, and when did the survey run?",
-    "What are the 3-4 headline questions or findings you want to feature?",
-    "What tools, platforms, or options should appear in the ranking charts?"
-  ],
-  "photo_terms": [
-    "diverse developers coworking laptops candid",
-    "abstract colorful bar chart illustration",
-    "person coding at desk dual monitors",
-    "conference audience tech meetup crowd"
-  ],
-  "live_url": "https://report.view.fast/"
+  "based_on": "An annual community survey results writeup in the lineage of State of JS and the Stack Overflow Developer Survey — a long scrollable report of charts, rankings, and commentary published by a developer community (here, indie web developers and solo founders)."
 }

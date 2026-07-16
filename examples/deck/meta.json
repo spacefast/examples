@@ -1,10 +1,24 @@
 {
   "name": "Northwind Seed Deck",
+  "title": "Pitch deck",
   "slug": "deck",
   "vertical": "Data, internal & startup",
-  "tech": "vanilla-js",
-  "based_on": "A standard seed-stage venture pitch deck (Sequoia / YC structure \u2014 problem, solution, market, traction, ask) rendered as a browser-native reveal.js presentation with speaker notes and PDF export.",
-  "summary": "A presentable reveal.js pitch deck for a fictional warehouse-native internal-tools startup, with keyboard navigation, a help overlay, speaker notes, PDF export, and bespoke data slides (TAM/SAM/SOM rings, an MRR bar chart, use-of-funds bars).",
+  "tech": "Vanilla JS",
+  "summary": "A presentable, browser-native reveal.js pitch deck with keyboard nav, speaker notes, PDF export, and bespoke data slides — TAM/SAM/SOM rings, an MRR chart, and use-of-funds bars.",
+  "order": 300,
+  "live_url": "https://deck.view.fast/",
+  "setup_questions": [
+    "What's the company and one-line pitch?",
+    "What are the 6-8 slide topics? (default Title, Problem, Solution, Market, Traction, The Ask)",
+    "What's the ask / closing slide content? (round size, use of funds, milestones, team)",
+    "Any brand colors, a logo, or photos I should use? (optional — pick a tasteful default if you skip this)"
+  ],
+  "photo_terms": [
+    "startup pitch meeting",
+    "modern boardroom presentation",
+    "investor presentation laptop slides",
+    "team strategy whiteboard office"
+  ],
   "sections": [
     "Title slide with logo, one-line pitch, and a darkened boardroom photo",
     "Problem with stat cards and a customer quote",
@@ -15,14 +29,5 @@
     "Closing slide with contact details",
     "Speaker notes on every slide, plus a keyboard-shortcut help overlay and PDF export"
   ],
-  "setup_questions": [
-    "What's the company and one-line pitch?",
-    "What are the 6-8 slide topics? (default: Title, Problem, Solution, Market, Traction, The Ask)",
-    "What's the ask / closing slide content? (round size, use of funds, milestones, team)"
-  ],
-  "photo_terms": [
-    "startup pitch meeting",
-    "modern boardroom presentation"
-  ],
-  "live_url": "https://deck.view.fast/"
+  "based_on": "A standard seed-stage venture pitch deck (Sequoia / YC structure — problem, solution, market, traction, ask) rendered as a browser-native reveal.js presentation with speaker notes and PDF export."
 }

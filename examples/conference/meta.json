@@ -1,25 +1,16 @@
 {
   "name": "DevHorizon 2026",
+  "title": "Conference site",
   "slug": "conference",
-  "vertical": "Events & community",
-  "tech": "astro",
-  "based_on": "A single-track, one-day web-dev conference in the mold of SmashingConf / Rails World / State of the Browser \u2014 eight speakers, one room, one day, practical front-end talks.",
-  "summary": "A polished marketing-and-schedule site for a one-day single-track web development conference, with a speaker lineup, hour-by-hour agenda, ticket tiers, venue/travel info, and sponsors.",
-  "sections": [
-    "Hero with conference name, tagline, date, city/venue, and 'Get tickets' CTA",
-    "About the conference (format, who it's for, what to expect)",
-    "Speakers grid with photos, names, companies, and talk titles",
-    "Schedule \u2014 single-track timeline of talks, breaks, lunch, and after-party",
-    "Tickets \u2014 Early Bird / Standard / Team pricing tiers with feature lists",
-    "Venue & travel \u2014 map, nearby hotels, how to get there",
-    "Sponsors \u2014 tiered logo wall (Platinum/Gold/Community) with a 'Become a sponsor' link",
-    "FAQ and Code of Conduct",
-    "Footer with social links and newsletter signup"
-  ],
+  "vertical": "Local & small business",
+  "tech": "Astro",
+  "summary": "A one-day, single-track web-dev conference site — hero with live countdown, speaker lineup, hour-by-hour schedule, ticket tiers, venue, and sponsors.",
+  "order": 7,
+  "live_url": "https://conference.view.fast/",
   "setup_questions": [
     "What's the conference name, tagline, and one-line theme?",
     "What date is it, and in which city / at which venue?",
-    "Name 4-6 speakers with their talk titles (and companies, if you have them).",
+    "Name 4–6 speakers with their talk titles (and companies, if you have them).",
     "What are your ticket tiers and prices (e.g. Early Bird $199 / Standard $299)?"
   ],
   "photo_terms": [
@@ -28,5 +19,16 @@
     "conference networking coffee break attendees talking",
     "modern convention center glass exterior"
   ],
-  "live_url": "https://conference.view.fast/"
+  "sections": [
+    "Hero with conference name, tagline, date, city/venue, and 'Get tickets' CTA",
+    "About the conference (format, who it's for, what to expect)",
+    "Speakers grid with photos, names, companies, and talk titles",
+    "Schedule — single-track timeline of talks, breaks, lunch, and after-party",
+    "Tickets — Early Bird / Standard / Team pricing tiers with feature lists",
+    "Venue & travel — map, nearby hotels, how to get there",
+    "Sponsors — tiered logo wall (Platinum/Gold/Community) with a 'Become a sponsor' link",
+    "FAQ and Code of Conduct",
+    "Footer with social links and newsletter signup"
+  ],
+  "based_on": "A single-track, one-day web-dev conference in the mold of SmashingConf / Rails World / State of the Browser — eight speakers, one room, one day, practical front-end talks."
 }

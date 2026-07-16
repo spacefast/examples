@@ -1,19 +1,12 @@
 {
   "name": "Milestone",
+  "title": "Savings calculator",
   "slug": "savings",
-  "vertical": "Tools & micro-apps",
-  "tech": "vanilla-js",
-  "based_on": "Bankrate / Investor.gov savings goal calculator \u2014 compute the monthly contribution to hit a goal by a date, with compound interest growth visualized.",
-  "summary": "A savings-goal calculator that takes your target amount, deadline, starting balance, and interest rate, then tells you exactly how much to set aside each month and draws a compound-growth chart showing how contributions and interest stack up to the goal.",
-  "sections": [
-    "Goal inputs (target amount, target date, starting balance, expected annual rate)",
-    "Headline result: required monthly contribution (and per-week breakdown)",
-    "Compound-growth area chart toward the goal line",
-    "Contributions-vs-interest breakdown",
-    "Scenario sliders (change rate, deadline, or monthly amount to see the goal date move)",
-    "Year-by-year milestone table",
-    "Summary / reset"
-  ],
+  "vertical": "Tools, apps & games",
+  "tech": "Vanilla JS",
+  "summary": "A savings-goal calculator — set a target and a deadline, and it solves your monthly contribution and charts the compound growth toward the goal.",
+  "order": 3,
+  "live_url": "https://savings.view.fast/",
   "setup_questions": [
     "What are you saving for and how much do you need (e.g. $20,000 for a house down payment)?",
     "By when do you want to reach it, and how much do you already have saved?",
@@ -23,8 +16,16 @@
   "photo_terms": [
     "glass jar full of coins savings plant growing",
     "piggy bank on desk with calculator",
-    "couple planning finances laptop at home",
     "stack of coins increasing growth chart"
   ],
-  "live_url": "https://savings.view.fast/"
+  "sections": [
+    "Goal inputs (target amount, target date, starting balance, expected annual rate)",
+    "Headline result: required monthly contribution (and per-week breakdown)",
+    "Compound-growth area chart toward the goal line",
+    "Contributions-vs-interest breakdown",
+    "Scenario sliders (change rate, deadline, or monthly amount to see the goal date move)",
+    "Year-by-year milestone table",
+    "Summary / reset"
+  ],
+  "based_on": "Bankrate / Investor.gov savings goal calculator — compute the monthly contribution to hit a goal by a date, with compound interest growth visualized."
 }

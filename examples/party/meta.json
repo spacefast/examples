@@ -1,10 +1,22 @@
 {
   "name": "Mia's 30th",
+  "title": "Party invite",
   "slug": "party",
   "vertical": "Personal & creative",
-  "tech": "astro",
-  "based_on": "A realistic, evergreen example modeled on a common real-world need: a themed birthday-party invite with countdown, map, dress code, and a validating RSVP.",
-  "summary": "A themed party invite: hero with date/time and a live countdown, map + directions, dress code, and a validating RSVP form with guest count, +1, dietary needs, and a 'can't make it' path.",
+  "tech": "Astro",
+  "summary": "A themed birthday-party invite with a live countdown, an embedded map and directions, a dress-code callout, and a validating RSVP form with guest count, a conditional +1, dietary needs, and a \"can't make it\" path.",
+  "order": 300,
+  "live_url": "https://party.view.fast/",
+  "setup_questions": [
+    "What's the occasion, who's hosting, and what mood should the invitation set?",
+    "What's the date, time, venue, full address, and weather backup plan?",
+    "What should guests know about dress, food, gifts, parking, or accessibility?",
+    "Where should RSVPs go, and which guest details do you need to collect?"
+  ],
+  "photo_terms": [
+    "festive party balloons confetti",
+    "rooftop celebration string lights"
+  ],
   "sections": [
     "Hero: occasion + name + date/time with a live countdown and confetti",
     "Details: dress code front and centre, a card grid (food, drinks, gifts, weather), and a host's note",
@@ -13,14 +25,5 @@
     "RSVP form (accept/decline, guests, conditional +1, dietary, song request)",
     "Can't-make-it path with a birthday note to the host"
   ],
-  "setup_questions": [
-    "What's the occasion and who's hosting?",
-    "What's the date, time, and venue?",
-    "What RSVP fields do you need?"
-  ],
-  "photo_terms": [
-    "festive party balloons confetti",
-    "rooftop celebration string lights"
-  ],
-  "live_url": "https://party.view.fast/"
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: a themed birthday-party invite with countdown, map, dress code, and a validating RSVP."
 }

@@ -28,7 +28,7 @@ If I skip anything, choose a sensible default and tell me what you chose:**
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-example="{{slug}}"></script>
+<script src="https://spacefast.com/badge.js" data-recipe="{{slug}}"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no
@@ -68,7 +68,7 @@ account, install, or extra instructions needed:**
 **Optional shortcuts and reference only:** if the `sf` CLI is already installed,
 `sf publish ./dist --wait` does the same job. A zip of the publish folder is also
 supported, but neither the CLI nor a zip is required. Docs:
-[direct agent/API publishing](https://spacefast.com/docs/agents) ·
-[files and folders](https://spacefast.com/docs/publishing) ·
-[claiming](https://spacefast.com/docs/anonymous-publish) ·
-[updates and rollback](https://spacefast.com/docs/rollback)
+[agent setup](https://spacefast.com/setup) ·
+[files and folders](https://spacefast.com/help/publishing) ·
+[claiming](https://spacefast.com/help/anonymous-publish) ·
+[updates and rollback](https://spacefast.com/help/versions)

@@ -1,0 +1,27 @@
+{
+  "name": "Northstar Sync — Technical Plan",
+  "title": "Technical planning",
+  "slug": "technical-plan",
+  "vertical": "Data, internal & startup",
+  "tech": "Plain HTML & CSS",
+  "summary": "A decision-ready technical plan for a cross-platform offline sync initiative — problem and scope, system architecture, milestones, risks, decisions, and open questions.",
+  "order": 4,
+  "live_url": "https://technical-plan.view.fast/",
+  "setup_questions": [
+    "What are you planning, who is it for, and what user or business problem should it solve?",
+    "What systems, teams, constraints, and non-negotiable requirements are already known?",
+    "What delivery window or milestone dates matter, and how should success be measured?",
+    "Which decisions are already made, and which questions still need an owner?"
+  ],
+  "photo_terms": [],
+  "sections": [
+    "Executive readout with recommendation, confidence, owners, timing, and success measures",
+    "Problem statement, goals, non-goals, users, constraints, and scope boundaries",
+    "System architecture with components, data flow, trust boundaries, and operational notes",
+    "Phased milestones with exit criteria, dependencies, owners, and target dates",
+    "Ranked risk register with likelihood, impact, mitigations, triggers, and owners",
+    "Decision log with chosen options, rationale, consequences, and revisit conditions",
+    "Open questions with owners, due dates, and what each answer unblocks"
+  ],
+  "based_on": "A real engineering RFC and delivery plan prepared for a cross-functional architecture review, shaped into a readable website that executives, product partners, and implementers can use to make decisions."
+}

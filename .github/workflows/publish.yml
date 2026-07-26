@@ -1,4 +1,4 @@
-name: Publish examples
+name: Publish recipes
 
 on:
   pull_request:
@@ -20,7 +20,7 @@ on:
   workflow_dispatch:
     inputs:
       only:
-        description: "Publish only this example slug (optional)"
+        description: "Publish only this recipe slug (optional)"
         required: false
 
 permissions:

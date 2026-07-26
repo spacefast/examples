@@ -38,7 +38,10 @@ for (const slug of slugs) {
   }
   if (!prompt) throw new Error(`${slug}/prompt.md: prompt must not be empty`);
   if (/^#\s/.test(prompt)) {
-    throw new Error(`${slug}/prompt.md: prompt must start with the request, not an example title`);
+    throw new Error(`${slug}/prompt.md: prompt must start with the request, not a recipe title`);
+  }
+  if (!prompt.includes(`data-recipe="${slug}"`)) {
+    throw new Error(`${slug}/prompt.md: prompt must use the canonical data-recipe badge attribute`);
   }
 
   const order = Number(meta.order);
@@ -76,7 +79,7 @@ await mkdir(outputRoot, { recursive: true });
 await Bun.write(path.join(outputRoot, "manifest.json"), `${JSON.stringify(items)}\n`);
 await Bun.write(
   path.join(outputRoot, "index.html"),
-  '<!doctype html><meta charset="utf-8"><title>Spacefast examples data</title><a href="./manifest.json">manifest.json</a>\n',
+  '<!doctype html><meta charset="utf-8"><title>Spacefast recipes data</title><a href="./manifest.json">manifest.json</a>\n',
 );
 
-console.log(`Built ${items.length} canonical examples into dist/manifest.json.`);
+console.log(`Built ${items.length} canonical recipes into dist/manifest.json.`);

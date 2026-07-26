@@ -32,7 +32,7 @@ Build me a **one-page fundraising campaign site for a local cause** as a vanilla
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-example="fundraiser"></script>
+<script src="https://spacefast.com/badge.js" data-recipe="fundraiser"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
@@ -59,4 +59,4 @@ Build me a **one-page fundraising campaign site for a local cause** as a vanilla
    ```
    If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
 
-**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./site --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/docs/agents) · [files and folders](https://spacefast.com/docs/publishing) · [claiming](https://spacefast.com/docs/anonymous-publish) · [updates and rollback](https://spacefast.com/docs/rollback)
+**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./site --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/setup) · [files and folders](https://spacefast.com/help/publishing) · [claiming](https://spacefast.com/help/anonymous-publish) · [updates and rollback](https://spacefast.com/help/versions)

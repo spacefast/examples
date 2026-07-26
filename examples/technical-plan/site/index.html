@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Decision-ready technical plan for Northstar Sync, an offline-first collaboration initiative."
+    >
+    <title>Northstar Sync — Technical Plan</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to the plan</a>
+    <div class="document-shell">
+      <aside class="document-sidebar">
+        <div class="document-mark" aria-hidden="true">NS</div>
+        <div class="document-identity">
+          <p class="eyebrow">Architecture review</p>
+          <p class="document-title">Northstar Sync</p>
+          <p class="document-version">Plan v1.3 · 18 July 2026</p>
+        </div>
+        <nav aria-label="Technical plan sections">
+          <a href="#readout">Executive readout</a>
+          <a href="#problem">Problem</a>
+          <a href="#scope">Scope</a>
+          <a href="#architecture">Architecture</a>
+          <a href="#milestones">Milestones</a>
+          <a href="#risks">Risks</a>
+          <a href="#decisions">Decisions</a>
+          <a href="#open-questions">Open questions</a>
+        </nav>
+        <p class="sidebar-note">Prepared for Architecture Council and Mobile Platform.</p>
+      </aside>
+
+      <main id="content">
+        <header class="plan-header" id="readout">
+          <div>
+            <p class="eyebrow">Proposed · decision requested</p>
+            <h1>Technical plan: offline project sync</h1>
+            <p class="lede">
+              Ship reliable offline capture for field teams without turning every client into a
+              distributed database. Use an append-only local queue, server-authoritative conflict
+              resolution, and a measured rollout behind workspace-level controls.
+            </p>
+          </div>
+          <dl class="plan-meta">
+            <div>
+              <dt>Owner</dt>
+              <dd>Maya Chen, Staff Engineer</dd>
+            </div>
+            <div>
+              <dt>Reviewers</dt>
+              <dd>Mobile, API, Security, Support</dd>
+            </div>
+            <div>
+              <dt>Target</dt>
+              <dd>Private beta · 30 October 2026</dd>
+            </div>
+            <div>
+              <dt>Confidence</dt>
+              <dd><span class="status status-medium">Medium</span></dd>
+            </div>
+          </dl>
+        </header>
+
+        <section class="decision-callout" aria-labelledby="recommendation-title">
+          <p class="eyebrow">Recommendation</p>
+          <h2 id="recommendation-title">Approve the queue-and-replay architecture and phased beta plan.</h2>
+          <p>
+            It keeps the API authoritative, reuses our existing event log, and limits the first
+            release to task updates and inspection notes. Defer attachments and simultaneous
+            document editing until field telemetry proves the sync loop is stable.
+          </p>
+        </section>
+
+        <section class="success-section" aria-labelledby="success-title">
+          <h2 id="success-title">Success means the field app stays trustworthy.</h2>
+          <dl class="success-grid">
+            <div>
+              <dt>99.9%</dt>
+              <dd>of queued mutations settle within 60 seconds of reconnecting</dd>
+            </div>
+            <div>
+              <dt>&lt; 0.1%</dt>
+              <dd>of mutations require a person to resolve a conflict</dd>
+            </div>
+            <div>
+              <dt>72 hours</dt>
+              <dd>of fully offline work supported on a standard device</dd>
+            </div>
+            <div>
+              <dt>Zero</dt>
+              <dd>silent data-loss incidents during the private beta</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section id="problem">
+          <div class="section-heading">
+            <p class="section-number">01</p>
+            <div>
+              <h2>Problem</h2>
+              <p>Field work fails where connectivity is weakest—and recovery is invisible.</p>
+            </div>
+          </div>
+          <div class="two-column">
+            <div>
+              <h3>What users experience</h3>
+              <p>
+                Northstar’s inspection teams work in basements, utility corridors, and rural
+                facilities. Today, a dropped request looks like a saved task until the screen is
+                refreshed. Supervisors discover missing notes hours later, after the technician
+                has left the site.
+              </p>
+            </div>
+            <div>
+              <h3>Why now</h3>
+              <p>
+                Offline reliability is the top blocker in 18 of 31 enterprise evaluations this
+                quarter. The mobile team also plans to replace its ad-hoc request cache in Q4;
+                doing both as one designed system avoids a second migration.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="scope">
+          <div class="section-heading">
+            <p class="section-number">02</p>
+            <div>
+              <h2>Scope</h2>
+              <p>The beta is deliberately narrow enough to observe and reverse.</p>
+            </div>
+          </div>
+          <div class="scope-grid">
+            <div>
+              <h3>In scope</h3>
+              <ul>
+                <li>Create and update tasks, inspection notes, and status changes offline</li>
+                <li>Cache the last 30 days of assigned project data per device</li>
+                <li>Show pending, synced, conflicted, and failed states on every mutation</li>
+                <li>Remote disable, queue diagnostics, and workspace-level rollout controls</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Not in this release</h3>
+              <ul>
+                <li>Offline attachment uploads or media transcoding</li>
+                <li>Collaborative rich-text editing or peer-to-peer device sync</li>
+                <li>Full project export, billing changes, or account administration</li>
+                <li>Desktop web offline mode</li>
+              </ul>
+            </div>
+          </div>
+          <dl class="constraints">
+            <div>
+              <dt>Security</dt>
+              <dd>Encrypt queued payloads with a device-bound key and erase them on remote sign-out.</dd>
+            </div>
+            <div>
+              <dt>Compatibility</dt>
+              <dd>Support the current and previous two mobile releases during the beta.</dd>
+            </div>
+            <div>
+              <dt>Operations</dt>
+              <dd>No new stateful service in the critical path before general availability.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section id="architecture">
+          <div class="section-heading">
+            <p class="section-number">03</p>
+            <div>
+              <h2>Architecture</h2>
+              <p>Clients record intent locally; the existing API remains the source of truth.</p>
+            </div>
+          </div>
+          <figure class="architecture-map">
+            <figcaption>
+              Mutation flow from offline capture to authoritative project state. Dashed boundaries
+              indicate device-local components.
+            </figcaption>
+            <ol class="architecture-flow">
+              <li class="device-boundary">
+                <span class="node-label">On device</span>
+                <strong>Northstar mobile</strong>
+                <span>Validates input and assigns an idempotency key.</span>
+              </li>
+              <li class="device-boundary">
+                <span class="node-label">Encrypted SQLite</span>
+                <strong>Mutation queue</strong>
+                <span>Stores ordered intent plus its base revision.</span>
+              </li>
+              <li>
+                <span class="node-label">Existing service</span>
+                <strong>Sync API</strong>
+                <span>Authenticates, deduplicates, and applies policy.</span>
+              </li>
+              <li>
+                <span class="node-label">System of record</span>
+                <strong>Project event log</strong>
+                <span>Appends accepted changes and emits canonical state.</span>
+              </li>
+            </ol>
+          </figure>
+          <div class="architecture-notes">
+            <article>
+              <h3>Replay and ordering</h3>
+              <p>
+                A device replays one project queue at a time in creation order. Different projects
+                may sync concurrently, capped at three to protect battery and API capacity.
+              </p>
+            </article>
+            <article>
+              <h3>Conflict policy</h3>
+              <p>
+                Status transitions use domain rules; scalar task fields use revision-aware
+                last-write-wins; note bodies fork visibly when both sides changed.
+              </p>
+            </article>
+            <article>
+              <h3>Failure handling</h3>
+              <p>
+                Retry transient failures with jitter. Stop on authorization or validation errors,
+                preserve the draft, and show the user a specific recovery action.
+              </p>
+            </article>
+            <article>
+              <h3>Observability</h3>
+              <p>
+                Record queue age, attempts, settle time, conflict class, and client version. Never
+                include note text or customer payloads in telemetry.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section id="milestones">
+          <div class="section-heading">
+            <p class="section-number">04</p>
+            <div>
+              <h2>Milestones</h2>
+              <p>Each phase ends with evidence, not percentage-complete reporting.</p>
+            </div>
+          </div>
+          <div class="table-scroll" tabindex="0" aria-label="Scrollable milestone plan">
+            <table>
+              <caption>Delivery phases and exit criteria</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Phase</th>
+                  <th scope="col">Target</th>
+                  <th scope="col">Owner</th>
+                  <th scope="col">Deliverable and exit criterion</th>
+                  <th scope="col">Depends on</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1 · Prove</th>
+                  <td>7 Aug</td>
+                  <td>Maya</td>
+                  <td>Replay prototype passes airplane-mode and duplicate-request fault tests.</td>
+                  <td>Security key review</td>
+                </tr>
+                <tr>
+                  <th scope="row">2 · Foundations</th>
+                  <td>4 Sep</td>
+                  <td>Ishan</td>
+                  <td>Queue, sync endpoint, telemetry, and remote kill switch work in staging.</td>
+                  <td>Event log capacity test</td>
+                </tr>
+                <tr>
+                  <th scope="row">3 · Team pilot</th>
+                  <td>2 Oct</td>
+                  <td>Priya</td>
+                  <td>Twenty internal users complete a five-day scripted field trial with no lost intent.</td>
+                  <td>Support runbook</td>
+                </tr>
+                <tr>
+                  <th scope="row">4 · Private beta</th>
+                  <td>30 Oct</td>
+                  <td>Jon</td>
+                  <td>Five design partners meet settle-time and conflict targets for two weeks.</td>
+                  <td>Partner agreements</td>
+                </tr>
+                <tr>
+                  <th scope="row">5 · Harden</th>
+                  <td>4 Dec</td>
+                  <td>Maya</td>
+                  <td>Go/no-go review has SLO evidence, rollback drill results, and a GA scope proposal.</td>
+                  <td>Beta telemetry</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="risks">
+          <div class="section-heading">
+            <p class="section-number">05</p>
+            <div>
+              <h2>Risks</h2>
+              <p>Ranked by current exposure after mitigation.</p>
+            </div>
+          </div>
+          <div class="table-scroll" tabindex="0" aria-label="Scrollable risk register">
+            <table>
+              <caption>Risk register</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Risk</th>
+                  <th scope="col">Level</th>
+                  <th scope="col">Mitigation and trigger</th>
+                  <th scope="col">Owner</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Conflict rules surprise users</th>
+                  <td><span class="status status-high">High</span></td>
+                  <td>Test with real work orders; pause rollout if manual resolution exceeds 0.1%.</td>
+                  <td>Priya</td>
+                </tr>
+                <tr>
+                  <th scope="row">Queue payload exposed on a lost device</th>
+                  <td><span class="status status-medium">Medium</span></td>
+                  <td>Device-bound encryption and remote wipe; block beta on failed key extraction test.</td>
+                  <td>Elena</td>
+                </tr>
+                <tr>
+                  <th scope="row">Reconnect storm overloads the API</th>
+                  <td><span class="status status-medium">Medium</span></td>
+                  <td>Jitter, concurrency caps, and load test at 10× forecast before the team pilot.</td>
+                  <td>Ishan</td>
+                </tr>
+                <tr>
+                  <th scope="row">Support cannot diagnose stuck work</th>
+                  <td><span class="status status-medium">Medium</span></td>
+                  <td>Redacted queue diagnostics and a drill; delay beta if median diagnosis exceeds 15 minutes.</td>
+                  <td>Jon</td>
+                </tr>
+                <tr>
+                  <th scope="row">Attachment demand expands scope</th>
+                  <td><span class="status status-low">Low</span></td>
+                  <td>Publish the boundary in beta onboarding; revisit only after core SLOs hold for four weeks.</td>
+                  <td>Priya</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="decisions">
+          <div class="section-heading">
+            <p class="section-number">06</p>
+            <div>
+              <h2>Decisions</h2>
+              <p>Recorded choices keep settled tradeoffs from reopening by accident.</p>
+            </div>
+          </div>
+          <ol class="decision-log">
+            <li>
+              <div class="decision-id">D-01 · Accepted</div>
+              <h3>Keep the server authoritative</h3>
+              <p>
+                Choose queued commands over client-side replicated state. It fits current domain
+                rules and operations skills; the cost is limited offline query flexibility.
+                Revisit if desktop and mobile both require multi-day offline editing.
+              </p>
+            </li>
+            <li>
+              <div class="decision-id">D-02 · Accepted</div>
+              <h3>Use encrypted SQLite, not a custom log file</h3>
+              <p>
+                Transactions, migrations, and bounded queries matter more than a smaller binary.
+                Revisit only if measured storage overhead exceeds 15% on supported devices.
+              </p>
+            </li>
+            <li>
+              <div class="decision-id">D-03 · Accepted</div>
+              <h3>Fork conflicting notes instead of merging text</h3>
+              <p>
+                A visible duplicate is safer than an invented merge for compliance records.
+                Rich-text collaboration remains outside the beta.
+              </p>
+            </li>
+            <li>
+              <div class="decision-id">D-04 · Proposed</div>
+              <h3>Gate rollout by workspace</h3>
+              <p>
+                Workspace controls align support, telemetry, and customer consent. Approval is
+                requested in this review so the API contract can freeze in Phase 1.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <section id="open-questions">
+          <div class="section-heading">
+            <p class="section-number">07</p>
+            <div>
+              <h2>Open questions</h2>
+              <p>Every unknown has an owner, a date, and a decision it unblocks.</p>
+            </div>
+          </div>
+          <ul class="question-list">
+            <li>
+              <div>
+                <h3>How long may regulated customers retain encrypted offline notes?</h3>
+                <p>Unblocks the queue retention default and remote-wipe policy.</p>
+              </div>
+              <dl><dt>Owner</dt><dd>Elena</dd><dt>Due</dt><dd>31 Jul</dd></dl>
+            </li>
+            <li>
+              <div>
+                <h3>Can beta partners exclude specific projects from device caching?</h3>
+                <p>Unblocks workspace controls and partner onboarding copy.</p>
+              </div>
+              <dl><dt>Owner</dt><dd>Priya</dd><dt>Due</dt><dd>5 Aug</dd></dl>
+            </li>
+            <li>
+              <div>
+                <h3>What API headroom is reserved for reconnect traffic?</h3>
+                <p>Unblocks concurrency caps and the Phase 2 capacity test.</p>
+              </div>
+              <dl><dt>Owner</dt><dd>Ishan</dd><dt>Due</dt><dd>7 Aug</dd></dl>
+            </li>
+            <li>
+              <div>
+                <h3>Which five partners represent the hardest connectivity conditions?</h3>
+                <p>Unblocks the private-beta cohort and field test plan.</p>
+              </div>
+              <dl><dt>Owner</dt><dd>Jon</dd><dt>Due</dt><dd>14 Aug</dd></dl>
+            </li>
+          </ul>
+        </section>
+
+        <footer class="plan-footer">
+          <div>
+            <p class="eyebrow">Review outcome requested</p>
+            <h2>Approve the architecture, beta boundary, and Phase 1 staffing.</h2>
+          </div>
+          <ul>
+            <li>Architecture Council records D-04 by 24 July.</li>
+            <li>Security closes the device-key review by 31 July.</li>
+            <li>Mobile and API begin the replay prototype on 27 July.</li>
+          </ul>
+        </footer>
+      </main>
+    </div>
+    <script src="https://spacefast.com/badge.js" data-recipe="technical-plan"></script>
+  </body>
+</html>

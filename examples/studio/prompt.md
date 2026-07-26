@@ -47,7 +47,7 @@ Build me a **portfolio site for my brand &amp; web design studio** as a vanilla-
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="studio"></script>
+<script src="https://spacefast.com/badge.js" data-example="studio"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

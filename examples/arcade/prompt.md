@@ -29,7 +29,7 @@ Build me a **website for my retro arcade bar, with a playable mini-game as the h
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="arcade"></script>
+<script src="https://spacefast.com/badge.js" data-example="arcade"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

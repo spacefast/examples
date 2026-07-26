@@ -53,7 +53,7 @@ everything in `localStorage` so my diary is still there when I come back.
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="calories"></script>
+<script src="https://spacefast.com/badge.js" data-example="calories"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

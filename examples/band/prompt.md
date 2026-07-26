@@ -32,7 +32,7 @@ Build me a **bold, full-bleed one-page website for my band** as a vanilla-JS app
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="band"></script>
+<script src="https://spacefast.com/badge.js" data-example="band"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

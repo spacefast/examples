@@ -29,6 +29,7 @@
           <a href="#risks">Risks</a>
           <a href="#decisions">Decisions</a>
           <a href="#open-questions">Open questions</a>
+          <a href="#review-checklist">Review checklist</a>
         </nav>
         <p class="sidebar-note">Prepared for Architecture Council and Mobile Platform.</p>
       </aside>
@@ -154,6 +155,18 @@
             </div>
           </div>
           <dl class="constraints">
+            <div>
+              <dt>Goals</dt>
+              <dd>Prevent silent data loss, make sync state visible, and preserve one server-authoritative project history.</dd>
+            </div>
+            <div>
+              <dt>Target users</dt>
+              <dd>Field technicians working through long connectivity gaps and supervisors reviewing their completed inspections.</dd>
+            </div>
+            <div>
+              <dt>Assumptions and boundaries</dt>
+              <dd>Devices reconnect within 72 hours; server APIs remain reachable after reconnect; attachments and rich-text collaboration stay out of beta.</dd>
+            </div>
             <div>
               <dt>Security</dt>
               <dd>Encrypt queued payloads with a device-bound key and erase them on remote sign-out.</dd>
@@ -312,7 +325,8 @@
               <thead>
                 <tr>
                   <th scope="col">Risk</th>
-                  <th scope="col">Level</th>
+                  <th scope="col">Likelihood</th>
+                  <th scope="col">Impact</th>
                   <th scope="col">Mitigation and trigger</th>
                   <th scope="col">Owner</th>
                 </tr>
@@ -320,30 +334,35 @@
               <tbody>
                 <tr>
                   <th scope="row">Conflict rules surprise users</th>
+                  <td>Likely</td>
                   <td><span class="status status-high">High</span></td>
                   <td>Test with real work orders; pause rollout if manual resolution exceeds 0.1%.</td>
                   <td>Priya</td>
                 </tr>
                 <tr>
                   <th scope="row">Queue payload exposed on a lost device</th>
-                  <td><span class="status status-medium">Medium</span></td>
+                  <td>Unlikely</td>
+                  <td><span class="status status-high">Critical</span></td>
                   <td>Device-bound encryption and remote wipe; block beta on failed key extraction test.</td>
                   <td>Elena</td>
                 </tr>
                 <tr>
                   <th scope="row">Reconnect storm overloads the API</th>
-                  <td><span class="status status-medium">Medium</span></td>
+                  <td>Possible</td>
+                  <td><span class="status status-high">High</span></td>
                   <td>Jitter, concurrency caps, and load test at 10× forecast before the team pilot.</td>
                   <td>Ishan</td>
                 </tr>
                 <tr>
                   <th scope="row">Support cannot diagnose stuck work</th>
+                  <td>Possible</td>
                   <td><span class="status status-medium">Medium</span></td>
                   <td>Redacted queue diagnostics and a drill; delay beta if median diagnosis exceeds 15 minutes.</td>
                   <td>Jon</td>
                 </tr>
                 <tr>
                   <th scope="row">Attachment demand expands scope</th>
+                  <td>Likely</td>
                   <td><span class="status status-low">Low</span></td>
                   <td>Publish the boundary in beta onboarding; revisit only after core SLOs hold for four weeks.</td>
                   <td>Priya</td>
@@ -365,35 +384,42 @@
             <li>
               <div class="decision-id">D-01 · Accepted</div>
               <h3>Keep the server authoritative</h3>
-              <p>
-                Choose queued commands over client-side replicated state. It fits current domain
-                rules and operations skills; the cost is limited offline query flexibility.
-                Revisit if desktop and mobile both require multi-day offline editing.
-              </p>
+              <dl>
+                <dt>Alternative</dt><dd>Replicate project state and resolve it primarily on each client.</dd>
+                <dt>Rationale</dt><dd>Queued commands fit current domain rules and operations skills.</dd>
+                <dt>Consequences</dt><dd>The API stays authoritative; offline queries remain deliberately limited.</dd>
+                <dt>Revisit when</dt><dd>Desktop and mobile both require multi-day offline editing.</dd>
+              </dl>
             </li>
             <li>
               <div class="decision-id">D-02 · Accepted</div>
               <h3>Use encrypted SQLite, not a custom log file</h3>
-              <p>
-                Transactions, migrations, and bounded queries matter more than a smaller binary.
-                Revisit only if measured storage overhead exceeds 15% on supported devices.
-              </p>
+              <dl>
+                <dt>Alternative</dt><dd>Maintain a smaller custom append-only file format.</dd>
+                <dt>Rationale</dt><dd>Transactions, migrations, and bounded queries matter more than binary size.</dd>
+                <dt>Consequences</dt><dd>The client accepts modest storage and binary overhead for safer recovery.</dd>
+                <dt>Revisit when</dt><dd>Measured storage overhead exceeds 15% on supported devices.</dd>
+              </dl>
             </li>
             <li>
               <div class="decision-id">D-03 · Accepted</div>
               <h3>Fork conflicting notes instead of merging text</h3>
-              <p>
-                A visible duplicate is safer than an invented merge for compliance records.
-                Rich-text collaboration remains outside the beta.
-              </p>
+              <dl>
+                <dt>Alternative</dt><dd>Automatically merge note bodies with CRDT or operational transforms.</dd>
+                <dt>Rationale</dt><dd>A visible duplicate is safer than an invented merge for compliance records.</dd>
+                <dt>Consequences</dt><dd>Users resolve rare forks explicitly; rich-text collaboration stays out of beta.</dd>
+                <dt>Revisit when</dt><dd>A structured merge can demonstrate zero semantic loss in field trials.</dd>
+              </dl>
             </li>
             <li>
               <div class="decision-id">D-04 · Proposed</div>
               <h3>Gate rollout by workspace</h3>
-              <p>
-                Workspace controls align support, telemetry, and customer consent. Approval is
-                requested in this review so the API contract can freeze in Phase 1.
-              </p>
+              <dl>
+                <dt>Alternative</dt><dd>Gate by account, user cohort, or mobile application version.</dd>
+                <dt>Rationale</dt><dd>Workspace controls align support, telemetry, and customer consent.</dd>
+                <dt>Consequences</dt><dd>Phase 1 must freeze a workspace-control API and a minimal admin surface.</dd>
+                <dt>Revisit when</dt><dd>Pilot telemetry shows workspace-level targeting is too coarse.</dd>
+              </dl>
             </li>
           </ol>
         </section>
@@ -438,6 +464,23 @@
           </ul>
         </section>
 
+        <section id="review-checklist">
+          <div class="section-heading">
+            <p class="section-number">08</p>
+            <div>
+              <h2>Review checklist</h2>
+              <p>Close the review only when the plan is specific enough to execute and reverse.</p>
+            </div>
+          </div>
+          <ul class="review-checklist">
+            <li>Scope, non-goals, target users, assumptions, and success measures are explicit.</li>
+            <li>Architecture labels match the prose, with failure behavior and trust boundaries named.</li>
+            <li>Every milestone has an owner, dependency, deliverable, and evidence-based exit criterion.</li>
+            <li>Every risk and open question has an owner, trigger or due date, and a clear unblock.</li>
+            <li>Accepted decisions record alternatives, consequences, and a condition for revisiting.</li>
+          </ul>
+        </section>
+
         <footer class="plan-footer">
           <div>
             <p class="eyebrow">Review outcome requested</p>
@@ -451,6 +494,6 @@
         </footer>
       </main>
     </div>
-    <script src="https://spacefast.com/badge.js" data-recipe="technical-plan"></script>
+    <script src="https://spacefast.com/badge.js" data-example="technical-plan"></script>
   </body>
 </html>

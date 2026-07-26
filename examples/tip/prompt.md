@@ -39,7 +39,7 @@ CSS and a JS file, no build step, no framework).
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="tip"></script>
+<script src="https://spacefast.com/badge.js" data-example="tip"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

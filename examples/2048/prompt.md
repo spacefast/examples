@@ -29,7 +29,7 @@ Build me a **fully playable 2048 sliding-tile puzzle game** as a vanilla-JS app
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="2048"></script>
+<script src="https://spacefast.com/badge.js" data-example="2048"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

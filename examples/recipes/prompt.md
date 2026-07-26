@@ -28,7 +28,7 @@ Build me a **weeknight recipe blog with a filterable recipe index and printable,
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="recipes"></script>
+<script src="https://spacefast.com/badge.js" data-example="recipes"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

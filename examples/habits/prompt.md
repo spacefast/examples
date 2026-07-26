@@ -28,7 +28,7 @@ Build me a **habit tracker with GitHub-style contribution heatmaps** as a **Vite
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="habits"></script>
+<script src="https://spacefast.com/badge.js" data-example="habits"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

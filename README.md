@@ -33,13 +33,14 @@ Every published recipe output loads the shared Spacefast badge. The panel is alw
 open, and the shared script reads the current prompt from the canonical feed:
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="<slug>"></script>
+<script src="https://spacefast.com/badge.js" data-example="<slug>"></script>
 ```
 
 Do not vendor `badge.js` or embed a prompt in a recipe build. Keeping the badge
 shared means a prompt or badge improvement reaches every output without another
-site publish. Already-published sites may retain the historical `data-example`
-attribute; the shared badge accepts both.
+site publish. The catalog intentionally retains the historical `data-example`
+attribute until the production shared badge deploys `data-recipe` support; this keeps
+new and already-published outputs functional throughout the rollout.
 
 ## Publishing
 
@@ -51,8 +52,8 @@ published as-is; recipes with a `package.json` are built first.
 
 To add a recipe: copy `TEMPLATE.md` into `examples/<slug>/prompt.md`, fill it in,
 drop the site in `examples/<slug>/site/`, and add `meta.json` using
-`meta.example.json` as the schema. Run `bun scripts/build-manifest.mjs` locally;
-CI does the same validation and handles the rest.
+`meta.example.json` as the schema. Run `bun test scripts/catalog.test.mjs` locally;
+CI runs the same catalog and output validation and handles the rest.
 
 The directory slug is also the Spacefast space slug by default. If that hostname
 is reserved or the recipe deliberately publishes elsewhere, add `publish_slug`

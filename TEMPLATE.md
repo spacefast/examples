@@ -28,7 +28,7 @@ If I skip anything, choose a sensible default and tell me what you chose:**
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="{{slug}}"></script>
+<script src="https://spacefast.com/badge.js" data-example="{{slug}}"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no

@@ -49,7 +49,7 @@ conference** as an **Astro site** (static output, no SSR, no backend).
 **Add this exact line right before `</body>` (in your layout) so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="conference"></script>
+<script src="https://spacefast.com/badge.js" data-example="conference"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

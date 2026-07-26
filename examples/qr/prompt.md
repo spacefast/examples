@@ -61,7 +61,7 @@ JavaScript (a single `index.html` plus a CSS and JS file, no build step).
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="qr"></script>
+<script src="https://spacefast.com/badge.js" data-example="qr"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

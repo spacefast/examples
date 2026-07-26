@@ -55,7 +55,7 @@ fetches the content at runtime, no backend, no server-side rendering).
 **Add this exact line right before `</body>` in `index.html` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="wp-react"></script>
+<script src="https://spacefast.com/badge.js" data-example="wp-react"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

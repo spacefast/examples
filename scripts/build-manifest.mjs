@@ -40,8 +40,10 @@ for (const slug of slugs) {
   if (/^#\s/.test(prompt)) {
     throw new Error(`${slug}/prompt.md: prompt must start with the request, not a recipe title`);
   }
-  if (!prompt.includes(`data-recipe="${slug}"`)) {
-    throw new Error(`${slug}/prompt.md: prompt must use the canonical data-recipe badge attribute`);
+  if (!prompt.includes(`data-example="${slug}"`)) {
+    throw new Error(
+      `${slug}/prompt.md: prompt must retain the deployment-safe data-example badge attribute`,
+    );
   }
 
   const order = Number(meta.order);

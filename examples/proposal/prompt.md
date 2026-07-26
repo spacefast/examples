@@ -57,7 +57,7 @@ page with scope, timeline, pricing tiers, and a working accept/sign button — a
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="proposal"></script>
+<script src="https://spacefast.com/badge.js" data-example="proposal"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

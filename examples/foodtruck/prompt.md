@@ -27,7 +27,7 @@ Build me a **mobile-first website for my food truck whose centerpiece is a weekl
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="foodtruck"></script>
+<script src="https://spacefast.com/badge.js" data-example="foodtruck"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

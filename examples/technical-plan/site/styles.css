@@ -570,12 +570,24 @@ tbody th {
 }
 
 .decision-log h3,
-.decision-log p {
+.decision-log dl {
   margin: 0;
 }
 
-.decision-log p {
+.decision-log dl {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 5px 12px;
   color: var(--muted);
+}
+
+.decision-log dt {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.decision-log dd {
+  margin: 0;
 }
 
 .decision-id {
@@ -620,6 +632,16 @@ tbody th {
 
 .question-list dd {
   margin: 0;
+}
+
+.review-checklist {
+  display: grid;
+  gap: 12px;
+  margin: 30px 0 0;
+}
+
+.review-checklist li::marker {
+  color: var(--accent);
 }
 
 .plan-footer {
@@ -856,6 +878,11 @@ tbody th {
   .architecture-flow li {
     border-color: #888;
     background: white;
+  }
+
+  .node-label,
+  .architecture-flow li:not(:last-child)::after {
+    color: #333;
   }
 }
 

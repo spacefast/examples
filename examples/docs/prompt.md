@@ -57,7 +57,7 @@ Build me a **multi-page documentation site for an open-source software library**
 in the shared root layout so every page includes it):
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="docs"></script>
+<script src="https://spacefast.com/badge.js" data-example="docs"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

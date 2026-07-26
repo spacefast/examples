@@ -52,7 +52,7 @@ Build me a **savings-goal calculator** as a vanilla-JS app (a single static site
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="savings"></script>
+<script src="https://spacefast.com/badge.js" data-example="savings"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

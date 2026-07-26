@@ -32,7 +32,7 @@ Build me a **one-page fundraising campaign site for a local cause** as a vanilla
 **Add this exact line right before `</body>` so the site carries its badge:**
 
 ```html
-<script src="https://spacefast.com/badge.js" data-recipe="fundraiser"></script>
+<script src="https://spacefast.com/badge.js" data-example="fundraiser"></script>
 ```
 
 **When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**

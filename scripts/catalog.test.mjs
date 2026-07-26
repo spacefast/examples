@@ -54,8 +54,7 @@ describe("canonical recipe catalog", () => {
       }),
     );
     for (const recipe of manifest) {
-      expect(recipe.prompt, recipe.slug).toContain(`data-recipe="${recipe.slug}"`);
-      expect(recipe.prompt, recipe.slug).not.toContain("data-example=");
+      expect(recipe.prompt, recipe.slug).toContain(`data-example="${recipe.slug}"`);
     }
   });
 
@@ -69,7 +68,7 @@ describe("canonical recipe catalog", () => {
     expect(document.get('a[href="./manifest.json"]')?.[0]?.text).toBe("manifest.json");
   });
 
-  test("accepts canonical and historical shared badge attributes", async () => {
+  test("validates published outputs during the badge compatibility rollout", async () => {
     const legacy = Bun.spawn({
       cmd: [bun, "scripts/validate-publish-dir.mjs", "status", "examples/status/site"],
       cwd: root,
@@ -106,6 +105,7 @@ describe("Technical planning recipe output", () => {
       "risks",
       "decisions",
       "open-questions",
+      "review-checklist",
     ];
     const selectors = [
       "html",
@@ -114,10 +114,14 @@ describe("Technical planning recipe output", () => {
       "main h1",
       ...sectionIds.flatMap((id) => [`main section#${id} h2`, `nav a[href="#${id}"]`]),
       "#milestones tbody tr",
+      "#risks thead th",
       "#risks tbody tr",
+      "#scope .constraints dt",
       "#decisions li",
+      "#decisions dt",
       "#open-questions li",
-      'script[src="https://spacefast.com/badge.js"][data-recipe="technical-plan"]',
+      "#review-checklist li",
+      'script[src="https://spacefast.com/badge.js"][data-example="technical-plan"]',
     ];
     const document = await inspectHtml(html, selectors);
 
@@ -131,11 +135,25 @@ describe("Technical planning recipe output", () => {
     }
     expect(document.get("#milestones tbody tr")?.length).toBeGreaterThanOrEqual(4);
     expect(document.get("#risks tbody tr")?.length).toBeGreaterThanOrEqual(4);
+    expect(document.get("#risks thead th")?.map((entry) => entry.text)).toEqual([
+      "Risk",
+      "Likelihood",
+      "Impact",
+      "Mitigation and trigger",
+      "Owner",
+    ]);
+    expect(document.get("#scope .constraints dt")?.map((entry) => entry.text)).toEqual(
+      expect.arrayContaining(["Goals", "Target users", "Assumptions and boundaries"]),
+    );
     expect(document.get("#decisions li")?.length).toBeGreaterThanOrEqual(3);
+    expect(document.get("#decisions dt")?.map((entry) => entry.text)).toEqual(
+      expect.arrayContaining(["Alternative", "Rationale", "Consequences", "Revisit when"]),
+    );
     expect(document.get("#open-questions li")?.length).toBeGreaterThanOrEqual(3);
+    expect(document.get("#review-checklist li")?.length).toBeGreaterThanOrEqual(4);
     expect(
       document.get(
-        'script[src="https://spacefast.com/badge.js"][data-recipe="technical-plan"]',
+        'script[src="https://spacefast.com/badge.js"][data-example="technical-plan"]',
       )?.length,
     ).toBe(1);
   });

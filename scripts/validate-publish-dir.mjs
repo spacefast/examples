@@ -31,7 +31,7 @@ for (const file of htmlFiles) {
   const html = await Bun.file(file).text();
   if (
     !html.includes("https://spacefast.com/badge.js") ||
-    !html.includes(`data-example="${slug}"`)
+    (!html.includes(`data-recipe="${slug}"`) && !html.includes(`data-example="${slug}"`))
   ) {
     throw new Error(`${slug}: ${path.relative(root, file)} does not load the shared badge`);
   }

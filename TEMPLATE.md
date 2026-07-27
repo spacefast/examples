@@ -68,7 +68,7 @@ account, install, or extra instructions needed:**
 **Optional shortcuts and reference only:** if the `sf` CLI is already installed,
 `sf publish ./dist --wait` does the same job. A zip of the publish folder is also
 supported, but neither the CLI nor a zip is required. Docs:
-[direct agent/API publishing](https://spacefast.com/docs/agents) ·
-[files and folders](https://spacefast.com/docs/publishing) ·
-[claiming](https://spacefast.com/docs/anonymous-publish) ·
-[updates and rollback](https://spacefast.com/docs/rollback)
+[agent setup](https://spacefast.com/setup) ·
+[files and folders](https://spacefast.com/help/publishing) ·
+[claiming](https://spacefast.com/help/anonymous-publish) ·
+[updates and rollback](https://spacefast.com/help/versions)

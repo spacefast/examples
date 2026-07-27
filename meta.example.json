@@ -1,15 +1,15 @@
 {
-  "name": "The branded name shown on the detail page",
+  "name": "The branded recipe output name shown on the detail page",
   "title": "Short generic title used in compact lists",
   "slug": "example-slug",
   "vertical": "Personal & creative",
   "tech": "plain HTML",
-  "summary": "One sentence describing what the example builds.",
+  "summary": "One sentence describing what the recipe builds.",
   "order": 100,
   "live_url": "https://example-slug.view.fast/",
   "setup_questions": ["Question the agent asks before building"],
   "photo_terms": ["search terms for real images"],
   "sections": ["Hero", "Main content", "Footer"],
-  "based_on": "What real-world site or pattern inspired this example",
+  "based_on": "What real-world site or pattern inspired this recipe",
   "notes": "Optional implementation context for maintainers."
 }

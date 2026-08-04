@@ -1,0 +1,23 @@
+{
+  "name": "Zero Perfect",
+  "title": "Realtime Zero app",
+  "slug": "zero-perfect",
+  "vertical": "Tools, apps & games",
+  "tech": "Spacefast Zero + Preact",
+  "runtime": "zero",
+  "summary": "A minimal full-stack todo app with database-backed queries and mutations, guest and Gravatar auth, Cast realtime, routes, and an HTTP endpoint.",
+  "order": 310,
+  "live_url": "https://zero-perfect.view.fast/",
+  "setup_questions": [
+    "What should the app track instead of todos?",
+    "What should the app be called?"
+  ],
+  "photo_terms": [],
+  "sections": [
+    "Realtime database-backed list",
+    "Guest and Gravatar authentication",
+    "Status route backed by an HTTP endpoint"
+  ],
+  "based_on": "The smallest app that exercises every core Spacefast Zero runtime seam.",
+  "notes": "Run and publish from site/. This is a Zero runtime project, not a prebuilt static output directory."
+}

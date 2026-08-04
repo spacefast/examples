@@ -56,6 +56,11 @@ for (const slug of slugs) {
     meta.publish_slug === undefined
       ? slug
       : requiredString(meta.publish_slug, "publish_slug", slug);
+  const runtime =
+    meta.runtime === undefined ? "static" : requiredString(meta.runtime, "runtime", slug);
+  if (runtime !== "static" && runtime !== "zero") {
+    throw new Error(`${slug}/meta.json: runtime must be "static" or "zero"`);
+  }
   items.push({
     slug,
     publishSlug,
@@ -65,6 +70,7 @@ for (const slug of slugs) {
     tech: requiredString(meta.tech, "tech", slug),
     summary: requiredString(meta.summary, "summary", slug),
     order,
+    ...(runtime === "static" ? {} : { runtime }),
     liveUrl,
     previewUrl: liveUrl,
     setupQuestions: requiredStrings(meta.setup_questions, "setup_questions", slug),

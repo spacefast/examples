@@ -1,6 +1,6 @@
 # Spacefast Recipes
 
-Forty-eight polished, copy-paste recipes — for a band site, a calorie tracker, a
+Forty-nine polished, copy-paste recipes — for a band site, a calorie tracker, a
 playable game, a restaurant menu, a technical plan, and more. Each recipe ships
 with the live website its prompt produces.
 
@@ -48,7 +48,9 @@ GitHub Actions (`.github/workflows/publish.yml`) validates the full catalog,
 publishes the JSON feed to GitHub Pages, and rebuilds and publishes changed
 recipe outputs to their existing Spacefast spaces. It authenticates with the
 team-owned `SPACEFAST_DEPLOY_KEY` repository secret. Static recipe outputs are
-published as-is; recipes with a `package.json` are built first.
+published as-is; recipes with a `package.json` are built first. A Spacefast Zero
+project declares `"runtime": "zero"` in `meta.json`; the workflow compiles it
+and publishes its `site/` project root so the server artifact is included.
 
 To add a recipe: copy `TEMPLATE.md` into `examples/<slug>/prompt.md`, fill it in,
 drop the site in `examples/<slug>/site/`, and add `meta.json` using

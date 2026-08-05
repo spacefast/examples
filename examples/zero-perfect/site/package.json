@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@spacefast/zero": "^0.0.13",
+    "@spacefast/zero": "^0.0.19",
     "preact": "^10.29.7"
   },
   "devDependencies": {

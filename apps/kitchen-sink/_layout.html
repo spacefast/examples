@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><sf-page-title></sf-page-title> · Field Notes</title>
+    <style>
+      :root { color-scheme: light dark; --canvas:#f7f4ec; --paper:#fffdf8; --ink:#1e211c; --muted:#6b6d65; --line:rgba(30,33,28,.14); --accent:#b6462d; font-family:ui-sans-serif,system-ui,sans-serif; }
+      * { box-sizing:border-box; }
+      body { margin:0; min-width:320px; min-height:100dvh; background:var(--canvas); color:var(--ink); -webkit-font-smoothing:antialiased; }
+      a { color:inherit; }
+      header, main, footer { width:min(100% - 40px, 760px); margin-inline:auto; }
+      header { display:flex; align-items:center; justify-content:space-between; min-height:64px; border-bottom:1px solid var(--line); }
+      header a { text-decoration:none; font-family:ui-serif,Georgia,serif; font-size:20px; font-weight:600; }
+      main { padding:72px 0 88px; }
+      footer { padding:24px 0 56px; border-top:1px solid var(--line); color:var(--muted); font-size:14px; }
+      sf-content { display:block; }
+      h1, h2 { font-family:ui-serif,Georgia,serif; font-weight:500; letter-spacing:-.04em; }
+      h1 { font-size:clamp(3rem,9vw,5rem); line-height:1; }
+      p, li { line-height:1.75; }
+      button, input { font:inherit; }
+      @media (max-width:600px) { header, main, footer { width:min(100% - 32px, 760px); } main { padding-top:52px; } }
+      @media (prefers-color-scheme:dark) { :root { --canvas:#151713; --paper:#1a1c18; --ink:#f1efe7; --muted:#aaa99f; --line:rgba(255,255,255,.12); --accent:#ef7658; } }
+    </style>
+  </head>
+  <body>
+    <header><a href="/" aria-label="Homepage">Field Notes</a><span>Independent writing</span></header>
+    <main><sf-content></sf-content></main>
+    <footer>Published with Spacefast.</footer>
+  </body>
+</html>

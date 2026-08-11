@@ -1,0 +1,11 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "Comments",
+  "fallback": "/index.html",
+  "access": "public",
+  "runtime": {
+    "kind": "zero",
+    "server": "server/index.ts",
+    "client": "client/index.tsx",
+  },
+}

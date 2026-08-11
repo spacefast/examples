@@ -58,6 +58,18 @@ describe("canonical recipe catalog", () => {
     }
   });
 
+  test("describes Zero recipes as runtime projects", async () => {
+    expect(manifestBuild.exitCode).toBe(0);
+    const manifest = await Bun.file(path.join(root, "dist/manifest.json")).json();
+    expect(manifest).toContainEqual(
+      expect.objectContaining({
+        slug: "zero-perfect",
+        runtime: "zero",
+        liveUrl: "https://zero-perfect.view.fast/",
+      }),
+    );
+  });
+
   test("labels the public feed as recipes while retaining its historical URL", async () => {
     const document = await inspectHtml(
       await Bun.file(path.join(root, "dist/index.html")).text(),

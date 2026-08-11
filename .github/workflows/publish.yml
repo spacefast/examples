@@ -112,7 +112,13 @@ jobs:
       - name: Build
         working-directory: examples/${{ matrix.slug }}
         run: |
-          if [ -f site/package.json ]; then
+          runtime=$(jq -r '.runtime // "static"' meta.json)
+          if [ "$runtime" = "zero" ]; then
+            cd site
+            bun install --frozen-lockfile
+            sf build
+            test -f .spacefast/zero/public/index.html
+          elif [ -f site/package.json ]; then
             cd site
             bun install --frozen-lockfile || bun install
             bun run build
@@ -121,12 +127,17 @@ jobs:
         id: dir
         working-directory: examples/${{ matrix.slug }}
         run: |
-          if [ -d site/dist ]; then dir=site/dist
+          runtime=$(jq -r '.runtime // "static"' meta.json)
+          if [ "$runtime" = "zero" ]; then
+            dir=site
+          elif [ -d site/dist ]; then dir=site/dist
           elif [ -d site/build ]; then dir=site/build
           else dir=site
           fi
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
-          bun ../../scripts/validate-publish-dir.mjs "${{ matrix.slug }}" "$dir"
+          if [ "$runtime" = "static" ]; then
+            bun ../../scripts/validate-publish-dir.mjs "${{ matrix.slug }}" "$dir"
+          fi
       - name: Publish Spacefast space
         if: github.event_name != 'pull_request'
         working-directory: examples/${{ matrix.slug }}

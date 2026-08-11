@@ -4,6 +4,7 @@
   "slug": "example-slug",
   "vertical": "Personal & creative",
   "tech": "plain HTML",
+  "runtime": "static",
   "summary": "One sentence describing what the recipe builds.",
   "order": 100,
   "live_url": "https://example-slug.view.fast/",

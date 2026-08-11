@@ -1,0 +1,15 @@
+{
+  "name": "@spacefast/kitchen-sink",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test test"
+  },
+  "dependencies": {
+    "@spacefast/zero": "0.0.23",
+    "preact": "^10.29.7"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

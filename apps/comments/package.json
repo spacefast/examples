@@ -1,0 +1,9 @@
+{
+  "name": "spacefast-comments-example",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@spacefast/zero": "0.0.23",
+    "preact": "^10.29.7"
+  }
+}

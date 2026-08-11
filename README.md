@@ -1,23 +1,35 @@
-# Spacefast Recipes
+# Spacefast Examples
 
-Forty-nine polished, copy-paste recipes — for a band site, a calorie tracker, a
-playable game, a restaurant menu, a technical plan, and more. Each recipe ships
-with the live website its prompt produces.
-
-Every recipe exists to answer one question: _given the prompt, can any AI agent
-build my version and publish it to Spacefast?_ They power the public recipe gallery
-at [spacefast.com/recipes](https://spacefast.com/recipes).
+The canonical home for Spacefast examples. It contains polished, copy-paste
+recipes and runnable platform apps. Do not copy examples into the product
+monorepo or create one-off repositories for them.
 
 ## Layout
 
 ```text
+apps/
+  comments/       ← minimal Zero comments app
+  kitchen-sink/   ← one root app mixing Pages, Zero, PHP, TypeScript, and JavaScript
 examples/
   <slug>/
-    prompt.md      ← the copy-paste prompt
+    prompt.md      ← the copy-paste recipe prompt
     meta.json      ← gallery metadata and live URL
     site/          ← the built site or buildable project
     README.md      ← implementation notes and live link
 ```
+
+The apps are direct, runnable references. Each app root contains its own
+`sf.jsonc`; run `sf dev` or `sf publish` from that directory.
+
+## Recipes
+
+The recipes cover a band site, a calorie tracker, a playable game, a restaurant
+menu, a technical plan, and more. Each recipe ships with the live website its
+prompt produces.
+
+Every recipe exists to answer one question: _given the prompt, can any AI agent
+build my version and publish it to Spacefast?_ They power the public recipe gallery
+at [spacefast.com/recipes](https://spacefast.com/recipes).
 
 This historically named repository is the canonical source for Recipes. Prompts and metadata
 are compiled into a public JSON feed by GitHub Actions:

@@ -1,0 +1,42 @@
+:root {
+  color-scheme: light;
+  --paper: #f2efe7;
+  --ink: #18201b;
+  --muted: #667068;
+  --line: #c9cec6;
+  --accent: #cc4f2f;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: var(--paper); color: var(--ink); }
+a { color: inherit; text-underline-offset: .22em; }
+.site-header, main, footer { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+.site-header { min-height: 76px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.wordmark { font: 700 1.2rem Georgia, serif; text-decoration: none; }
+nav { display: flex; gap: 24px; font-size: .9rem; }
+nav a { text-decoration: none; }
+.hero { max-width: 900px; padding: 104px 0 88px; }
+.eyebrow { margin: 0 0 18px; color: var(--accent); font: 700 .75rem/1.4 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; }
+h1, h2, h3 { font-family: Georgia, serif; font-weight: 500; letter-spacing: -.04em; }
+h1 { max-width: 13ch; margin: 0; font-size: clamp(3.4rem, 9vw, 7.5rem); line-height: .92; }
+.lede { max-width: 650px; color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.35rem); line-height: 1.65; }
+.notes { padding-bottom: 100px; }
+.section-heading, .notes article { display: grid; grid-template-columns: minmax(120px, 1fr) 3fr; gap: 30px; border-top: 1px solid var(--line); }
+.section-heading { align-items: baseline; padding: 18px 0; }
+.section-heading h2 { margin: 0; font-size: 1.25rem; }
+.section-heading span, time { color: var(--muted); font-size: .8rem; }
+.notes article { padding: 30px 0; }
+.notes h3 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.3rem); }
+.notes h3 a { text-decoration: none; }
+.notes p { max-width: 660px; color: var(--muted); line-height: 1.7; }
+.prose { max-width: 760px; padding: 100px 0 120px; }
+.prose h1 { margin-bottom: 36px; }
+.prose > p:not(.eyebrow), .prose blockquote { font-family: Georgia, serif; font-size: 1.16rem; line-height: 1.85; }
+.prose blockquote { margin: 44px 0; padding-left: 24px; border-left: 3px solid var(--accent); color: var(--muted); }
+code { font-family: ui-monospace, monospace; font-size: .9em; }
+footer { display: flex; justify-content: space-between; padding: 26px 0 52px; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+@media (max-width: 640px) {
+  .hero { padding-top: 72px; }
+  .section-heading, .notes article { grid-template-columns: 1fr; gap: 10px; }
+}

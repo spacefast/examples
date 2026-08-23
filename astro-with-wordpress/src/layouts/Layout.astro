@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Open Press",
+  description = "A static Astro publication built from WordPress.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <title>{title === "Open Press" ? title : `${title} · Open Press`}</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/">Open Press</a>
+      <p>WordPress, edited. Astro, rendered.</p>
+    </header>
+    <main><slot /></main>
+    <footer><span>A build-time WordPress snapshot.</span><span>Astro → Spacefast</span></footer>
+  </body>
+</html>

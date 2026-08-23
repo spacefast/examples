@@ -1,0 +1,2 @@
+/guide /field-guide 301
+/trails/:slug /field-guide/:slug 302

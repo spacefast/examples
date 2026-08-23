@@ -4,7 +4,7 @@ import { mkdir, readdir, rm } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
-const examplesRoot = path.join(root, "examples");
+const recipesRoot = path.join(root, "recipes");
 const outputRoot = path.join(root, "dist");
 const repoUrl = "https://github.com/spacefast/examples";
 
@@ -22,16 +22,16 @@ const requiredStrings = (value, field, slug) => {
   return value;
 };
 
-const slugs = (await readdir(examplesRoot, { withFileTypes: true }))
+const slugs = (await readdir(recipesRoot, { withFileTypes: true }))
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name)
   .toSorted();
 
 const items = [];
 for (const slug of slugs) {
-  const exampleRoot = path.join(examplesRoot, slug);
-  const meta = await Bun.file(path.join(exampleRoot, "meta.json")).json();
-  const prompt = (await Bun.file(path.join(exampleRoot, "prompt.md")).text()).trim();
+  const recipeRoot = path.join(recipesRoot, slug);
+  const meta = await Bun.file(path.join(recipeRoot, "meta.json")).json();
+  const prompt = (await Bun.file(path.join(recipeRoot, "prompt.md")).text()).trim();
 
   if (meta.slug !== slug) {
     throw new Error(`${slug}/meta.json: slug must match its directory`);
@@ -76,7 +76,7 @@ for (const slug of slugs) {
     setupQuestions: requiredStrings(meta.setup_questions, "setup_questions", slug),
     photoTerms: requiredStrings(meta.photo_terms, "photo_terms", slug),
     prompt,
-    repoUrl: `${repoUrl}/tree/master/examples/${slug}`,
+    repoUrl: `${repoUrl}/tree/master/recipes/${slug}`,
   });
 }
 

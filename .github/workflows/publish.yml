@@ -1,26 +1,10 @@
-name: Publish recipes
+name: Validate examples and publish recipes
 
 on:
   pull_request:
     branches: [master]
-    paths:
-      - "comments/**"
-      - "kitchen-sink/**"
-      - "examples/**"
-      - "scripts/**"
-      - "meta.example.json"
-      - "TEMPLATE.md"
-      - ".github/workflows/publish.yml"
   push:
     branches: [master]
-    paths:
-      - "comments/**"
-      - "kitchen-sink/**"
-      - "examples/**"
-      - "scripts/**"
-      - "meta.example.json"
-      - "TEMPLATE.md"
-      - ".github/workflows/publish.yml"
   workflow_dispatch:
     inputs:
       only:
@@ -37,23 +21,70 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  apps:
+  examples:
+    name: Build ${{ matrix.app }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        app: [comments, kitchen-sink]
+        app:
+          - jekyll
+          - gatsby
+          - zero
+          - blog-with-custom-templates
+          - nextjs-static
+          - nextjs
+          - astro-with-wordpress
+          - kitchen-sink
+          - migrate-from-cloudflare-pages
+          - migrate-from-vercel
+          - migrate-from-netlify
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
-      - name: Install
-        working-directory: ${{ matrix.app }}
-        run: bun install
-      - name: Test
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+      - name: Install Spacefast CLI
+        run: bun add -g spacefast@0.0.26
+      - name: Run app tests
         working-directory: ${{ matrix.app }}
         run: |
-          if jq -e '.scripts.test' package.json >/dev/null; then
+          if [ -f package.json ] && jq -e '.scripts.test' package.json >/dev/null; then
+            bun install --frozen-lockfile || bun install
             bun test
           fi
+      - name: Build deployable artifact
+        env:
+          NEXT_TELEMETRY_DISABLED: "1"
+          GATSBY_TELEMETRY_DISABLED: "1"
+          XDG_CONFIG_HOME: ${{ runner.temp }}/xdg
+        run: |
+          artifact="$RUNNER_TEMP/${{ matrix.app }}.tgz"
+          case "${{ matrix.app }}" in
+            zero|kitchen-sink)
+              cd "${{ matrix.app }}"
+              sf build --json
+              artifact="$PWD/.spacefast/zero/artifact.json"
+              ;;
+            nextjs-static)
+              cd nextjs-static
+              npm install
+              npm run build
+              sf build out --output "$artifact" --json
+              ;;
+            migrate-from-netlify)
+              sf publish migrate-from-netlify --dry-run --allow-unsupported-platform-features --json
+              cd migrate-from-netlify
+              npm install
+              npm run build
+              sf build dist --prebuilt --output "$artifact" --json
+              ;;
+            *)
+              sf build "${{ matrix.app }}" --output "$artifact" --json
+              ;;
+          esac
+          test -s "$artifact"
 
   manifest:
     runs-on: ubuntu-latest
@@ -80,7 +111,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  discover:
+  discover-recipes:
     runs-on: ubuntu-latest
     outputs:
       slugs: ${{ steps.list.outputs.slugs }}
@@ -94,14 +125,14 @@ jobs:
           BEFORE: ${{ github.event.before }}
         run: |
           if [ -n "$ONLY" ]; then
-            test -d "examples/$ONLY"
+            test -d "recipes/$ONLY"
             jq -cn --arg slug "$ONLY" '[ $slug ]' | sed 's/^/slugs=/' >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           all_slugs() {
-            find examples -mindepth 1 -maxdepth 1 -type d -print \
-              | sed 's#^examples/##' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))'
+            find recipes -mindepth 1 -maxdepth 1 -type d -print \
+              | sed 's#^recipes/##' | sort | jq -R -s -c 'split("\n") | map(select(length > 0))'
           }
 
           if [ "${{ github.event_name }}" = "pull_request" ] \
@@ -113,26 +144,26 @@ jobs:
           fi
 
           changed=$(git diff --name-only "$BEFORE" "${{ github.sha }}")
-          slugs=$(printf '%s\n' "$changed" | sed -n 's#^examples/\([^/]*\)/site/.*#\1#p' \
+          slugs=$(printf '%s\n' "$changed" | sed -n 's#^recipes/\([^/]*\)/site/.*#\1#p' \
             | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
 
-  publish:
-    needs: discover
-    if: needs.discover.outputs.slugs != '[]'
+  publish-recipes:
+    needs: discover-recipes
+    if: needs.discover-recipes.outputs.slugs != '[]'
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       max-parallel: 4
       matrix:
-        slug: ${{ fromJson(needs.discover.outputs.slugs) }}
+        slug: ${{ fromJson(needs.discover-recipes.outputs.slugs) }}
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
       - name: Install Spacefast CLI
-        run: bun add -g spacefast
+        run: bun add -g spacefast@0.0.26
       - name: Build
-        working-directory: examples/${{ matrix.slug }}
+        working-directory: recipes/${{ matrix.slug }}
         run: |
           runtime=$(jq -r '.runtime // "static"' meta.json)
           if [ "$runtime" = "zero" ]; then
@@ -147,7 +178,7 @@ jobs:
           fi
       - name: Resolve and validate publish directory
         id: dir
-        working-directory: examples/${{ matrix.slug }}
+        working-directory: recipes/${{ matrix.slug }}
         run: |
           runtime=$(jq -r '.runtime // "static"' meta.json)
           if [ "$runtime" = "zero" ]; then
@@ -162,7 +193,7 @@ jobs:
           fi
       - name: Publish Spacefast space
         if: github.event_name != 'pull_request'
-        working-directory: examples/${{ matrix.slug }}
+        working-directory: recipes/${{ matrix.slug }}
         env:
           SPACEFAST_TOKEN: ${{ secrets.SPACEFAST_DEPLOY_KEY }}
           SPACEFAST_API_URL: https://api.spacefast.com

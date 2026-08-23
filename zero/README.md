@@ -1,11 +1,13 @@
-# Comments
+# Spacefast Zero comments
 
-A minimal two-file Zero app with live comments, runtime-owned Akismet request
+A minimal Zero app with live comments, runtime-owned Akismet request
 metadata, Gravatar avatars, transactional email, and a live social image at
 `/og/comments.png` generated with `ImageResponse`.
 
 ```sh
+bun install
 sf dev
+sf build
 sf publish
 ```
 

@@ -1,0 +1,9 @@
+{
+  "name": "spacefast-cloudflare-pages-migration",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve site",
+    "build": "node build.mjs"
+  }
+}

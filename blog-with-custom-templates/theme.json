@@ -1,0 +1,17 @@
+{
+  "version": 3,
+  "settings": {
+    "color": {
+      "palette": [
+        { "slug": "background", "name": "Paper", "color": "#f1ede3" },
+        { "slug": "foreground", "name": "Ink", "color": "#1c1d1a" },
+        { "slug": "accent", "name": "Signal", "color": "#e25d33" }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        { "slug": "sans", "name": "Sans", "fontFamily": "Inter, system-ui, sans-serif" }
+      ]
+    }
+  }
+}

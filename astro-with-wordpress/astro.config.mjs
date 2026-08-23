@@ -1,0 +1,7 @@
+import { spacefastAstro } from "@spacefast/astro";
+import { defineConfig } from "astro/config";
+
+export default defineConfig({
+  output: "static",
+  integrations: [spacefastAstro()],
+});

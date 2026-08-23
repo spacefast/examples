@@ -25,6 +25,7 @@ Use `sf build` when you only want to prove the deployable artifact locally.
 | [`nextjs-static/`](./nextjs-static/) | A Next.js static export served entirely as files |
 | [`nextjs/`](./nextjs/) | Server-rendered Next.js, route handlers, and automatic OpenNext packaging |
 | [`astro-with-wordpress/`](./astro-with-wordpress/) | Astro built from WordPress through `@spacefast/wordpress` |
+| [`functions-php/`](./functions-php/) | Native PHP Functions with JSON, form bodies, validation, and verified auth context |
 | [`recipes/`](./recipes/) | Canonical prompts, metadata, live outputs, and the public recipe feed |
 | [`kitchen-sink/`](./kitchen-sink/) | Zero, Pages, PHP, JavaScript, TypeScript, auth, mail, and routing in one project |
 | [`migrate-from-cloudflare-pages/`](./migrate-from-cloudflare-pages/) | Wrangler build settings and Pages convention files |

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive example of native PHP Functions on Spacefast."
+    />
+    <title>PHP Functions Lab</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Homepage">PHP / Functions</a>
+      <span><i aria-hidden="true"></i> Native runtime ready</span>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Zero dependencies · Three live routes</p>
+        <h1>PHP that starts at the useful part.</h1>
+        <p>
+          Put a PHP file in <code>functions/</code>. Spacefast turns it into a
+          jailed endpoint and gives it safe helpers for bodies, identity,
+          databases, spam checks, and email.
+        </p>
+      </section>
+
+      <section class="lab" aria-labelledby="lab-title">
+        <div class="section-heading">
+          <h2 id="lab-title">Try the handlers</h2>
+          <p>Responses below come from the deployed PHP files.</p>
+        </div>
+
+        <article class="experiment">
+          <div class="experiment-copy">
+            <span class="number">01</span>
+            <div>
+              <p class="route">POST /hello</p>
+              <h3>Parse a request body</h3>
+              <p>
+                <code>sf_body()</code> parses JSON and form submissions into
+                the same PHP array shape.
+              </p>
+            </div>
+          </div>
+          <form data-endpoint="/hello" data-field="name">
+            <label for="name">Who should PHP greet?</label>
+            <div class="control-row">
+              <input id="name" name="name" value="Spacefast" required />
+              <button type="submit">Run function</button>
+            </div>
+            <pre aria-live="polite"><code>Waiting for a request…</code></pre>
+          </form>
+        </article>
+
+        <article class="experiment">
+          <div class="experiment-copy">
+            <span class="number">02</span>
+            <div>
+              <p class="route">POST /echo</p>
+              <h3>Validate and choose a status</h3>
+              <p>
+                The handler returns <code>202</code> for accepted input and
+                <code>422</code> when the message is empty.
+              </p>
+            </div>
+          </div>
+          <form data-endpoint="/echo" data-field="message">
+            <label for="message">Message</label>
+            <div class="control-row">
+              <input
+                id="message"
+                name="message"
+                value="Small functions, clear boundaries."
+                required
+              />
+              <button type="submit">Run function</button>
+            </div>
+            <pre aria-live="polite"><code>Waiting for a request…</code></pre>
+          </form>
+        </article>
+
+        <article class="experiment">
+          <div class="experiment-copy">
+            <span class="number">03</span>
+            <div>
+              <p class="route">GET /viewer</p>
+              <h3>Read verified identity</h3>
+              <p>
+                <code>sf_auth()</code> exposes the visitor identity verified by
+                the platform. Request headers cannot forge it.
+              </p>
+            </div>
+          </div>
+          <div class="viewer-demo">
+            <button id="viewer" type="button">Inspect current viewer</button>
+            <pre aria-live="polite"><code>Waiting for a request…</code></pre>
+          </div>
+        </article>
+      </section>
+
+      <section class="anatomy" aria-labelledby="anatomy-title">
+        <p class="eyebrow">The entire handler</p>
+        <h2 id="anatomy-title">No framework ceremony.</h2>
+        <pre><code>&lt;?php
+$body = sf_body();
+$name = $body['name'] ?? 'world';
+
+sf_json(['hello' =&gt; $name]);</code></pre>
+      </section>
+    </main>
+
+    <footer>
+      <span>Static HTML + native PHP</span>
+      <a href="https://spacefast.com/docs/functions">Read the Functions guide ↗</a>
+    </footer>
+
+    <script type="module">
+      const render = async (output, request) => {
+        output.textContent = "Running…";
+        try {
+          const response = await request();
+          const body = await response.json();
+          output.textContent = `${response.status} ${response.statusText}\n${JSON.stringify(body, null, 2)}`;
+        } catch (error) {
+          output.textContent = `Request failed\n${error instanceof Error ? error.message : String(error)}`;
+        }
+      };
+
+      for (const form of document.querySelectorAll("form[data-endpoint]")) {
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const field = form.dataset.field;
+          const value = new FormData(form).get(field);
+          const output = form.querySelector("pre code");
+          render(output, () =>
+            fetch(form.dataset.endpoint, {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify({ [field]: value }),
+            }),
+          );
+        });
+      }
+
+      const viewerButton = document.querySelector("#viewer");
+      viewerButton.addEventListener("click", () => {
+        const output = viewerButton.parentElement.querySelector("pre code");
+        render(output, () => fetch("/viewer"));
+      });
+    </script>
+  </body>
+</html>

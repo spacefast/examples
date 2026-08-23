@@ -10,7 +10,7 @@
     },
     "typography": {
       "fontFamilies": [
-        { "slug": "sans", "name": "Sans", "fontFamily": "Inter, system-ui, sans-serif" }
+        { "slug": "sans", "name": "Sans", "fontFamily": "ui-sans-serif, system-ui, sans-serif" }
       ]
     }
   }

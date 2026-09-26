@@ -43,9 +43,10 @@ export default capsule({
       if (!slug) return [];
       const rows = await ctx.db.comments
         .withIndex("by_post", (row) => row.eq("postSlug", slug))
-        .order("asc")
+        .order("desc")
         .take(COMMENT_PAGE_SIZE);
-      return rows as Comment[];
+      // Newest page, shown oldest first.
+      return (rows as Comment[]).reverse();
     }),
 
     reactions: query(async (ctx, postSlug: string): Promise<ReactionTally[]> => {
@@ -68,9 +69,13 @@ export default capsule({
         const text = cleanBody(body);
         if (!slug || !text) return null;
 
+        const name = displayNameFor(authorName, ctx.auth.displayName);
+        const verdict = await ctx.spam.check({ content: text, type: "comment", authorName: name });
+        if (verdict.spam) return null;
+
         const row = await ctx.db.comments.insert({
           postSlug: slug,
-          authorName: displayNameFor(authorName, ctx.auth.displayName),
+          authorName: name,
           body: text,
           authorId: ctx.auth.userId,
         });
@@ -115,8 +120,9 @@ export default capsule({
       // are restated here rather than inferred.
       const rows = (await ctx.db.comments
         .withIndex("by_post", (row) => row.eq("postSlug", slug))
-        .order("asc")
+        .order("desc")
         .take(COMMENT_PAGE_SIZE)) as unknown as Comment[];
+      rows.reverse();
       return json({
         data: {
           post: slug,
@@ -148,6 +154,13 @@ export default capsule({
       }
 
       const author = displayNameFor(payload?.author ?? "", ctx.auth.displayName);
+      const verdict = await ctx.spam.check({ content: text, type: "comment", authorName: author });
+      if (verdict.spam) {
+        return json(
+          { error: { code: "comment_rejected", message: "That comment looks like spam." } },
+          { status: 422 },
+        );
+      }
       const row = await ctx.db.comments.insert({
         postSlug: slug,
         authorName: author,

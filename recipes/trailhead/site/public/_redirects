@@ -1,6 +1,6 @@
 # Trailhead redirects. This file ships inside `out/` and is compiled at publish
 # time, so the rules are versioned with the build that needs them.
-# Syntax: https://spacefast.com/docs/serve/redirects
+# Syntax: https://spacefast.com/docs/redirects
 
 # The trail index lives at the site root, so /trails must not be a dead end.
 # An exact source matches with or without its trailing slash.

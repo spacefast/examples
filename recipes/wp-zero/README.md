@@ -68,9 +68,13 @@ lives in `site/tools/config.ts`.
 ```sh
 curl "$BASE/api/search?q=release&limit=3"
 curl "$BASE/api/reactions?slug=open-weight"
-curl -X POST "$BASE/api/react" -H 'content-type: application/json' \
+curl -c jar -b jar -X POST "$BASE/api/react" -H 'content-type: application/json' \
   -d '{"slug":"open-weight","emoji":"🔥"}'
 ```
+
+Keep the cookie jar: the guest identity lives in a cookie, so without it every
+request is a new reader and the second POST adds a reaction instead of taking
+it back.
 
 `POST /api/react` is declared `mode: "write"`, which is what lets it touch the
 database *and* what makes it broadcast — a reaction posted from a terminal moves

@@ -105,8 +105,7 @@ build.
 It is optional: the CLI auto-detects `.open-next/worker.js` after the build.
 Pinning it makes a broken build fail loudly with
 `config_runtime_entry_missing` instead of silently falling back to a static
-publish. In testing, the presence of `sf.jsonc` changed nothing about the
-dry-run plan (see the friction log).
+publish.
 
 ## Rules that break the build if you get them wrong
 

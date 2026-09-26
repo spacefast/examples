@@ -29,23 +29,27 @@ Build me a **hiking trail guide** as a **Next.js static export** — an index of
 
    ```ts
    // next.config.ts
-   import { createRequire } from "node:module";
    import type { NextConfig } from "next";
-   import { spacefastNextImageConfig } from "@spacefast/image/next";
-
-   const require = createRequire(import.meta.url);
 
    const nextConfig: NextConfig = {
      output: "export",
      trailingSlash: true,
      images: {
-       ...spacefastNextImageConfig,
-       loaderFile: require.resolve("@spacefast/image/next-loader"),
+       loader: "custom",
+       qualities: [50, 60, 75, 85, 100],
+       loaderFile: "./lib/spacefast-image-loader.ts",
      },
    };
 
    export default nextConfig;
    ```
+
+   ```ts
+   // lib/spacefast-image-loader.ts
+   export { default } from "@spacefast/image/next-loader";
+   ```
+
+   Keep the loader in that local file. Importing `@spacefast/image/next` from `next.config.ts` fails, because Next compiles the config to CommonJS.
 
    Then use `next/image` normally with absolute URLs, `width`/`height`, `sizes`, and `priority` on the hero. Only absolute URLs get accelerated — files in `public/` pass through untouched. When the build finishes, grep the HTML: the `src` and `srcset` values should be `https://i0.wp.com/...?quality=…&w=…` URLs.
 3. **Routing rules as files.** Put `_redirects` and `_headers` in `public/` so they land at the root of `out/`. Give me at least one real 301 (an index path or a legacy URL shape that should not 404) and a sensible security-header block — `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, plus a long immutable `Cache-Control` on the hashed `/_next/static/*` assets.
@@ -84,4 +88,4 @@ Put it in the root layout so every generated page gets it, and confirm it's in t
    If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
 5. Then check the live site: `curl -sI <liveUrl>/trails/` should show your 301, and the trail pages' image URLs should point at `i0.wp.com`.
 
-**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./out --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [Next.js on Spacefast](https://spacefast.com/docs/guides/frameworks/nextjs) · [redirects](https://spacefast.com/docs/serve/redirects) · [headers and settings](https://spacefast.com/docs/serve/settings) · [agent setup](https://spacefast.com/setup) · [claiming](https://spacefast.com/help/anonymous-publish)
+**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./out --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [Next.js on Spacefast](https://spacefast.com/docs/frameworks) · [redirects](https://spacefast.com/docs/redirects) · [headers and settings](https://spacefast.com/docs/configuration) · [agent setup](https://spacefast.com/setup) · [claiming](https://spacefast.com/help/anonymous-publish)

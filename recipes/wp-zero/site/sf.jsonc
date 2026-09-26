@@ -23,7 +23,6 @@
     "accent": "#d9410b",
     "background": "#faf7f2",
     "font": "Iowan Old Style, Palatino, Georgia, serif",
-    "radius": "6px",
   },
 
   // One capsule behind the static tree: reactions in the database, search over

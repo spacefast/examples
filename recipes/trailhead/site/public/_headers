@@ -1,5 +1,5 @@
 # Response headers for every file this site serves.
-# Syntax: https://spacefast.com/docs/serve/headers
+# Syntax: https://spacefast.com/docs/headers
 
 /*
   X-Content-Type-Options: nosniff

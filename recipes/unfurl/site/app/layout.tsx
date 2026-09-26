@@ -47,7 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <p className="footer-links">
             <a href="https://spacefast.com/docs/functions">Functions docs</a>
             <span aria-hidden="true">·</span>
-            <a href="https://spacefast.com/docs/guides/frameworks/nextjs">Next.js on Spacefast</a>
+            <a href="https://spacefast.com/docs/frameworks">Next.js on Spacefast</a>
             <span aria-hidden="true">·</span>
             <a href="/api/unfurl?url=https://spacefast.com">Try the API</a>
           </p>

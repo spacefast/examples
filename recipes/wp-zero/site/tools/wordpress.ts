@@ -73,10 +73,18 @@ const ENTITIES: Record<string, string> = {
  * then leaves a gap wherever an inline tag hugged punctuation — `an <a>link</a>.`
  * would come out as "an link ." That last pass closes it.
  */
+/** `&#038;` and `&#x26;` style entities, which WordPress writes for `&` in titles. */
+function numericEntity(entity: string): string {
+  const match = /^&#(x[0-9a-f]+|[0-9]+);$/i.exec(entity);
+  if (!match) return entity;
+  const code = match[1][0].toLowerCase() === "x" ? parseInt(match[1].slice(1), 16) : Number(match[1]);
+  return code > 0 && code <= 0x10ffff ? String.fromCodePoint(code) : entity;
+}
+
 export function plain(html: string): string {
   return html
     .replace(/<[^>]*>/g, " ")
-    .replace(/&#?[a-z0-9]+;/gi, (entity) => ENTITIES[entity.toLowerCase()] ?? entity)
+    .replace(/&#?[a-z0-9]+;/gi, (entity) => ENTITIES[entity.toLowerCase()] ?? numericEntity(entity))
     .replace(/\s+/g, " ")
     .replace(/\s+([,.;:!?%)\]])/g, "$1")
     .replace(/([([])\s+/g, "$1")

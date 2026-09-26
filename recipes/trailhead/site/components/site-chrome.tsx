@@ -49,7 +49,7 @@ export function Footer() {
             Unsplash
           </a>
           , resized by the{" "}
-          <a href="https://spacefast.com/docs/guides/frameworks/nextjs" rel="noreferrer">
+          <a href="https://spacefast.com/docs/frameworks" rel="noreferrer">
             Spacefast Site Accelerator
           </a>
           . Built with Next.js, exported to static HTML, hosted on{" "}

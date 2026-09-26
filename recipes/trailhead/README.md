@@ -49,7 +49,7 @@ OG card is a `resize=1200,630` crop from the same helper.)
 
 ## Known issue: the documented `next.config.ts` recipe does not build
 
-The [Next.js guide](https://spacefast.com/docs/guides/frameworks/nextjs) says to
+The [Next.js guide](https://spacefast.com/docs/frameworks) says to
 write:
 
 ```ts

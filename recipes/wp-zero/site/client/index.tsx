@@ -35,7 +35,8 @@ function ReactionBar({ slug }: { slug: string }) {
   const [failed, setFailed] = useState(false);
 
   const state = live && !Array.isArray(live) ? live : emptyState(slug);
-  const loading = live === undefined;
+  // useQuery returns [] until the first result arrives.
+  const loading = live === undefined || Array.isArray(live);
 
   async function press(emoji: string) {
     setPending(emoji);

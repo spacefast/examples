@@ -20,6 +20,13 @@ import { cleanSlug, emptyState, isReactionEmoji, REACTIONS, tallyReactions } fro
 import { cleanQuery, searchDocuments } from "../shared/search";
 import { SEARCH_INDEX, SEARCH_INDEX_BUILT_AT, SEARCH_INDEX_SOURCE } from "../shared/search-index";
 
+// Endpoint handlers get a generic `ctx.db`; queries and mutations get one
+// typed from the schema. This is the row shape the endpoints read back.
+type Reaction = { id: string; slug: string; emoji: string; ownerId: string };
+
+// Reactions are only recorded against articles this build published.
+const ARTICLE_SLUGS = new Set(SEARCH_INDEX.map((entry) => entry.slug));
+
 export default capsule({
   name: "Broadsheet",
 
@@ -55,7 +62,7 @@ export default capsule({
      */
     toggleReaction: mutation(async (ctx, rawSlug: string, rawEmoji: string) => {
       const slug = cleanSlug(rawSlug);
-      if (!slug) throw new Error("An article slug is required.");
+      if (!slug || !ARTICLE_SLUGS.has(slug)) throw new Error("That is not an article on this site.");
       if (!isReactionEmoji(rawEmoji)) throw new Error("That is not one of this site's reactions.");
 
       const existing = await ctx.db.reactions
@@ -105,9 +112,9 @@ export default capsule({
       async (ctx, request) => {
         const slug = cleanSlug(request.query.get("slug"));
         if (!slug) return json({ error: "Pass ?slug=<article-slug>." }, { status: 422 });
-        const rows = await ctx.db.reactions
+        const rows = (await ctx.db.reactions
           .withIndex("by_slug", (range) => range.eq("slug", slug))
-          .collect();
+          .collect()) as unknown as Reaction[];
         return json(tallyReactions(slug, rows, ctx.auth.userId));
       },
     ),
@@ -124,16 +131,16 @@ export default capsule({
       } | null;
       const slug = cleanSlug(payload?.slug);
       const emoji = payload?.emoji;
-      if (!slug || !isReactionEmoji(emoji)) {
+      if (!slug || !ARTICLE_SLUGS.has(slug) || !isReactionEmoji(emoji)) {
         return json(
           { error: "Send { slug, emoji }.", emoji: REACTIONS.map((reaction) => reaction.emoji) },
           { status: 422 },
         );
       }
 
-      const existing = await ctx.db.reactions
+      const existing = (await ctx.db.reactions
         .withIndex("by_owner_slug", (range) => range.eq("ownerId", ctx.auth.userId).eq("slug", slug))
-        .first();
+        .first()) as unknown as Reaction | null;
       if (!existing) {
         await ctx.db.reactions.insert({ slug, emoji, ownerId: ctx.auth.userId });
       } else if (existing.emoji === emoji) {
@@ -142,9 +149,9 @@ export default capsule({
         await ctx.db.reactions.update(existing.id, { emoji });
       }
 
-      const rows = await ctx.db.reactions
+      const rows = (await ctx.db.reactions
         .withIndex("by_slug", (range) => range.eq("slug", slug))
-        .collect();
+        .collect()) as unknown as Reaction[];
       return json(tallyReactions(slug, rows, ctx.auth.userId));
     }),
   },

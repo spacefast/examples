@@ -8,7 +8,7 @@ one `sf.jsonc`, and one publish.
 The repository root is the deployable project:
 
 - a Zero capsule with SQL tables, realtime queries, drafts, reactions, comments, Akismet,
-  transactional email, auth, Gravatar, actions, endpoints, OpenGraph images, and logs;
+  transactional email, auth, Gravatar, endpoints, OpenGraph images, and logs;
 - native PHP actions in `functions/*.php`;
 - TypeScript and JavaScript modules in the same `functions/` file router;
 - a custom `_layout.html`, access screen, and 404 page;

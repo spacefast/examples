@@ -82,7 +82,7 @@ function SiteHeader() {
 function Home() {
   const value = useQuery<HomeData>("home");
   const data = Array.isArray(value) ? emptyHome : value;
-  const bootstrap = useMutation<boolean>("bootstrapBlog");
+  const bootstrap = useMutation<[], boolean>("bootstrapBlog");
   const [started, setStarted] = useState(false);
 
   useEffect(() => {
@@ -188,7 +188,9 @@ function Article() {
   const data: PostData = Array.isArray(value)
     ? { post: null, comments: [], reactionCount: 0 }
     : value;
-  const react = useMutation<{ created: boolean; kind: string }>("react");
+  const react = useMutation<[postSlug: string, kind: string], { created: boolean; kind: string }>(
+    "react",
+  );
   const [reactionStatus, setReactionStatus] = useState("");
 
   if (!data.post) {
@@ -230,11 +232,10 @@ function Article() {
 }
 
 function Comments({ postSlug, comments }: { postSlug: string; comments: PostData["comments"] }) {
-  const addComment = useMutation<{
-    accepted: boolean;
-    discarded: boolean;
-    notificationQueued: boolean;
-  }>("addComment");
+  const addComment = useMutation<
+    [postSlug: string, authorName: string, authorEmail: string, body: string],
+    { accepted: boolean; discarded: boolean; notificationQueued: boolean }
+  >("addComment");
   const [status, setStatus] = useState("");
 
   async function submit(event: SubmitEvent) {
@@ -333,9 +334,9 @@ function About() {
           <h1>A small publication with a large backend.</h1>
           <p>
             Field Notes is the Spacefast kitchen sink: a sparse blog above SQL, realtime data,
-            identity, storage, actions, endpoints, Akismet, email, custom visitor pages, and three
-            function runtimes in one published version. Its OpenGraph image is rendered from live
-            post data by the capsule.
+            identity, storage, endpoints, Akismet, email, custom visitor pages, and three function
+            runtimes in one published version. Its OpenGraph image is rendered from live post data
+            by the capsule.
           </p>
           <p>
             The design stays quiet on purpose. Infrastructure is most convincing when the product
@@ -362,9 +363,10 @@ function NotFound() {
 }
 
 function SiteFooter() {
-  const subscribe = useMutation<{ created: boolean; discarded: boolean; rejected: boolean }>(
-    "subscribe",
-  );
+  const subscribe = useMutation<
+    [email: string],
+    { created: boolean; discarded: boolean; rejected: boolean }
+  >("subscribe");
   const [status, setStatus] = useState("");
 
   async function submit(event: SubmitEvent) {

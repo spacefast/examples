@@ -47,7 +47,7 @@ jobs:
         with:
           ruby-version: "3.3"
       - name: Install Spacefast CLI
-        run: bun add -g spacefast@0.0.26
+        run: bun add -g spacefast@0.4.1
       - name: Run app tests
         working-directory: ${{ matrix.app }}
         run: |
@@ -162,7 +162,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
       - name: Install Spacefast CLI
-        run: bun add -g spacefast@0.0.26
+        run: bun add -g spacefast@0.4.1
       - name: Build
         working-directory: recipes/${{ matrix.slug }}
         run: |

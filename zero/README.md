@@ -21,10 +21,6 @@ them and it fails the same way, with `zero_email_unavailable`.
 `ctx.gravatar.avatarUrl` is fine offline: it is a hash and a query string, not
 a request.
 
-The local transaction boundary is also the whole invocation rather than the
-`ctx.transaction()` block, so use a published Space to check that the comment
-row and the email outbox row really commit together.
-
 The mutation does not call `ctx.invalidate("comments")`. A successful table
 write already causes live queries to refresh; explicit invalidation only narrows
 which named subscriptions refresh.

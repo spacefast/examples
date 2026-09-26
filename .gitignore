@@ -6,3 +6,4 @@ build/
 .astro/
 .DS_Store
 *.log
+.gstack/

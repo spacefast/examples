@@ -166,8 +166,25 @@ jobs:
           if [ "$runtime" = "zero" ]; then
             cd site
             bun install --frozen-lockfile
-            sf build
-            test -f .spacefast/zero/public/index.html
+            if jq -e '.scripts.build' package.json >/dev/null; then
+              bun run build
+            fi
+            if [ -f dist/sf.jsonc ]; then
+              # Framework layout: the build script staged the capsule into
+              # dist/ and already ran `sf build dist` (e.g. astro-zero).
+              test -f dist/.spacefast/zero/public/index.html
+            else
+              sf build
+              test -f .spacefast/zero/public/index.html
+            fi
+            if jq -e '.scripts.test' package.json >/dev/null; then
+              bun run test
+            fi
+          elif [ "$runtime" = "functions" ]; then
+            cd site
+            bun install --frozen-lockfile
+            # Sanity build only: `sf publish` runs its own OpenNext build.
+            bun run build
           elif [ -f site/package.json ]; then
             cd site
             bun install --frozen-lockfile || bun install
@@ -178,10 +195,13 @@ jobs:
         working-directory: recipes/${{ matrix.slug }}
         run: |
           runtime=$(jq -r '.runtime // "static"' meta.json)
-          if [ "$runtime" = "zero" ]; then
+          if [ "$runtime" = "zero" ] && [ -f site/dist/sf.jsonc ]; then
+            dir=site/dist
+          elif [ "$runtime" = "zero" ] || [ "$runtime" = "functions" ]; then
             dir=site
           elif [ -d site/dist ]; then dir=site/dist
           elif [ -d site/build ]; then dir=site/build
+          elif [ -d site/out ]; then dir=site/out
           else dir=site
           fi
           echo "dir=$dir" >> "$GITHUB_OUTPUT"
@@ -196,6 +216,7 @@ jobs:
           SPACEFAST_API_URL: https://api.spacefast.com
         run: |
           space_slug=$(jq -er '.publish_slug // .slug' meta.json)
+          runtime=$(jq -r '.runtime // "static"' meta.json)
           publish_args=(
             "${{ steps.dir.outputs.dir }}"
             --team spacefast-examples
@@ -206,6 +227,10 @@ jobs:
             --wait
             --json
           )
+          if [ "$runtime" = "zero" ]; then
+            # The Build step already ran the framework build and `sf build`.
+            publish_args+=(--skip-build)
+          fi
 
           set +e
           result=$(sf publish "${publish_args[@]}" --space "$space_slug" 2>&1)

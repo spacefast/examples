@@ -1,0 +1,11 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "Trailhead",
+  // The exported 404 page, wired up explicitly.
+  "fallback": { "path": "/404.html", "status": 404 },
+  "meta": {
+    "title": "Trailhead — six walks worth the drive",
+    "description": "A field guide to six trails worth planning a trip around: real distances, real elevation, real permit systems.",
+    "favicon": "/favicon.svg",
+  },
+}

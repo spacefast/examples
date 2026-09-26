@@ -1,0 +1,35 @@
+{
+  "name": "Trailhead — Next.js static export",
+  "title": "Hiking trail guide",
+  "slug": "trailhead",
+  "vertical": "Developers & integrations",
+  "tech": "Next.js static export",
+  "summary": "A photo-led hiking guide built with the Next.js App Router, exported to flat HTML with `output: \"export\"` and served with accelerated images, redirects, and security headers.",
+  "order": 220,
+  "live_url": "https://trailhead.view.fast/",
+  "setup_questions": [
+    "What should the guide be called, and what region or theme do the trails share?",
+    "Which trails should it cover (4-6), and do you have distances, elevation gain, and season notes, or should I research them?",
+    "What's the accent color, and should it feel like a national-park field guide, a modern outdoor brand, or an editorial magazine?",
+    "Which units — miles and feet, or kilometres and metres — and do any trails need a permit or booking note?"
+  ],
+  "photo_terms": [
+    "sunrise over a mountain summit above a sea of cloud",
+    "red sandstone canyon with a river winding below",
+    "glaciated peak above an alpine larch basin",
+    "hikers with backpacks on a rocky mountain trail",
+    "turquoise glacier lake below a hanging glacier",
+    "colourful rhyolite mountains in the Icelandic highlands"
+  ],
+  "sections": [
+    "Hero with a full-bleed summit photo, the guide name, and the stats that matter (trail count, total distance, elevation)",
+    "Trail index: a responsive card grid with photo, region, distance, elevation gain, season, and difficulty badge",
+    "Per-trail static pages generated with generateStaticParams: hero photo, at-a-glance stat table, route description by section, permits and access, and honest 'know before you go' notes",
+    "A 'how this site is built' band explaining the static export, the Site Accelerator image loader, and the _redirects / _headers convention files",
+    "Custom 404 page that points back to the trail index",
+    "Footer with photo credits and the Spacefast badge"
+  ],
+  "based_on": "The pattern behind REI Hiking Project, Washington Trails Association, and AllTrails guide pages — a photo-led index plus a stat-dense detail page per trail — rebuilt as a fully static Next.js export.",
+  "why_good": "The canonical 'Next.js on Spacefast' example: it proves an agent can ship `output: \"export\"` with `generateStaticParams`, wire the `@spacefast/image` loader so every photo is transformed through the Site Accelerator, and use `_redirects` and `_headers` from `public/` without a server anywhere in the request path.",
+  "notes": "The publish directory is `site/out` (Next's export target), not `site/dist` or `site/build`. Images are absolute Unsplash URLs so the `@spacefast/image` next-loader rewrites them to i0.wp.com transform URLs; relative `public/` images would pass through unchanged."
+}

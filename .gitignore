@@ -1,8 +1,12 @@
 node_modules/
 dist/
 build/
+out/
+.next/
+.open-next/
 .stattic/
 .spacefast/
+__spacefast/
 .astro/
 .DS_Store
 *.log

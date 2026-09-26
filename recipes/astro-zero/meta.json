@@ -1,0 +1,25 @@
+{
+  "name": "Marginalia",
+  "title": "Astro blog with live comments",
+  "slug": "astro-zero",
+  "vertical": "Developers & integrations",
+  "tech": "Astro + Spacefast Zero",
+  "runtime": "zero",
+  "summary": "A prerendered Astro blog whose every post carries realtime comments and emoji reactions from a Spacefast Zero capsule, published as one space.",
+  "order": 320,
+  "live_url": "https://astro-zero.view.fast/",
+  "setup_questions": [
+    "What is the blog called, and what is it about?",
+    "What are the first three or four posts?",
+    "Warm and editorial, or cool and technical?"
+  ],
+  "photo_terms": [],
+  "sections": [
+    "Prerendered Astro index and post pages from a content collection",
+    "Realtime comment thread on every post, backed by a Zero capsule",
+    "Emoji reactions counted per post, one per reader",
+    "Guest identity with no sign-up, plus a JSON comments endpoint"
+  ],
+  "based_on": "The blog-with-a-comment-section that every static site generator gives up on: Astro renders the words, Zero owns the conversation.",
+  "notes": "Publishes from site/ as a Zero project root, like zero-perfect does — but the capsule is server-only, so Astro's HTML wins the page instead of the generated Zero app shell. Astro builds into site/dist/ and the capsule sources are staged beside that output, so the published root is site/dist. `sf build` does not run framework builds for a Zero project; the sequence is `bun install && bun run build`, then publish site/dist. `sf dev` serves the capsule's endpoints and runtime but has no static-file lane, so it never serves the Astro pages — use `bun run dev` for pages and `sf dev -d dist` for the runtime."
+}

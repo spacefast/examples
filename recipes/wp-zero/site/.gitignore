@@ -1,0 +1,14 @@
+node_modules/
+.spacefast/
+.env*
+
+# Everything below is written by `bun run build` from the live WordPress site.
+# It is a content snapshot, not source — regenerate it, never edit it.
+/home.html
+/posts/
+/search-index.json
+/shared/search-index.ts
+.spacefast/state.json
+/.spacefast-*
+.spacefast/.spacefast-*
+.spacefast/.space-link-*.tmp

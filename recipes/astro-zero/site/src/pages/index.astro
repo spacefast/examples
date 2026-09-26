@@ -1,0 +1,42 @@
+---
+import { getCollection } from "astro:content";
+
+import Base from "../layouts/Base.astro";
+
+const posts = (await getCollection("posts")).sort(
+  (left, right) => right.data.date.valueOf() - left.data.date.valueOf(),
+);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<Base
+  title="Marginalia — static pages, living margins"
+  description="Essays about building for the web, with a comment section that is actually alive."
+>
+  <div class="lede">
+    <h1>Marginalia</h1>
+    <p>
+      Essays about building for the web. Every page here is prerendered down to
+      the last byte — and every one of them has a margin you can write in.
+    </p>
+  </div>
+
+  <ul class="archive">
+    {
+      posts.map((post) => (
+        <li>
+          <a class="entry" href={`/posts/${post.id}/`}>
+            <span class="entry-meta">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              {post.data.tags.length > 0 && <> · {post.data.tags.join(" · ")}</>}
+            </span>
+            <h2 class="entry-title">{post.data.title}</h2>
+            <p class="entry-dek">{post.data.dek}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Base>

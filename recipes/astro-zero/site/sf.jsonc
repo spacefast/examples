@@ -1,0 +1,20 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "Marginalia",
+  "access": "public",
+  "cleanUrls": true,
+  "listing": false,
+  "meta": {
+    "title": "Marginalia",
+    "description": "Static pages, living margins. Essays about the web, with a comment section that is actually alive.",
+  },
+  "runtime": {
+    "kind": "zero",
+    "server": "server/index.ts",
+    // Named, and deliberately absent. With no file behind it the capsule is
+    // server-only: it ships no generated app shell, so Astro's own index.html
+    // stays the homepage instead of being shadowed. The config schema requires
+    // this key even for a server-only capsule.
+    "client": "client/index.tsx",
+  },
+}

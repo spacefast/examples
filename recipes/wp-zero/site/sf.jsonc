@@ -1,0 +1,46 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "Broadsheet",
+
+  // The Zero build owns `/index.html` — that generated file is the app shell for
+  // the client capsule. The magazine index is a build-time render of WordPress
+  // content, so it ships as `home.html` and this makes it the homepage.
+  "index": "home.html",
+
+  // Articles are files (`posts/the-slug.html`) but should read as URLs
+  // (`/posts/the-slug`).
+  "cleanUrls": true,
+
+  "access": "public",
+
+  "meta": {
+    "title": "Broadsheet",
+    "description": "WordPress writes it. Spacefast serves it. Zero makes it move.",
+  },
+
+  "theme": {
+    "name": "Broadsheet",
+    "accent": "#d9410b",
+    "background": "#faf7f2",
+    "font": "Iowan Old Style, Palatino, Georgia, serif",
+    "radius": "6px",
+  },
+
+  // One capsule behind the static tree: reactions in the database, search over
+  // the index compiled in at build time.
+  "runtime": {
+    "kind": "zero",
+    "server": "server/index.ts",
+    "client": "client/index.tsx",
+  },
+
+  "headers": [
+    {
+      "source": "/*",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+      ],
+    },
+  ],
+}

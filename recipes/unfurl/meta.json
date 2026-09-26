@@ -1,0 +1,29 @@
+{
+  "name": "Unfurl — link preview inspector",
+  "title": "Link preview inspector",
+  "slug": "unfurl",
+  "vertical": "Developers & integrations",
+  "tech": "Next.js SSR (Functions)",
+  "runtime": "functions",
+  "summary": "Paste any URL and the server fetches it, parses its OpenGraph and Twitter-card metadata, and renders the social preview card — a Next.js Route Handler plus an SSR page running on the Spacefast Functions runtime.",
+  "order": 210,
+  "live_url": "https://unfurl.view.fast/",
+  "setup_questions": [
+    "What should the tool be called (the name in the header and browser tab)?",
+    "What's the accent color (a hex like #b6ff3d), and should it feel like a dark developer tool or a light consumer app?",
+    "Which three example URLs should the landing page offer as one-click demos?",
+    "Should the result page expose the raw JSON from the API alongside the rendered card?"
+  ],
+  "photo_terms": [],
+  "sections": [
+    "Static landing page: hero, paste-a-URL form that GETs the SSR route, and one-click example links",
+    "SSR result page at /u?url=… that server-renders the preview card per request",
+    "Preview card: og:image with a graceful fallback, favicon, domain, title, description, site name, and canonical link",
+    "Route Handler at /api/unfurl?url=… returning normalized JSON, with SSRF hardening (scheme allowlist, private-address blocking, redirect cap, size cap, timeout)",
+    "Distinct error states for a malformed URL, a blocked address, a timeout, an upstream failure, and a page with no metadata",
+    "middleware.ts that normalizes a bare-domain url param and stamps security headers"
+  ],
+  "based_on": "The link-unfurling service every chat app runs behind the scenes — Slack, Discord, and iMessage all fetch a pasted URL server-side and render its OpenGraph card.",
+  "why_good": "The canonical proof that Spacefast runs a real server. Cross-origin fetching and HTML parsing genuinely cannot happen in the browser, so this recipe cannot be faked with a static site: it exercises a Next.js Route Handler, per-request SSR, and middleware on the Functions runtime in one small app.",
+  "notes": "Functions runtime project, not a prebuilt static output directory. Build and publish from site/ with the sf CLI: `sf publish` auto-detects the Next.js app and builds it with a pinned OpenNext Cloudflare adapter. Do not add `output: \"export\"` to next.config.ts and do not declare `export const runtime = \"edge\"` anywhere; both break the OpenNext build."
+}

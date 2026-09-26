@@ -3,8 +3,8 @@ import {
   Route,
   Router,
   Routes,
-  SignInWithGravatar,
-  SignOut,
+  SignInWithGoogle,
+  signOut,
   useAuth,
   useMutation,
   useQuery,
@@ -82,9 +82,11 @@ export function App() {
         <header>
           <span>{auth.isLoading ? "checking session" : auth.displayName}</span>
           {!auth.isLoading && auth.isGuest ? (
-            <SignInWithGravatar />
+            <SignInWithGoogle />
           ) : !auth.isLoading ? (
-            <SignOut />
+            <button type="button" onClick={() => signOut()}>
+              Sign out
+            </button>
           ) : null}
         </header>
         <nav>

@@ -9,24 +9,24 @@ export default capsule({
       text: string(),
       done: boolean().default(false),
       ownerId: string(),
-    }),
+    }).index("by_owner", ["ownerId"]),
   },
   queries: {
-    todos: query((ctx) =>
+    todos: query(async (ctx) =>
       ctx.db.todos
-        .where("ownerId", ctx.auth.userId)
-        .orderBy("createdAt", "desc")
-        .all()
+        .withIndex("by_owner", (range) => range.eq("ownerId", ctx.auth.userId))
+        .order("desc")
+        .collect()
     ),
   },
   mutations: {
-    addTodo: mutation((ctx, text: string) => {
+    addTodo: mutation(async (ctx, text: string) => {
       const cleanText = cleanTodoText(text);
       if (!cleanText) return;
-      ctx.db.todos.insert({ text: cleanText, done: false, ownerId: ctx.auth.userId });
+      await ctx.db.todos.insert({ text: cleanText, done: false, ownerId: ctx.auth.userId });
     }),
   },
   endpoints: {
-    status: endpoint({ method: "GET", path: "/api/status" }, () => text("ok")),
+    status: endpoint({ mode: "read", method: "GET", path: "/api/status" }, () => text("ok")),
   },
 });

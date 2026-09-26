@@ -1,0 +1,13 @@
+{
+  "name": "spacefast-gatsby-example",
+  "private": true,
+  "scripts": {
+    "dev": "gatsby develop",
+    "build": "gatsby build"
+  },
+  "dependencies": {
+    "gatsby": "5.16.1",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  }
+}

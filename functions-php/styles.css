@@ -1,0 +1,286 @@
+:root {
+  --background: #efece4;
+  --ink: #161714;
+  --muted: #62655e;
+  --line: #bfc1b9;
+  --lime: #c9ff4a;
+  --panel: #f8f6ef;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--background);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+}
+
+.site-header,
+main,
+footer {
+  width: min(1160px, calc(100% - 40px));
+  margin-inline: auto;
+}
+
+.site-header {
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand {
+  color: inherit;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+}
+
+.site-header span {
+  color: var(--muted);
+  font: 700 0.72rem ui-monospace, monospace;
+  text-transform: uppercase;
+}
+
+.site-header i {
+  width: 8px;
+  height: 8px;
+  display: inline-block;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: #36a866;
+}
+
+.hero {
+  padding: 120px 0 100px;
+}
+
+.eyebrow,
+.route,
+.number {
+  color: #4c6500;
+  font: 800 0.72rem/1.4 ui-monospace, monospace;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 11ch;
+  margin: 20px 0 30px;
+  font-size: clamp(3.9rem, 9vw, 8rem);
+  line-height: 0.89;
+  letter-spacing: -0.07em;
+}
+
+.hero > p:last-child {
+  max-width: 710px;
+  color: var(--muted);
+  font-size: 1.22rem;
+  line-height: 1.65;
+}
+
+code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+}
+
+.lab {
+  padding-bottom: 120px;
+}
+
+.section-heading,
+.experiment {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(360px, 1.2fr);
+  gap: 64px;
+  border-top: 1px solid var(--line);
+}
+
+.section-heading {
+  padding: 18px 0;
+}
+
+.section-heading h2,
+.section-heading p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.section-heading p {
+  color: var(--muted);
+}
+
+.experiment {
+  padding: 42px 0;
+}
+
+.experiment-copy {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 18px;
+}
+
+.route {
+  margin: 0 0 16px;
+}
+
+.experiment h3 {
+  margin: 0 0 12px;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  letter-spacing: -0.045em;
+}
+
+.experiment-copy div > p:last-child {
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+form,
+.viewer-demo {
+  align-self: start;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.control-row {
+  display: flex;
+  gap: 8px;
+}
+
+input,
+button {
+  min-height: 48px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  font: inherit;
+}
+
+input {
+  min-width: 0;
+  flex: 1;
+  padding: 0 13px;
+  background: transparent;
+  color: inherit;
+}
+
+button {
+  padding: 0 17px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+button:hover {
+  background: var(--lime);
+}
+
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid #3276da;
+  outline-offset: 2px;
+}
+
+input:focus-visible {
+  outline: 2px solid #3276da;
+  outline-offset: -1px;
+}
+
+pre {
+  overflow-x: auto;
+  margin: 18px 0 0;
+  padding: 18px;
+  background: #20221e;
+  color: #e9f2d0;
+  font: 0.8rem/1.65 ui-monospace, monospace;
+}
+
+.anatomy {
+  display: grid;
+  grid-template-columns: 0.65fr 1fr;
+  gap: 64px;
+  align-items: start;
+  padding: 90px 0 120px;
+  border-top: 1px solid var(--line);
+}
+
+.anatomy .eyebrow {
+  grid-column: 1;
+}
+
+.anatomy h2 {
+  grid-column: 1;
+  margin: 8px 0 0;
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.anatomy pre {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  margin: 0;
+  padding: 30px;
+  box-shadow: 12px 12px 0 var(--lime);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 28px 0 52px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+footer a {
+  color: inherit;
+}
+
+@media (max-width: 760px) {
+  .section-heading,
+  .experiment,
+  .anatomy {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+
+  .anatomy .eyebrow,
+  .anatomy h2,
+  .anatomy pre {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .control-row {
+    flex-direction: column;
+  }
+
+}
+
+@media (max-width: 520px) {
+  .site-header span {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 84px;
+  }
+
+  footer {
+    flex-direction: column;
+    gap: 10px;
+  }
+}

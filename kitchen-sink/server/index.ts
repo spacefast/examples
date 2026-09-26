@@ -1,7 +1,6 @@
-import { h } from "preact";
+import { h, type VNode } from "preact";
 
 import {
-  action,
   boolean,
   capsule,
   endpoint,
@@ -14,7 +13,7 @@ import {
   text,
 } from "@spacefast/zero/server";
 
-import { cleanEmail, cleanMarkdown, cleanSlug, cleanText } from "../shared/model";
+import { cleanEmail, cleanMarkdown, cleanSlug, cleanText, type Post } from "../shared/model";
 
 const spamContentTypes = [
   "comment",
@@ -243,30 +242,28 @@ export default capsule({
           rating: "g",
         });
 
-        const result = await ctx.transaction(async () => {
-          const comment = await ctx.db.comments.insert({
-            postSlug: slug,
-            authorName: name,
-            avatarUrl,
-            body: content,
-            ownerId: ctx.auth.userId,
-          });
-          if (from && notify) {
-            await ctx.email.send({
-              from,
-              to: notify,
-              replyTo: { email, name },
-              subject: `New comment on “${post.title}”`,
-              text: `${name} wrote:\n\n${content}`,
-            });
-          }
-          return {
-            accepted: true as const,
-            commentId: comment.id,
-            discarded: false,
-            notificationQueued: Boolean(notify),
-          };
+        const comment = await ctx.db.comments.insert({
+          postSlug: slug,
+          authorName: name,
+          avatarUrl,
+          body: content,
+          ownerId: ctx.auth.userId,
         });
+        if (from && notify) {
+          await ctx.email.send({
+            from,
+            to: notify,
+            replyTo: { email, name },
+            subject: `New comment on “${post.title}”`,
+            text: `${name} wrote:\n\n${content}`,
+          });
+        }
+        const result = {
+          accepted: true as const,
+          commentId: comment.id,
+          discarded: false,
+          notificationQueued: Boolean(notify),
+        };
         ctx.log.info("comment accepted", { postSlug: slug, commentId: result.commentId });
         return result;
       },
@@ -437,47 +434,8 @@ export default capsule({
     }),
   },
 
-  actions: {
-    platformProbe: action(async (ctx) => {
-      let status = 0;
-      try {
-        const response = await fetch("https://spacefast.com/robots.txt", { method: "GET" });
-        status = response.status;
-      } catch (error) {
-        ctx.log.warn("platform probe unavailable", {
-          error: error instanceof Error ? error.message : "outbound fetch unavailable",
-        });
-      }
-      return {
-        ok: status >= 200 && status < 300,
-        status,
-        environment: ctx.env.BLOG_ENV || "production",
-        checkedAt: new Date().toISOString(),
-      };
-    }),
-    authorProfile: action(async (ctx) => {
-      if (!ctx.auth.email) return null;
-      return ctx.gravatar.profile(ctx.auth.email);
-    }),
-    digest: action(async (ctx) => {
-      const [posts, comments, subscribers] = await Promise.all([
-        ctx.db.posts.withIndex("by_creation").collect(),
-        ctx.db.comments.withIndex("by_creation").collect(),
-        ctx.db.subscribers.withIndex("by_creation").collect(),
-      ]);
-      const result = {
-        posts: posts.length,
-        comments: comments.length,
-        subscribers: subscribers.length,
-        generatedAt: new Date().toISOString(),
-      };
-      ctx.log.info("editor digest generated", result);
-      return result;
-    }),
-  },
-
   endpoints: {
-    health: endpoint({ method: "GET", path: "/api/health" }, async (ctx) => {
+    health: endpoint({ mode: "read", method: "GET", path: "/api/health" }, async (ctx) => {
       const first = await ctx.db.posts.withIndex("by_creation").first();
       return json({
         ok: true,
@@ -486,8 +444,9 @@ export default capsule({
         environment: ctx.env.BLOG_ENV || "production",
       });
     }),
-    feed: endpoint({ method: "GET", path: "/api/feed.xml" }, async (ctx) => {
-      const posts = await ctx.db.posts.withIndex("by_creation").order("desc").take(20);
+    feed: endpoint({ mode: "read", method: "GET", path: "/api/feed.xml" }, async (ctx) => {
+      // Endpoint ctx.db is not schema-typed in @spacefast/zero 0.4.1; these are posts rows.
+      const posts = (await ctx.db.posts.withIndex("by_creation").order("desc").take(20)) as Post[];
       const items = posts
         .map(
           (post) =>
@@ -502,179 +461,198 @@ export default capsule({
         },
       );
     }),
-    openGraphImage: endpoint({ method: "GET", path: "/api/og.png" }, async (ctx, request) => {
-      const requestedSlug = cleanSlug(request.query.get("slug") ?? "");
-      const post = requestedSlug
-        ? await ctx.db.posts
-            .withIndex("by_slug", (range) => range.eq("slug", requestedSlug))
-            .first()
-        : await ctx.db.posts.withIndex("by_creation").order("desc").first();
-      const title = post?.title ?? "Small ideas, tested in the real world.";
-      const description =
-        post?.dek ?? "Independent notes on useful software, publishing, and infrastructure.";
+    openGraphImage: endpoint(
+      { mode: "read", method: "GET", path: "/api/og.png" },
+      async (ctx, request) => {
+        const requestedSlug = cleanSlug(request.query.get("slug") ?? "");
+        // Endpoint ctx.db is not schema-typed in @spacefast/zero 0.4.1; this is a posts row.
+        const post = (
+          requestedSlug
+            ? await ctx.db.posts
+                .withIndex("by_slug", (range) => range.eq("slug", requestedSlug))
+                .first()
+            : await ctx.db.posts.withIndex("by_creation").order("desc").first()
+        ) as Post | null;
+        const title = post?.title ?? "Small ideas, tested in the real world.";
+        const description =
+          post?.dek ?? "Independent notes on useful software, publishing, and infrastructure.";
 
-      return new ImageResponse(
-        h(
-          "div",
-          {
-            style: {
-              backgroundColor: "#151713",
-              color: "#f7f4ec",
-              display: "flex",
-              flexDirection: "column",
-              fontFamily: "Georgia, serif",
-              height: "100%",
-              justifyContent: "space-between",
-              padding: 72,
-              width: "100%",
-            },
-          },
-          h(
-            "div",
-            { style: { display: "flex", justifyContent: "space-between", width: "100%" } },
-            h(
-              "p",
-              {
-                style: {
-                  color: "#ef7658",
-                  fontFamily: "sans-serif",
-                  fontSize: 26,
-                  fontWeight: 700,
-                  letterSpacing: 3,
-                  margin: 0,
-                  textTransform: "uppercase",
-                },
-              },
-              "Field Notes",
-            ),
-            h(
-              "p",
-              { style: { color: "#b7b3a9", fontFamily: "sans-serif", fontSize: 24, margin: 0 } },
-              post?.publishedAt ?? "A Spacefast publication",
-            ),
-          ),
-          h(
-            "div",
-            { style: { display: "flex", flexDirection: "column", maxWidth: 980 } },
-            h(
-              "h1",
-              {
-                style: {
-                  fontSize: title.length > 54 ? 62 : 76,
-                  fontWeight: 400,
-                  letterSpacing: -2,
-                  lineHeight: 1.04,
-                  margin: "0 0 28px",
-                },
-              },
-              title,
-            ),
-            h(
-              "p",
-              {
-                style: {
-                  color: "#cbc7bd",
-                  fontFamily: "sans-serif",
-                  fontSize: 30,
-                  lineHeight: 1.35,
-                  margin: 0,
-                },
-              },
-              description,
-            ),
-          ),
+        return new ImageResponse(
+          // ImageResponse takes a bare VNode; preact's h() infers a props-typed one.
           h(
             "div",
             {
               style: {
-                alignItems: "center",
+                backgroundColor: "#151713",
+                color: "#f7f4ec",
                 display: "flex",
-                fontFamily: "sans-serif",
-                fontSize: 24,
+                flexDirection: "column",
+                fontFamily: "Georgia, serif",
+                height: "100%",
                 justifyContent: "space-between",
+                padding: 72,
                 width: "100%",
               },
             },
-            h("p", { style: { color: "#b7b3a9", margin: 0 } }, post?.authorName ?? "Field Notes"),
-            h("p", { style: { color: "#ef7658", margin: 0 } }, "spacefast.com"),
-          ),
-        ),
-        {
-          width: 1200,
-          height: 630,
-          headers: { "Cache-Control": "public, max-age=60, stale-while-revalidate=300" },
-        },
-      );
-    }),
-    spamCheck: endpoint({ method: "POST", path: "/api/spam/check" }, async (ctx, request) => {
-      const payload = (await request.json().catch(() => null)) as {
-        content?: unknown;
-        type?: unknown;
-        authorName?: unknown;
-        authorEmail?: unknown;
-        authorUrl?: unknown;
-        createdAt?: unknown;
-        languages?: unknown;
-      } | null;
-      const content = cleanText(typeof payload?.content === "string" ? payload.content : "", 2_000);
-      const type = spamContentType(typeof payload?.type === "string" ? payload.type : "");
-      if (!content || !type) {
-        return json(
-          { error: "Content and a supported Akismet content type are required." },
-          { status: 422 },
+            h(
+              "div",
+              { style: { display: "flex", justifyContent: "space-between", width: "100%" } },
+              h(
+                "p",
+                {
+                  style: {
+                    color: "#ef7658",
+                    fontFamily: "sans-serif",
+                    fontSize: 26,
+                    fontWeight: 700,
+                    letterSpacing: 3,
+                    margin: 0,
+                    textTransform: "uppercase",
+                  },
+                },
+                "Field Notes",
+              ),
+              h(
+                "p",
+                { style: { color: "#b7b3a9", fontFamily: "sans-serif", fontSize: 24, margin: 0 } },
+                post?.publishedAt ?? "A Spacefast publication",
+              ),
+            ),
+            h(
+              "div",
+              { style: { display: "flex", flexDirection: "column", maxWidth: 980 } },
+              h(
+                "h1",
+                {
+                  style: {
+                    fontSize: title.length > 54 ? 62 : 76,
+                    fontWeight: 400,
+                    letterSpacing: -2,
+                    lineHeight: 1.04,
+                    margin: "0 0 28px",
+                  },
+                },
+                title,
+              ),
+              h(
+                "p",
+                {
+                  style: {
+                    color: "#cbc7bd",
+                    fontFamily: "sans-serif",
+                    fontSize: 30,
+                    lineHeight: 1.35,
+                    margin: 0,
+                  },
+                },
+                description,
+              ),
+            ),
+            h(
+              "div",
+              {
+                style: {
+                  alignItems: "center",
+                  display: "flex",
+                  fontFamily: "sans-serif",
+                  fontSize: 24,
+                  justifyContent: "space-between",
+                  width: "100%",
+                },
+              },
+              h("p", { style: { color: "#b7b3a9", margin: 0 } }, post?.authorName ?? "Field Notes"),
+              h("p", { style: { color: "#ef7658", margin: 0 } }, "spacefast.com"),
+            ),
+          ) as VNode,
+          {
+            width: 1200,
+            height: 630,
+            headers: { "Cache-Control": "public, max-age=60, stale-while-revalidate=300" },
+          },
         );
-      }
-      const createdAt =
-        typeof payload?.createdAt === "string" && Number.isFinite(Date.parse(payload.createdAt))
-          ? new Date(payload.createdAt).toISOString()
-          : undefined;
-      const languages = Array.isArray(payload?.languages)
-        ? payload.languages
-            .filter((language): language is string => typeof language === "string")
-            .map((language) => language.trim().toLowerCase())
-            .filter((language) => /^[a-z]{2}$/.test(language))
-        : [];
-      const authorName = cleanText(
-        typeof payload?.authorName === "string" ? payload.authorName : "",
-        80,
-      );
-      const authorEmail = cleanEmail(
-        typeof payload?.authorEmail === "string" ? payload.authorEmail : "",
-      );
-      const authorUrl = cleanText(
-        typeof payload?.authorUrl === "string" ? payload.authorUrl : "",
-        2_000,
-      );
-      const verdict = await ctx.spam.check({
-        content,
-        type,
-        ...(authorName ? { authorName } : {}),
-        ...(authorEmail ? { authorEmail } : {}),
-        ...(authorUrl ? { authorUrl } : {}),
-        ...(createdAt ? { createdAt } : {}),
-        ...(languages.length > 0 ? { languages } : {}),
-      });
-      return json({ type, ...verdict });
-    }),
-    contact: endpoint({ method: "POST", path: "/api/contact" }, async (ctx, request) => {
-      const payload = (await request.json().catch(() => null)) as {
-        name?: unknown;
-        email?: unknown;
-        message?: unknown;
-      } | null;
-      const name = cleanText(typeof payload?.name === "string" ? payload.name : "", 80);
-      const email = cleanEmail(typeof payload?.email === "string" ? payload.email : "");
-      const message = cleanText(typeof payload?.message === "string" ? payload.message : "", 2_000);
-      if (!name || !email || !message) return json({ accepted: false }, { status: 422 });
-      const verdict = await ctx.spam.check({
-        content: message,
-        type: "contact-form",
-        authorName: name,
-        authorEmail: email,
-      });
-      if (verdict.spam) return json({ accepted: false, discarded: verdict.discard });
-      return json({ accepted: true, discarded: false });
-    }),
+      },
+    ),
+    spamCheck: endpoint(
+      { mode: "read", method: "POST", path: "/api/spam/check" },
+      async (ctx, request) => {
+        const payload = (await request.json().catch(() => null)) as {
+          content?: unknown;
+          type?: unknown;
+          authorName?: unknown;
+          authorEmail?: unknown;
+          authorUrl?: unknown;
+          createdAt?: unknown;
+          languages?: unknown;
+        } | null;
+        const content = cleanText(
+          typeof payload?.content === "string" ? payload.content : "",
+          2_000,
+        );
+        const type = spamContentType(typeof payload?.type === "string" ? payload.type : "");
+        if (!content || !type) {
+          return json(
+            { error: "Content and a supported Akismet content type are required." },
+            { status: 422 },
+          );
+        }
+        const createdAt =
+          typeof payload?.createdAt === "string" && Number.isFinite(Date.parse(payload.createdAt))
+            ? new Date(payload.createdAt).toISOString()
+            : undefined;
+        const languages = Array.isArray(payload?.languages)
+          ? payload.languages
+              .filter((language): language is string => typeof language === "string")
+              .map((language) => language.trim().toLowerCase())
+              .filter((language) => /^[a-z]{2}$/.test(language))
+          : [];
+        const authorName = cleanText(
+          typeof payload?.authorName === "string" ? payload.authorName : "",
+          80,
+        );
+        const authorEmail = cleanEmail(
+          typeof payload?.authorEmail === "string" ? payload.authorEmail : "",
+        );
+        const authorUrl = cleanText(
+          typeof payload?.authorUrl === "string" ? payload.authorUrl : "",
+          2_000,
+        );
+        const verdict = await ctx.spam.check({
+          content,
+          type,
+          ...(authorName ? { authorName } : {}),
+          ...(authorEmail ? { authorEmail } : {}),
+          ...(authorUrl ? { authorUrl } : {}),
+          ...(createdAt ? { createdAt } : {}),
+          ...(languages.length > 0 ? { languages } : {}),
+        });
+        return json({ type, ...verdict });
+      },
+    ),
+    contact: endpoint(
+      { mode: "read", method: "POST", path: "/api/contact" },
+      async (ctx, request) => {
+        const payload = (await request.json().catch(() => null)) as {
+          name?: unknown;
+          email?: unknown;
+          message?: unknown;
+        } | null;
+        const name = cleanText(typeof payload?.name === "string" ? payload.name : "", 80);
+        const email = cleanEmail(typeof payload?.email === "string" ? payload.email : "");
+        const message = cleanText(
+          typeof payload?.message === "string" ? payload.message : "",
+          2_000,
+        );
+        if (!name || !email || !message) return json({ accepted: false }, { status: 422 });
+        const verdict = await ctx.spam.check({
+          content: message,
+          type: "contact-form",
+          authorName: name,
+          authorEmail: email,
+        });
+        if (verdict.spam) return json({ accepted: false, discarded: verdict.discard });
+        return json({ accepted: true, discarded: false });
+      },
+    ),
   },
 });
 

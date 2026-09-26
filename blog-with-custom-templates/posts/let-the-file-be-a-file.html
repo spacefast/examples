@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Avoid a runtime when it cannot change the answer."
+    />
+    <title>Let the file be a file · The Margins</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Homepage">The Margins</a>
+      <p>Independent notes on useful software</p>
+    </header>
+    <main>
+      <article class="prose">
+        <p class="eyebrow">Architecture · 3 minute read</p>
+        <h1>Let the file be a file</h1>
+        <p class="lede">Avoid a runtime when it cannot change the answer.</p>
+        <p>
+          If every visitor receives the same document, the document already
+          knows what it needs to be. Store it, cache it, and serve it directly.
+        </p>
+        <p>
+          A runtime is valuable when a request changes the result: identity,
+          fresh data, a mutation, or private context. Without one of those
+          reasons, it adds another moving part to an answer that was complete on
+          disk.
+        </p>
+        <blockquote>
+          Static is not a lesser mode. It is the honest shape of a fixed answer.
+        </blockquote>
+        <p>
+          Start with the file. Add execution only at the edge where the answer
+          genuinely becomes dynamic.
+        </p>
+        <p><a href="/">← Back to all writing</a></p>
+      </article>
+    </main>
+    <footer>
+      <span>Written in the margins.</span>
+      <span>Static HTML → Spacefast</span>
+    </footer>
+  </body>
+</html>

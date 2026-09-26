@@ -1,0 +1,12 @@
+title: Small Hours
+description: Field notes about thoughtful software and quiet tools.
+url: ""
+baseurl: ""
+destination: _site
+permalink: /notes/:title/
+markdown: kramdown
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor

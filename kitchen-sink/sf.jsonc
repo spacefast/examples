@@ -16,7 +16,6 @@
     "accent": "#b6462d",
     "background": "#f7f4ec",
     "font": "system-ui, sans-serif",
-    "radius": "12px",
   },
   "runtime": {
     "kind": "zero",

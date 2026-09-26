@@ -1,0 +1,19 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "PHP Functions Lab",
+  "cleanUrls": true,
+  "listing": false,
+  "meta": {
+    "title": "PHP Functions Lab",
+    "description": "Native PHP endpoints beside an ordinary static site.",
+  },
+  "headers": [
+    {
+      "source": "/*",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+      ],
+    },
+  ],
+}

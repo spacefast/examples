@@ -82,7 +82,7 @@ describe("canonical recipe catalog", () => {
 
   test("validates published outputs during the badge compatibility rollout", async () => {
     const legacy = Bun.spawn({
-      cmd: [bun, "scripts/validate-publish-dir.mjs", "status", "examples/status/site"],
+      cmd: [bun, "scripts/validate-publish-dir.mjs", "status", "recipes/status/site"],
       cwd: root,
       stdout: "pipe",
       stderr: "pipe",
@@ -92,7 +92,7 @@ describe("canonical recipe catalog", () => {
         bun,
         "scripts/validate-publish-dir.mjs",
         "technical-plan",
-        "examples/technical-plan/site",
+        "recipes/technical-plan/site",
       ],
       cwd: root,
       stdout: "pipe",
@@ -107,7 +107,7 @@ describe("canonical recipe catalog", () => {
 describe("Technical planning recipe output", () => {
   test("renders a decision-ready, accessible plan with every required planning section", async () => {
     const html = await Bun.file(
-      path.join(root, "examples/technical-plan/site/index.html"),
+      path.join(root, "recipes/technical-plan/site/index.html"),
     ).text();
     const sectionIds = [
       "problem",

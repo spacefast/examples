@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { loadPosts, plainText, readableDate } from "../lib/posts";
+
+const posts = await loadPosts();
+const [lead, ...rest] = posts;
+---
+
+<Layout>
+  <section class="masthead">
+    <p class="eyebrow">Build-time edition · WordPress REST API</p>
+    <h1>Reporting from the open web.</h1>
+    <p>Fresh WordPress writing, composed into a static Astro publication.</p>
+  </section>
+
+  {lead && (
+    <article class="lead">
+      <p class="meta">Lead story · {readableDate(lead.date)}</p>
+      <h2><a href={`/posts/${lead.slug}/`} set:html={lead.title.rendered} /></h2>
+      <p>{plainText(lead.excerpt.rendered)}</p>
+      <a class="read" href={`/posts/${lead.slug}/`}>Read dispatch <span aria-hidden="true">↗</span></a>
+    </article>
+  )}
+
+  <section class="latest" aria-labelledby="latest-title">
+    <div class="section-head"><h2 id="latest-title">Latest dispatches</h2><span>{posts.length} stories</span></div>
+    <div class="cards">
+      {rest.map((post, index) => (
+        <article>
+          <p class="meta">{String(index + 2).padStart(2, "0")} · {readableDate(post.date)}</p>
+          <h3><a href={`/posts/${post.slug}/`} set:html={post.title.rendered} /></h3>
+          <p>{plainText(post.excerpt.rendered)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</Layout>

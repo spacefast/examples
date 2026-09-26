@@ -1,0 +1,15 @@
+{
+  "name": "spacefast-astro-wordpress-example",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@spacefast/astro": "0.0.26",
+    "@spacefast/wordpress": "0.0.26",
+    "astro": "7.2.4"
+  }
+}

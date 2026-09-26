@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A weekly dispatch for people making durable things."
+    />
+    <title>Morrow Dispatch</title>
+    <link rel="stylesheet" href="/assets/style.css" />
+  </head>
+  <body>
+    <header>
+      <a class="brand" href="/" aria-label="Homepage">Morrow / Dispatch</a>
+      <nav aria-label="Primary navigation">
+        <a aria-current="page" href="/">Subscribe</a>
+        <a href="/dispatch">Archive</a>
+        <a href="/membership">Membership</a>
+      </nav>
+      <span>Issue 118 · Sunday edition</span>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <div>
+          <a aria-current="page" href="/">Subscribe</a>
+          <a href="/dispatch">Archive</a>
+          <a href="/membership">Membership</a>
+        </div>
+      </details>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">A letter about durable work</p>
+        <h1>Make fewer things. Keep them useful.</h1>
+        <p>
+          One thoughtful essay and five practical links, delivered every
+          Sunday. Written for people who would rather maintain good work than
+          feed a content machine.
+        </p>
+
+        <form
+          id="newsletter"
+          name="newsletter"
+          method="POST"
+          action="/api/newsletter"
+          data-netlify="true"
+        >
+          <label for="email">Email address</label>
+          <div>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Join 4,208 readers</button>
+          </div>
+          <p id="result" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <dl class="features" aria-label="What every dispatch includes">
+        <div>
+          <dt><span>01</span>One complete idea</dt>
+          <dd>
+            No content treadmill. Each essay makes one argument and earns its
+            send.
+          </dd>
+        </div>
+        <div>
+          <dt><span>02</span>Useful references</dt>
+          <dd>
+            Tools, essays, and real examples worth keeping after the tab closes.
+          </dd>
+        </div>
+        <div>
+          <dt><span>03</span>A quiet inbox</dt>
+          <dd>
+            Weekly means weekly. Your address is never shared and leaving takes
+            one click.
+          </dd>
+        </div>
+      </dl>
+
+      <section class="issue-preview" aria-labelledby="preview-title">
+        <div>
+          <p class="eyebrow">From issue 118</p>
+          <h2 id="preview-title">The maintenance window is a design material.</h2>
+        </div>
+        <div>
+          <p>
+            Systems that never stop are systems that cannot change safely. A
+            well-designed maintenance window gives people a clear promise:
+            what pauses, what remains available, and when normal service
+            returns.
+          </p>
+          <blockquote>
+            “Reliability is not the absence of change. It is change with a
+            legible boundary.”
+          </blockquote>
+          <a href="/dispatch">Browse the complete archive →</a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Published from the edge of tomorrow.</span>
+      <span>Netlify → Spacefast</span>
+    </footer>
+
+    <script type="module">
+      const form = document.querySelector("#newsletter");
+      const result = document.querySelector("#result");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        result.textContent = "Joining…";
+
+        try {
+          const response = await fetch("/api/newsletter", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              email: new FormData(form).get("email"),
+            }),
+          });
+
+          result.textContent = response.ok
+            ? "You're on the list. See you Sunday."
+            : "That did not work. Check the address and try again.";
+        } catch {
+          result.textContent =
+            "The subscription service is unavailable. Please try again.";
+        }
+      });
+    </script>
+  </body>
+</html>

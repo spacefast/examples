@@ -1,0 +1,4 @@
+# Canonical Spacefast routes ported from netlify.toml.
+/api/newsletter /newsletter 200!
+/journal/* /dispatch/:splat 301
+/members /membership 302 Country=us,ca

@@ -1,0 +1,9 @@
+{
+  "name": "spacefast-zero-example",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@spacefast/zero": "0.4.1",
+    "preact": "^10.29.7"
+  }
+}

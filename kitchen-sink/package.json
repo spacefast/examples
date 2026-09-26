@@ -6,7 +6,7 @@
     "test": "bun test test"
   },
   "dependencies": {
-    "@spacefast/zero": "0.0.23",
+    "@spacefast/zero": "0.4.1",
     "preact": "^10.29.7"
   },
   "devDependencies": {

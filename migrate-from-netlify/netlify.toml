@@ -1,0 +1,66 @@
+[build]
+command = "npm run build"
+publish = "dist"
+functions = "netlify/functions"
+
+[build.environment]
+NODE_VERSION = "22"
+PUBLIC_SITE_NAME = "Morrow Dispatch"
+
+[dev]
+command = "npm run build"
+publish = "dist"
+port = 8888
+
+[context.deploy-preview.environment]
+PUBLIC_ROBOTS = "noindex"
+
+[context.branch-deploy.environment]
+PUBLIC_ROBOTS = "noindex"
+
+[functions]
+directory = "netlify/functions"
+node_bundler = "esbuild"
+included_files = ["content/**"]
+
+[functions."weekly-digest"]
+schedule = "0 9 * * 1"
+
+[[redirects]]
+from = "/api/newsletter"
+to = "/.netlify/functions/newsletter"
+status = 200
+force = true
+
+[[redirects]]
+from = "/journal/*"
+to = "/dispatch/:splat"
+status = 301
+
+[[redirects]]
+from = "/members"
+to = "/membership"
+status = 302
+conditions = { Country = ["US", "CA"] }
+
+[[headers]]
+for = "/*"
+[headers.values]
+X-Content-Type-Options = "nosniff"
+Referrer-Policy = "strict-origin-when-cross-origin"
+Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+for = "/assets/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[edge_functions]]
+path = "/"
+function = "country-banner"
+
+[[plugins]]
+package = "@netlify/plugin-lighthouse"
+
+[plugins.inputs]
+output_path = "reports/lighthouse.html"

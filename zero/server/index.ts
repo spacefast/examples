@@ -1,4 +1,4 @@
-import { h } from "preact";
+import { h, type VNode } from "preact";
 
 import {
   capsule,
@@ -9,6 +9,15 @@ import {
   string,
   table,
 } from "@spacefast/zero/server";
+
+type Comment = {
+  id: string;
+  authorName: string;
+  avatarUrl: string;
+  body: string;
+  createdAt: string;
+  updatedAt: string;
+};
 
 function clean(value: string, max: number) {
   return value.trim().replace(/\s+/g, " ").slice(0, max);
@@ -56,81 +65,86 @@ export default capsule({
         rating: "g",
       });
 
-      const result = await ctx.transaction(async () => {
-        const comment = await ctx.db.comments.insert({
-          authorName: name,
-          avatarUrl,
-          body: content,
-        });
-        if (from && notify) {
-          // This queues an outbox row on the same DB transaction as the
-          // comment. It does not wait for the email provider to deliver it.
-          await ctx.email.send({
-            from,
-            to: notify,
-            replyTo: { email, name },
-            subject: `New comment from ${name}`,
-            text: content,
-          });
-        }
-        return {
-          accepted: true as const,
-          commentId: comment.id,
-          notificationQueued: Boolean(notify),
-        };
+      const comment = await ctx.db.comments.insert({
+        authorName: name,
+        avatarUrl,
+        body: content,
       });
+      if (from && notify) {
+        // This queues an outbox row on the same DB transaction as the
+        // comment. It does not wait for the email provider to deliver it.
+        await ctx.email.send({
+          from,
+          to: notify,
+          replyTo: { email, name },
+          subject: `New comment from ${name}`,
+          text: content,
+        });
+      }
 
       // No ctx.invalidate("comments") is necessary. The write refreshes live
       // queries; naming one only narrows the refresh when a page has many.
-      return result;
+      return {
+        accepted: true as const,
+        commentId: comment.id,
+        notificationQueued: Boolean(notify),
+      };
     }),
   },
   endpoints: {
-    commentsImage: endpoint({ method: "GET", path: "/og/comments.png" }, async (ctx) => {
-      const comments = await ctx.db.comments.withIndex("by_creation").order("desc").take(100);
-      const latest = comments[0];
-      const count = comments.length === 100 ? "100+ comments" : `${comments.length} comments`;
+    commentsImage: endpoint(
+      { mode: "read", method: "GET", path: "/og/comments.png" },
+      async (ctx) => {
+        // Endpoint ctx.db is not schema-typed in @spacefast/zero 0.4.1; these are comments rows.
+        const comments = (await ctx.db.comments
+          .withIndex("by_creation")
+          .order("desc")
+          .take(100)) as Comment[];
+        const latest = comments[0];
+        const count = comments.length === 100 ? "100+ comments" : `${comments.length} comments`;
 
-      return new ImageResponse(
-        h(
-          "div",
-          {
-            style: {
-              alignItems: "flex-start",
-              backgroundColor: "#111827",
-              color: "#f9fafb",
-              display: "flex",
-              flexDirection: "column",
-              fontFamily: "sans-serif",
-              height: "100%",
-              justifyContent: "space-between",
-              padding: 72,
-              width: "100%",
-            },
-          },
+        return new ImageResponse(
+          // ImageResponse takes a bare VNode; preact's h() infers a props-typed one.
           h(
             "div",
-            null,
-            h("p", { style: { color: "#a78bfa", fontSize: 28, margin: 0 } }, "COMMENTS"),
+            {
+              style: {
+                alignItems: "flex-start",
+                backgroundColor: "#111827",
+                color: "#f9fafb",
+                display: "flex",
+                flexDirection: "column",
+                fontFamily: "sans-serif",
+                height: "100%",
+                justifyContent: "space-between",
+                padding: 72,
+                width: "100%",
+              },
+            },
             h(
-              "h1",
-              { style: { fontSize: 72, letterSpacing: -2, lineHeight: 1.05, margin: "24px 0" } },
-              latest ? `Latest from ${latest.authorName}` : "Start the conversation",
+              "div",
+              null,
+              h("p", { style: { color: "#a78bfa", fontSize: 28, margin: 0 } }, "COMMENTS"),
+              h(
+                "h1",
+                { style: { fontSize: 72, letterSpacing: -2, lineHeight: 1.05, margin: "24px 0" } },
+                latest ? `Latest from ${latest.authorName}` : "Start the conversation",
+              ),
+              h(
+                "p",
+                { style: { color: "#d1d5db", fontSize: 34, lineHeight: 1.35, margin: 0 } },
+                latest?.body ?? "Live comments, protected by Akismet.",
+              ),
             ),
-            h(
-              "p",
-              { style: { color: "#d1d5db", fontSize: 34, lineHeight: 1.35, margin: 0 } },
-              latest?.body ?? "Live comments, protected by Akismet.",
-            ),
-          ),
-          h("p", { style: { color: "#9ca3af", fontSize: 26, margin: 0 } }, count),
-        ),
-        {
-          width: 1200,
-          height: 630,
-          headers: { "cache-control": "public, max-age=60" },
-        },
-      );
-    }),
+            h("p", { style: { color: "#9ca3af", fontSize: 26, margin: 0 } }, count),
+          ) as VNode,
+          {
+            width: 1200,
+            height: 630,
+            headers: { "cache-control": "public, max-age=60" },
+          },
+        );
+      },
+    ),
   },
 });

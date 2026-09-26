@@ -36,6 +36,6 @@ sf env set COMMENTS_FROM_EMAIL comments@example.com
 sf env set COMMENTS_NOTIFY_EMAIL team@example.com
 ```
 
-When both are set, the comment row and email outbox row share one
-`ctx.transaction()`: both commit or both roll back. Delivery happens later and
+When both are set, the comment row and email outbox row share the mutation's
+transaction: both commit or both roll back. Delivery happens later and
 is not part of the database transaction.

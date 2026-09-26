@@ -19,7 +19,10 @@ export function App() {
   const value = useQuery<Comment[]>("comments");
   const comments = Array.isArray(value) ? value : [];
   const commentsImageUrl = `/og/comments.png?comments=${comments.length}`;
-  const addComment = useMutation<{ accepted: boolean }>("addComment");
+  const addComment = useMutation<
+    [authorName: string, authorEmail: string, body: string],
+    { accepted: boolean }
+  >("addComment");
   const [status, setStatus] = useState("");
 
   async function submit(event: SubmitEvent) {

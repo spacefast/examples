@@ -68,12 +68,6 @@ jobs:
               sf build --json
               artifact="$PWD/.spacefast/zero/artifact.json"
               ;;
-            nextjs-static)
-              cd nextjs-static
-              npm install
-              npm run build
-              sf build out --output "$artifact" --json
-              ;;
             migrate-from-netlify)
               sf publish migrate-from-netlify --dry-run --allow-unsupported-platform-features --json
               cd migrate-from-netlify

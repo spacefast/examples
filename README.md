@@ -8,11 +8,14 @@ let the CLI detect the framework, install dependencies, build, and publish:
 
 ```sh
 cd astro-with-wordpress
-sf dev
+npm install
+npm run dev     # the framework's own dev server
 sf publish
 ```
 
 Use `sf build` when you only want to prove the deployable artifact locally.
+`sf dev` is the local server for Zero apps (`zero/`, `kitchen-sink/`); for
+everything else, use the framework's dev server.
 
 ## Directory map
 
@@ -51,5 +54,6 @@ agent can customize and publish.
 
 The pull-request workflow builds every top-level project through `sf build`,
 runs the Zero app tests, validates every recipe output, and builds the recipe
-manifest. That exercises the same framework detection and migration import path
-used by `sf publish`, without creating a live version.
+manifest, without creating a live version. `migrate-from-netlify` builds its
+prebuilt output, because `sf build` has no flag to accept the Netlify features
+that still need a port.

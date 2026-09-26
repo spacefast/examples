@@ -4,8 +4,8 @@ A compact Gatsby 5 site with multiple routes and a custom 404 page. Spacefast
 detects `gatsby`, runs the package build script, and publishes `public/`.
 
 ```sh
-sf dev
-sf build
+npm install
+npm run dev
 sf publish
 ```
 

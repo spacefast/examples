@@ -12,9 +12,10 @@ runtime pages:
 
 ```sh
 sf pages validate
-sf dev
+sf dev       # previews the _pages templates with sample data
 sf publish
 ```
 
-Custom `_pages` takeovers require a plan with Pages templates. The static blog
-itself publishes normally on every plan.
+Custom `_pages` takeovers need a plan with Pages templates. On Free, `sf publish`
+fails with `pages_templates_not_entitled` until you delete `_pages/`;
+`_layout.html` and `theme.json` work on every plan.

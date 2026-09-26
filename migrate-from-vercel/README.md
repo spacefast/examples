@@ -15,6 +15,9 @@ The CLI imports:
 - response headers into the built `_headers`, and
 - valid cron entries into the built `sf.jsonc`.
 
+`cleanUrls` and `trailingSlash` are not imported. Clean URLs are on by default;
+a trailing-slash policy needs its own redirect.
+
 The two request handlers live in Spacefast's `functions/` file router. Vercel
 Functions, middleware, and image-optimization configuration are not silently
 translated; projects using those keys receive an explicit compatibility report.

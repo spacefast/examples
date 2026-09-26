@@ -13,7 +13,6 @@
     "accent": "#e25d33",
     "background": "#f1ede3",
     "font": "system-ui, sans-serif",
-    "radius": "0px"
   },
   "redirects": [
     { "source": "/latest", "destination": "/posts/the-useful-edge.html", "status": 302 }

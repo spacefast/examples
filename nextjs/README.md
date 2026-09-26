@@ -5,12 +5,12 @@ request cookie, `/api/pulse` is a route handler, and note pages are rendered on
 demand.
 
 ```sh
-sf dev
-sf build
+npm install
+npm run dev
 sf publish
 ```
 
-For Next.js 16.2+, the Spacefast CLI automatically:
+For Next.js 16.2 and 16.3, the Spacefast CLI automatically:
 
 1. injects the first-party Next deployment adapter for the build,
 2. packages the application through OpenNext,

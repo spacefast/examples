@@ -5,12 +5,10 @@ The CLI finds `Gemfile` and `_config.yml`, runs Bundler with
 `JEKYLL_ENV=production`, and publishes the configured `_site` directory.
 
 ```sh
-sf dev
-sf build
+bundle install
+bundle exec jekyll serve
 sf publish
 ```
-
-You can also run the framework directly with `bundle exec jekyll serve`.
 
 Important files:
 

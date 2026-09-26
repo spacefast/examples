@@ -5,10 +5,9 @@ in `out/`. It needs no server runtime.
 
 ```sh
 npm install
-npm run build
-sf publish out
+npm run dev
+sf publish
 ```
 
-Publish `out/`, not the source directory. A source-level Next.js publish is
-treated as a server-rendered application; choosing the finished export makes
-the all-static intent explicit.
+`sf publish` sees `output: "export"`, runs the build, and ships `out/` as plain
+files. No worker is packaged.

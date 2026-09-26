@@ -144,7 +144,9 @@ jobs:
             exit 0
           fi
 
-          changed=$(git diff --name-only "$BEFORE" "${{ github.sha }}")
+          # A pure rename (R100) moves a file without changing what it serves.
+          changed=$(git diff --name-status -M "$BEFORE" "${{ github.sha }}" \
+            | awk -F'\t' '$1 != "R100" {print $NF}')
           slugs=$(printf '%s\n' "$changed" | sed -n 's#^recipes/\([^/]*\)/site/.*#\1#p' \
             | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"

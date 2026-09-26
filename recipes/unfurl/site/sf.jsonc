@@ -1,0 +1,11 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  // Optional. `sf publish` already auto-detects `.open-next/worker.js` after it
+  // builds this Next.js app; pinning it here just makes the intent explicit and
+  // turns a broken build into a loud `config_runtime_entry_missing` instead of a
+  // silent fallback to a static publish.
+  "runtime": {
+    "kind": "functions",
+    "entry": ".open-next/worker.js"
+  }
+}

@@ -1,0 +1,11 @@
+# Read by @spacefast/astro, merged with the inline rules in astro.config.mjs,
+# and written into dist/_headers at build time.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# Astro fingerprints everything in here, so it can be cached forever.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

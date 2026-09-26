@@ -1,0 +1,15 @@
+# Trailhead redirects. This file ships inside `out/` and is compiled at publish
+# time, so the rules are versioned with the build that needs them.
+# Syntax: https://spacefast.com/docs/redirects
+
+# The trail index lives at the site root, so /trails must not be a dead end.
+# An exact source matches with or without its trailing slash.
+/trails            /                        301
+
+# Legacy URLs from the old guide. Keep them alive rather than serve a 404.
+/hikes/:slug       /trails/:slug/           301
+/guide/:slug       /trails/:slug/           301
+
+# Short links that go on printed cards and QR codes.
+/zion              /trails/angels-landing/  301
+/dolomites         /trails/tre-cime-di-lavaredo/  301

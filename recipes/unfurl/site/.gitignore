@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.open-next/
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+.DS_Store
+
+# Publish state and build residue written by the sf CLI. Note that the CLI
+# appends its own (redundant) entries here on each publish; the two lines below
+# already cover them. A failed publish can also leave a staged worker bundle
+# under __spacefast/ in the project root.
+.spacefast/
+__spacefast/
+/.spacefast-*

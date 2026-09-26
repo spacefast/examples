@@ -1,0 +1,53 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+import Margin from "../../components/Margin.tsx";
+import Base from "../../layouts/Base.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+type Props = { post: CollectionEntry<"posts"> };
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<Base title={`${post.data.title} — Marginalia`} description={post.data.dek}>
+  <a class="back-link" href="/">← All posts</a>
+
+  <article>
+    <header class="article-header">
+      <h1>{post.data.title}</h1>
+      <p class="article-dek">{post.data.dek}</p>
+      <p class="entry-meta">
+        <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+        {post.data.tags.length > 0 && <> · {post.data.tags.join(" · ")}</>}
+      </p>
+    </header>
+
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+
+  <!--
+    Everything above this line was decided by `astro build`. Everything below it
+    is decided while you are looking at it. The two halves meet at the slug.
+  -->
+  <section class="margin" aria-labelledby="margin-heading">
+    <h2 class="margin-title" id="margin-heading">The margin</h2>
+    <Margin postSlug={post.id} client:only="preact" />
+    <noscript>
+      <p class="thread-state">
+        The margin needs JavaScript. The thread is also readable as JSON at
+        <a href={`/api/comments?post=${post.id}`}>/api/comments?post={post.id}</a>.
+      </p>
+    </noscript>
+  </section>
+</Base>

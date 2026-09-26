@@ -1,0 +1,28 @@
+{
+  "name": "Broadsheet — WordPress + Spacefast Zero",
+  "title": "WordPress + Zero",
+  "slug": "wp-zero",
+  "vertical": "Developers & integrations",
+  "tech": "WordPress + Spacefast Zero",
+  "runtime": "zero",
+  "summary": "A magazine whose articles come from a public WordPress REST API at build time and render to static pages, with a Spacefast Zero server behind them for realtime emoji reactions and server-side search over a build-time index.",
+  "order": 330,
+  "live_url": "https://wp-zero.view.fast/",
+  "setup_questions": [
+    "Which WordPress site should the articles come from (any public site URL or /wp-json REST root, e.g. https://wordpress.org/news)?",
+    "What should the publication be called?",
+    "What's the accent color (a hex like #d9410b)?"
+  ],
+  "photo_terms": [],
+  "sections": [
+    "Masthead with the publication name, a server-backed search box, and the WordPress source credited",
+    "Magazine index: a full-bleed lead story plus a responsive grid of article cards (featured image, categories, title, excerpt, author, date, reading time)",
+    "Static article pages rendering the post's own WordPress HTML as editorial prose — images, embeds, blockquotes, tables, and code blocks all handled",
+    "A realtime emoji reaction bar on every article, backed by the Zero database and live across browsers",
+    "Search results served by GET /api/search from an index compiled into the capsule at build time",
+    "Colophon explaining which half of the page is static and which half is the runtime"
+  ],
+  "based_on": "The setup a real team lands on when WordPress is the editor but the site should be static: content pulled through the @spacefast/wordpress client at build time, rendered to flat HTML, with one Spacefast Zero capsule adding the few things a static file cannot do.",
+  "why_good": "The flagship composition example — build-time headless WordPress and a request-time Zero server in the same space, one sf.jsonc, one publish. It is the only recipe where static rendering and a live database sit on the same page.",
+  "notes": "Run and publish from site/. Zero runtime project, not a prebuilt static directory. `bun run build` must run before `sf build`: it fetches WordPress, generates shared/search-index.ts for the capsule, and renders home.html plus posts/*.html into the capsule root. Those generated files are gitignored. Publish with `sf publish --skip-build` (or `bun run publish`) — a Zero project with a `build` script otherwise sends sf publish down the static-site path and it fails looking for a dist/. sf dev previews the Zero server and client only; the static tree is exercised on a published space."
+}

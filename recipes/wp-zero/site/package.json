@@ -1,0 +1,19 @@
+{
+  "name": "wp-zero",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run tools/build.ts",
+    "test": "bun test test",
+    "//publish": "--skip-build: `bun run build` already compiled the capsule and rendered the pages. Without it sf publish reruns the build script and then looks for a dist/ that a Zero project does not have.",
+    "publish": "sf publish --skip-build"
+  },
+  "dependencies": {
+    "@spacefast/wordpress": "0.4.1",
+    "@spacefast/zero": "0.4.1",
+    "preact": "^10.29.7"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

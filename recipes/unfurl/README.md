@@ -48,7 +48,7 @@ Route (app)
 | [`site/app/u/page.tsx`](./site/app/u/page.tsx) | The SSR page. Renders the card in the HTML and offers the raw JSON in a `<details>`. |
 | [`site/app/page.tsx`](./site/app/page.tsx) | The static landing page. No data fetching, so Next prerenders it. |
 | [`site/middleware.ts`](./site/middleware.ts) | Normalizes a bare-domain `url` param with a 308, stamps security headers. |
-| [`site/sf.jsonc`](./site/sf.jsonc) | Optional entry pin: `runtime.kind: "functions"`, `entry: ".open-next/worker.js"`. |
+| [`site/sf.jsonc`](./site/sf.jsonc) | Public access for the live demo, plus the Functions entry pin: `runtime.kind: "functions"`, `entry: ".open-next/worker.js"`. |
 
 ## Build and publish
 
@@ -102,7 +102,9 @@ build.
 ### `sf.jsonc` placement
 
 `sf.jsonc` goes at the **project root** — beside `package.json`, i.e. `site/`.
-It is optional: the CLI auto-detects `.open-next/worker.js` after the build.
+It declares `"access": "public"` so the published live demo opens without sign-in,
+regardless of the team's default access setting. The Functions entry pin is
+optional: the CLI auto-detects `.open-next/worker.js` after the build.
 Pinning it makes a broken build fail loudly with
 `config_runtime_entry_missing` instead of silently falling back to a static
 publish.

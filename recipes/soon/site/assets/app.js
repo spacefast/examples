@@ -93,8 +93,7 @@
     form.hidden = true;
     success.hidden = false;
     if (successSub && email) {
-      successSub.textContent =
-        "We'll email " + email + " the moment Northpeak opens. No spam, just the invite.";
+      successSub.textContent = 'Preview complete. Nothing was sent.';
     }
     renderCount(true);
   }

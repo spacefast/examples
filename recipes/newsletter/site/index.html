@@ -14,6 +14,12 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -45,18 +51,19 @@
         <div class="subscribe" id="join">
           <h2>Get the next issue</h2>
           <p>Free, weekly, and easy to leave. Join 6,400 designers, writers, and tinkerers.</p>
+          <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
           <form class="subscribe__form" novalidate data-greet>
             <div class="subscribe__field">
               <label for="email-hero">Your email</label>
               <input id="email-hero" type="email" name="email" required
                      autocomplete="email" placeholder="you@studio.com" />
             </div>
-            <button class="btn" type="submit">Subscribe</button>
+            <button class="btn" type="submit">Preview</button>
           </form>
           <p class="subscribe__meta">One email a week. Unsubscribe in one click — no hard feelings.</p>
           <p class="subscribe__ok">
             <span class="check" aria-hidden="true">✓</span>
-            <span>You're on the list, <strong class="subscribe__ok-name">friend</strong>. Issue 88 lands Thursday.</span>
+            <span>Preview complete. Nothing was sent.</span>
           </p>
         </div>
       </div>
@@ -132,18 +139,19 @@
         <div class="subscribe subscribe--lg">
           <h2>Start with Thursday’s issue</h2>
           <p>It takes four minutes to read and one click to leave. That’s the whole pitch.</p>
+          <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
           <form class="subscribe__form" novalidate>
             <div class="subscribe__field">
               <label for="email-foot">Your email</label>
               <input id="email-foot" type="email" name="email" required
                      autocomplete="email" placeholder="you@studio.com" />
             </div>
-            <button class="btn" type="submit">Subscribe free</button>
+            <button class="btn" type="submit">Preview</button>
           </form>
           <p class="subscribe__meta">No spam, ever. Read the latest issue first if you’re unsure.</p>
           <p class="subscribe__ok">
             <span class="check" aria-hidden="true">✓</span>
-            <span>Welcome aboard, <strong class="subscribe__ok-name">friend</strong>. Check your inbox to confirm.</span>
+            <span>Preview complete. Nothing was sent.</span>
           </p>
         </div>
       </div>

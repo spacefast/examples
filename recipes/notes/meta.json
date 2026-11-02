@@ -4,7 +4,7 @@
   "slug": "notes",
   "vertical": "Personal & creative",
   "tech": "Astro",
-  "summary": "A warm, greenhouse-themed digital garden built with Astro — Markdown notes that link with [[wiki links]], an automatic backlinks panel, a build-time link graph, instant search, and planted/growing/evergreen growth tags.",
+  "summary": "Publish linked notes with search, backlinks, and a graph of related ideas.",
   "order": 300,
   "live_url": "https://notes.view.fast/",
   "setup_questions": [

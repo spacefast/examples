@@ -4,7 +4,7 @@
   "slug": "habits",
   "vertical": "Tools, apps & games",
   "tech": "Vite + React",
-  "summary": "A habit tracker with GitHub-style year heatmaps, one-tap daily check-offs, and streak stats — all saved in your browser.",
+  "summary": "Track habits and streaks with a year of daily check-ins. Data stays in your browser.",
   "order": 4,
   "live_url": "https://habits.view.fast/",
   "setup_questions": [

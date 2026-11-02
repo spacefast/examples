@@ -4,7 +4,7 @@
   "slug": "roi",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
-  "summary": "A B2B ROI / lead-gen calculator — enter your support spend, team size, and ticket volume and watch projected savings, payback, and reclaimed hours compute live with animated SVG charts, behind a gated \"email me the report\" CTA.",
+  "summary": "Estimate savings from your own inputs and formula. Show the assumptions beside the results.",
   "order": 300,
   "live_url": "https://roi.view.fast/",
   "setup_questions": [
@@ -26,7 +26,7 @@
     "Before/after bar chart (monthly cost today vs with the product) drawn in SVG",
     "Cumulative net-savings area chart over 12 months",
     "'Where the savings come from' three-step explanation of the model",
-    "Gated 'email me the report' lead-capture CTA with validation and success state",
+    "Report request connected to your chosen service, or a labelled preview with no email sent",
     "Social proof: customer logos and a testimonial"
   ],
   "based_on": "A B2B SaaS ROI / savings calculator landing page — the lead-gen pattern marketing teams build to turn a few inputs (spend, team size, volume) into a projected-savings number with a chart and a gated 'email me the report' CTA. Modeled on an AI customer-support tool that auto-resolves a share of tickets."

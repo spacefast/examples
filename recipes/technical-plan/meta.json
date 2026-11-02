@@ -4,7 +4,7 @@
   "slug": "technical-plan",
   "vertical": "Data, internal & startup",
   "tech": "Plain HTML & CSS",
-  "summary": "A decision-ready technical plan for a cross-platform offline sync initiative — problem and scope, system architecture, milestones, risks, decisions, and open questions.",
+  "summary": "Share a technical plan with architecture, milestones, risks, and open decisions.",
   "order": 4,
   "live_url": "https://technical-plan.view.fast/",
   "setup_questions": [

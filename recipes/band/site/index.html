@@ -18,6 +18,12 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ Top nav ============ -->
@@ -142,6 +148,7 @@
             postcard from the road. No spam, unsubscribe anytime.
           </p>
         </div>
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
         <form class="mailing__form" id="mailing-form" novalidate>
           <div class="field">
             <label for="ml-name">First name</label>
@@ -151,7 +158,7 @@
             <label for="ml-email">Email</label>
             <input id="ml-email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required />
           </div>
-          <button class="btn btn--solid" type="submit">Sign me up</button>
+          <button class="btn btn--solid" type="submit">Preview</button>
           <p class="form-status" id="ml-status" role="status" aria-live="polite"></p>
         </form>
       </div>

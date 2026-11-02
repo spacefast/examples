@@ -4,7 +4,7 @@
   "slug": "photos",
   "vertical": "Personal & creative",
   "tech": "Astro",
-  "summary": "A calm, image-first portfolio for a landscape and travel photographer, with named photo series, a full-screen lightbox, an about page, and a contact form.",
+  "summary": "Organize your photography into galleries with a lightbox and contact details.",
   "order": 4,
   "live_url": "https://photos.view.fast/",
   "setup_questions": [

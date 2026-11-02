@@ -240,6 +240,12 @@
 </style>
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <div class="rail" id="rail"></div>
   <div class="runner">
     <span class="vtag"><span class="dot"></span> OFFCUTS&nbsp;<b>№01</b><span class="hide-sm">&nbsp;· Night Bloom</span></span>
@@ -416,11 +422,13 @@
           <b>Every issue is a version.</b> Night Bloom is <code>v1.0</code> of OFFCUTS. When we cut Issue 02 we won't overwrite this one — it keeps its own permanent URL, forever, the way a back-issue keeps its spine. That's just how publishing on <strong>Spacefast</strong> works: each publish is a version, and you can always reach the one you loved.
         </div>
 
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
+
         <form class="subscribe rev" id="sub" novalidate>
           <label for="email">Get Issue 02 in your inbox the night it drops</label>
           <div class="row">
             <input type="email" id="email" name="email" placeholder="you@aftermidnight.zine" autocomplete="email" required />
-            <button type="submit">Subscribe</button>
+            <button type="submit">Preview</button>
           </div>
           <p class="msg" id="submsg" role="status" aria-live="polite"></p>
         </form>
@@ -481,7 +489,7 @@
     var KEY = 'offcuts-subscribed';
 
     if(localStorage.getItem(KEY)){
-      msg.textContent = "You're already on the list — see you at Issue 02.";
+      msg.textContent = 'Preview complete. Nothing was sent.';
       msg.classList.remove('err');
       input.value = localStorage.getItem(KEY);
     }
@@ -491,14 +499,14 @@
       var val = input.value.trim();
       var ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val);
       if(!ok){
-        msg.textContent = 'That email looks a little out of register — try again.';
+        msg.textContent = 'Enter a valid email address to preview the signup.';
         msg.classList.add('err');
         input.focus();
         return;
       }
       localStorage.setItem(KEY, val);
       msg.classList.remove('err');
-      msg.textContent = "You're on the list. Issue 02 lands on the next full moon.";
+      msg.textContent = 'Preview complete. Nothing was sent.';
       form.querySelector('button').textContent = 'Done ✓';
     });
   </script>

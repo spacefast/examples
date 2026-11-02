@@ -22,6 +22,12 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%231f6f5c'/><path d='M9 21V11h6a4 4 0 0 1 0 8h-3' stroke='white' stroke-width='2.4' fill='none' stroke-linecap='round'/></svg>" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#changelog">Skip to changelog</a>
 
   <!-- ===== Top bar ===== -->
@@ -465,14 +471,15 @@
       <div class="subscribe-card">
         <h2>Get the release notes in your inbox</h2>
         <p>One short email whenever we ship — usually every other Tuesday. No marketing, no digests, just what changed. Prefer a feed? Grab the <a href="feed.xml">RSS</a>.</p>
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
         <form class="sub-form" id="subForm" novalidate>
           <label for="subEmail">Email address</label>
           <input type="email" id="subEmail" name="email" placeholder="you@example.com" autocomplete="email" required />
-          <button class="btn btn-primary" type="submit">Subscribe</button>
+          <button class="btn btn-primary" type="submit">Preview</button>
         </form>
         <div class="sub-success" id="subSuccess" role="status">
           <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="m8 12 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span id="subSuccessText">You're on the list. We'll email you the next time Plank ships.</span>
+          <span id="subSuccessText">Preview complete. Nothing was sent.</span>
         </div>
         <p class="sub-note">Unsubscribe anytime in one click. We never share your address. You can also <a href="feed.xml">follow by RSS</a>.</p>
       </div>

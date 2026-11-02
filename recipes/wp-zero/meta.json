@@ -5,7 +5,7 @@
   "vertical": "Developers & integrations",
   "tech": "WordPress + Spacefast Zero",
   "runtime": "zero",
-  "summary": "A magazine whose articles come from a public WordPress REST API at build time and render to static pages, with a Spacefast Zero server behind them for realtime emoji reactions and server-side search over a build-time index.",
+  "summary": "Publish WordPress articles with live reactions and server-side search powered by Zero.",
   "order": 330,
   "live_url": "https://wp-zero.view.fast/",
   "setup_questions": [

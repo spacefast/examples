@@ -4,7 +4,7 @@
   "slug": "savings",
   "vertical": "Tools, apps & games",
   "tech": "Vanilla JS",
-  "summary": "A savings-goal calculator — set a target and a deadline, and it solves your monthly contribution and charts the compound growth toward the goal.",
+  "summary": "Set a savings goal and deadline. Estimate monthly contributions and growth.",
   "order": 3,
   "live_url": "https://savings.view.fast/",
   "setup_questions": [

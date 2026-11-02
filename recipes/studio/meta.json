@@ -4,7 +4,7 @@
   "slug": "studio",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
-  "summary": "A work-first portfolio for a brand & web design studio — statement hero, a JS-filtered project grid, a before/after case study, and a contact form.",
+  "summary": "Show your design work, case studies, services, and contact details.",
   "order": 22,
   "live_url": "https://studio.view.fast/",
   "setup_questions": [

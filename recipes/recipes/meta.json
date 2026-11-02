@@ -4,7 +4,7 @@
   "slug": "recipes",
   "vertical": "Personal & creative",
   "tech": "Vite + React",
-  "summary": "A weeknight recipe blog with a searchable, filterable index and recipe pages that scale servings and print a clean card.",
+  "summary": "Publish recipes readers can search, filter, scale, and print.",
   "order": 5,
   "live_url": "https://recipes.view.fast/",
   "setup_questions": [

@@ -4,7 +4,7 @@
   "slug": "memorial",
   "vertical": "Personal & creative",
   "tech": "Plain HTML & CSS",
-  "summary": "A quiet, dignified tribute page — a framed portrait with dates and epitaph, a life story and timeline, a black-and-white photo gallery with a lightbox, service details, and a working memory wall that saves visitors' messages.",
+  "summary": "Remember someone with their story, photographs, and service details.",
   "order": 300,
   "live_url": "https://memorial.view.fast/",
   "setup_questions": [
@@ -23,7 +23,7 @@
     "Photo gallery in a click-to-enlarge lightbox with captions and keyboard nav",
     "Service & celebration cards (service, reception, live stream) with directions",
     "In-lieu-of-flowers donation card",
-    "Memory wall — seeded memories plus a validating form that persists via localStorage",
+    "Family-provided memories and a form connected to a shared destination, or a clearly labelled browser-only preview",
     "Soft footer with a candle motif"
   ],
   "based_on": "A realistic, evergreen example modeled on a common real-world need — the kind of dignified tribute page families build to remember a loved one and share service details."

@@ -55,13 +55,9 @@ Build me a **link preview inspector** as a **Next.js app that runs on a server**
    sf publish --wait --json
    ```
    Spacefast uploads the source, runs `next build`, bundles the output with the pinned OpenNext Cloudflare adapter, and ships the static half and the worker as one version.
-4. From the `{ "data": … }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret — the CLI already saved it under `.spacefast/`, which must stay out of git.
-5. Claim the space with `data.claim.url` (or publish while logged in). An unclaimed space may only call a short list of trusted APIs, so until it's claimed every unfurl comes back as a 403 from the target site.
-6. Prove it's really running server-side, and show me the output:
-   ```bash
-   curl -s "<liveUrl>api/unfurl?url=https://github.com/vercel/next.js" | head -c 600
-   curl -s "<liveUrl>u?url=https://github.com/vercel/next.js" | grep -o '<title>[^<]*</title>'
-   ```
+4. For an anonymous publish, give me `data.claim.message` unchanged. It contains the private preview, the owner's `data.claim.claimUrl`, and the returned deadline. Keep both links private and never print the separate `data.claim.key`. The CLI saves credentials under `.spacefast/`, which must stay out of git and published files.
+5. Ask me to open `data.claim.claimUrl` to claim the Space, or publish while logged in. Unclaimed Spaces have restricted outbound network access, so arbitrary unfurl targets may be refused until the Space is claimed.
+6. Use the returned access method to check `/api/unfurl?url=https://github.com/vercel/next.js` and `/u?url=https://github.com/vercel/next.js`. Show me the returned metadata and page title to prove the server-side route works. A private Space's bare URL does not grant access.
 7. To ship an update later, run `sf publish --wait` again from the same directory. The CLI remembers the space.
 
 **Optional and reference only:** `sf publish --dry-run --json` prints the resolved plan as JSON if you want to inspect the detected framework and output directory. Docs: [Functions runtime](https://spacefast.com/docs/functions) · [Next.js on Spacefast](https://spacefast.com/docs/frameworks) · [agent setup](https://spacefast.com/setup) · [claiming](https://spacefast.com/help/anonymous-publish) · [updates and rollback](https://spacefast.com/help/versions)

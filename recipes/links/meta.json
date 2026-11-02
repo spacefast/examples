@@ -4,7 +4,7 @@
   "slug": "links",
   "vertical": "Personal & creative",
   "tech": "Plain HTML & CSS",
-  "summary": "A mobile-first link-in-bio page for a food creator — avatar and bio, a highlighted primary CTA, a stack of link buttons, a featured video, and social icons.",
+  "summary": "Put your main links, latest video, and social profiles on one page.",
   "order": 2,
   "live_url": "https://links.view.fast/",
   "setup_questions": [

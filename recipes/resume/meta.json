@@ -4,7 +4,7 @@
   "slug": "resume",
   "vertical": "Personal & creative",
   "tech": "Plain HTML & CSS",
-  "summary": "A clean single-page web resume with a contact header, an experience timeline, a skills sidebar with animated proficiency meters, and a print-to-PDF stylesheet behind a Download PDF button.",
+  "summary": "Publish your experience and skills as a web resume readers can save as a PDF.",
   "order": 300,
   "live_url": "https://resume.view.fast/",
   "setup_questions": [

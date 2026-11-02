@@ -4,7 +4,7 @@
   "slug": "trailhead",
   "vertical": "Developers & integrations",
   "tech": "Next.js static export",
-  "summary": "A photo-led hiking guide built with the Next.js App Router, exported to flat HTML with `output: \"export\"` and served with accelerated images, redirects, and security headers.",
+  "summary": "Publish a hiking guide with trail details, photographs, and practical visitor information.",
   "order": 220,
   "live_url": "https://trailhead.view.fast/",
   "setup_questions": [

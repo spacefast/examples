@@ -4,7 +4,7 @@
   "slug": "foodtruck",
   "vertical": "Local & small business",
   "tech": "Vanilla JS",
-  "summary": "A mobile-first food-truck site whose centerpiece is a weekly schedule that auto-highlights where the truck is parked today, with one-tap map directions and a live \"we're here now\" banner.",
+  "summary": "Show today's food-truck stop, this week's schedule, and directions.",
   "order": 3,
   "live_url": "https://foodtruck.view.fast/",
   "setup_questions": [

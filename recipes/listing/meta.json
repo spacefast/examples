@@ -4,7 +4,7 @@
   "slug": "listing",
   "vertical": "Local & small business",
   "tech": "Vite + React",
-  "summary": "An interactive single-listing site for one home — a photo gallery with lightbox, key stats, a live mortgage estimator, floor plan, and a tour-request form.",
+  "summary": "Present a home with photos, a floor plan, key details, and a mortgage estimator.",
   "order": 2,
   "live_url": "https://listing.view.fast/",
   "setup_questions": [

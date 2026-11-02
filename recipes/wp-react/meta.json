@@ -4,7 +4,7 @@
   "slug": "wp-react",
   "vertical": "Developers & integrations",
   "tech": "Vite + React + WP REST API",
-  "summary": "A polished reading app that fetches posts live from a WordPress REST API in the browser — card list, article view, client-side routing, search, and real loading/error states.",
+  "summary": "Browse and search WordPress posts in a React app that fetches them as you read.",
   "order": 201,
   "live_url": "https://wp-react.view.fast/",
   "setup_questions": [

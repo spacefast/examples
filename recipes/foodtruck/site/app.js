@@ -195,10 +195,8 @@
         return;
       }
 
-      var first = name.value.trim().split(" ")[0];
       form.querySelectorAll(".field, .field-row, button[type=submit]").forEach(function (n) { n.style.display = "none"; });
-      status.innerHTML = "🌮 Thanks, " + first + "! Your inquiry's in — we usually reply within a day. " +
-        "Truck-bound right now? Email <a href=\"mailto:catering@kimchitacoco.example\">catering@kimchitacoco.example</a>.";
+      status.innerHTML = 'Preview complete. Nothing was sent.';
       status.className = "form-status ok";
       status.style.fontSize = "1.05rem";
       status.focus && status.focus();

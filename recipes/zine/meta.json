@@ -4,14 +4,14 @@
   "slug": "zine",
   "vertical": "Personal & creative",
   "tech": "Plain HTML & CSS",
-  "summary": "A scrollable, art-directed riso web zine — seven full-viewport magazine spreads with custom display type, live film-grain and halftone texture, duotoned photos, and an \"issue-as-version\" colophon.",
+  "summary": "Publish a web zine with full-screen spreads, print textures, and contributor credits.",
   "order": 300,
   "live_url": "https://zine.view.fast/",
   "setup_questions": [
     "What's the theme/mood of the issue, and a title for it (e.g. \"Night Bloom\", \"Concrete & Moss\")?",
     "What are the 4–6 spreads of content (an editor's letter, a photo essay, a poem, an interview, field notes — tell me what each is about)?",
     "Aesthetic: retro-web, brutalist, or riso? And any colors to lean into?",
-    "Any real contributors, quotes, or images to feature — or should I invent believable ones?"
+    "Which contributors, quotes, and images may I use? I can label fictional material as sample content."
   ],
   "photo_terms": [
     "riso print texture colorful",

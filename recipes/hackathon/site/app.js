@@ -196,12 +196,8 @@
         return;
       }
 
-      var first = name.value.trim().split(" ")[0];
       form.querySelectorAll(".field, button[type=submit], .form-fine").forEach(function (n) { n.style.display = "none"; });
-      status.innerHTML =
-        "🐏 You're in, " + first + "! We just emailed your confirmation and the " +
-        '<a href="https://discord.gg/ramhacks" target="_blank" rel="noopener">Discord invite</a>. ' +
-        "See you Oct 17 at the Engineering Commons — bring your charger.";
+      status.innerHTML = 'Preview complete. Nothing was sent.';
       status.className = "form-status ok";
       status.style.fontSize = "1.02rem";
       if (status.focus) status.focus();

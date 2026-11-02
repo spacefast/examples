@@ -87,4 +87,4 @@ sf publish dist --wait
 
 Then check it live: load a post, leave a comment in a second browser window, and
 watch it appear in the first without a reload. Give me the live URL, the claim
-URL, and remind me to claim within 6 hours.
+URL, and tell me the claim deadline returned in the receipt and remind me to claim the Space to keep it.

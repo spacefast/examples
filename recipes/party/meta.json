@@ -4,7 +4,7 @@
   "slug": "party",
   "vertical": "Personal & creative",
   "tech": "Astro",
-  "summary": "A themed birthday-party invite with a live countdown, an embedded map and directions, a dress-code callout, and a validating RSVP form with guest count, a conditional +1, dietary needs, and a \"can't make it\" path.",
+  "summary": "Share party details, directions, and what guests need to know.",
   "order": 300,
   "live_url": "https://party.view.fast/",
   "setup_questions": [

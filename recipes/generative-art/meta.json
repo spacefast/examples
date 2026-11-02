@@ -4,7 +4,7 @@
   "slug": "generative-art",
   "vertical": "Tools, apps & games",
   "tech": "Vanilla JS",
-  "summary": "A generative art toy — particles drift through a noise flow field painting ever-evolving line art, with live palette, density and speed controls, reseed, and one-click PNG export.",
+  "summary": "Make flowing particle art. Adjust its colors and movement, then export a PNG.",
   "order": 5,
   "live_url": "https://generative-art.view.fast/",
   "setup_questions": [

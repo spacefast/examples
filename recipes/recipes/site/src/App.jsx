@@ -135,11 +135,12 @@ function Newsletter({ variant = "block" }) {
       </div>
       {done ? (
         <div className="newsletter-success" role="status">
-          <strong>You're on the list{name ? `, ${name.split(" ")[0]}` : ""}! 🎉</strong>
-          <p>Check your inbox Friday for the first one. Welcome to the kitchen.</p>
+          <strong>Signup preview complete{name ? `, ${name.split(" ")[0]}` : ""}! 🎉</strong>
+          <p>Preview complete. Nothing was sent.</p>
         </div>
       ) : (
         <form className="newsletter-form" onSubmit={submit} noValidate>
+          <p style={{ gridColumn: "1 / -1", flexBasis: "100%" }} data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
           <div className="field">
             <label htmlFor="nl-name">First name</label>
             <input
@@ -165,9 +166,7 @@ function Newsletter({ variant = "block" }) {
               required
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Send me Friday's recipe
-          </button>
+          <button type="submit" className="btn btn-primary">Preview</button>
           {error && (
             <p id="nl-error" className="form-error" role="alert">
               {error}

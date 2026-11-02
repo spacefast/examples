@@ -20,6 +20,12 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#menu">Skip to menu</a>
 
   <!-- ===== Header ===== -->
@@ -168,6 +174,8 @@
         </p>
       </div>
 
+      <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
+
       <form class="catering-form" id="catering-form" novalidate>
         <h3>Request a quote</h3>
         <div class="field">
@@ -192,7 +200,7 @@
           <label for="cf-msg">Tell us about it</label>
           <textarea id="cf-msg" name="message" rows="3" placeholder="Backyard 40th, mostly veg eaters, sunset in Highland Park…"></textarea>
         </div>
-        <button class="btn btn-primary btn-block" type="submit">Send inquiry</button>
+        <button class="btn btn-primary btn-block" type="submit">Preview</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>

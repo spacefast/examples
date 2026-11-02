@@ -4,7 +4,7 @@
   "slug": "newsletter",
   "vertical": "Personal & creative",
   "tech": "Plain HTML & CSS",
-  "summary": "A typographic home and archive for a curated weekly newsletter — featured issue, a full back catalogue, readable issue pages, and a working subscribe form.",
+  "summary": "Give your newsletter a home with a featured issue and a readable archive.",
   "order": 7,
   "live_url": "https://newsletter.view.fast/",
   "setup_questions": [

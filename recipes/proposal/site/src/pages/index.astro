@@ -31,7 +31,7 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
         {meta.proposalNo} · Valid until {meta.validUntil}
       </div>
       <a class="topbar__cta" href="#accept">
-        Accept proposal
+        Preview acceptance
         <svg
           width="14"
           height="14"
@@ -249,7 +249,7 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
     <section class="section accept" id="accept">
       <div class="wrap">
         <div class="section-head reveal" style="margin-bottom:0">
-          <p class="eyebrow">Accept &amp; sign</p>
+          <p class="eyebrow">Acceptance preview</p>
           <h2>Ready when you are, {meta.preparedFor}</h2>
           <p class="accept__lead">
             Review the summary, type your name to sign, and you're done. We'll
@@ -290,7 +290,8 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
 
           <!-- signature -->
           <div class="sign-card reveal" id="sign-card">
-            <h3>Sign to accept</h3>
+            <h3>Preview acceptance</h3>
+            <p data-demo-note="true">Acceptance preview. Nothing is signed or sent.</p>
             <form id="sign-form" novalidate>
               <div class="field" id="f-name">
                 <label for="name-input">Full name</label>
@@ -319,7 +320,7 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
               </div>
 
               <div class="field" id="f-sign">
-                <label for="sign-input">Type your name to sign</label>
+                <label for="sign-input">Type your name for the preview</label>
                 <input
                   type="text"
                   id="sign-input"
@@ -329,7 +330,7 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
                   required
                 />
                 <p class="hint" id="sign-hint">
-                  Your typed name is a legally binding e-signature.
+                  This demo does not create a signature or agreement.
                 </p>
                 <p class="err">Your signature must match your full name.</p>
               </div>
@@ -337,13 +338,13 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
               <label class="agree">
                 <input type="checkbox" id="agree-input" required />
                 <span>
-                  I have read and agree to the scope, timeline, and terms of
-                  this proposal on behalf of {meta.preparedFor}.
+                  I understand that this is a preview for {meta.preparedFor}.
+                  No agreement will be created.
                 </span>
               </label>
 
               <button type="submit" class="btn-accept" id="accept-btn">
-                Accept &amp; sign for <span id="btn-total" class="mono"
+                Preview acceptance for <span id="btn-total" class="mono"
                   >{fmt(recommended.price)}</span
                 >
               </button>
@@ -363,7 +364,7 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
                   <polyline points="20 6 9 17 4 12"></polyline>
                 </svg>
               </div>
-              <h3 id="accepted-title">Proposal accepted</h3>
+              <h3 id="accepted-title">Acceptance preview complete</h3>
               <p id="accepted-body"></p>
               <div class="receipt mono" id="accepted-receipt"></div>
               <button type="button" class="btn-reset" id="reset-btn">
@@ -540,25 +541,14 @@ const brand = `<svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" heig
       }
 
       function showAccepted(rec) {
-        document.getElementById('accepted-title').textContent =
-          'Thank you, ' + rec.name.split(' ')[0] + ' — accepted!';
-        acceptedBody.textContent =
-          rec.name +
-          ' accepted the ' +
-          rec.tier +
-          ' engagement (' +
-          fmt(rec.price) +
-          ') on ' +
-          rec.date +
-          '. A copy is on its way to ' +
-          rec.email +
-          '.';
+        document.getElementById('accepted-title').textContent = 'Acceptance preview complete';
+        acceptedBody.textContent = 'Nothing was signed or sent. This preview is saved only in this browser.';
         acceptedReceipt.innerHTML =
-          '<b>Signed</b> ' +
+          '<b>Typed name, preview only</b> ' +
           rec.signature +
-          '<br><b>Reference</b> ' +
+          '<br><b>Preview reference</b> ' +
           rec.ref +
-          '<br><b>Accepted</b> ' +
+          '<br><b>Preview time</b> ' +
           rec.datetime;
         card.classList.add('is-accepted');
       }

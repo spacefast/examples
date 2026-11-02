@@ -4,7 +4,7 @@
   "slug": "portfolio",
   "vertical": "Personal & creative",
   "tech": "HTML5 canvas game",
-  "summary": "An explorable pixel-art portfolio — walk a little avatar around a cozy room and step up to the desk, bookshelf, poster, and mailbox to reveal projects, an about, a resume, and contact links.",
+  "summary": "Let visitors explore your projects by walking through a pixel-art room.",
   "order": 6,
   "live_url": "https://portfolio.view.fast/",
   "setup_questions": [

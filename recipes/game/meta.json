@@ -4,7 +4,7 @@
   "slug": "game",
   "vertical": "Tools, apps & games",
   "tech": "HTML5 canvas game",
-  "summary": "A fully playable neon-synthwave brick-breaker — bounce a glowing ball to smash brick walls across five levels, catching falling power-ups.",
+  "summary": "Play a neon brick-breaker with five levels and falling power-ups.",
   "order": 5,
   "live_url": "https://game.view.fast/",
   "setup_questions": [

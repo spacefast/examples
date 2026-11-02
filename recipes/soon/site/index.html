@@ -20,6 +20,12 @@
   <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#signup">Skip to early-access signup</a>
 
   <!-- Animated atmosphere -->
@@ -77,6 +83,8 @@
       <section class="signup" id="signup" aria-labelledby="signup-label">
         <h2 id="signup-label" class="signup__label">Get early access</h2>
 
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
+
         <form class="form" id="signup-form" novalidate>
           <div class="form__row">
             <label class="visually-hidden" for="email">Email address</label>
@@ -105,8 +113,8 @@
             <svg viewBox="0 0 24 24" width="22" height="22"><path d="M4 12.5l5 5L20 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
           <div class="success__body">
-            <p class="success__title">You're on the list.</p>
-            <p class="success__sub" id="success-sub">We'll email you the moment Northpeak opens. No spam, just the invite.</p>
+            <p class="success__title">Signup preview complete</p>
+            <p class="success__sub" id="success-sub">Preview complete. Nothing was sent.</p>
           </div>
         </div>
 

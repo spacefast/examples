@@ -4,7 +4,7 @@
   "slug": "garden",
   "vertical": "Local & small business",
   "tech": "Plain HTML & CSS",
-  "summary": "A welcoming one-pager for a neighborhood community garden — plots and pricing, a waitlist signup, volunteer workdays, rules, and seasonal events.",
+  "summary": "Share garden plots, fees, volunteer days, and how to join the waitlist.",
   "order": 6,
   "live_url": "https://garden.view.fast/",
   "setup_questions": [

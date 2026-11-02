@@ -4,7 +4,7 @@
   "slug": "soon",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
-  "summary": "A single-screen coming-soon teaser with a live launch countdown, a validating email capture that confirms and remembers you, a waitlist counter, and social links.",
+  "summary": "Announce a launch with a countdown and a link to your signup form.",
   "order": 300,
   "live_url": "https://soon.view.fast/",
   "setup_questions": [
@@ -20,7 +20,7 @@
   "sections": [
     "Logo + serif headline + one-line promise",
     "Live launch countdown (days/hours/minutes/seconds) with a 'we're live' end state",
-    "Validating email capture with inline errors and a warm success state",
+    "Signup connected to your chosen service, or a labelled preview with no email sent",
     "Waitlist counter that ticks up once you've joined",
     "Social links + contact email"
   ],

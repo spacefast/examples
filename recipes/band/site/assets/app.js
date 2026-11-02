@@ -239,7 +239,7 @@
 
   try {
     var saved = localStorage.getItem(STORE_KEY);
-    if (saved) showStatus("You're already on the list, " + saved + ". See you on the coast. 🌊", true);
+    if (saved) showStatus('Your demo signup is saved in this browser only. Nothing was sent.', true);
   } catch (e) {}
 
   form.addEventListener("submit", function (e) {
@@ -250,7 +250,7 @@
     if (!name) { showStatus("What should we call you?", false); $("#ml-name").focus(); return; }
     if (!emailOk) { showStatus("That email doesn't look right — mind checking it?", false); $("#ml-email").focus(); return; }
     try { localStorage.setItem(STORE_KEY, name); } catch (e) {}
-    showStatus("You're on the list, " + name + ". Welcome to the pack. 🐺", true);
+    showStatus('Preview complete. Nothing was sent.', true);
     form.reset();
   });
 

@@ -18,7 +18,7 @@ framework and no build step).
 - A **live results panel** that recomputes on every keystroke or slider drag: a big headline "net savings, year one" number, plus a stat grid (net savings / month, hours or units reclaimed, payback period, return multiple).
 - A **before/after bar chart** (cost today vs cost with the product) and a **cumulative-savings area chart** across 12 months — both drawn in inline SVG, no chart library, animated when values change.
 - A "where the savings come from" section: three numbered steps that explain the model honestly, so the number feels earned, not hand-wavy.
-- A **gated lead-capture CTA**: a name + work-email + company form that validates the email, and on submit hides the fields and shows a friendly success state ("report's on its way to …") that echoes the visitor's computed savings. A "run another scenario" link resets it.
+- A lead form with name, work email, and company, alongside the calculated savings. Offer a local report download when no email delivery service is configured. Say "Download your estimate" instead of claiming an email was sent. For any form that sends information, ask for my form endpoint or hosted signup URL. Use the supplied destination and show success only after it confirms receipt. A link to another service does not confirm completion. Without a destination, label the form "Demo only" beside its fields, label its button "Preview", and say "Preview complete. Nothing was sent." Never treat `localStorage` as delivery or store personal form data there.
 - A social-proof strip (customer logos + one testimonial with a headshot) and a footer.
 
 **Design & content notes:**
@@ -27,9 +27,7 @@ framework and no build step).
   confident indigo→violet brand gradient, and a single emerald accent reserved for
   savings/positive numbers. Use a geometric display face (e.g. Sora) for headings and
   Inter for body. Round the corners, keep generous whitespace.
-- Use realistic content based on my answers — never "lorem ipsum". Invent believable
-  customer names, a testimonial, and sensible default input values (a typical
-  mid-market team) so the page looks alive on first load.
+- Use my formula and sourced customer claims. Omit logos and testimonials without permission and exact quotes. Label default inputs as examples and show the assumptions behind every estimate.
 - Make the math real and defensible: clamp the inputs to sane ranges, format currency
   with `Intl.NumberFormat`, animate the result numbers, and keep the assumptions
   (deflection rate, per-seat price) visible near the inputs with a "reset to a typical
@@ -49,28 +47,12 @@ framework and no build step).
 <script src="https://spacefast.com/badge.js" data-example="roi"></script>
 ```
 
-**When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
+**When the site is ready, publish it to Spacefast:**
 
 1. Use `./site` as the publish folder. For no-build projects, put only the finished public files in that dedicated folder. Confirm it has `index.html` at its root and no secrets, source files, `.git`, or `.spacefast` state.
-2. First publish: send every file as multipart form data. This Bash/Zsh block preserves relative paths and works for one file or a whole folder:
-   ```bash
-   PUBLISH_ROOT=./site
-   publish_files=()
-   while IFS= read -r -d "" file; do
-     relative=${file#"$PUBLISH_ROOT"/}
-     publish_files+=(-F "files=@$file;filename=$relative")
-   done < <(find "$PUBLISH_ROOT" -type f -print0)
-   curl -sS "${publish_files[@]}" "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-3. From the `{ "data": ... }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret.
-4. Save `data.space.id` and `data.claim.token` locally (for example in an ignored, mode-600 `.spacefast/state.json`). For a quick update, rebuild the `publish_files` array above and publish to the same space:
-   ```bash
-   SPACEFAST_SPACE_ID=<saved-space-id>
-   SPACEFAST_TOKEN=<saved-claim-token-or-access-token>
-   curl -sS -H "Authorization: Bearer $SPACEFAST_TOKEN" \
-     -F "spaceId=$SPACEFAST_SPACE_ID" "${publish_files[@]}" \
-     "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-   If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
+2. Fetch https://spacefast.com/setup.md and follow its current direct API publishing instructions. Check for an existing Space before creating one, and follow the returned upload and polling steps.
+3. Report success only when `data.next.action` is `done` and the intended version is serving. If more work is needed, report the returned next step.
+4. For an anonymous publish, give me `data.claim.message` unchanged. It contains the private preview (`data.claim.url`), the owner's claim link (`data.claim.claimUrl`), and the deadline (`data.claim.expiresAt`). Keep both links private. Never print the separate `data.claim.key`.
+5. Keep `data.space.id` and the returned credential securely for updates to the same Space. Follow the guide for credential recovery after claiming. Keep credentials and `.spacefast` state out of the published files, commits, and logs.
 
-**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./site --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/setup) · [files and folders](https://spacefast.com/help/publishing) · [claiming](https://spacefast.com/help/anonymous-publish) · [updates and rollback](https://spacefast.com/help/versions)
+If the `sf` CLI is already installed, `sf publish ./site --wait` follows the same publishing flow. See [publishing](https://spacefast.com/docs/publish/) and [claiming a Space](https://spacefast.com/docs/anonymous-and-claim/).

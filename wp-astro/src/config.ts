@@ -1,5 +1,5 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Site config — the three things the prompt asks you for.
+// Site config — the three things worth changing.
 //
 // 1. WP_API_BASE   The REST API base of any public WordPress site. It's just the
 //                  site URL with `/wp-json/wp/v2` on the end. Self-hosted WP and

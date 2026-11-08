@@ -20,7 +20,8 @@ Important files:
 - `src/pages/index.astro` renders a lead story plus a card grid;
   `src/pages/[slug].astro` uses `getStaticPaths` to bake one page per post.
 - `src/config.ts` holds the three things to change: the REST API base (the
-  demo is `https://wordpress.org/news`), the blog title, and the accent color.
+  demo is `https://wordpress.org/news/wp-json/wp/v2`), the blog title, and the
+  accent color.
 
 Posts with no featured image fall back to `jetpack_featured_media_url` and then
 to a tinted placeholder, never a broken image.

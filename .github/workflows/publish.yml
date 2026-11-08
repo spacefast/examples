@@ -158,7 +158,7 @@ jobs:
             | awk -F'\t' '$1 != "R100" {print $NF}')
           # A recipe directory that no longer exists has nothing to publish.
           slugs=$(printf '%s\n' "$changed" | sed -n 's#^recipes/\([^/]*\)/site/.*#\1#p' \
-            | sort -u | while read -r slug; do [ -d "recipes/$slug" ] && echo "$slug"; done \
+            | sort -u | while read -r slug; do if [ -d "recipes/$slug" ]; then echo "$slug"; fi; done \
             | jq -R -s -c 'split("\n") | map(select(length > 0))')
           echo "slugs=$slugs" >> "$GITHUB_OUTPUT"
 

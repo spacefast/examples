@@ -16,7 +16,8 @@ sf publish
 Use `sf build` when you only want to prove the deployable artifact locally.
 `sf dev` is the local server for Zero apps (`zero/`, `kitchen-sink/`,
 `zero-perfect/`, `wp-zero/`); for everything else, use the framework's dev
-server.
+server. `astro-zero/` needs both: Astro's dev server for the pages and
+`sf dev --dir dist` for the capsule.
 
 ## Directory map
 
@@ -30,7 +31,7 @@ server.
 | [`nextjs/`](./nextjs/) | Server-rendered Next.js, route handlers, and automatic OpenNext packaging |
 | [`astro-with-wordpress/`](./astro-with-wordpress/) | Astro built from WordPress through `@spacefast/wordpress` |
 | [`functions-php/`](./functions-php/) | Native PHP Functions with JSON, form bodies, validation, and verified auth context |
-| [`zero-perfect/`](./zero-perfect/) | A minimal Zero app: queries, mutations, guest and Gravatar auth, realtime, routes, and an HTTP endpoint |
+| [`zero-perfect/`](./zero-perfect/) | A minimal Zero app: queries, mutations, guest and Google sign-in, realtime, routes, and an HTTP endpoint |
 | [`wp-zero/`](./wp-zero/) | WordPress rendered to static pages at build time with a Zero capsule for realtime reactions and search |
 | [`astro-zero/`](./astro-zero/) | Astro pages in front of a server-only Zero capsule, staged into `dist/` as one project root |
 | [`wp-astro/`](./wp-astro/) | Headless WordPress pulled from the public REST API and rendered statically with Astro |

@@ -1,8 +1,8 @@
 # Zero Perfect
 
 The smallest full-stack Spacefast Zero app that walks the complete runtime
-path: database-backed queries and mutations, guest and Gravatar auth, Cast
-realtime, client-side routes, and an HTTP endpoint.
+path: database-backed queries and mutations, guest identity with Google
+sign-in, Cast realtime, client-side routes, and an HTTP endpoint.
 
 ```sh
 bun install

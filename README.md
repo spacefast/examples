@@ -38,7 +38,6 @@ server. `astro-zero/` needs both: Astro's dev server for the pages and
 | [`wp-react/`](./wp-react/) | A Vite + React SPA reading WordPress posts in the browser, with the `_redirects` SPA fallback |
 | [`unfurl/`](./unfurl/) | Next.js SSR, a route handler, and middleware on the Functions runtime |
 | [`trailhead/`](./trailhead/) | A Next.js static export with `@spacefast/image` Site Accelerator images, `_redirects`, and `_headers` |
-| [`recipes/`](./recipes/) | Canonical prompts, metadata, live outputs, and the public recipe feed |
 | [`kitchen-sink/`](./kitchen-sink/) | Zero, Pages, PHP, JavaScript, TypeScript, auth, mail, and routing in one project |
 | [`migrate-from-cloudflare-pages/`](./migrate-from-cloudflare-pages/) | Wrangler build settings and Pages convention files |
 | [`migrate-from-vercel/`](./migrate-from-vercel/) | `vercel.json` build, redirects, rewrites, headers, and cron import |
@@ -47,22 +46,11 @@ server. `astro-zero/` needs both: Astro's dev server for the pages and
 Each example README calls out the important files, the expected build output,
 and any product boundary that cannot be translated automatically.
 
-## Recipes integration
-
-`recipes/` is the source of truth for [spacefast.com/recipes](https://spacefast.com/recipes).
-Each recipe contains its copy-paste prompt, gallery metadata, runnable output,
-and live URL. GitHub Actions compiles those records into the historical public
-feed at <https://spacefast.github.io/examples/manifest.json> and publishes only
-changed recipe outputs.
-
-Do not duplicate recipe prompts in another package or repository. Framework
-examples teach an integration; recipes are user-facing starting points that an
-agent can customize and publish.
-
 ## Validation
 
-The pull-request workflow builds every top-level project through `sf build`,
-runs the Zero app tests, validates every recipe output, and builds the recipe
-manifest, without creating a live version. `migrate-from-netlify` builds its
-prebuilt output, because `sf build` has no flag to accept the Netlify features
-that still need a port.
+The pull-request workflow builds every top-level project through `sf build`
+and runs the Zero app tests, without creating a live version.
+`migrate-from-netlify` builds its prebuilt output, because `sf build` has no
+flag to accept the Netlify features that still need a port.
+
+Recipe prompts live in their own repository and are published separately.

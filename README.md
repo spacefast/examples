@@ -14,8 +14,9 @@ sf publish
 ```
 
 Use `sf build` when you only want to prove the deployable artifact locally.
-`sf dev` is the local server for Zero apps (`zero/`, `kitchen-sink/`); for
-everything else, use the framework's dev server.
+`sf dev` is the local server for Zero apps (`zero/`, `kitchen-sink/`,
+`zero-perfect/`, `wp-zero/`); for everything else, use the framework's dev
+server.
 
 ## Directory map
 
@@ -29,6 +30,13 @@ everything else, use the framework's dev server.
 | [`nextjs/`](./nextjs/) | Server-rendered Next.js, route handlers, and automatic OpenNext packaging |
 | [`astro-with-wordpress/`](./astro-with-wordpress/) | Astro built from WordPress through `@spacefast/wordpress` |
 | [`functions-php/`](./functions-php/) | Native PHP Functions with JSON, form bodies, validation, and verified auth context |
+| [`zero-perfect/`](./zero-perfect/) | A minimal Zero app: queries, mutations, guest and Gravatar auth, realtime, routes, and an HTTP endpoint |
+| [`wp-zero/`](./wp-zero/) | WordPress rendered to static pages at build time with a Zero capsule for realtime reactions and search |
+| [`astro-zero/`](./astro-zero/) | Astro pages in front of a server-only Zero capsule, staged into `dist/` as one project root |
+| [`wp-astro/`](./wp-astro/) | Headless WordPress pulled from the public REST API and rendered statically with Astro |
+| [`wp-react/`](./wp-react/) | A Vite + React SPA reading WordPress posts in the browser, with the `_redirects` SPA fallback |
+| [`unfurl/`](./unfurl/) | Next.js SSR, a route handler, and middleware on the Functions runtime |
+| [`trailhead/`](./trailhead/) | A Next.js static export with `@spacefast/image` Site Accelerator images, `_redirects`, and `_headers` |
 | [`recipes/`](./recipes/) | Canonical prompts, metadata, live outputs, and the public recipe feed |
 | [`kitchen-sink/`](./kitchen-sink/) | Zero, Pages, PHP, JavaScript, TypeScript, auth, mail, and routing in one project |
 | [`migrate-from-cloudflare-pages/`](./migrate-from-cloudflare-pages/) | Wrangler build settings and Pages convention files |

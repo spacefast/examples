@@ -1,0 +1,17 @@
+{
+  "name": "wp-zero",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "bun run tools/build.ts",
+    "test": "bun test test"
+  },
+  "dependencies": {
+    "@spacefast/wordpress": "0.8.0",
+    "@spacefast/zero": "0.8.0",
+    "preact": "^10.29.7"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3"
+  }
+}

@@ -22,7 +22,7 @@
     "Newer/Older pagination driven by the X-WP-TotalPages header",
     "Loading skeletons, empty state, and a recoverable error panel with Try again",
     "Light/dark theme toggle persisted to localStorage",
-    "SPA fallback (_redirects → /* /index.html 200) so deep links work on static hosting"
+    "SPA fallback (_redirects → /* /index.html 200) so deep links work on a static site"
   ],
   "based_on": "A headless-WordPress reading app: a React single-page app that fetches posts from a public, CORS-enabled WordPress REST API straight from the browser — the kind of decoupled front end developers build on top of an existing WP install.",
   "notes": "Content is fetched live from the WordPress REST API at runtime, so there are no Unsplash/stock photo terms — images come from each post's _embedded featured media. Default API base is wordpress.org/news (the classic demo.wp-api.org demo is frequently offline). Build with `npm install && npm run build`; publish the dist/ folder.",

@@ -1,4 +1,4 @@
-Build me a **public status page for my API / hosting product** — the kind of page linked from a footer and watched during an outage (think Stripe, Slack, or OpenAI status) — as a single self-contained static site (`index.html` + `styles.css` + `app.js`, no build step, no framework).
+Build me a **public status page for my API or developer platform** — the kind of page linked from a footer and watched during an outage (think Stripe, Slack, or OpenAI status) — as a single self-contained static site (`index.html` + `styles.css` + `app.js`, no build step, no framework).
 
 **Before you build, ask me these questions in one message and wait for my answers. If I skip anything, choose a sensible default and tell me what you chose:**
 

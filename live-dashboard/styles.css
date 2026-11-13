@@ -1,0 +1,173 @@
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --tile: #ffffff;
+  --line: #e4e3df;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --accent: #2a78d6;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --tile: #232322;
+    --line: #353533;
+    --text: #f0efec;
+    --text-2: #c3c2b7;
+    --accent: #3987e5;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19;
+  --tile: #232322;
+  --line: #353533;
+  --text: #f0efec;
+  --text-2: #c3c2b7;
+  --accent: #3987e5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 3rem 16px;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0.25rem 0 0.5rem;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+}
+
+.lede {
+  max-width: 40rem;
+  margin: 0 0 2rem;
+  color: var(--text-2);
+}
+
+code {
+  font-size: 0.9em;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  padding: 1rem 1rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--tile);
+}
+
+.tile h2 {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.value {
+  margin: 0.25rem 0 0;
+  font-size: 2rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.meta {
+  margin: 0 0 0.5rem;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.tile svg {
+  display: block;
+  width: 100%;
+  height: 3rem;
+  overflow: visible;
+  cursor: crosshair;
+}
+
+.tile path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.tile .cursor {
+  stroke: var(--text-2);
+  stroke-width: 1;
+  opacity: 0;
+}
+
+.tile .cursor.on {
+  opacity: 1;
+}
+
+.notice {
+  padding: 1.5rem;
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  color: var(--text-2);
+}
+
+.notice h2 {
+  margin: 0 0 0.25rem;
+  color: var(--text);
+  font-size: 1.125rem;
+}
+
+.notice p {
+  margin: 0.25rem 0 0;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+footer {
+  margin-top: 1.5rem;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+}
+
+footer strong {
+  display: block;
+  color: var(--text);
+  font-weight: 500;
+}

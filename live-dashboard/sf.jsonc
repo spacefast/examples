@@ -1,0 +1,35 @@
+{
+  "$schema": "https://spacefast.com/schemas/sf.json",
+  "name": "Live Rates",
+  "cleanUrls": true,
+  "listing": false,
+  "meta": {
+    "title": "Live Rates",
+    "description": "Euro exchange rates read through a team connector, with no backend and no keys in the page.",
+  },
+  // One team role. The page calls /__spacefast/connectors/rates/<tool>;
+  // Spacefast answers with the team's connection, so no key reaches the browser.
+  "connectors": {
+    "rates": {
+      "connector": "frankfurter",
+      "as": "team",
+      "tools": ["currentRates.getLatest", "historicalRates.getStartDate"],
+      // Pinned on the server. A page that sends another base or symbols is refused.
+      "args": {
+        "currentRates.getLatest": { "base": "EUR", "symbols": ["USD", "GBP", "JPY", "CHF"] },
+        "historicalRates.getStartDate": { "base": "EUR", "symbols": ["USD", "GBP", "JPY", "CHF"] },
+      },
+      // Every viewer shares one upstream read per tool and arguments for 15 minutes.
+      "cache": "15m",
+    },
+  },
+  "headers": [
+    {
+      "source": "/*",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+      ],
+    },
+  ],
+}

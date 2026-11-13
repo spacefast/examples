@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live Rates</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Connectors · Private Beta</p>
+        <h1>Euro, live</h1>
+        <p class="lede">
+          Reference rates from the European Central Bank, read through your team's
+          <code>rates</code> connector role. No backend, and no key in this page.
+        </p>
+      </header>
+
+      <section id="rates" aria-live="polite" aria-busy="true">
+        <p class="notice">Reading rates…</p>
+      </section>
+
+      <footer id="freshness"></footer>
+    </main>
+
+    <script type="module">
+      const section = document.querySelector("#rates");
+      const footer = document.querySelector("#freshness");
+      const SYMBOLS = ["USD", "GBP", "JPY", "CHF"];
+      const DAYS = 30;
+
+      // The 30-day window starts on a whole day, so every viewer asks the same
+      // question that day and shares one cached read.
+      const since = new Date(Date.now() - DAYS * 86_400_000).toISOString().slice(0, 10);
+
+      const escape = (text) =>
+        String(text).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+      const rate = new Intl.NumberFormat(undefined, { maximumSignificantDigits: 5 });
+      const percent = new Intl.NumberFormat(undefined, {
+        style: "percent",
+        maximumFractionDigits: 2,
+        signDisplay: "exceptZero",
+      });
+      const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" });
+
+      function notice(title, body = "", link = null) {
+        section.setAttribute("aria-busy", "false");
+        section.innerHTML = `
+          <div class="notice">
+            <h2>${escape(title)}</h2>
+            ${body ? `<p>${escape(body)}</p>` : ""}
+            ${link ? `<p><a class="button" href="${escape(link.href)}">${escape(link.label)}</a></p>` : ""}
+          </div>`;
+      }
+
+      // Every state the connector route answers, in the words it sends.
+      function renderState(snapshot) {
+        const { state, message, connectUrl, approvalUrl, error } = snapshot;
+        if (state === "unbound")
+          return notice(message, "Publisher: register the connector, connect it, and publish again. The README has the four commands.");
+        if (state === "connect_required" || state === "reconnect_required")
+          return notice(message, "", connectUrl && { href: connectUrl, label: "Connect" });
+        if (state === "approval_pending")
+          return notice(message, "", approvalUrl && { href: approvalUrl, label: "Review" });
+        if (state === "running") return notice(message);
+        // `forbidden` arrives as a 403 problem, so the client reports it as an error.
+        if (error?.code === "connection_forbidden")
+          return notice(message, "A team owner or admin turns on site serving for this connection. If anyone with the share link opens this Space, they also allow public serving for the role.");
+        notice("Rates are unavailable right now.", message ?? "", { href: location.href, label: "Try again" });
+      }
+
+      function sparkline(points) {
+        if (points.length < 2) return "";
+        const values = points.map((p) => p.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const x = (i) => (i / (points.length - 1)) * 100;
+        const y = (v) => 30 - ((v - min) / (max - min || 1)) * 26 - 2;
+        const d = points.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(2)},${y(p.value).toFixed(2)}`).join("");
+        const label = `${DAYS}-day range ${rate.format(min)} to ${rate.format(max)}`;
+        return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" role="img" aria-label="${label}"
+          data-points='${escape(JSON.stringify(points))}'>
+          <path d="${d}" vector-effect="non-scaling-stroke" />
+          <line class="cursor" x1="0" x2="0" y1="0" y2="32" vector-effect="non-scaling-stroke" />
+        </svg>`;
+      }
+
+      function renderRates(latest, history) {
+        const series = history?.rates ?? {};
+        const days = Object.keys(series).sort();
+        section.setAttribute("aria-busy", "false");
+        section.innerHTML = `<div class="grid">${SYMBOLS.map((symbol) => {
+          const now = latest.rates?.[symbol];
+          if (typeof now !== "number") return "";
+          const points = days
+            .map((day) => ({ day, value: series[day]?.[symbol] }))
+            .filter((p) => typeof p.value === "number");
+          const first = points[0]?.value;
+          const change = first ? now / first - 1 : null;
+          return `
+            <article class="tile">
+              <h2>EUR → ${symbol}</h2>
+              <p class="value" data-default="${rate.format(now)}">${rate.format(now)}</p>
+              <p class="meta" data-default="${change === null ? "" : `${percent.format(change)} in ${DAYS} days`}">
+                ${change === null ? "&nbsp;" : `${percent.format(change)} in ${DAYS} days`}
+              </p>
+              ${sparkline(points)}
+            </article>`;
+        }).join("")}</div>`;
+      }
+
+      // Hover a sparkline to read one day.
+      section.addEventListener("pointermove", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (!svg) return;
+        const points = JSON.parse(svg.dataset.points);
+        const box = svg.getBoundingClientRect();
+        const i = Math.round(((event.clientX - box.left) / box.width) * (points.length - 1));
+        const point = points[Math.max(0, Math.min(points.length - 1, i))];
+        const tile = svg.closest(".tile");
+        tile.querySelector(".value").textContent = rate.format(point.value);
+        tile.querySelector(".meta").textContent = point.day;
+        const x = ((points.indexOf(point) / (points.length - 1)) * 100).toFixed(2);
+        const cursor = svg.querySelector(".cursor");
+        cursor.setAttribute("x1", x);
+        cursor.setAttribute("x2", x);
+        cursor.classList.add("on");
+      });
+      section.addEventListener("pointerout", (event) => {
+        const tile = event.target.closest?.(".tile");
+        if (!tile || tile.contains(event.relatedTarget)) return;
+        for (const el of tile.querySelectorAll("[data-default]")) el.textContent = el.dataset.default || "\u00a0";
+        tile.querySelector(".cursor")?.classList.remove("on");
+      });
+
+      let space = null;
+      try {
+        // Served by Spacefast on every Space; there is nothing to install.
+        ({ space } = await import("/__spacefast/client.js"));
+      } catch {
+        notice("Publish this page to see it work.", "The connector client is served by Spacefast at /__spacefast/client.js, so it does not load from a local file or a plain static server.");
+      }
+
+      if (space) {
+        const rates = space.connectors.rates;
+        // `base` and `symbols` are pinned in sf.jsonc; the page sends only what is left.
+        const latest = rates["currentRates.getLatest"].watch({}, { every: "60s" });
+        const history = rates["historicalRates.getStartDate"].watch({ start_date: since }, { every: "60s" });
+
+        const render = () => {
+          const now = latest.getSnapshot();
+          const past = history.getSnapshot();
+          if (now.data) {
+            renderRates(now.data, past.data);
+            const fetched = now.cachedAt ? new Date(now.cachedAt) : new Date();
+            footer.innerHTML = `
+              ECB reference rates for ${escape(now.data.date)}.
+              Fetched upstream at ${time.format(fetched)} and shared with every viewer for 15 minutes.
+              ${now.state === "error" ? `<strong>Showing the last good answer: ${escape(now.message)}</strong>` : ""}
+              ${now.refreshing ? "Checking…" : ""}`;
+          } else if (now.state !== "loading") {
+            renderState(now);
+            footer.textContent = "";
+          }
+        };
+        latest.subscribe(render);
+        history.subscribe(render);
+      }
+    </script>
+  </body>
+</html>

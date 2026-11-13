@@ -171,3 +171,18 @@ footer strong {
   color: var(--text);
   font-weight: 500;
 }
+
+.notice.small {
+  margin-top: 1rem;
+  padding: 0.875rem 1rem;
+}
+
+.notice.small h2 {
+  font-size: 0.9375rem;
+}
+
+.stale {
+  margin: 0.75rem 0 0;
+  color: var(--text-2);
+  font-size: 0.8125rem;
+}

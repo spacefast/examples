@@ -44,30 +44,36 @@
       });
       const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" });
 
-      function notice(title, body = "", link = null) {
-        section.setAttribute("aria-busy", "false");
-        section.innerHTML = `
-          <div class="notice">
+      function noticeHtml({ title, body = "", link = null }, className = "notice") {
+        return `
+          <div class="${className}">
             <h2>${escape(title)}</h2>
             ${body ? `<p>${escape(body)}</p>` : ""}
             ${link ? `<p><a class="button" href="${escape(link.href)}">${escape(link.label)}</a></p>` : ""}
           </div>`;
       }
 
+      function notice(content) {
+        section.setAttribute("aria-busy", "false");
+        section.innerHTML = noticeHtml(content);
+      }
+
       // Every state the connector route answers, in the words it sends.
-      function renderState(snapshot) {
+      // `what` names the data, such as "rates", for the loading and failure titles.
+      function stateNotice(snapshot, what) {
         const { state, message, connectUrl, approvalUrl, error } = snapshot;
+        if (state === "loading") return { title: `Reading ${what}…` };
         if (state === "unbound")
-          return notice(message, "Publisher: register the connector, connect it, and publish again. The README has the four commands.");
+          return { title: message, body: "Publisher: register the connector, connect it, and publish again. The README has the four commands." };
         if (state === "connect_required" || state === "reconnect_required")
-          return notice(message, "", connectUrl && { href: connectUrl, label: "Connect" });
+          return { title: message, link: connectUrl && { href: connectUrl, label: "Connect" } };
         if (state === "approval_pending")
-          return notice(message, "", approvalUrl && { href: approvalUrl, label: "Review" });
-        if (state === "running") return notice(message);
+          return { title: message, link: approvalUrl && { href: approvalUrl, label: "Review" } };
+        if (state === "running") return { title: message };
         // `forbidden` arrives as a 403 problem, so the client reports it as an error.
         if (error?.code === "connection_forbidden")
-          return notice(message, "A team owner or admin turns on site serving for this connection. If anyone with the share link opens this Space, they also allow public serving for the role.");
-        notice("Rates are unavailable right now.", message ?? "", { href: location.href, label: "Try again" });
+          return { title: message, body: "A team owner or admin turns on site serving for this connection. If anyone with the share link opens this Space, they also allow public serving for the role." };
+        return { title: `The ${what} are unavailable right now.`, body: message ?? "", link: { href: location.href, label: "Try again" } };
       }
 
       function sparkline(points) {
@@ -86,8 +92,10 @@
         </svg>`;
       }
 
-      function renderRates(latest, history) {
-        const series = history?.rates ?? {};
+      // `past` is the history read's snapshot. Its data draws the sparklines;
+      // without data, its own state takes their place.
+      function renderRates(latest, past) {
+        const series = past.data?.rates ?? {};
         const days = Object.keys(series).sort();
         section.setAttribute("aria-busy", "false");
         section.innerHTML = `<div class="grid">${SYMBOLS.map((symbol) => {
@@ -107,7 +115,14 @@
               </p>
               ${sparkline(points)}
             </article>`;
-        }).join("")}</div>`;
+        }).join("")}</div>${historyNote(past)}`;
+      }
+
+      function historyNote(past) {
+        if (!past.data) return noticeHtml(stateNotice(past, `${DAYS}-day trends`), "notice small");
+        if (past.state === "error")
+          return `<p class="stale">The ${DAYS}-day history is from an earlier read: ${escape(past.message)}</p>`;
+        return "";
       }
 
       // Hover a sparkline to read one day.
@@ -139,7 +154,10 @@
         // Served by Spacefast on every Space; there is nothing to install.
         ({ space } = await import("/__spacefast/client.js"));
       } catch {
-        notice("Publish this page to see it work.", "The connector client is served by Spacefast at /__spacefast/client.js, so it does not load from a local file or a plain static server.");
+        notice({
+          title: "Publish this page to see it work.",
+          body: "The connector client is served by Spacefast at /__spacefast/client.js, so it does not load from a local file or a plain static server.",
+        });
       }
 
       if (space) {
@@ -148,19 +166,28 @@
         const latest = rates["currentRates.getLatest"].watch({}, { every: "60s" });
         const history = rates["historicalRates.getStartDate"].watch({ start_date: since }, { every: "60s" });
 
+        // When this page received the data on screen. A failed refresh keeps
+        // the old data, and so keeps this time too.
+        let shown = null;
+        let receivedAt = null;
+
         const render = () => {
           const now = latest.getSnapshot();
           const past = history.getSnapshot();
           if (now.data) {
-            renderRates(now.data, past.data);
-            const fetched = now.cachedAt ? new Date(now.cachedAt) : new Date();
+            if (now.data !== shown) [shown, receivedAt] = [now.data, new Date()];
+            renderRates(now.data, past);
+            // `cachedAt` is the upstream fetch time of a shared read. A read
+            // fetched for this request has none, so the page says only when it arrived.
+            const when = now.cachedAt
+              ? `Fetched upstream at ${time.format(new Date(now.cachedAt))}; every viewer shares a read for 15 minutes.`
+              : `Received at ${time.format(receivedAt)}.`;
             footer.innerHTML = `
-              ECB reference rates for ${escape(now.data.date)}.
-              Fetched upstream at ${time.format(fetched)} and shared with every viewer for 15 minutes.
+              ECB reference rates for ${escape(now.data.date)}. ${when}
               ${now.state === "error" ? `<strong>Showing the last good answer: ${escape(now.message)}</strong>` : ""}
               ${now.refreshing ? "Checking…" : ""}`;
           } else if (now.state !== "loading") {
-            renderState(now);
+            notice(stateNotice(now, "rates"));
             footer.textContent = "";
           }
         };

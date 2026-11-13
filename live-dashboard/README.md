@@ -60,8 +60,9 @@ sf connectors public-serving set rates --enable
   connector answers `connector_tool_not_allowed`.
 - **One shared read.** Every viewer asking the same question in the same
   15 minutes shares one upstream request (`cache: "15m"`). The 60-second
-  refresh on the page only checks that shared answer. The footer shows when the
-  data was fetched upstream (`cachedAt`).
+  refresh on the page only checks that shared answer. When the answer came
+  from that shared read, the footer shows when it was fetched upstream
+  (`cachedAt`); otherwise it shows when the page received it.
 - **Real states.** Before anything is connected, the route answers a state
   instead of data, and the page shows its message:
 
@@ -77,6 +78,11 @@ sf connectors public-serving set rates --enable
 `forbidden` arrives as an RFC 9457 problem, so the client reports it as
 `state: "error"` with `error.code === "connection_forbidden"`. The tile data
 from the last good answer stays on screen when a refresh fails.
+
+The two tools are separate reads with separate states. If the 30-day history
+read is loading, waiting for approval, needs a connection, or fails, the rate
+tiles still show and the history read's own message takes the sparklines'
+place.
 
 ## The same page in React
 

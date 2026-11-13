@@ -11,7 +11,7 @@ team's connection.
 | File | What it does |
 | --- | --- |
 | `sf.jsonc` | Declares the `rates` role: one `team` connection, two read tools, pinned arguments, and a 15-minute cache |
-| `index.html` | Imports `/__spacefast/client.js`, watches both tools every 60 seconds, and renders each state the route answers |
+| `index.html` | Imports `/__spacefast/client.js`, watches both tools every 60 seconds, and renders each state the route answers. Each sparkline reads one day by pointer or by keyboard (focus it, then use the arrow keys, Home and End) |
 | `styles.css` | Light and dark styles |
 
 The data comes from [Frankfurter](https://frankfurter.dev), a free, open-source
@@ -60,7 +60,9 @@ sf connectors public-serving set rates --enable
   connector answers `connector_tool_not_allowed`.
 - **One shared read.** Every viewer asking the same question in the same
   15 minutes shares one upstream request (`cache: "15m"`). The 60-second
-  refresh on the page only checks that shared answer. When the answer came
+  refresh on the page only checks that shared answer. The 30-day window is
+  worked out at each refresh in UTC days, so a tab left open overnight moves to
+  the new day's window and keeps sharing it with new visitors. When the answer came
   from that shared read, the footer shows when it was fetched upstream
   (`cachedAt`); otherwise it shows when the page received it.
 - **Real states.** Before anything is connected, the route answers a state

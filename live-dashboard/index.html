@@ -30,10 +30,6 @@
       const SYMBOLS = ["USD", "GBP", "JPY", "CHF"];
       const DAYS = 30;
 
-      // The 30-day window starts on a whole day, so every viewer asks the same
-      // question that day and shares one cached read.
-      const since = new Date(Date.now() - DAYS * 86_400_000).toISOString().slice(0, 10);
-
       const escape = (text) =>
         String(text).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
       const rate = new Intl.NumberFormat(undefined, { maximumSignificantDigits: 5 });
@@ -76,7 +72,7 @@
         return { title: `The ${what} are unavailable right now.`, body: message ?? "", link: { href: location.href, label: "Try again" } };
       }
 
-      function sparkline(points) {
+      function sparkline(symbol, points) {
         if (points.length < 2) return "";
         const values = points.map((p) => p.value);
         const min = Math.min(...values);
@@ -84,8 +80,11 @@
         const x = (i) => (i / (points.length - 1)) * 100;
         const y = (v) => 30 - ((v - min) / (max - min || 1)) * 26 - 2;
         const d = points.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(2)},${y(p.value).toFixed(2)}`).join("");
-        const label = `${DAYS}-day range ${rate.format(min)} to ${rate.format(max)}`;
-        return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" role="img" aria-label="${label}"
+        // A slider: focus it, then use the arrow keys, Home and End to read one day.
+        return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" tabindex="0" role="slider"
+          aria-label="EUR to ${symbol}, last ${DAYS} days, ${rate.format(min)} to ${rate.format(max)}"
+          aria-valuemin="0" aria-valuemax="${points.length - 1}" aria-valuenow="${points.length - 1}"
+          aria-valuetext="${escape(`${points.at(-1).day}: ${rate.format(points.at(-1).value)}`)}"
           data-points='${escape(JSON.stringify(points))}'>
           <path d="${d}" vector-effect="non-scaling-stroke" />
           <line class="cursor" x1="0" x2="0" y1="0" y2="32" vector-effect="non-scaling-stroke" />
@@ -107,13 +106,13 @@
           const first = points[0]?.value;
           const change = first ? now / first - 1 : null;
           return `
-            <article class="tile">
+            <article class="tile" data-symbol="${symbol}">
               <h2>EUR → ${symbol}</h2>
               <p class="value" data-default="${rate.format(now)}">${rate.format(now)}</p>
               <p class="meta" data-default="${change === null ? "" : `${percent.format(change)} in ${DAYS} days`}">
                 ${change === null ? "&nbsp;" : `${percent.format(change)} in ${DAYS} days`}
               </p>
-              ${sparkline(points)}
+              ${sparkline(symbol, points)}
             </article>`;
         }).join("")}</div>${historyNote(past)}`;
       }
@@ -125,29 +124,89 @@
         return "";
       }
 
-      // Hover a sparkline to read one day.
-      section.addEventListener("pointermove", (event) => {
-        const svg = event.target.closest?.("svg[data-points]");
-        if (!svg) return;
-        const points = JSON.parse(svg.dataset.points);
-        const box = svg.getBoundingClientRect();
-        const i = Math.round(((event.clientX - box.left) / box.width) * (points.length - 1));
-        const point = points[Math.max(0, Math.min(points.length - 1, i))];
+      // The day a viewer is reading, by pointer or keyboard. It outlives a
+      // redraw, so a refresh does not snap the readout back to today.
+      let selection = null; // { symbol, day }
+      // True while the cards are replaced, so losing focus to a redraw is not leaving.
+      let redrawing = false;
+
+      const pointsOf = (svg) => JSON.parse(svg.dataset.points);
+
+      function showDay(svg, index) {
+        const points = pointsOf(svg);
+        const i = Math.max(0, Math.min(points.length - 1, index));
+        const point = points[i];
         const tile = svg.closest(".tile");
         tile.querySelector(".value").textContent = rate.format(point.value);
         tile.querySelector(".meta").textContent = point.day;
-        const x = ((points.indexOf(point) / (points.length - 1)) * 100).toFixed(2);
+        const x = ((i / (points.length - 1)) * 100).toFixed(2);
         const cursor = svg.querySelector(".cursor");
         cursor.setAttribute("x1", x);
         cursor.setAttribute("x2", x);
         cursor.classList.add("on");
+        svg.setAttribute("aria-valuenow", String(i));
+        svg.setAttribute("aria-valuetext", `${point.day}: ${rate.format(point.value)}`);
+        selection = { symbol: tile.dataset.symbol, day: point.day };
+      }
+
+      function clearDay(tile) {
+        for (const el of tile.querySelectorAll("[data-default]")) el.textContent = el.dataset.default || "\u00a0";
+        tile.querySelector(".cursor")?.classList.remove("on");
+        if (selection?.symbol === tile.dataset.symbol) selection = null;
+      }
+
+      const selectedIndex = (svg) => {
+        const symbol = svg.closest(".tile").dataset.symbol;
+        const points = pointsOf(svg);
+        const i = selection?.symbol === symbol ? points.findIndex((p) => p.day === selection.day) : -1;
+        return i === -1 ? points.length - 1 : i;
+      };
+
+      section.addEventListener("pointermove", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (!svg) return;
+        const box = svg.getBoundingClientRect();
+        showDay(svg, Math.round(((event.clientX - box.left) / box.width) * (pointsOf(svg).length - 1)));
       });
       section.addEventListener("pointerout", (event) => {
         const tile = event.target.closest?.(".tile");
         if (!tile || tile.contains(event.relatedTarget)) return;
-        for (const el of tile.querySelectorAll("[data-default]")) el.textContent = el.dataset.default || "\u00a0";
-        tile.querySelector(".cursor")?.classList.remove("on");
+        if (document.activeElement !== tile.querySelector("svg")) clearDay(tile);
       });
+      section.addEventListener("focusin", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (svg) showDay(svg, selectedIndex(svg));
+      });
+      section.addEventListener("focusout", (event) => {
+        const tile = event.target.closest?.(".tile");
+        if (tile && !redrawing) clearDay(tile);
+      });
+      section.addEventListener("keydown", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (!svg) return;
+        const last = pointsOf(svg).length - 1;
+        const now = selectedIndex(svg);
+        const next = { ArrowLeft: now - 1, ArrowDown: now - 1, ArrowRight: now + 1, ArrowUp: now + 1,
+          PageDown: now - 5, PageUp: now + 5, Home: 0, End: last }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        showDay(svg, next);
+      });
+
+      // Redraw the cards, keeping the day being read and the keyboard focus.
+      function redraw(latest, past) {
+        const kept = selection;
+        const focused = document.activeElement?.closest?.(".tile")?.dataset.symbol;
+        redrawing = true;
+        renderRates(latest, past);
+        redrawing = false;
+        selection = null;
+        const svgFor = (symbol) => section.querySelector(`.tile[data-symbol="${symbol}"] svg`);
+        if (focused) svgFor(focused)?.focus();
+        const svg = kept && svgFor(kept.symbol);
+        const i = svg ? pointsOf(svg).findIndex((p) => p.day === kept.day) : -1;
+        if (i !== -1) showDay(svg, i);
+      }
 
       let space = null;
       try {
@@ -164,19 +223,44 @@
         const rates = space.connectors.rates;
         // `base` and `symbols` are pinned in sf.jsonc; the page sends only what is left.
         const latest = rates["currentRates.getLatest"].watch({}, { every: "60s" });
-        const history = rates["historicalRates.getStartDate"].watch({ start_date: since }, { every: "60s" });
+
+        // The 30-day window starts on a whole UTC day, so every viewer asks the
+        // same question that day and shares one cached read. It is worked out on
+        // every render, which the 60-second refresh drives; when the day turns,
+        // the page watches the new window, drops the old one, and keeps showing
+        // the old answer until the new window has its own.
+        const windowStart = () => new Date(Date.now() - DAYS * 86_400_000).toISOString().slice(0, 10);
+        let history = null;
+        function watchHistory() {
+          const since = windowStart();
+          if (history?.since === since) return;
+          const previous = history?.watch.getSnapshot() ?? null;
+          history?.unsubscribe();
+          const watch = rates["historicalRates.getStartDate"].watch({ start_date: since }, { every: "60s" });
+          history = { since, watch, previous, unsubscribe: null };
+          history.unsubscribe = watch.subscribe(() => render());
+        }
 
         // When this page received the data on screen. A failed refresh keeps
         // the old data, and so keeps this time too.
         let shown = null;
         let receivedAt = null;
+        // What the cards show. A refresh that brings the same rates and states
+        // (each refresh parses a new object, so compare the content) leaves them alone.
+        let drawn = "";
 
-        const render = () => {
+        function render() {
+          watchHistory();
           const now = latest.getSnapshot();
-          const past = history.getSnapshot();
+          let past = history.watch.getSnapshot();
+          if (past.state === "loading" && history.previous?.data) past = history.previous;
           if (now.data) {
             if (now.data !== shown) [shown, receivedAt] = [now.data, new Date()];
-            renderRates(now.data, past);
+            const inputs = JSON.stringify([now.data, past.data, past.state, past.message, past.connectUrl, past.approvalUrl]);
+            if (inputs !== drawn) {
+              drawn = inputs;
+              redraw(now.data, past);
+            }
             // `cachedAt` is the upstream fetch time of a shared read. A read
             // fetched for this request has none, so the page says only when it arrived.
             const when = now.cachedAt
@@ -187,12 +271,14 @@
               ${now.state === "error" ? `<strong>Showing the last good answer: ${escape(now.message)}</strong>` : ""}
               ${now.refreshing ? "Checking…" : ""}`;
           } else if (now.state !== "loading") {
+            drawn = "";
             notice(stateNotice(now, "rates"));
             footer.textContent = "";
           }
-        };
-        latest.subscribe(render);
-        history.subscribe(render);
+        }
+        // Subscribing starts the first read and calls render; it comes last so
+        // everything render uses is in place.
+        latest.subscribe(() => render());
       }
     </script>
   </body>

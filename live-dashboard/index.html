@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Live Rates</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Connectors · Private Beta</p>
+        <h1>Euro, live</h1>
+        <p class="lede">
+          Reference rates from the European Central Bank, read through your team's
+          <code>rates</code> connector role. No backend, and no key in this page.
+        </p>
+      </header>
+
+      <section id="rates" aria-live="polite" aria-busy="true">
+        <p class="notice">Reading rates…</p>
+      </section>
+
+      <footer id="freshness"></footer>
+    </main>
+
+    <script type="module">
+      const section = document.querySelector("#rates");
+      const footer = document.querySelector("#freshness");
+      const SYMBOLS = ["USD", "GBP", "JPY", "CHF"];
+      const DAYS = 30;
+
+      const escape = (text) =>
+        String(text).replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
+      const rate = new Intl.NumberFormat(undefined, { maximumSignificantDigits: 5 });
+      const percent = new Intl.NumberFormat(undefined, {
+        style: "percent",
+        maximumFractionDigits: 2,
+        signDisplay: "exceptZero",
+      });
+      const time = new Intl.DateTimeFormat(undefined, { timeStyle: "short" });
+
+      function noticeHtml({ title, body = "", link = null }, className = "notice") {
+        return `
+          <div class="${className}">
+            <h2>${escape(title)}</h2>
+            ${body ? `<p>${escape(body)}</p>` : ""}
+            ${link ? `<p><a class="button" href="${escape(link.href)}">${escape(link.label)}</a></p>` : ""}
+          </div>`;
+      }
+
+      function notice(content) {
+        section.setAttribute("aria-busy", "false");
+        section.innerHTML = noticeHtml(content);
+      }
+
+      // Every state the connector route answers, in the words it sends.
+      // `what` names the data, such as "rates", for the loading and failure titles.
+      function stateNotice(snapshot, what) {
+        const { state, message, connectUrl, approvalUrl, error } = snapshot;
+        if (state === "loading") return { title: `Reading ${what}…` };
+        if (state === "unbound")
+          return { title: message, body: "Publisher: register the connector, connect it, and publish again. The README has the four commands." };
+        if (state === "connect_required" || state === "reconnect_required")
+          return { title: message, link: connectUrl && { href: connectUrl, label: "Connect" } };
+        if (state === "approval_pending")
+          return { title: message, link: approvalUrl && { href: approvalUrl, label: "Review" } };
+        if (state === "running") return { title: message };
+        // `forbidden` arrives as a 403 problem, so the client reports it as an error.
+        if (error?.code === "connection_forbidden")
+          return { title: message, body: "A team owner or admin turns on site serving for this connection. If anyone with the share link opens this Space, they also allow public serving for the role." };
+        return { title: `The ${what} are unavailable right now.`, body: message ?? "", link: { href: location.href, label: "Try again" } };
+      }
+
+      function sparkline(symbol, points) {
+        if (points.length < 2) return "";
+        const values = points.map((p) => p.value);
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const x = (i) => (i / (points.length - 1)) * 100;
+        const y = (v) => 30 - ((v - min) / (max - min || 1)) * 26 - 2;
+        const d = points.map((p, i) => `${i ? "L" : "M"}${x(i).toFixed(2)},${y(p.value).toFixed(2)}`).join("");
+        // A slider: focus it, then use the arrow keys, Home and End to read one day.
+        return `<svg viewBox="0 0 100 32" preserveAspectRatio="none" tabindex="0" role="slider"
+          aria-label="EUR to ${symbol}, last ${DAYS} days, ${rate.format(min)} to ${rate.format(max)}"
+          aria-valuemin="0" aria-valuemax="${points.length - 1}" aria-valuenow="${points.length - 1}"
+          aria-valuetext="${escape(`${points.at(-1).day}: ${rate.format(points.at(-1).value)}`)}"
+          data-points='${escape(JSON.stringify(points))}'>
+          <path d="${d}" vector-effect="non-scaling-stroke" />
+          <line class="cursor" x1="0" x2="0" y1="0" y2="32" vector-effect="non-scaling-stroke" />
+        </svg>`;
+      }
+
+      // `past` is the history read's snapshot. Its data draws the sparklines;
+      // without data, its own state takes their place.
+      function renderRates(latest, past) {
+        const series = past.data?.rates ?? {};
+        const days = Object.keys(series).sort();
+        section.setAttribute("aria-busy", "false");
+        section.innerHTML = `<div class="grid">${SYMBOLS.map((symbol) => {
+          const now = latest.rates?.[symbol];
+          if (typeof now !== "number") return "";
+          const points = days
+            .map((day) => ({ day, value: series[day]?.[symbol] }))
+            .filter((p) => typeof p.value === "number");
+          const first = points[0]?.value;
+          const change = first ? now / first - 1 : null;
+          return `
+            <article class="tile" data-symbol="${symbol}">
+              <h2>EUR → ${symbol}</h2>
+              <p class="value" data-default="${rate.format(now)}">${rate.format(now)}</p>
+              <p class="meta" data-default="${change === null ? "" : `${percent.format(change)} in ${DAYS} days`}">
+                ${change === null ? "&nbsp;" : `${percent.format(change)} in ${DAYS} days`}
+              </p>
+              ${sparkline(symbol, points)}
+            </article>`;
+        }).join("")}</div>${historyNote(past)}`;
+      }
+
+      function historyNote(past) {
+        if (!past.data) return noticeHtml(stateNotice(past, `${DAYS}-day trends`), "notice small");
+        if (past.state === "error")
+          return `<p class="stale">The ${DAYS}-day history is from an earlier read: ${escape(past.message)}</p>`;
+        return "";
+      }
+
+      // The day a viewer is reading, by pointer or keyboard. It outlives a
+      // redraw, so a refresh does not snap the readout back to today.
+      let selection = null; // { symbol, day }
+      // True while the cards are replaced, so losing focus to a redraw is not leaving.
+      let redrawing = false;
+
+      const pointsOf = (svg) => JSON.parse(svg.dataset.points);
+
+      function showDay(svg, index) {
+        const points = pointsOf(svg);
+        const i = Math.max(0, Math.min(points.length - 1, index));
+        const point = points[i];
+        const tile = svg.closest(".tile");
+        tile.querySelector(".value").textContent = rate.format(point.value);
+        tile.querySelector(".meta").textContent = point.day;
+        const x = ((i / (points.length - 1)) * 100).toFixed(2);
+        const cursor = svg.querySelector(".cursor");
+        cursor.setAttribute("x1", x);
+        cursor.setAttribute("x2", x);
+        cursor.classList.add("on");
+        svg.setAttribute("aria-valuenow", String(i));
+        svg.setAttribute("aria-valuetext", `${point.day}: ${rate.format(point.value)}`);
+        selection = { symbol: tile.dataset.symbol, day: point.day };
+      }
+
+      function clearDay(tile) {
+        for (const el of tile.querySelectorAll("[data-default]")) el.textContent = el.dataset.default || "\u00a0";
+        tile.querySelector(".cursor")?.classList.remove("on");
+        if (selection?.symbol === tile.dataset.symbol) selection = null;
+      }
+
+      const selectedIndex = (svg) => {
+        const symbol = svg.closest(".tile").dataset.symbol;
+        const points = pointsOf(svg);
+        const i = selection?.symbol === symbol ? points.findIndex((p) => p.day === selection.day) : -1;
+        return i === -1 ? points.length - 1 : i;
+      };
+
+      section.addEventListener("pointermove", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (!svg) return;
+        const box = svg.getBoundingClientRect();
+        showDay(svg, Math.round(((event.clientX - box.left) / box.width) * (pointsOf(svg).length - 1)));
+      });
+      section.addEventListener("pointerout", (event) => {
+        const tile = event.target.closest?.(".tile");
+        if (!tile || tile.contains(event.relatedTarget)) return;
+        if (document.activeElement !== tile.querySelector("svg")) clearDay(tile);
+      });
+      section.addEventListener("focusin", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (svg) showDay(svg, selectedIndex(svg));
+      });
+      section.addEventListener("focusout", (event) => {
+        const tile = event.target.closest?.(".tile");
+        if (tile && !redrawing) clearDay(tile);
+      });
+      section.addEventListener("keydown", (event) => {
+        const svg = event.target.closest?.("svg[data-points]");
+        if (!svg) return;
+        const last = pointsOf(svg).length - 1;
+        const now = selectedIndex(svg);
+        const next = { ArrowLeft: now - 1, ArrowDown: now - 1, ArrowRight: now + 1, ArrowUp: now + 1,
+          PageDown: now - 5, PageUp: now + 5, Home: 0, End: last }[event.key];
+        if (next === undefined) return;
+        event.preventDefault();
+        showDay(svg, next);
+      });
+
+      // Redraw the cards, keeping the day being read and the keyboard focus.
+      function redraw(latest, past) {
+        const kept = selection;
+        const focused = document.activeElement?.closest?.(".tile")?.dataset.symbol;
+        redrawing = true;
+        renderRates(latest, past);
+        redrawing = false;
+        selection = null;
+        const svgFor = (symbol) => section.querySelector(`.tile[data-symbol="${symbol}"] svg`);
+        if (focused) svgFor(focused)?.focus();
+        const svg = kept && svgFor(kept.symbol);
+        const i = svg ? pointsOf(svg).findIndex((p) => p.day === kept.day) : -1;
+        if (i !== -1) showDay(svg, i);
+      }
+
+      let space = null;
+      try {
+        // Served by Spacefast on every Space; there is nothing to install.
+        ({ space } = await import("/__spacefast/client.js"));
+      } catch {
+        notice({
+          title: "Publish this page to see it work.",
+          body: "The connector client is served by Spacefast at /__spacefast/client.js, so it does not load from a local file or a plain static server.",
+        });
+      }
+
+      if (space) {
+        const rates = space.connectors.rates;
+        // `base` and `symbols` are pinned in sf.jsonc; the page sends only what is left.
+        const latest = rates["currentRates.getLatest"].watch({}, { every: "60s" });
+
+        // The 30-day window starts on a whole UTC day, so every viewer asks the
+        // same question that day and shares one cached read. It is worked out on
+        // every render, which the 60-second refresh drives; when the day turns,
+        // the page watches the new window, drops the old one, and keeps showing
+        // the old answer until the new window has its own.
+        const windowStart = () => new Date(Date.now() - DAYS * 86_400_000).toISOString().slice(0, 10);
+        let history = null;
+        function watchHistory() {
+          const since = windowStart();
+          if (history?.since === since) return;
+          const previous = history?.watch.getSnapshot() ?? null;
+          history?.unsubscribe();
+          const watch = rates["historicalRates.getStartDate"].watch({ start_date: since }, { every: "60s" });
+          history = { since, watch, previous, unsubscribe: null };
+          history.unsubscribe = watch.subscribe(() => render());
+        }
+
+        // When this page received the data on screen. A failed refresh keeps
+        // the old data, and so keeps this time too.
+        let shown = null;
+        let receivedAt = null;
+        // What the cards show. A refresh that brings the same rates and states
+        // (each refresh parses a new object, so compare the content) leaves them alone.
+        let drawn = "";
+
+        function render() {
+          watchHistory();
+          const now = latest.getSnapshot();
+          let past = history.watch.getSnapshot();
+          if (past.state === "loading" && history.previous?.data) past = history.previous;
+          if (now.data) {
+            if (now.data !== shown) [shown, receivedAt] = [now.data, new Date()];
+            const inputs = JSON.stringify([now.data, past.data, past.state, past.message, past.connectUrl, past.approvalUrl]);
+            if (inputs !== drawn) {
+              drawn = inputs;
+              redraw(now.data, past);
+            }
+            // `cachedAt` is the upstream fetch time of a shared read. A read
+            // fetched for this request has none, so the page says only when it arrived.
+            const when = now.cachedAt
+              ? `Fetched upstream at ${time.format(new Date(now.cachedAt))}; every viewer shares a read for 15 minutes.`
+              : `Received at ${time.format(receivedAt)}.`;
+            footer.innerHTML = `
+              ECB reference rates for ${escape(now.data.date)}. ${when}
+              ${now.state === "error" ? `<strong>Showing the last good answer: ${escape(now.message)}</strong>` : ""}
+              ${now.refreshing ? "Checking…" : ""}`;
+          } else if (now.state !== "loading") {
+            drawn = "";
+            notice(stateNotice(now, "rates"));
+            footer.textContent = "";
+          }
+        }
+        // Subscribing starts the first read and calls render; it comes last so
+        // everything render uses is in place.
+        latest.subscribe(() => render());
+      }
+    </script>
+  </body>
+</html>

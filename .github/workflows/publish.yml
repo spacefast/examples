@@ -36,6 +36,7 @@ jobs:
           - nextjs
           - astro-with-wordpress
           - functions-php
+          - live-dashboard
           - kitchen-sink
           - migrate-from-cloudflare-pages
           - migrate-from-vercel

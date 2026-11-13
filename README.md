@@ -29,6 +29,7 @@ everything else, use the framework's dev server.
 | [`nextjs/`](./nextjs/) | Server-rendered Next.js, route handlers, and automatic OpenNext packaging |
 | [`astro-with-wordpress/`](./astro-with-wordpress/) | Astro built from WordPress through `@spacefast/wordpress` |
 | [`functions-php/`](./functions-php/) | Native PHP Functions with JSON, form bodies, validation, and verified auth context |
+| [`live-dashboard/`](./live-dashboard/) | A no-build page reading team data through a Connectors role, with pinned arguments, a shared cache, and every connector state (Private Beta) |
 | [`recipes/`](./recipes/) | Canonical prompts, metadata, live outputs, and the public recipe feed |
 | [`kitchen-sink/`](./kitchen-sink/) | Zero, Pages, PHP, JavaScript, TypeScript, auth, mail, and routing in one project |
 | [`migrate-from-cloudflare-pages/`](./migrate-from-cloudflare-pages/) | Wrangler build settings and Pages convention files |
@@ -54,6 +55,8 @@ agent can customize and publish.
 
 The pull-request workflow builds every top-level project through `sf build`,
 runs the Zero app tests, validates every recipe output, and builds the recipe
-manifest, without creating a live version. `migrate-from-netlify` builds its
+manifest, without creating a live version. Only recipes are published;
+`live-dashboard` needs a team connection with site serving, so it is published
+by hand (see its README). `migrate-from-netlify` builds its
 prebuilt output, because `sf build` has no flag to accept the Netlify features
 that still need a port.

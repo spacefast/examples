@@ -29,10 +29,8 @@
         form.reportValidity();
         return;
       }
-      var name = (form.elements.name && form.elements.name.value || "").trim();
       success.hidden = false;
-      success.textContent = (name ? "Thanks, " + name + "! " : "Got it — thanks! ") +
-        "We'll email you within a day to lock in the back room. 🕹️";
+      success.textContent = 'Preview complete. Nothing was sent.';
       form.querySelectorAll("input, textarea, button").forEach(function (el) {
         if (el.type !== "submit") el.value = el.defaultValue || "";
       });

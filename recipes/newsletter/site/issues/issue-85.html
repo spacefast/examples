@@ -11,6 +11,12 @@
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="masthead">
@@ -139,18 +145,19 @@
         <div class="subscribe subscribe--lg">
           <h2>Get the next one in your inbox</h2>
           <p>One issue, every Thursday. Free, and easy to leave.</p>
+          <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
           <form class="subscribe__form" novalidate>
             <div class="subscribe__field">
               <label for="email-i85">Your email</label>
               <input id="email-i85" type="email" name="email" required
                      autocomplete="email" placeholder="you@studio.com" />
             </div>
-            <button class="btn" type="submit">Subscribe</button>
+            <button class="btn" type="submit">Preview</button>
           </form>
           <p class="subscribe__meta">Free, weekly, one-click out.</p>
           <p class="subscribe__ok">
             <span class="check" aria-hidden="true">✓</span>
-            <span>You’re in, <strong class="subscribe__ok-name">friend</strong>. See you Thursday.</span>
+            <span>Preview complete. Nothing was sent.</span>
           </p>
         </div>
       </div>

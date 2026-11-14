@@ -21,6 +21,12 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2315130f'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='20' font-weight='700' fill='%23c79233' text-anchor='middle'%3EI%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ===== Header ===== -->
@@ -312,6 +318,7 @@
           <div class="book-card">
             <h3>Book a chair</h3>
             <p class="book-sub">Tell us what you're after and we'll lock in a time. We'll text to confirm within the hour.</p>
+            <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
             <form id="book-form" novalidate>
               <div class="field">
                 <label for="name">Name</label>
@@ -351,14 +358,14 @@
                 <label for="when">Preferred day &amp; time</label>
                 <input id="when" name="when" type="text" placeholder="e.g. Saturday morning" />
               </div>
-              <button class="btn btn-accent btn-block" type="submit">Request my chair</button>
+              <button class="btn btn-accent btn-block" type="submit">Preview</button>
               <p class="form-fineprint">Prefer to call? Ring <a href="tel:+17185550142">(718) 555-0142</a> — we pick up.</p>
             </form>
 
             <div class="book-success" id="book-success" hidden role="status" aria-live="polite">
               <span class="check" aria-hidden="true">✓</span>
-              <h3>You're on the books</h3>
-              <p id="success-detail">Thanks — we'll text you to lock in the time.</p>
+              <h3>Booking preview complete</h3>
+              <p id="success-detail">Preview complete. Nothing was sent.</p>
               <button class="btn btn-ghost btn-sm" type="button" id="book-again">Book another</button>
             </div>
           </div>

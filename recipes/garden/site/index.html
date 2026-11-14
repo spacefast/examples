@@ -39,6 +39,12 @@
   </script>
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
 
   <a class="skip-link" href="#about">Skip to content</a>
 
@@ -229,6 +235,7 @@
         </div>
 
         <div class="join__form-wrap reveal">
+          <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
           <form class="waitlist-form" id="waitlistForm" novalidate>
             <h3>Join the waitlist</h3>
             <p class="form-sub">No account, no fee to get in line. We only use your details to contact you about a plot.</p>
@@ -265,13 +272,13 @@
               <textarea id="wl-note" name="note" rows="3" placeholder="What you'd love to grow, accessibility needs, scholarship request…"></textarea>
             </div>
 
-            <button type="submit" class="btn btn--lg btn--block">Add me to the list</button>
+            <button type="submit" class="btn btn--lg btn--block">Preview</button>
             <p class="form-policy">By joining you agree to our <a href="#rules">garden rules</a>. We respond within <strong>48 hours</strong>.</p>
 
             <div class="form-success" id="formSuccess" hidden role="status" aria-live="polite">
               <span class="form-success__icon" aria-hidden="true">🌱</span>
-              <h4>You're on the list!</h4>
-              <p id="successMsg">Thanks — we've saved your spot. Keep an eye on your inbox; a coordinator will be in touch within 48 hours.</p>
+              <h4>Waitlist preview complete</h4>
+              <p id="successMsg">Preview complete. Nothing was sent.</p>
               <button type="button" class="link-btn" id="resetForm">Add another person</button>
             </div>
           </form>

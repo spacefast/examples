@@ -4,7 +4,7 @@
   "slug": "band",
   "vertical": "Personal & creative",
   "tech": "Vanilla JS",
-  "summary": "A bold one-page band site with a working sticky audio player, tour dates, a merch shelf, and a mailing-list signup.",
+  "summary": "Share your music, tour dates, and merch on one band site.",
   "order": 3,
   "live_url": "https://band.view.fast/",
   "setup_questions": [

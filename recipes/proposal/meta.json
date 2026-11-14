@@ -4,7 +4,7 @@
   "slug": "proposal",
   "vertical": "Data, internal & startup",
   "tech": "Astro",
-  "summary": "A personalized \"prepared for Acme Co.\" sales proposal — scope, a gated timeline, three selectable pricing tiers, and a working accept/sign CTA that recomputes the agreement and remembers the acceptance.",
+  "summary": "Present a client proposal with scope, milestones, and selectable pricing options.",
   "order": 300,
   "live_url": "https://proposal.view.fast/",
   "setup_questions": [
@@ -23,8 +23,8 @@
     "Scope of work as workstream cards with fixed-scope deliverable checklists",
     "Five-phase, gated project timeline with week ranges and milestones",
     "Three selectable pricing tiers (Essential / Signature / Partner) with a recommended badge",
-    "Accept & sign CTA: tier-aware agreement summary + typed e-signature, success state, and localStorage persistence",
+    "Tier-aware acceptance preview, or a link to your actual signing service",
     "FAQ and studio contact footer"
   ],
-  "based_on": "A realistic, evergreen example modeled on a common real-world need: the personalized client sales proposal a freelancer or studio sends to win a project — scope, timeline, tiered pricing, and an accept/sign button — the kind normally trapped in PandaDoc/Qwilr behind a login."
+  "based_on": "A realistic, evergreen example modeled on a common real-world need: the personalized client sales proposal a freelancer or studio sends to win a project — scope, timeline, tiered pricing, and an acceptance preview or signing-service link — the kind normally trapped in PandaDoc/Qwilr behind a login."
 }

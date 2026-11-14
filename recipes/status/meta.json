@@ -4,7 +4,7 @@
   "slug": "status",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
-  "summary": "A public status page for an API product — overall-status banner, per-component 90-day uptime bars, an incident timeline, scheduled maintenance, and a subscribe box.",
+  "summary": "Build a sample status page with service history, incidents, and maintenance notices.",
   "order": 14,
   "live_url": "https://status.view.fast/",
   "setup_questions": [

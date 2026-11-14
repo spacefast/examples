@@ -102,13 +102,6 @@
     var resetBtn = document.getElementById("resetForm");
     var KEY = "mscg_waitlist";
 
-    var sizeLabels = {
-      starter: "a Starter (4×4) bed",
-      standard: "a Standard (4×8) bed",
-      family: "a Family (4×12) bed",
-      accessible: "an accessible waist-high bed"
-    };
-
     function clearError(field) {
       field.removeAttribute("aria-invalid");
       var err = field.parentNode.querySelector(".field-error");
@@ -125,12 +118,8 @@
       err.textContent = msg;
     }
 
-    function showSuccess(name, size) {
-      var bit = size && sizeLabels[size] ? " for " + sizeLabels[size] : "";
-      successMsg.textContent =
-        (name ? name.split(" ")[0] + ", you're" : "You're") +
-        " on the waitlist" + bit + ". A coordinator will be in touch within 48 hours — usually sooner. " +
-        "Welcome to the block!";
+    function showSuccess() {
+      successMsg.textContent = 'Preview complete. Nothing was sent.';
       form.querySelectorAll(".field, h3, .form-sub, button[type=submit], .form-policy").forEach(function (el) {
         el.style.display = "none";
       });
@@ -140,7 +129,7 @@
     // Returning visitor who already joined
     try {
       var saved = JSON.parse(localStorage.getItem(KEY) || "null");
-      if (saved && saved.name) showSuccess(saved.name, saved.size);
+      if (saved && saved.name) showSuccess();
     } catch (e) { /* ignore */ }
 
     form.addEventListener("submit", function (e) {
@@ -166,7 +155,7 @@
       var record = { name: name.value.trim(), size: size.value, when: Date.now() };
       try { localStorage.setItem(KEY, JSON.stringify(record)); } catch (e) { /* ignore */ }
 
-      showSuccess(record.name, record.size);
+      showSuccess();
       success.scrollIntoView({ behavior: "smooth", block: "center" });
     });
 

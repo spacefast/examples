@@ -5,7 +5,7 @@
   "vertical": "Tools, apps & games",
   "tech": "Spacefast Zero + Preact",
   "runtime": "zero",
-  "summary": "A minimal full-stack todo app with database-backed queries and mutations, guest and Gravatar auth, Cast realtime, routes, and an HTTP endpoint.",
+  "summary": "Build a shared task app with a database, sign-in, and realtime updates.",
   "order": 310,
   "live_url": "https://zero-perfect.view.fast/",
   "setup_questions": [

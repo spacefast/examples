@@ -4,7 +4,7 @@
   "slug": "hackathon",
   "vertical": "Local & small business",
   "tech": "Vanilla JS",
-  "summary": "An energetic landing site for a 36-hour student hackathon — a live countdown to kickoff, a Saturday/Sunday schedule toggle, prize tracks, tiered sponsors, and an FAQ.",
+  "summary": "Share your hackathon schedule, prize tracks, and sponsors before kickoff.",
   "order": 6,
   "live_url": "https://hackathon.view.fast/",
   "setup_questions": [

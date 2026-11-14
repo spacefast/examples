@@ -4,7 +4,7 @@
   "slug": "conference",
   "vertical": "Local & small business",
   "tech": "Astro",
-  "summary": "A one-day, single-track web-dev conference site — hero with live countdown, speaker lineup, hour-by-hour schedule, ticket tiers, venue, and sponsors.",
+  "summary": "Publish your conference schedule, speakers, ticket options, and venue details.",
   "order": 7,
   "live_url": "https://conference.view.fast/",
   "setup_questions": [

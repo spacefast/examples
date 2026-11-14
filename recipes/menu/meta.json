@@ -4,7 +4,7 @@
   "slug": "menu",
   "vertical": "Local & small business",
   "tech": "Plain HTML & CSS",
-  "summary": "A single-page site for a neighborhood ramen shop — a photographed menu, the broth story, hours, and a map that makes you hungry on first scroll.",
+  "summary": "Show your restaurant menu, hours, and location on one page.",
   "order": 5,
   "live_url": "https://menu.view.fast/",
   "setup_questions": [

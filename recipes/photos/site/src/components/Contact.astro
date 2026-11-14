@@ -15,6 +15,7 @@ import { studio } from '../data/portfolio';
 
     <div class="contact-grid">
       <div>
+        <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
         <form id="contact-form" novalidate>
           <div class="field">
             <label for="cf-name">Your name</label>
@@ -49,12 +50,12 @@ import { studio } from '../data/portfolio';
               placeholder="Tell me a little about the project, the timeline, and where in the world it is."
             ></textarea>
           </div>
-          <button class="btn" type="submit">Send message →</button>
+          <button class="btn" type="submit">Preview</button>
           <p id="cf-error" role="alert" style="display:none;color:var(--accent);margin:0.9rem 0 0;font-size:0.9rem;"></p>
         </form>
 
         <div class="form-success" id="cf-success" role="status" aria-live="polite">
-          <h3>Thanks — that's on its way.</h3>
+          <h3>Contact preview complete</h3>
           <p id="cf-success-body"></p>
         </div>
       </div>
@@ -97,12 +98,8 @@ import { studio } from '../data/portfolio';
       }
       return;
     }
-    const data = new FormData(form);
-    const name = String(data.get('name') || '').trim().split(' ')[0] || 'there';
     if (successBody) {
-      successBody.textContent =
-        `Got it, ${name} — I'll get back to you at ${data.get('email')} within a couple of days. ` +
-        `In the meantime, the prints are all open editions, so there's no rush on anything.`;
+      successBody.textContent = 'Preview complete. Nothing was sent.';
     }
     form.style.display = 'none';
     success?.classList.add('is-visible');

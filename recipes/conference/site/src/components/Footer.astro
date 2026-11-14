@@ -11,6 +11,8 @@ const year = new Date().getFullYear();
         <p>{conf.newsletterNote}</p>
       </div>
 
+      <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
+
       <form class="signup" data-signup novalidate>
         <div class="signup__row">
           <label class="visually-hidden" for="signup-email">Email address</label>
@@ -24,13 +26,13 @@ const year = new Date().getFullYear();
             placeholder="you@studio.dev"
             required
           />
-          <button class="btn signup__btn" type="submit">Notify me</button>
+          <button class="btn signup__btn" type="submit">Preview</button>
         </div>
         <p class="signup__error" data-error role="alert" hidden>
           That doesn't look like an email — mind checking it?
         </p>
         <p class="signup__ok" data-ok role="status" hidden>
-          You're on the list. We'll email you the moment {Number(conf.year) + 1} dates are set. 🎟️
+          Preview complete. Nothing was sent.
         </p>
       </form>
     </div>

@@ -4,7 +4,7 @@
   "slug": "invitation",
   "vertical": "Personal & creative",
   "tech": "Astro",
-  "summary": "An elegant multi-section wedding site — live countdown, our story, details, travel, gallery, registry, a validating RSVP form, and an FAQ.",
+  "summary": "Share your wedding date, venue, travel details, and registry in one invitation site.",
   "order": 2,
   "live_url": "https://invitation.view.fast/",
   "setup_questions": [

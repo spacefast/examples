@@ -18,6 +18,12 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230a0014'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23ff2db8' font-family='monospace'%3E%E2%96%B6%3C/text%3E%3C/svg%3E" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header">
@@ -415,6 +421,8 @@
           </ul>
         </div>
 
+        <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
+
         <form class="book-form" id="bookForm" novalidate>
           <div class="field">
             <label for="bf-name">Your name</label>
@@ -438,9 +446,9 @@
             <label for="bf-notes">What's the occasion?</label>
             <textarea id="bf-notes" name="notes" rows="3" placeholder="Mike's 30th — wants a Galaga tournament"></textarea>
           </div>
-          <button class="btn btn--primary btn--block" type="submit">Request a date</button>
+          <button class="btn btn--primary btn--block" type="submit">Preview</button>
           <p class="book-form__success" id="bookSuccess" role="status" hidden>
-            Got it — thanks! We'll email you within a day to lock in the room. 🕹️
+            Preview complete. Nothing was sent.
           </p>
         </form>
       </div>

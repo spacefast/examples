@@ -5,7 +5,7 @@
   "vertical": "Developers & integrations",
   "tech": "Astro + Spacefast Zero",
   "runtime": "zero",
-  "summary": "A prerendered Astro blog whose every post carries realtime comments and emoji reactions from a Spacefast Zero capsule, published as one space.",
+  "summary": "Publish an Astro blog with live comments and reactions powered by Spacefast Zero.",
   "order": 320,
   "live_url": "https://astro-zero.view.fast/",
   "setup_questions": [

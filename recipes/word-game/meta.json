@@ -4,7 +4,7 @@
   "slug": "word-game",
   "vertical": "Tools, apps & games",
   "tech": "Vanilla JS",
-  "summary": "A daily five-letter word game — six guesses, green/yellow/gray tiles, streak stats, and a shareable emoji grid.",
+  "summary": "Play a daily five-letter word puzzle and share your result.",
   "order": 6,
   "live_url": "https://word-game.view.fast/",
   "setup_questions": [

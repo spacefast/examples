@@ -127,11 +127,10 @@
       }
 
       // Personalize success copy
-      var firstName = data.name.split(" ")[0];
       var heading = document.getElementById("success-heading");
       var body = document.getElementById("success-body");
-      if (heading) heading.textContent = "Thanks, " + firstName + " — it's in our inbox.";
-      if (body) body.textContent = "We've noted you're after “" + data["project-type"] + "”. A real person will reply within two business days.";
+      if (heading) heading.textContent = 'Contact preview complete';
+      if (body) body.textContent = 'Preview complete. Nothing was sent.';
 
       form.hidden = true;
       if (success) {

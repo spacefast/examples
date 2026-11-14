@@ -426,6 +426,12 @@
 </style>
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews. Nothing is sent, booked, signed, or paid.
+    </aside>
 
 <header class="bar">
   <div class="wrap">
@@ -550,8 +556,10 @@
       </div>
 
       <div class="form-success" id="formSuccess" role="status">
-        Thank you. Your memory has been added to the wall.
+        Your memory is saved in this browser only. It has not been shared with the family or other visitors.
       </div>
+
+      <p data-demo-note="true">Memories saved here stay in this browser. They are not shared with the family or other visitors.</p>
 
       <form class="memory-form reveal" id="memoryForm" novalidate>
         <div class="field">
@@ -564,7 +572,7 @@
           <textarea id="mwMessage" name="message" placeholder="A story, a kindness, a moment you carry…"></textarea>
           <p class="err" id="errMessage">Please share a few words.</p>
         </div>
-        <button type="submit" class="btn">Add to the wall</button>
+        <button type="submit" class="btn">Preview</button>
       </form>
 
       <div class="memory-grid reveal" id="memoryGrid"></div>

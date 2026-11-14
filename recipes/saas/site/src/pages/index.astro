@@ -62,6 +62,8 @@ import {
       <h1>{site.tagline}</h1>
       <p class="lede">{site.sub}</p>
 
+      <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
+
       <form class="signup" id="hero-form" novalidate>
         <label class="sr" for="hero-email">Work email</label>
         <input
@@ -73,9 +75,9 @@ import {
           placeholder="you@company.com"
           required
         />
-        <button class="btn btn-grad" type="submit">Start free</button>
+        <button class="btn btn-grad" type="submit">Preview</button>
         <p class="signup-ok" id="hero-ok" role="status" aria-live="polite" hidden>
-          You're in — check <b id="hero-ok-email">your inbox</b> for the magic link.
+          Preview for <b id="hero-ok-email">your email</b>. Nothing was sent.
         </p>
       </form>
       <p class="micro">Free for up to 10 members · No credit card · SOC 2 Type II</p>
@@ -260,6 +262,7 @@ import {
       <div class="cta-card">
         <h2>Plan your next cycle in Tideline</h2>
         <p>Set up your workspace in under two minutes. Free for up to 10 members.</p>
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
         <form class="signup signup-cta" id="cta-form" novalidate>
           <label class="sr" for="cta-email">Work email</label>
           <input
@@ -271,9 +274,9 @@ import {
             placeholder="you@company.com"
             required
           />
-          <button class="btn btn-primary" type="submit">Start free</button>
+          <button class="btn btn-primary" type="submit">Preview</button>
           <p class="signup-ok" id="cta-ok" role="status" aria-live="polite" hidden>
-            You're in — check <b id="cta-ok-email">your inbox</b> to finish setup.
+            Preview for <b id="cta-ok-email">your email</b>. Nothing was sent.
           </p>
         </form>
         <p class="micro">No credit card required · Cancel anytime</p>
@@ -337,7 +340,7 @@ import {
         ok.hidden = false;
         input.disabled = true;
         var btn = form.querySelector("button");
-        if (btn) { btn.disabled = true; btn.textContent = "Sent ✓"; }
+        if (btn) { btn.disabled = true; btn.textContent = "Preview complete"; }
       });
     }
     wire("hero-form", "hero-ok", "hero-ok-email");

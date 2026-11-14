@@ -105,16 +105,9 @@
       if (!ok) return;
 
       var name = form.elements.name.value.trim().split(" ")[0];
-      var service = form.elements.service.value.split("—")[0].trim();
-      var barber = form.elements.barber.value;
-      var when = form.elements.when.value.trim();
 
       if (detail) {
-        var who = barber && barber !== "No preference" ? " with " + barber : "";
-        var time = when ? " for " + when : "";
-        detail.textContent =
-          "Thanks, " + name + " — we've got your " + service + who + time +
-          " down. We'll text you within the hour to lock in the time.";
+        detail.textContent = 'Preview complete. Nothing was sent.';
       }
 
       // Remember the visitor's name for a warmer return visit.

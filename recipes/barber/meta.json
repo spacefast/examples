@@ -4,7 +4,7 @@
   "slug": "barber",
   "vertical": "Local & small business",
   "tech": "Plain HTML & CSS",
-  "summary": "A sharp, masculine single-page barbershop site — services and prices, barber profiles, a cuts gallery, and hours with a prominent book-now button.",
+  "summary": "Show your services, prices, and barbers. Link visitors to your booking service.",
   "order": 3,
   "live_url": "https://barber.view.fast/",
   "setup_questions": [

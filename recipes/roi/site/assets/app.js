@@ -280,10 +280,7 @@
     }
 
     const r = compute(readInputs());
-    const name = $("lead-name").value.trim().split(/\s+/)[0];
-    $("success-line").textContent =
-      "Thanks " + name + " — your ROI report (" + usd0.format(Math.max(0, r.annual)) +
-      " / year) is on its way to " + emailInput.value.trim() + ".";
+    $("success-line").textContent = 'Preview complete. Nothing was sent.';
 
     // hide the fields, show success
     Array.from(leadForm.querySelectorAll(".field, .btn-block, .form-fine")).forEach((n) => (n.hidden = true));

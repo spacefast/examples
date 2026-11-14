@@ -44,22 +44,16 @@ export default function TourForm() {
   };
 
   if (sent) {
-    const chosen = dates.find((d) => d.value === form.date);
     return (
       <section id="tour" className="section" aria-labelledby="tour-h">
         <div className="tour-success" role="status">
           <div className="tour-success__check" aria-hidden="true">
             &#10003;
           </div>
-          <h2 id="tour-h">You're on the calendar, {form.name.split(" ")[0]}.</h2>
-          <p>
-            {agent.name} will confirm your private showing of {property.address}{" "}
-            for <strong>{chosen ? chosen.label : form.date}</strong>,{" "}
-            <strong>{form.time.toLowerCase()}</strong>. Expect a text at{" "}
-            {form.phone || "your number"} within the hour.
-          </p>
+          <h2 id="tour-h">Tour preview complete</h2>
+          <p>Nothing was sent or booked. The selected time is a preview only.</p>
           <button className="btn btn--ghost" onClick={() => setSent(false)}>
-            Request another time
+            Preview another time
           </button>
         </div>
       </section>
@@ -99,6 +93,8 @@ export default function TourForm() {
         </div>
 
         <form className="tour-form" onSubmit={submit} noValidate>
+
+          <p style={{ gridColumn: "1 / -1", flexBasis: "100%" }} data-demo-note="true">Demo form. Nothing is sent or booked.</p>
           <div className="grid-2">
             <label className="field">
               <span className="field__label">Full name</span>
@@ -169,12 +165,9 @@ export default function TourForm() {
             />
           </label>
 
-          <button type="submit" className="btn btn--primary btn--block">
-            Request this showing
-          </button>
+          <button type="submit" className="btn btn--primary btn--block">Preview</button>
           <p className="form-fine">
-            By requesting a tour you agree to be contacted about this property.
-            No spam, ever.
+            Demo only. No showing is requested and no message is sent.
           </p>
         </form>
       </div>

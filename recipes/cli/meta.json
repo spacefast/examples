@@ -4,7 +4,7 @@
   "slug": "cli",
   "vertical": "Data, internal & startup",
   "tech": "Astro",
-  "summary": "A homepage for an open-source database-migration CLI, built for developers: a hero with a one-line install command and copy button, GitHub star count, a syntax-highlighted code example, feature grid, and links to docs and Discord.",
+  "summary": "Introduce your developer tool with an install command, code examples, and documentation links.",
   "order": 8,
   "live_url": "https://cli.view.fast/",
   "setup_questions": [

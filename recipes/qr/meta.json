@@ -4,7 +4,7 @@
   "slug": "qr",
   "vertical": "Data, internal & startup",
   "tech": "Plain HTML & CSS",
-  "summary": "A mobile-first landing a printed QR code points to — a brand header, one featured product with a tap-to-copy promo code, a single primary call-to-action, secondary links, and a QR code the page renders itself.",
+  "summary": "Give a printed QR code a landing page with one clear next step.",
   "order": 300,
   "live_url": "https://qr.view.fast/",
   "setup_questions": [

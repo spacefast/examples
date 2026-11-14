@@ -4,7 +4,7 @@
   "slug": "fundraiser",
   "vertical": "Personal & creative",
   "tech": "Vanilla JS",
-  "summary": "A one-page community-fundraiser site with an animated goal thermometer, a working donate button and modal, and a live donor wall that grows as people give.",
+  "summary": "Explain your cause, show a funding goal, and link to your donation page.",
   "order": 300,
   "live_url": "https://fundraiser.view.fast/",
   "setup_questions": [
@@ -20,12 +20,12 @@
     "neighbors gathered together at a community center"
   ],
   "sections": [
-    "Hero with a community photo, the cause, an emotional lede, and the live fundraising widget",
+    "Hero with the cause, community photo, and confirmed campaign totals",
     "Animated progress bar with dollars raised, goal, percentage, donor count, and days left",
     "Cause story with an organizer pull-quote, a 'where the money goes' budget, and a photo gallery",
     "Ways-to-give tiers that open the donate form pre-filled",
-    "Donate button + modal (preset/custom amount, name, note, anonymous) with a thank-you state",
-    "Donor wall of cards that updates instantly and persists across refreshes",
+    "Donation link to your payment service, or a labelled demo with no payment made",
+    "Donor wall using confirmed donations, or clearly labelled local sample data",
     "Share section with a working copy-link button and X / Facebook / email links",
     "Footer with org name, contact, and nonprofit fine print"
   ],

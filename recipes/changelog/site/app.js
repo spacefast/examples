@@ -160,11 +160,8 @@
         }
         return;
       }
-      var name = email.split("@")[0].replace(/[._-]+/g, " ").trim();
       if (successText) {
-        successText.textContent = "You're on the list" +
-          (name ? ", " + name.charAt(0).toUpperCase() + name.slice(1) : "") +
-          ". We'll email you the next time Plank ships.";
+        successText.textContent = 'Preview complete. Nothing was sent.';
       }
       form.style.display = "none";
       if (success) success.classList.add("show");

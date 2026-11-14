@@ -4,7 +4,7 @@
   "slug": "docs",
   "vertical": "Developers & integrations",
   "tech": "Astro",
-  "summary": "A multi-page documentation site for an open-source library — grouped sidebar nav, getting-started and guides, an API reference, build-time syntax-highlighted code, a working ⌘K search, and a version dropdown.",
+  "summary": "Build searchable documentation with guides, code examples, and an API reference.",
   "order": 300,
   "live_url": "https://docs.view.fast/",
   "setup_questions": [

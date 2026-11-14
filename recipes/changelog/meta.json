@@ -4,7 +4,7 @@
   "slug": "changelog",
   "vertical": "Data, internal & startup",
   "tech": "Vanilla JS",
-  "summary": "A calm product changelog in the Linear / Stripe style — dated New/Improved/Fixed entries, live tag filtering, inline screenshots, and an RSS feed.",
+  "summary": "Publish release notes with category filters, screenshots, and an RSS feed.",
   "order": 1,
   "live_url": "https://changelog.view.fast/",
   "setup_questions": [

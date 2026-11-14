@@ -5,7 +5,7 @@
   "vertical": "Developers & integrations",
   "tech": "Next.js SSR (Functions)",
   "runtime": "functions",
-  "summary": "Paste any URL and the server fetches it, parses its OpenGraph and Twitter-card metadata, and renders the social preview card — a Next.js Route Handler plus an SSR page running on the Spacefast Functions runtime.",
+  "summary": "Inspect a public page's social preview. The server fetches its title, description, and image.",
   "order": 210,
   "live_url": "https://unfurl.view.fast/",
   "setup_questions": [

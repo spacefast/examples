@@ -4,14 +4,14 @@
   "slug": "wp-astro",
   "vertical": "Developers & integrations",
   "tech": "Astro + WP REST API",
-  "summary": "A static editorial blog whose posts are pulled from a public WordPress REST API at build time and rendered to flat HTML with Astro — headless WordPress, no server at request time.",
+  "summary": "Build a static Astro blog from posts in a public WordPress site.",
   "order": 200,
   "live_url": "https://wp-astro.view.fast/",
   "setup_questions": [
     "What's the WordPress site to pull from (the REST API base, e.g. https://wordpress.org/news/wp-json/wp/v2)?",
     "What should the blog be called?",
     "Which categories, authors, or content types should be featured or excluded?",
-    "What's the accent color (a hex like"
+    "What accent color should the site use? For example, #0b6e4f."
   ],
   "photo_terms": [
     "wordpress dashboard on laptop screen",

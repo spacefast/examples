@@ -298,6 +298,12 @@
   </style>
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <main class="wrap">
 
     <!-- Profile -->
@@ -467,6 +473,7 @@
 
     <!-- Newsletter signup -->
     <div class="section-label" id="newsletter">Join the Tuesday Plate</div>
+    <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
     <form id="signup" novalidate
       style="background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px 20px;box-shadow:var(--shadow);">
       <p style="margin:0 0 12px;font-size:.92rem;color:var(--ink-soft);">
@@ -478,9 +485,7 @@
           placeholder="you@email.com" required
           style="flex:1;min-width:0;font:inherit;font-size:1rem;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--cream);color:var(--ink);" />
         <button type="submit"
-          style="font:inherit;font-weight:700;font-size:1rem;color:#fff;background:var(--terracotta);border:none;border-radius:12px;padding:13px 20px;cursor:pointer;box-shadow:0 6px 16px rgba(217,98,43,.3);transition:transform .15s ease,background .15s ease;">
-          Subscribe
-        </button>
+          style="font:inherit;font-weight:700;font-size:1rem;color:#fff;background:var(--terracotta);border:none;border-radius:12px;padding:13px 20px;cursor:pointer;box-shadow:0 6px 16px rgba(217,98,43,.3);transition:transform .15s ease,background .15s ease;">Preview</button>
       </div>
       <p id="form-error" role="alert" style="display:none;margin:9px 2px 0;color:var(--terracotta-dark);font-size:.85rem;font-weight:600;"></p>
       <div id="form-success" role="status" hidden
@@ -489,8 +494,8 @@
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
         </span>
         <span>
-          <strong style="font-family:'Fraunces',serif;font-size:1.1rem;">You're on the list! 🎉</strong><br/>
-          <span style="font-size:.88rem;color:var(--ink-soft);">Check your inbox — your meal-prep guide is on the way.</span>
+          <strong style="font-family:'Fraunces',serif;font-size:1.1rem;">Signup preview complete</strong><br/>
+          <span style="font-size:.88rem;color:var(--ink-soft);">Preview complete. Nothing was sent.</span>
         </span>
       </div>
     </form>

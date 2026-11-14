@@ -21,8 +21,7 @@ Build me an **energetic landing page for a student hackathon** as a vanilla-JS a
   (Best Beginner Hack, Best Use of AI, Best Hardware Hack, Best Design, etc.).
 - A **Sponsors** section with tiered logos (Title / Gold / Startup) and a "Sponsor us" CTA.
 - An **FAQ accordion** (do I need experience, what to bring, is travel reimbursed, can I come alone).
-- A **Register** banner with a short form (name + email) that validates and shows a
-  friendly "You're in!" success state.
+- A registration form with labelled name and email fields. For any form that sends information, ask for my form endpoint or hosted signup URL. Use the supplied destination and show success only after it confirms receipt. A link to another service does not confirm completion. Without a destination, label the form "Demo only" beside its fields, label its button "Preview", and say "Preview complete. Nothing was sent." Never treat `localStorage` as delivery or store personal form data there.
 - A footer with the **MLH Code of Conduct** link and Discord / Instagram / X links.
 
 **Design & content notes:**
@@ -31,8 +30,7 @@ Build me an **energetic landing page for a student hackathon** as a vanilla-JS a
   accent with a violet secondary and a coral pop, a faint dot-grid behind the hero,
   geometric display type (e.g. Space Grotesk) with a mono face (JetBrains Mono) for
   the countdown digits and timestamps.
-- Use realistic content based on my answers — never "lorem ipsum". Invent believable
-  schedule items, prize tracks, sponsor names, and FAQ answers.
+- Use confirmed dates, prize tracks, sponsors, and registration requirements. Label fictional event content as a demo.
 - Use real images. Pull free photos that fit, e.g.
   `https://picsum.photos/seed/ramhacks-2026-1/1200/800` (vary the seed per image),
   with descriptive `alt` text.
@@ -47,28 +45,12 @@ Build me an **energetic landing page for a student hackathon** as a vanilla-JS a
 <script src="https://spacefast.com/badge.js" data-example="hackathon"></script>
 ```
 
-**When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
+**When the site is ready, publish it to Spacefast:**
 
 1. Use `./site` as the publish folder. For no-build projects, put only the finished public files in that dedicated folder. Confirm it has `index.html` at its root and no secrets, source files, `.git`, or `.spacefast` state.
-2. First publish: send every file as multipart form data. This Bash/Zsh block preserves relative paths and works for one file or a whole folder:
-   ```bash
-   PUBLISH_ROOT=./site
-   publish_files=()
-   while IFS= read -r -d "" file; do
-     relative=${file#"$PUBLISH_ROOT"/}
-     publish_files+=(-F "files=@$file;filename=$relative")
-   done < <(find "$PUBLISH_ROOT" -type f -print0)
-   curl -sS "${publish_files[@]}" "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-3. From the `{ "data": ... }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret.
-4. Save `data.space.id` and `data.claim.token` locally (for example in an ignored, mode-600 `.spacefast/state.json`). For a quick update, rebuild the `publish_files` array above and publish to the same space:
-   ```bash
-   SPACEFAST_SPACE_ID=<saved-space-id>
-   SPACEFAST_TOKEN=<saved-claim-token-or-access-token>
-   curl -sS -H "Authorization: Bearer $SPACEFAST_TOKEN" \
-     -F "spaceId=$SPACEFAST_SPACE_ID" "${publish_files[@]}" \
-     "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-   If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
+2. Fetch https://spacefast.com/setup.md and follow its current direct API publishing instructions. Check for an existing Space before creating one, and follow the returned upload and polling steps.
+3. Report success only when `data.next.action` is `done` and the intended version is serving. If more work is needed, report the returned next step.
+4. For an anonymous publish, give me `data.claim.message` unchanged. It contains the private preview (`data.claim.url`), the owner's claim link (`data.claim.claimUrl`), and the deadline (`data.claim.expiresAt`). Keep both links private. Never print the separate `data.claim.key`.
+5. Keep `data.space.id` and the returned credential securely for updates to the same Space. Follow the guide for credential recovery after claiming. Keep credentials and `.spacefast` state out of the published files, commits, and logs.
 
-**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./site --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/setup) · [files and folders](https://spacefast.com/help/publishing) · [claiming](https://spacefast.com/help/anonymous-publish) · [updates and rollback](https://spacefast.com/help/versions)
+If the `sf` CLI is already installed, `sf publish ./site --wait` follows the same publishing flow. See [publishing](https://spacefast.com/docs/publish/) and [claiming a Space](https://spacefast.com/docs/anonymous-and-claim/).

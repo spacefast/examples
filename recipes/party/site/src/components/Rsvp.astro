@@ -13,6 +13,7 @@ import { party, meals } from '../data/party';
   </div>
 
   <div class="wrap rsvp">
+    <p data-demo-note="true">Demo RSVP. Nothing is sent to the hosts.</p>
     <form class="rsvp__form" data-rsvp novalidate>
       <div class="field">
         <label for="rsvp-name">Your name <span aria-hidden="true">*</span></label>
@@ -86,12 +87,12 @@ import { party, meals } from '../data/party';
         </div>
       </div>
 
-      <button class="btn rsvp__submit" type="submit">Send my reply</button>
+      <button class="btn rsvp__submit" type="submit">Preview</button>
     </form>
 
     <div class="rsvp__success" data-success hidden role="status" aria-live="polite">
       <div class="rsvp__success-mark" aria-hidden="true">✓</div>
-      <h3 data-success-title>You're on the list!</h3>
+      <h3 data-success-title>RSVP preview complete</h3>
       <p data-success-body></p>
       <button class="btn btn--ghost" type="button" data-reset>Change my reply</button>
     </div>
@@ -305,27 +306,12 @@ import { party, meals } from '../data/party';
 
   const isEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 
-  const renderSuccess = (d: Record<string, string>) => {
-    const first = (d.name || '').split(' ')[0] || 'friend';
-    const accepting = d.attendance === 'accept';
+  const renderSuccess = () => {
     if (successTitle) {
-      successTitle.textContent = accepting
-        ? `See you there, ${first}! 🎉`
-        : `We'll miss you, ${first} 💔`;
+      successTitle.textContent = 'RSVP preview complete';
     }
     if (successBody) {
-      if (accepting) {
-        const count =
-          d.guests === '1' ? 'just you' : `${d.guests} of you${d.plusone ? ` (hi, ${d.plusone}!)` : ''}`;
-        successBody.textContent =
-          `You're down for ${count}. ` +
-          (d.song ? `"${d.song}" is going on the playlist. ` : '') +
-          `We've emailed the address and door details to ${d.email}.`;
-      } else {
-        successBody.textContent =
-          (d.message ? `Thank you for the note — it means a lot. ` : `Totally understood. `) +
-          `We'll raise a glass to you and send photos to ${d.email}.`;
-      }
+      successBody.textContent = 'Preview complete. Nothing was sent.';
     }
     form?.setAttribute('hidden', '');
     success?.removeAttribute('hidden');
@@ -368,7 +354,7 @@ import { party, meals } from '../data/party';
     } catch {
       /* private mode — no problem, the reply still shows */
     }
-    renderSuccess(reply);
+    renderSuccess();
     success?.scrollIntoView({ behavior: 'smooth', block: 'center' });
   });
 
@@ -381,7 +367,7 @@ import { party, meals } from '../data/party';
   // If they already replied on this device, greet them with their saved answer.
   try {
     const saved = localStorage.getItem(STORE_KEY);
-    if (saved) renderSuccess(JSON.parse(saved));
+    if (saved) renderSuccess();
   } catch {
     /* ignore */
   }

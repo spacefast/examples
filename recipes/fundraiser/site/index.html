@@ -18,6 +18,12 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23E2563E'/%3E%3Cpath d='M28 70 L46 30 L54 30 L72 70 L62 70 L50 44 L38 70 Z' fill='%23FCEFD8'/%3E%3C/svg%3E" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#story">Skip to content</a>
 
   <header class="topbar">
@@ -227,6 +233,8 @@
         <h2 id="modal-title" class="modal-title">Help finish the mural</h2>
         <p class="modal-sub">Your name joins the wall the moment you give. (This is a demo — no real payment is taken.)</p>
 
+        <p data-demo-note="true">Demo donation. No payment is made. Totals and donor entries are sample data saved in this browser only.</p>
+
         <form data-form novalidate>
           <fieldset class="amounts">
             <legend>Choose an amount</legend>
@@ -259,16 +267,16 @@
           </label>
 
           <button class="btn btn-lg btn-full" type="submit" data-submit>
-            Give <span data-submit-amount>$50</span>
+            Preview <span data-submit-amount>$50</span> donation
           </button>
-          <p class="modal-fine">🔒 Demo only — no card is charged. Swap in your Stripe/PayPal link to go live.</p>
+          <p class="modal-fine">Demo only. No payment is made.</p>
         </form>
       </div>
 
       <div data-modal-success hidden>
         <div class="success-mark" aria-hidden="true">✓</div>
-        <h2 class="modal-title">Thank you, <span data-success-name>friend</span>!</h2>
-        <p class="modal-sub">Your <strong data-success-amount>$50</strong> just moved the bar. You're on the wall — scroll down to find your name.</p>
+        <h2 class="modal-title">Demo donation preview for <span data-success-name>friend</span></h2>
+        <p class="modal-sub">Your <strong data-success-amount>$50</strong> demo amount updated this browser's sample total. No payment was made. This is not a real donation.</p>
         <div class="success-stats">
           <div><span class="ss-num" data-raised-display>$0</span><span class="ss-lbl">raised so far</span></div>
           <div><span class="ss-num" data-pct-display>0</span><span class="ss-lbl">% of goal</span></div>

@@ -4,7 +4,7 @@
   "slug": "arcade",
   "vertical": "Local & small business",
   "tech": "HTML5 canvas game",
-  "summary": "A neon barcade site whose hero is a playable retro brick-breaker game, wrapped around a real cabinets list, draft beer menu, events, and hours.",
+  "summary": "Build a barcade site with a playable brick-breaker, a games list, and opening hours.",
   "order": 4,
   "live_url": "https://arcade.view.fast/",
   "setup_questions": [

@@ -4,7 +4,7 @@
   "slug": "blog",
   "vertical": "Personal & creative",
   "tech": "Astro",
-  "summary": "A writing and dev blog — a tagged post index, reading-first article pages with code highlighting, per-tag archives, an about page, light/dark themes, and an RSS feed, all static Astro.",
+  "summary": "Publish a blog with tagged posts, code highlighting, and an RSS feed.",
   "order": 300,
   "live_url": "https://blog.view.fast/",
   "setup_questions": [

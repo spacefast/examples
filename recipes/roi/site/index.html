@@ -12,6 +12,12 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Cpath d='M16 6l3 7 7 .6-5.3 4.6 1.7 7L16 27.5 9.6 31.2l1.7-7L6 19.6 13 19z' fill='%23ffffff' opacity='.0'/%3E%3Ccircle cx='16' cy='16' r='4.5' fill='%23fff'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23fff' stroke-width='1.6' opacity='.55'/%3E%3C/svg%3E" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <header class="site-nav" aria-label="Primary">
     <div class="wrap nav-inner">
       <a class="brand" href="#top" aria-label="Beacon home">
@@ -212,6 +218,8 @@
           </ul>
         </div>
 
+        <p data-demo-note="true">Demo estimate. No email is sent.</p>
+
         <form class="card report-form" id="lead-form" novalidate>
           <div class="field">
             <label for="lead-name">Your name</label>
@@ -226,13 +234,13 @@
             <label for="lead-company">Company</label>
             <input type="text" id="lead-company" name="company" autocomplete="organization" placeholder="Acme Inc." />
           </div>
-          <button type="submit" class="btn btn-primary btn-block">Email me the report</button>
-          <p class="form-fine">Your snapshot: <strong id="lead-summary">$156,576 / year</strong>. No spam — one report, then we'll get out of your inbox.</p>
+          <button type="submit" class="btn btn-primary btn-block">Preview</button>
+          <p class="form-fine">Your snapshot: <strong id="lead-summary">$156,576 / year</strong>. Demo only. No report is emailed.</p>
 
           <div class="success" id="lead-success" hidden>
             <div class="success-check" aria-hidden="true">✓</div>
-            <h3>Report's on its way</h3>
-            <p id="success-line">We just emailed your ROI report. Check your inbox in a minute.</p>
+            <h3>Estimate preview complete</h3>
+            <p id="success-line">Preview complete. Nothing was sent.</p>
             <button type="button" class="link-btn" id="lead-reset">Run another scenario</button>
           </div>
         </form>

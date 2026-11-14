@@ -4,7 +4,7 @@
   "slug": "calories",
   "vertical": "Tools, apps & games",
   "tech": "Vanilla JS",
-  "summary": "A browser-only daily macro tracker — log meals, watch calorie and protein/carb/fat rings fill toward your goals, and keep quick-add favorites, all saved locally.",
+  "summary": "Log meals and track daily calories and macros. Your diary stays in this browser.",
   "order": 2,
   "live_url": "https://calories.view.fast/",
   "setup_questions": [

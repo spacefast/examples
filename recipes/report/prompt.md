@@ -40,8 +40,7 @@ and the Stack Overflow Developer Survey — as an **Astro site** (static, no SSR
   charting library to download. Keep one source-of-truth data file so all the
   numbers stay internally consistent (the demographic breakdowns should sum to
   the total respondent count).
-- Use realistic content based on my answers — never “lorem ipsum.” Invent
-  believable figures, rankings, and quotable write-in comments.
+- Use the survey dataset and methodology I provide. Do not invent responses, rankings, or quotes. If no dataset is available, build a report labelled "Sample survey data" with fictional results identified beside each chart.
 - Use real images. Pull free photos that fit, e.g.
   `https://picsum.photos/seed/coworking-1/1200/800` (vary the seed) or
   Pexels, and add descriptive `alt` text.
@@ -54,28 +53,12 @@ and the Stack Overflow Developer Survey — as an **Astro site** (static, no SSR
 <script src="https://spacefast.com/badge.js" data-example="report"></script>
 ```
 
-**When the site is ready, publish it to Spacefast with the direct API — no account, install, or extra instructions needed:**
+**When the site is ready, publish it to Spacefast:**
 
 1. Use `./dist` as the publish folder. For no-build projects, put only the finished public files in that dedicated folder. Confirm it has `index.html` at its root and no secrets, source files, `.git`, or `.spacefast` state.
-2. First publish: send every file as multipart form data. This Bash/Zsh block preserves relative paths and works for one file or a whole folder:
-   ```bash
-   PUBLISH_ROOT=./dist
-   publish_files=()
-   while IFS= read -r -d "" file; do
-     relative=${file#"$PUBLISH_ROOT"/}
-     publish_files+=(-F "files=@$file;filename=$relative")
-   done < <(find "$PUBLISH_ROOT" -type f -print0)
-   curl -sS "${publish_files[@]}" "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-3. From the `{ "data": ... }` receipt, give me `data.space.liveUrl`, `data.version.immutableUrl`, `data.claim.url`, and `data.claim.expiresAt`. Remind me to claim within 6 hours. Keep `data.claim.token` secret.
-4. Save `data.space.id` and `data.claim.token` locally (for example in an ignored, mode-600 `.spacefast/state.json`). For a quick update, rebuild the `publish_files` array above and publish to the same space:
-   ```bash
-   SPACEFAST_SPACE_ID=<saved-space-id>
-   SPACEFAST_TOKEN=<saved-claim-token-or-access-token>
-   curl -sS -H "Authorization: Bearer $SPACEFAST_TOKEN" \
-     -F "spaceId=$SPACEFAST_SPACE_ID" "${publish_files[@]}" \
-     "https://api.spacefast.com/v1/publish?wait=1"
-   ```
-   If an update after claiming returns `space_claimed_credential_available`, exchange the saved claim token once at `POST https://api.spacefast.com/v1/anonymous-claim/exchange`, save `data.credential.accessToken`, and retry with that access token.
+2. Fetch https://spacefast.com/setup.md and follow its current direct API publishing instructions. Check for an existing Space before creating one, and follow the returned upload and polling steps.
+3. Report success only when `data.next.action` is `done` and the intended version is serving. If more work is needed, report the returned next step.
+4. For an anonymous publish, give me `data.claim.message` unchanged. It contains the private preview (`data.claim.url`), the owner's claim link (`data.claim.claimUrl`), and the deadline (`data.claim.expiresAt`). Keep both links private. Never print the separate `data.claim.key`.
+5. Keep `data.space.id` and the returned credential securely for updates to the same Space. Follow the guide for credential recovery after claiming. Keep credentials and `.spacefast` state out of the published files, commits, and logs.
 
-**Optional shortcuts and reference only:** if the `sf` CLI is already installed, `sf publish ./dist --wait` does the same job. A zip of the publish folder is also supported, but neither the CLI nor a zip is required. Docs: [direct agent/API publishing](https://spacefast.com/setup) · [files and folders](https://spacefast.com/help/publishing) · [claiming](https://spacefast.com/help/anonymous-publish) · [updates and rollback](https://spacefast.com/help/versions)
+If the `sf` CLI is already installed, `sf publish ./dist --wait` follows the same publishing flow. See [publishing](https://spacefast.com/docs/publish/) and [claiming a Space](https://spacefast.com/docs/anonymous-and-claim/).

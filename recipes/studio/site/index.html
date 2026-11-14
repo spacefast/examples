@@ -21,6 +21,12 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2313110d'/%3E%3Cpath d='M9 23V9l14 14V9' fill='none' stroke='%23ec5b35' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ===== Header ===== -->
@@ -362,6 +368,8 @@
           </ul>
         </div>
 
+        <p data-demo-note="true">Demo form. Nothing is sent or booked.</p>
+
         <form class="contact-form" id="contact-form" novalidate>
           <div class="field">
             <label for="name">Your name</label>
@@ -391,17 +399,17 @@
             <textarea id="message" name="message" rows="4" required placeholder="We're a coffee roaster launching in spring and need a brand plus a shop site…"></textarea>
             <span class="error" data-for="message"></span>
           </div>
-          <button class="btn btn-solid btn-block" type="submit">Send it our way</button>
-          <p class="form-note">No newsletters, no spam — just a reply from a human.</p>
+          <button class="btn btn-solid btn-block" type="submit">Preview</button>
+          <p class="form-note">Demo only. No message is sent.</p>
         </form>
 
         <div class="contact-success" id="contact-success" hidden role="status">
           <div class="success-mark" aria-hidden="true">
             <svg width="44" height="44" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h3 id="success-heading">Thanks — it's in our inbox.</h3>
-          <p id="success-body">We'll be in touch soon.</p>
-          <button class="btn btn-text" type="button" id="reset-form">Send another →</button>
+          <h3 id="success-heading">Contact preview complete</h3>
+          <p id="success-body">Preview complete. Nothing was sent.</p>
+          <button class="btn btn-text" type="button" id="reset-form">Preview another →</button>
         </div>
       </div>
     </section>

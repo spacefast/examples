@@ -10,6 +10,7 @@ import { meals } from '../data/wedding';
   </div>
 
   <div class="wrap rsvp">
+    <p data-demo-note="true">Demo RSVP. Nothing is sent to the hosts.</p>
     <form class="rsvp__form" data-rsvp novalidate>
       <div class="field">
         <label for="rsvp-name">Full name <span aria-hidden="true">*</span></label>
@@ -67,12 +68,12 @@ import { meals } from '../data/wedding';
         <textarea id="rsvp-note" name="note" rows="3" placeholder="Dietary needs, a memory, a dad joke…"></textarea>
       </div>
 
-      <button class="btn rsvp__submit" type="submit">Send our reply</button>
+      <button class="btn rsvp__submit" type="submit">Preview</button>
     </form>
 
     <div class="rsvp__success" data-success hidden role="status" aria-live="polite">
       <div class="rsvp__success-mark" aria-hidden="true">✓</div>
-      <h3 data-success-title>You're on the list!</h3>
+      <h3 data-success-title>RSVP preview complete</h3>
       <p data-success-body></p>
       <button class="btn btn--ghost" type="button" data-reset>Edit reply</button>
     </div>
@@ -276,19 +277,11 @@ import { meals } from '../data/wedding';
       return;
     }
 
-    const accepting = attendance === 'accept';
-    const guests = String(data.get('guests') || '1');
-    const song = String(data.get('song') || '').trim();
-
     if (successTitle) {
-      successTitle.textContent = accepting ? `We can't wait, ${name.split(' ')[0]}!` : `We'll miss you, ${name.split(' ')[0]}.`;
+      successTitle.textContent = 'RSVP preview complete';
     }
     if (successBody) {
-      successBody.textContent = accepting
-        ? `Your reply is in for ${guests === '1' ? '1 guest' : guests + ' guests'}. ${
-            song ? `We've added "${song}" to the playlist. ` : ''
-          }A confirmation is on its way to ${email}.`
-        : `Thank you for letting us know — we understand, and we'll raise a glass to you. We'll send the photos your way at ${email}.`;
+      successBody.textContent = 'Preview complete. Nothing was sent.';
     }
 
     form.setAttribute('hidden', '');

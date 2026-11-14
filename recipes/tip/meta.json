@@ -4,7 +4,7 @@
   "slug": "tip",
   "vertical": "Tools, apps & games",
   "tech": "Vanilla JS",
-  "summary": "A fast bill-and-tip splitter — enter the bill, tap a tip, set the people, and get a clean per-person amount with tip figured on the pre-tax total.",
+  "summary": "Split a bill and tip. Choose the party size and whether the tip includes tax.",
   "order": 1,
   "live_url": "https://tip.view.fast/",
   "setup_questions": [

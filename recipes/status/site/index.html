@@ -13,6 +13,12 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+    <aside
+      aria-label="Example site"
+      style="margin:0;padding:0.75rem 1rem;background:#fff7d6;color:#29221a;font:14px/1.5 system-ui;text-align:center"
+    >
+      Example site with fictional content. Forms are previews.
+    </aside>
   <a class="skip-link" href="#main">Skip to status</a>
 
   <header class="site-header">
@@ -184,18 +190,19 @@
           <h2 id="subscribe-h">Get notified</h2>
           <p>Subscribe to receive an email the moment we open or resolve an incident, plus a heads-up before scheduled maintenance.</p>
         </div>
+        <p data-demo-note="true">Demo signup. No subscription is created and no email is sent.</p>
         <form class="subscribe-form" id="subscribe-form" novalidate>
           <div class="field">
             <label for="email">Email address</label>
             <div class="field-row">
               <input type="email" id="email" name="email" inputmode="email" autocomplete="email" placeholder="you@company.com" required aria-describedby="subscribe-note" />
-              <button type="submit" class="btn-primary">Subscribe</button>
+              <button type="submit" class="btn-primary">Preview</button>
             </div>
             <p class="field-error" id="email-error" role="alert" hidden>Please enter a valid email address.</p>
             <p class="field-note" id="subscribe-note">No spam — incident notifications only. Unsubscribe anytime.</p>
           </div>
           <p class="subscribe-success" id="subscribe-success" role="status" hidden>
-            <span aria-hidden="true">✓</span> You're subscribed. We'll email <strong id="success-email"></strong> when status changes.
+            <span aria-hidden="true">✓</span> Preview complete for <strong id="success-email"></strong>. Nothing was sent or subscribed.
           </p>
         </form>
         <div class="subscribe-alt">

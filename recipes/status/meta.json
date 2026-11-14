@@ -27,5 +27,5 @@
     "Scheduled maintenance notices",
     "Subscribe-to-updates email field and links to support / Twitter"
   ],
-  "based_on": "A public status page in the Atlassian Statuspage / Instatus mold for a developer API or hosting company, the type linked from a footer and watched during outages (modeled on Slack, Stripe, and OpenAI status pages)."
+  "based_on": "A public status page in the Atlassian Statuspage / Instatus mold for a developer API or platform company, the type linked from a footer and watched during outages (modeled on Slack, Stripe, and OpenAI status pages)."
 }
